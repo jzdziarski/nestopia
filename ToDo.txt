@@ -1,0 +1,3 @@
+- Old GUI code needs cleaning up (navigation controller inside navigation controller = gap on top).
+- Timing code in NESCore.c could use work; delay can be adjusted to work well on a specific model, but different in CPU speed between phones seems to leave the sound slightly jumpy without being adjusted/recompiled. There's likely a happy medium in there somewhere.
+
