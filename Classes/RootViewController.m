@@ -121,6 +121,7 @@
 	tabBarController.viewControllers = viewControllers;
 	tabBarController.delegate = self;
 	tabBarController.view.frame = self.view.bounds;
+    tabBarController.tabBar.translucent = NO;
  	navigationController.delegate = self;
 	[ self.view addSubview: tabBarController.view ];
 	
@@ -240,14 +241,16 @@
 	[ [ self view ] setBounds: [ [ UIScreen mainScreen ] bounds ] ];
 
 	emulatorViewController.emulatorCore = nil;
+    
+    EmulatorViewController *oldEmulator = emulatorViewController;
 	emulatorViewController = [ [ EmulatorViewController alloc ] init ];
 	emulatorViewController.title = currentROMTitle;
 	emulatorViewController.resize = YES;
 	
 	[ self.navigationController popToViewController: self animated: NO ];
-	[ navigationController pushViewController: [ emulatorViewController autorelease ] animated: YES ];
+	[ navigationController pushViewController: emulatorViewController animated: YES ];
 	
-    [ self performSelectorInBackground: @selector(hookEmulator:) withObject: nil ];
+    [ self performSelectorInBackground: @selector(hookEmulator:) withObject: oldEmulator ];
 #if 0
     NSLog(@"%s assigning screenView %@", __PRETTY_FUNCTION__, emulatorViewController.screenView);
 	emulatorCore.screenDelegate = emulatorViewController.screenView;
@@ -274,6 +277,7 @@
 
 	[ [ self view ] setBounds: [ [ UIScreen mainScreen ] bounds ] ];
 
+    EmulatorViewController *oldEmulator = emulatorViewController;
 	emulatorViewController = [ [ EmulatorViewController alloc ] init ];
     NSLog(@"Current ROM Title: %@", currentROMTitle);
     emulatorViewController.title = currentROMTitle;
@@ -301,7 +305,7 @@
 	[ BookmarkedGameController addBookmarkToTop: [ currentROMImagePath lastPathComponent ] inPropertyList: RECENTS_PLIST ];
 	[ recentGameViewController reloadData ];
 	
-	[ navigationController pushViewController: [ emulatorViewController autorelease ] animated: YES ];
+	[ navigationController pushViewController: emulatorViewController animated: YES ];
 	[ emulatorCore initializeEmulator ];
 	
 	if (loadState == YES) 
@@ -310,16 +314,19 @@
 	[ emulatorCore configureEmulator ];
 	[ emulatorCore applyGameGenieCodes ];
     
-    [ self performSelectorInBackground: @selector(hookEmulator:) withObject: nil ];
+    [ self performSelectorInBackground: @selector(hookEmulator:) withObject: oldEmulator ];
 }
 
 - (void)hookEmulator:(id)object {
-    while(emulatorViewController.screenView == nil) {
+    EmulatorViewController *oldEmulator = (EmulatorViewController *)object;
+    
+    while(emulatorViewController.controllerView == nil) {
         usleep(100);
         NSLog(@"%s waiting for emulatorViewController", __PRETTY_FUNCTION__);
     }
     NSLog(@"%s assigning screenView %@ from emulatorViewController %@", __PRETTY_FUNCTION__, emulatorViewController.screenView, emulatorViewController);
 
+    NSLog(@"%s emulatorCore: %@", __PRETTY_FUNCTION__, emulatorCore);
 	emulatorCore.screenDelegate = emulatorViewController.screenView;
 	emulatorCore.frameBufferAddress = (word *) emulatorViewController.screenView.frameBufferAddress;
 	emulatorCore.frameBufferSize = emulatorViewController.view.frame.size;
@@ -329,6 +336,8 @@
 	navigationController.delegate = self;
 
     [ emulatorCore startEmulator ];
+    usleep(100);
+    [ oldEmulator autorelease ];
 }
 
 - (void)dealloc {
@@ -447,6 +456,8 @@
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation: UIStatusBarAnimationNone];
 	[ [ self view ] setBounds: [ [ UIScreen mainScreen ] bounds ] ];
 
+    [ emulatorCore haltEmulator ];
+    
 	/* Stop emulator */
 	if (emulatorCore != nil) {
 						

@@ -24,6 +24,8 @@
 		702089040EDC625800E83959 /* NESCore_Mapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 702088720EDC625800E83959 /* NESCore_Mapper.c */; };
 		702089050EDC625800E83959 /* NESCore_pAPU.c in Sources */ = {isa = PBXBuildFile; fileRef = 702088740EDC625800E83959 /* NESCore_pAPU.c */; };
 		70208B6C0EDC8CA800E83959 /* EmulatorCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 70208B6B0EDC8CA800E83959 /* EmulatorCore.m */; };
+		7036167617F36A4A00E393BC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7036167517F36A4A00E393BC /* Default@2x.png */; };
+		7036167A17F36A9100E393BC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7036167917F36A9100E393BC /* Default-568h@2x.png */; };
 		7039774810D97E890022DB57 /* Games.png in Resources */ = {isa = PBXBuildFile; fileRef = 7039774710D97E890022DB57 /* Games.png */; };
 		7044127F0ED9CF6100E54091 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127D0ED9CF6100E54091 /* AudioToolbox.framework */; };
 		704412800ED9CF6100E54091 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127E0ED9CF6100E54091 /* QuartzCore.framework */; };
@@ -217,6 +219,8 @@
 		702088770EDC625800E83959 /* Tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tables.h; sourceTree = "<group>"; };
 		70208B6A0EDC8CA800E83959 /* EmulatorCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmulatorCore.h; sourceTree = "<group>"; wrapsLines = 0; };
 		70208B6B0EDC8CA800E83959 /* EmulatorCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmulatorCore.m; sourceTree = "<group>"; };
+		7036167517F36A4A00E393BC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		7036167917F36A9100E393BC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7039774710D97E890022DB57 /* Games.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Games.png; sourceTree = "<group>"; };
 		7044127D0ED9CF6100E54091 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		7044127E0ED9CF6100E54091 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
@@ -327,6 +331,8 @@
 				F573FFD90FEAF8B9001ED26B /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				F5A577CA0FEBCDDF00983BDB /* Default.png */,
+				7036167517F36A4A00E393BC /* Default@2x.png */,
+				7036167917F36A9100E393BC /* Default-568h@2x.png */,
 				704412EB0ED9D5F500E54091 /* icon.png */,
 				707F21CE0FF137C5007B9489 /* Icon-Small.png */,
 			);
@@ -605,6 +611,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7036167617F36A4A00E393BC /* Default@2x.png in Resources */,
 				704412EC0ED9D5F500E54091 /* icon.png in Resources */,
 				7044140B0ED9DF6B00E54091 /* Bookmarks.png in Resources */,
 				7044140C0ED9DF6B00E54091 /* History.png in Resources */,
@@ -612,6 +619,7 @@
 				700FBA760EDF0E88007F2024 /* a.png in Resources */,
 				700FBA770EDF0E88007F2024 /* b.png in Resources */,
 				700FBA7B0EDF0E88007F2024 /* controller_pt.png in Resources */,
+				7036167A17F36A9100E393BC /* Default-568h@2x.png in Resources */,
 				700FBA810EDF0E88007F2024 /* d.png in Resources */,
 				700FBA820EDF0E88007F2024 /* l.png in Resources */,
 				700FBA830EDF0E88007F2024 /* r.png in Resources */,

@@ -509,6 +509,7 @@ void NESCore_Run()
 void NESCore_Halt()
 {
     S.EmulatorRun = 0;
+    sleep(1);
 }
 
 /* NESCore_Init_GameGenie(): Initializes Game Genie Codes

@@ -156,36 +156,38 @@ static byte Rd6502(word wAddr)
       }
       break;
 
-    case 0x6000: 
+    case 0x6000:
       if (S.ROM_SRAM)
         return S.SRAM[ wAddr & 0x1fff ];
-      else 
+      else if (W.SRAMBANK)
         return W.SRAMBANK[ wAddr & 0x1fff ];
+      else
+          return 0;
 
     case 0x8000:  /* ROM BANK 0 */
       INIT_GAMEGENIE
-      if (bI == 0xFF && W.ROMBANK0[ wAddr & 0x1fff] == bComp)
+      if (bI == 0xFF &&  W.ROMBANK0 && W.ROMBANK0[ wAddr & 0x1fff] == bComp)
             return bRet;
       return W.ROMBANK0[ wAddr & 0x1fff ];
       break;
 
     case 0xa000:  /* ROM BANK 1 */
       INIT_GAMEGENIE
-      if (bI == 0xFF && W.ROMBANK1[ wAddr & 0x1fff] == bComp)
+      if (bI == 0xFF && W.ROMBANK1 && W.ROMBANK1[ wAddr & 0x1fff] == bComp)
             return bRet;
       return W.ROMBANK1[ wAddr & 0x1fff ];
       break;
 
     case 0xc000:  /* ROM BANK 2 */
       INIT_GAMEGENIE
-      if (bI == 0xFF && W.ROMBANK2[ wAddr & 0x1fff] == bComp)
+      if (bI == 0xFF && W.ROMBANK2 && W.ROMBANK2[ wAddr & 0x1fff] == bComp)
             return bRet;
       return W.ROMBANK2[ wAddr & 0x1fff ];
       break;
 
     case 0xe000:  /* ROM BANK 3 */
       INIT_GAMEGENIE
-      if (bI == 0xFF && W.ROMBANK3[ wAddr & 0x1fff] == bComp)
+      if (bI == 0xFF && W.ROMBANK3 && W.ROMBANK3[ wAddr & 0x1fff] == bComp)
             return bRet;
       return W.ROMBANK3[ wAddr & 0x1fff ];
       break;

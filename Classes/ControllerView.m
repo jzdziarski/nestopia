@@ -218,7 +218,7 @@
 		CGPoint point = [ touch locationInView: self ];
 		int button = [ self controllerButtonPressedAtPoint: point ];
 		
-		//	NSLog(@"%s touchesBegan at %fx%f, button %d", __func__, point.x, point.y, button);
+		// NSLog(@"%s touchesBegan at %fx%f, button %d", __func__, point.x, point.y, button);
 		if ((button & NCTL_A) || (button & NCTL_B)) {
 			padButton = button;
 		} else if ((button & NCTL_UP) || (button & NCTL_DOWN) || (button & NCTL_LEFT) || (button & NCTL_RIGHT)) {
@@ -227,10 +227,11 @@
 			padSpecial = button;
 		}
 		controllerState[currentController] = padButton | padDir | padSpecial;
-		//	NSLog(@"%s begin touch %d controller state %d", __func__, button, controllerState[currentController]);
+		NSLog(@"%s begin touch %d controller state %lu", __func__, button, controllerState[currentController]);
 	}
 	
 	if (lastState != controllerState[currentController]) {
+        NSLog(@"%s notifying %@ of controller state change", __PRETTY_FUNCTION__, delegate);
 		[ delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController] ];
 		[ self updateNotifyIcons ];
 	}

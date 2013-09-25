@@ -84,7 +84,7 @@
 			controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake(0.0, (resize == YES) ? 20.0 : 0.0, 480.0, 300.0) ];
 	} else {
 		controllerView = [ [ ControllerView alloc ] initWithFrame:
-						  CGRectMake(0.0, 310.0, self.view.frame.size.width, 105.0)
+						  CGRectMake(0.0, self.view.frame.size.height - 105.0, self.view.frame.size.width, 105.0)
 		];
 	}
 	
