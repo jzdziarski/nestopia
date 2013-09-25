@@ -78,6 +78,7 @@
 	screenView.orientation = orientation;
 	[ self.view addSubview: screenView ];
 	
+    NSLog(@"%s screenView: %@", __PRETTY_FUNCTION__, screenView);
 	NSLog(@"%s initializing controller layer\n", __func__);
 	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
 			controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake(0.0, (resize == YES) ? 20.0 : 0.0, 480.0, 300.0) ];

@@ -247,13 +247,16 @@
 	[ self.navigationController popToViewController: self animated: NO ];
 	[ navigationController pushViewController: [ emulatorViewController autorelease ] animated: YES ];
 	
+    [ self performSelectorInBackground: @selector(hookEmulator:) withObject: nil ];
+#if 0
+    NSLog(@"%s assigning screenView %@", __PRETTY_FUNCTION__, emulatorViewController.screenView);
 	emulatorCore.screenDelegate = emulatorViewController.screenView;
 	emulatorCore.frameBufferAddress = (word *) emulatorViewController.screenView.frameBufferAddress;
 	emulatorCore.frameBufferSize = emulatorViewController.view.frame.size;
 	emulatorViewController.screenView.delegate = emulatorCore;
 	emulatorViewController.controllerView.delegate = emulatorCore;
 	emulatorViewController.emulatorCore = emulatorCore;
-
+#endif
 	navigationController.delegate = self;
 }
 
@@ -299,7 +302,6 @@
 	[ recentGameViewController reloadData ];
 	
 	[ navigationController pushViewController: [ emulatorViewController autorelease ] animated: YES ];
-	
 	[ emulatorCore initializeEmulator ];
 	
 	if (loadState == YES) 
@@ -307,7 +309,17 @@
 	
 	[ emulatorCore configureEmulator ];
 	[ emulatorCore applyGameGenieCodes ];
-	
+    
+    [ self performSelectorInBackground: @selector(hookEmulator:) withObject: nil ];
+}
+
+- (void)hookEmulator:(id)object {
+    while(emulatorViewController.screenView == nil) {
+        usleep(100);
+        NSLog(@"%s waiting for emulatorViewController", __PRETTY_FUNCTION__);
+    }
+    NSLog(@"%s assigning screenView %@ from emulatorViewController %@", __PRETTY_FUNCTION__, emulatorViewController.screenView, emulatorViewController);
+
 	emulatorCore.screenDelegate = emulatorViewController.screenView;
 	emulatorCore.frameBufferAddress = (word *) emulatorViewController.screenView.frameBufferAddress;
 	emulatorCore.frameBufferSize = emulatorViewController.view.frame.size;

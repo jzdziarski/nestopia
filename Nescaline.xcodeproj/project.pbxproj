@@ -348,6 +348,7 @@
 		702087DF0EDC625700E83959 /* NESCore */ = {
 			isa = PBXGroup;
 			children = (
+				702087E40EDC625700E83959 /* mapper */,
 				702088700EDC625800E83959 /* NESCore.h */,
 				702088710EDC625800E83959 /* NESCore_Callback.h */,
 				702088730EDC625800E83959 /* NESCore_Mapper.h */,
@@ -357,7 +358,6 @@
 				702087E10EDC625700E83959 /* M6502.c */,
 				702087E20EDC625700E83959 /* M6502.h */,
 				702087E30EDC625700E83959 /* M6502_rw.h */,
-				702087E40EDC625700E83959 /* mapper */,
 				7020886F0EDC625800E83959 /* NESCore.c */,
 				702088720EDC625800E83959 /* NESCore_Mapper.c */,
 				702088740EDC625800E83959 /* NESCore_pAPU.c */,
@@ -578,6 +578,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Nescaline" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -655,7 +657,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Zdziarski (EM755399HC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -670,7 +672,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-g";
 				PRODUCT_NAME = Nescaline;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "53210C11-C375-48CD-9915-15F187B8DC4A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				VALID_ARCHS = "armv7s armv7";
@@ -683,7 +685,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Zdziarski (EM755399HC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -700,7 +702,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-g";
 				PRODUCT_NAME = Nescaline;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "53210C11-C375-48CD-9915-15F187B8DC4A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A5E6E1D8-9923-44E3-A2AB-FDD4013C68D1";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				VALID_ARCHS = "armv7s armv7";
@@ -731,7 +733,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jonathan Zdziarski";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -748,7 +750,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-g";
 				PRODUCT_NAME = Nescaline;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E15A9763-6DDA-44F6-BDDB-696869C8A134";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				VALIDATE_PRODUCT = YES;
