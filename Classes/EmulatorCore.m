@@ -470,7 +470,7 @@ void setActiveFrameBuffer(unsigned long *buf);
     
     tv.tv_usec = usec_per_frame - 1000.0;
     tv.tv_sec = 0.0;
-    select(1, NULL, NULL, NULL, &tv);
+    select(0, NULL, NULL, NULL, &tv);
     return;
 }
 

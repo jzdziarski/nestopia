@@ -124,7 +124,7 @@
 
 - (void)updateNotifyIcons {
 	
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
 
     if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
 		return;
@@ -225,7 +225,7 @@
 	UITouch *touch;
 	dword lastState = controllerState[currentController];
 
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
     
 	controllerState[currentController] = 0;
 	
@@ -259,7 +259,7 @@
 	UITouch *touch;
 	dword lastState = controllerState[currentController];
 	
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
 
 	for (touch in touches) {
 		CGPoint point = [ touch locationInView: self ];
@@ -294,7 +294,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch;
 	
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
 
 	for (touch in touches) {
 		CGPoint point = [ touch locationInView: self ];
