@@ -46,9 +46,7 @@ NSString *currentGamePath = nil;
 		  (UIInterfaceOrientationIsLandscape(orientation) == YES) ? "landscape" : "portrait");
 	
     if (UIInterfaceOrientationIsLandscape(orientation) == NO) {
-        UIImageView *background = [ [ UIImageView alloc ] initWithFrame: self.view.bounds ];
-        background.image = [ UIImage imageNamed: @"background.png" ];
-        [ self.view addSubview: background ];
+        self.view.backgroundColor = [ UIColor colorWithHue: 240.0/360.0 saturation: .02 brightness: .96 alpha: 1.0 ];
     }
     
     /* landscape */
@@ -82,7 +80,11 @@ NSString *currentGamePath = nil;
         }
         
         surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, (self.view.bounds.size.height - (emuHeight + 125.0)) / 2.0, emuWidth, emuHeight);
-	}
+        
+        UIView *border = [ [ UIView alloc ] initWithFrame: CGRectMake(surfaceRect.origin.x - 1.0, surfaceRect.origin.y - 1.0, surfaceRect.size.width + 2.0, surfaceRect.size.height + 2.0) ];
+        border.backgroundColor = [ UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .70 alpha: 1.0 ];
+        [ self.view addSubview: [ border autorelease ] ];
+    }
     
 	NSLog(@"%s initializing surface layer with frame: %fx%f size: %fx%f", __PRETTY_FUNCTION__, surfaceRect.origin.x, surfaceRect.origin.y, surfaceRect.size.width, surfaceRect.size.height);
 	screenView = [ [ ScreenView alloc ] initWithFrame: surfaceRect ];
