@@ -45,6 +45,12 @@ NSString *currentGamePath = nil;
 	NSLog(@"%s initializing emulator view in %s mode", __PRETTY_FUNCTION__,
 		  (UIInterfaceOrientationIsLandscape(orientation) == YES) ? "landscape" : "portrait");
 	
+    if (UIInterfaceOrientationIsLandscape(orientation) == NO) {
+        UIImageView *background = [ [ UIImageView alloc ] initWithFrame: self.view.bounds ];
+        background.image = [ UIImage imageNamed: @"background.png" ];
+        [ self.view addSubview: background ];
+    }
+    
     /* landscape */
 	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         screenHeight = [ UIScreen mainScreen ].bounds.size.width;

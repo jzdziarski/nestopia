@@ -37,6 +37,7 @@
 		7074DA8A17F3D0C10071CD85 /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8917F3D0C10071CD85 /* Settings@2x.png */; };
 		7074DA8C17F3D46D0071CD85 /* History@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8B17F3D46D0071CD85 /* History@2x.png */; };
 		7074DA8E17F3DBB80071CD85 /* controller_pt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */; };
+		70B44B9117F3F40E0093C2C5 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B44B9017F3F40E0093C2C5 /* background@2x.png */; };
 		70F696A8124C289500D39392 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696A7124C289500D39392 /* CoreGraphics.framework */; };
 		70F696AA124C289500D39392 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696A9124C289500D39392 /* Foundation.framework */; };
 		70F696AC124C289500D39392 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696AB124C289500D39392 /* UIKit.framework */; };
@@ -231,6 +232,7 @@
 		7074DA8917F3D0C10071CD85 /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings@2x.png"; sourceTree = "<group>"; };
 		7074DA8B17F3D46D0071CD85 /* History@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "History@2x.png"; sourceTree = "<group>"; };
 		7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "controller_pt@2x.png"; sourceTree = "<group>"; };
+		70B44B9017F3F40E0093C2C5 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		70F696A7124C289500D39392 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		70F696A9124C289500D39392 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		70F696AB124C289500D39392 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -315,6 +317,7 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				7074DA7F17F380B70071CD85 /* Default-568h@2x.png */,
 				7074DA8017F380B70071CD85 /* Default@2x.png */,
+				70B44B9017F3F40E0093C2C5 /* background@2x.png */,
 				7074DA8317F3C8320071CD85 /* icon.png */,
 				7074DA8517F3C86E0071CD85 /* icon@2x.png */,
 				7074DA8617F3C86E0071CD85 /* icon~iphone.png */,
@@ -605,6 +608,7 @@
 				700FBA830EDF0E88007F2024 /* r.png in Resources */,
 				7074DA8717F3C86E0071CD85 /* icon@2x.png in Resources */,
 				700FBA850EDF0E88007F2024 /* u.png in Resources */,
+				70B44B9117F3F40E0093C2C5 /* background@2x.png in Resources */,
 				7074DA8217F380B70071CD85 /* Default@2x.png in Resources */,
 				F5EE71540FEEC3A000FDA0A6 /* controller_ls.png in Resources */,
 				7074DA8817F3C86E0071CD85 /* icon~iphone.png in Resources */,
