@@ -25,6 +25,7 @@
 @synthesize delegate;
 @synthesize currentController;
 @synthesize gamePlayDelegate;
+@synthesize notified;
 
 - (id)initWithFrame:(CGRect)frame {
 	self = [ super initWithFrame: frame ];
@@ -102,7 +103,7 @@
 			AB     = CGRectMake(243.0,  27.0,  25.0,  72.0);
 			Select = CGRectMake(110.0,  50.0,  36.0,  40.0);
 			Start  = CGRectMake(155.0,  50.0,  36.0,  40.0);
-			Exit   = CGRectMake(130.0,   0.0, 155.0,  25.0);
+			Exit   = CGRectMake(102.0,   0.0, 100.0,  25.0);
             
 			controllerImage = [ self getControllerImage ];			
 			UIImageView *imageView = [ [ UIImageView alloc ] initWithImage: controllerImage ];

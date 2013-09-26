@@ -51,7 +51,7 @@ NSString *currentGamePath = nil;
         UILabel *label = [ [ UILabel alloc ] initWithFrame: CGRectMake(10.0, 20.5, self.view.bounds.size.width - 20.0, 40.0) ];
         label.backgroundColor = [ UIColor clearColor ];
         label.textColor = [ UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .50 alpha: 1.0 ];
-        label.font = [ UIFont fontWithName: @"HelveticaNeue-Regular" size: 14.0 ];
+        //label.textColor = [ UIColor colorWithHue: 211.0/360.0 saturation: 1.0 brightness: 1.0 alpha: 1.0 ];        label.font = [ UIFont fontWithName: @"HelveticaNeue-Regular" size: 14.0 ];
         label.text = [ gameTitle uppercaseString ];
         label.textAlignment = NSTextAlignmentLeft;
         label.adjustsFontSizeToFitWidth = YES;
@@ -225,7 +225,11 @@ NSString *currentGamePath = nil;
 			[ emulatorCore saveState ];
             [ [ NSNotificationCenter defaultCenter ] postNotificationName: kEmulatorCoreSavedStateNotification object: gamePath ];
 
-		}
+		} else if (buttonIndex == 2) {
+            controllerView.notified = NO;
+            [ emulatorCore restartEmulator ];
+            return;
+        }
 	}
     
     [ self dismissViewControllerAnimated: YES completion: nil ];
@@ -244,6 +248,8 @@ NSString *currentGamePath = nil;
         saveStateSheet.title = @"Do you want to save this game?";
         [ saveStateSheet addButtonWithTitle: @"Save Game" ];
         [ saveStateSheet addButtonWithTitle: @"Don't Save" ];
+        [ saveStateSheet addButtonWithTitle: @"Cancel" ];
+        saveStateSheet.cancelButtonIndex = 2;
         saveStateSheet.destructiveButtonIndex = 1;
         saveStateSheet.delegate = self;
         

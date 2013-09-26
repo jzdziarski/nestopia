@@ -57,7 +57,7 @@ typedef struct AQCallbackStruct {
 	pthread_t emulation_tid;
 	
 	/* Resources for video rendering */
-	id screenDelegate;
+	id screenDelegate, haltedScreenDelegate;
 	word *frameBufferAddress;
 	CGSize frameBufferSize;
 	struct timeval frameTimer;
@@ -95,6 +95,7 @@ typedef struct AQCallbackStruct {
 - (BOOL)saveSRAM;
 - (BOOL)loadSRAM;
 - (void)startEmulator;
+- (void)restartEmulator;
 - (void)haltEmulator;
 - (void)finishEmulator;
 

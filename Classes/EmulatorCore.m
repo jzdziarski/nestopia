@@ -689,9 +689,18 @@ void setActiveFrameBuffer(unsigned long *buf);
 	pthread_create(&emulation_tid, NULL, emulation_thread, NULL);
 }
 
+- (void)restartEmulator {
+    screenDelegate = haltedScreenDelegate;
+    soundBuffersInitialized = 0;
+    [ self initializeSoundBuffers ];
+	pthread_create(&emulation_tid, NULL, emulation_thread, NULL);
+}
+
 - (void)haltEmulator {
 	
-	screenDelegate = nil;
+    haltedScreenDelegate = screenDelegate;
+    screenDelegate = nil;
+    
 	NSLog(@"%s halting emulator\n", __func__);
 	NESCore_Halt();
 	
@@ -705,6 +714,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 }
 
 - (void)finishEmulator {
+    haltedScreenDelegate = nil;
 	NESCore_Finish();
 }
 
