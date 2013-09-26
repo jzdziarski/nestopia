@@ -46,7 +46,8 @@
     [ super loadView ];
     
 	[ self reloadData ];
-    
+    [ self.tableView reloadData ];
+
     [ self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right) ];
 }
 
@@ -75,6 +76,7 @@
     if (n != romCount) {
         romCount = n;
         [ self reloadData ];
+        [ self.tableView reloadData ];
     }
 }
 
@@ -126,7 +128,6 @@
 		}
 	}
     
-    [ self.tableView reloadData ];
 }
 
 - (void)dealloc {
@@ -225,7 +226,6 @@ forRowAtIndexPath:(NSIndexPath *) indexPath
         
 		NSLog(@"%s deleting game image at %@", __PRETTY_FUNCTION__, path);
 		
-		/* Delete cell from table */
 		char index = ( [ [ path lastPathComponent ] cStringUsingEncoding: NSASCIIStringEncoding ] )[0];
 		if (index >= 'a' && index <= 'z') {
 			index -= 'a';
