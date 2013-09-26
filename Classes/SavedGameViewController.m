@@ -21,15 +21,14 @@
 #import "SavedGameViewController.h"
 
 @implementation SavedGameViewController
-@synthesize delegate;
 
 - (id)init {
 	self = [ super init ];
 
 	if (self != nil) {
-		UIImage *tabBarImage = [ UIImage imageWithContentsOfFile: [ [ NSBundle mainBundle ] pathForResource: @"History" ofType: @"png" ] ]; 
-		self.tabBarItem = [ [ UITabBarItem alloc ] initWithTitle: @"Saved Games" image: tabBarImage tag: 0 ];
-		[ self reloadData ];
+		UIImage *tabBarImage = [ UIImage imageNamed: @"History.png" ] ;
+		self.tabBarItem = [ [ UITabBarItem alloc ] initWithTitle: @"Saved Games" image: tabBarImage tag: 1 ];
+        [ self reloadData ];
 	}
 	
 	return self;
@@ -37,19 +36,15 @@
 
 - (void)loadView {
     [ super loadView ];
-	
-    self.tableView.delegate = self;
+    [ self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right) ];
+    
+    [ [ NSNotificationCenter defaultCenter ] addObserver: self
+                                                selector: @selector(reloadData)
+                                                    name: kEmulatorCoreSavedStateNotification
+                                                  object: nil];
 }
 
-- (void)viewDidLoad {
-    [ super viewDidLoad ];
-}
-
-- (void)didReceiveMemoryWarning {
-    [ super didReceiveMemoryWarning ]; 
-}
-
-- (void) reloadData {
+- (void)reloadData {
 	NSDirectoryEnumerator *dirEnum;
 	NSString *file;
 	
@@ -69,7 +64,6 @@
 	[ fileList release ];
     [ super dealloc ];
 }
-
 
 /* UITableViewControllerDelegate Methods */
 
@@ -96,14 +90,17 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
-	
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [ self.tableView cellForRowAtIndexPath: indexPath ];
-	
 	NSString *path = [ [ [ NSString alloc ] initWithFormat: @"%@/%@", ROM_PATH, cell.reuseIdentifier ] autorelease ];
-	if ([ delegate respondsToSelector:@selector(didSelectGameROMAtPath:) ]) {
-        [ self.delegate didSelectGameROMAtPath: path ];
-	}
+
+    NSLog(@"%s starting game play for %@", __PRETTY_FUNCTION__, path);
+    
+    GamePlayViewController *gamePlayViewController = [ [ GamePlayViewController alloc ] init ];
+    gamePlayViewController.gamePath = [ path stringByDeletingPathExtension ];
+    gamePlayViewController.gameTitle = [ [ path stringByDeletingPathExtension ] stringByDeletingPathExtension ];
+    gamePlayViewController.shouldLoadState = YES;
+    [ self presentViewController: gamePlayViewController animated: YES completion: nil ];
 }
 
 
@@ -130,8 +127,7 @@ forRowAtIndexPath:(NSIndexPath *) indexPath
 		
 		/* Delete saved game */
 		NSError *error;
-		[ [ NSFileManager defaultManager ] removeItemAtPath: [ NSString stringWithFormat: @"%@/%@", ROM_PATH, cell.reuseIdentifier ]
-													error: &error
+		[ [ NSFileManager defaultManager ] removeItemAtPath: [ NSString stringWithFormat: @"%@/%@", ROM_PATH, cell.reuseIdentifier ] error: &error
 		];
 	} 
 }

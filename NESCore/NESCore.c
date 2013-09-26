@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <ctype.h>
+#include <unistd.h>
 
 #include "NESCore.h"
 #include "NESCore_Callback.h"
@@ -509,7 +510,7 @@ void NESCore_Run()
 void NESCore_Halt()
 {
     S.EmulatorRun = 0;
-    sleep(1);
+    usleep(250);
 }
 
 /* NESCore_Init_GameGenie(): Initializes Game Genie Codes

@@ -19,13 +19,18 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "NavigationController.h"
-#import "RootViewController.h"
+#import "GameROMViewController.h"
+#import "SavedGameViewController.h"
+#import "SettingsViewController.h"
 
 @interface NESAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-	RootViewController *rootViewController;
-    NavigationController *navigationController;
+    
+    UITabBarController *tabBarController;
+        
+    GameROMViewController *gameROMViewController;
+	SavedGameViewController *savedGameViewController;
+	SettingsViewController *settingsViewController;
 }
 
 @end

@@ -20,14 +20,19 @@
 
 #import "SettingsViewController.h"
 
+extern NSString *currentGamePath;
+
 @implementation SettingsViewController
-@synthesize currentROMImagePath;
+@synthesize gamePath;
 
 - (id) init {
     self = [ super initWithStyle: UITableViewStyleGrouped ];
 	
 	if (self != nil) {
 		self.title = @"Settings";
+        UIImage *tabBarImage = [ UIImage imageNamed: @"Settings.png" ];
+        self.tabBarItem = [ [ UITabBarItem alloc ] initWithTitle: @"Settings" image: tabBarImage tag: 2 ];
+
 		raised = NO;
 		
 		NSLog(@"%s loading default settings", __func__);
@@ -117,6 +122,12 @@
 	return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [ super viewWillAppear: animated ];
+    
+    [ self setGamePath ];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
 	
 	NSLog(@"%s saving settings", __func__);
@@ -128,9 +139,9 @@
 	[ super loadView ];
 }
 
-- (void)setCurrentROMImagePath:(NSString *)_currentROMImagePath {	
-    currentROMImagePath = [ _currentROMImagePath copy ];
-	currentGameName = [ [ [ [ currentROMImagePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
+- (void)setGamePath {
+    gamePath = [ currentGamePath copy ];
+	currentGameName = [ [ [ [ gamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
 	
 	NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
 
@@ -144,7 +155,6 @@
 }
 
 - (void)saveSettings {
-	
     [ settings setBool: autoSaveControl.on forKey: @"autoSave" ];
 	[ settings setBool: swapABControl.on forKey: @"swapAB" ];
 	[ settings setBool: fullScreenControl.on forKey: @"fullScreen" ];

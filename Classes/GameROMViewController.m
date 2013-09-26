@@ -1,6 +1,6 @@
 /*
  Nescaline
- Copyright (c) 2007, Jonathan A. Zdziarski
+ Copyright (c) 2007-2013, Jonathan A. Zdziarski
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -19,51 +19,50 @@
  */
 
 #import "GameROMViewController.h"
+#import "GamePlayViewController.h"
 
 @implementation GameROMViewController
-@synthesize delegate;
 
 - (id)init {
 	self = [ super init ];
-	romCount = 0;
+    if (self != nil) {
+        UIImage *tabBarImage = [ UIImage imageNamed: @"Games.png" ];
+        self.tabBarItem = [ [ UITabBarItem alloc ] initWithTitle: @"All Games" image: tabBarImage tag: 0 ];
+        
+        romCount = 0;
+        nActiveSections = 0;
+        
+        for(int i=0;i<27;i++) {
+            fileList[i] = [ [ NSMutableArray alloc ] init ];
+        }
+        
+        activeSections = [ [ NSMutableArray alloc ] init ];
+        sectionTitles = [ [ NSMutableArray alloc ] init ];
+    }
 	return self;
 }
 
 - (void)loadView {
     [ super loadView ];
-	
-	UIImage *tabBarImage = [ UIImage imageWithContentsOfFile: [ [ NSBundle mainBundle ] pathForResource: @"Games" ofType: @"png" ] ];
-	self.tabBarItem = [ [ UITabBarItem alloc ] initWithTitle: @"All Games" image: tabBarImage tag: 0 ];
+    
 	[ self reloadData ];
-	[ self.tableView reloadData ];
-	
-    self.tableView.delegate = self;
+    
+    [ self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right) ];
 }
 
 - (void)viewDidLoad {
-    NSLog(@"%s", __func__);
+    
     [ super viewDidLoad ];
     
-	self.tabBarController.selectedViewController = self;
-    [ NSTimer scheduledTimerWithTimeInterval: 5.0 target: self selector: @selector(count:) userInfo: self repeats: YES ];
-
+    [ NSTimer scheduledTimerWithTimeInterval: 10.0 target: self selector: @selector(scanForChanges:) userInfo: self repeats: YES ];
 }
 
-- (void)didReceiveMemoryWarning {
-    [ super didReceiveMemoryWarning ]; 
-}
-
-
-- (void) count: (NSTimer *) timer {
+- (void)scanForChanges:(NSTimer *) timer {
     NSDirectoryEnumerator *dirEnum;
     NSString *file;
     int n = 0;
     
-#ifdef DEBUG
-dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: [ NSString stringWithFormat: @"%@/Nescaline.app/", NSHomeDirectory() ] ];
-#else
-dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
-#endif
+    dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
     while ((file = [ dirEnum nextObject ])) {
         NSString *ext = [ file pathExtension ];
         if ([ [ ext lowercaseString ] isEqualToString: @"nes" ]) {
@@ -71,12 +70,11 @@ dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
         }
     }
     
-    NSLog(@"%s rom count %d", __func__, n);
+    NSLog(@"%s current .nes file count: %d", __PRETTY_FUNCTION__, n);
     
     if (n != romCount) {
         romCount = n;
         [ self reloadData ];
-        [ self.tableView reloadData ];
     }
 }
 
@@ -86,13 +84,10 @@ dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
 	int n = 0;
     
 	for(int i=0;i<27;i++) {
-	    fileList[i] = [ [ NSMutableArray alloc ] init ];
+	    [ fileList[i] removeAllObjects ];
 	}
-#ifdef DEBUG
-	dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: [ NSString stringWithFormat: @"%@/Nescaline.app/", NSHomeDirectory() ] ];
-#else
+    
 	dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
-#endif
 	while ((file = [ dirEnum nextObject ])) {
 		NSString *ext = [ file pathExtension ];
 		if ([ [ ext lowercaseString ] isEqualToString: @"nes" ]) {
@@ -109,34 +104,40 @@ dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
 			}
 		}
 	}
-
-    if (!n) {        
-        UIAlertView *alertView = [ [ UIAlertView alloc ] initWithTitle: @"Adding ROMs" message: @"Use iTunes' file sharing to add ROM images. Click on the device in iTunes, click the Apps tab, scroll down to File Sharing, and click the 'Add...' button." delegate: self cancelButtonTitle: nil otherButtonTitles:@"OK", nil];
+    
+    if (!n) {
+        UIAlertView *alertView = [ [ UIAlertView alloc ] initWithTitle: @"No ROM Images Found" message: @"Use iTunes file sharing to add ROM images. Click on the device in iTunes, click the Apps tab, scroll down to File Sharing, highlight Nescaline, and click the 'Add...' button." delegate: self cancelButtonTitle: nil otherButtonTitles: @"OK", nil];
         [ alertView show ];
     }
     
     romCount = n;
 	nActiveSections = 0;
-	activeSections = [ [ NSMutableArray alloc ] init ];
-	sectionTitles = [ [ NSMutableArray alloc ] init ];
+    [ activeSections removeAllObjects ];
+    [ sectionTitles removeAllObjects ];
+    
 	for(int i=0;i<27;i++) {
 		if ( [fileList[i] count ]>0) {
 			nActiveSections++;
 			[ activeSections addObject: fileList[i] ];
-			if (i < 26) 
+			if (i < 26)
 				[ sectionTitles addObject: [ NSString stringWithFormat: @"%c", i + 'A' ] ];
 			else
 				[ sectionTitles addObject: @"0-9" ];
 		}
-	}	
+	}
+    
+    [ self.tableView reloadData ];
 }
 
 - (void)dealloc {
+    
 	for(int i = 0; i < 27; i ++) {
 		[ fileList[i] release ];
 	}
+    
 	[ activeSections release ];
 	[ sectionTitles release ];
+    
     [ super dealloc ];
 }
 
@@ -145,16 +146,16 @@ dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
 	
-	return [ NSMutableArray arrayWithObjects: 
-			@"A", @"B", @"C", @"D", @"E", @"F", 
+	return [ NSMutableArray arrayWithObjects:
+			@"A", @"B", @"C", @"D", @"E", @"F",
 			@"G", @"H", @"I", @"J", @"K", @"L",
 			@"M", @"N", @"O", @"P", @"Q", @"R",
 			@"S", @"T", @"U", @"V", @"W", @"X",
 			@"Y", @"Z", @"#", nil
-	];
+            ];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (!nActiveSections) {
 		return nil;
 	}
@@ -163,7 +164,7 @@ dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (nActiveSections) 
+	if (nActiveSections)
 		return nActiveSections;
 	else
 		return 1;
@@ -178,13 +179,13 @@ dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
 	return [ [ activeSections objectAtIndex: section] count ];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
 	if (!nActiveSections) {
 		return nil;
 	}
     
-	NSString *CellIdentifier = [[ activeSections objectAtIndex: [ indexPath indexAtPosition: 0 ]] objectAtIndex:
-								[ indexPath indexAtPosition: 1 ] ];
+	NSString *CellIdentifier = [[ activeSections objectAtIndex: [ indexPath indexAtPosition: 0 ]] objectAtIndex: [ indexPath indexAtPosition: 1 ] ];
 	
     UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier: CellIdentifier ];
     if (cell == nil) {
@@ -196,12 +197,17 @@ dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
 	UITableViewCell *cell = [ self.tableView cellForRowAtIndexPath: indexPath ];
 	NSString *path = [ [ [ NSString alloc ] initWithFormat: @"%@/%@", ROM_PATH, cell.reuseIdentifier ] autorelease ];
-	if ([ delegate respondsToSelector:@selector(didSelectGameROMAtPath:) ]) {
-        [ self.delegate didSelectGameROMAtPath: path ];
-	}
+    
+    NSLog(@"%s starting game play for %@", __PRETTY_FUNCTION__, path);
+    
+    GamePlayViewController *gamePlayViewController = [ [ GamePlayViewController alloc ] init ];
+    gamePlayViewController.gamePath = path;
+    gamePlayViewController.gameTitle = [ path stringByDeletingPathExtension ];
+    gamePlayViewController.shouldLoadState = NO;
+    [ self presentViewController: gamePlayViewController animated: YES completion: nil ];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index;  {
@@ -209,20 +215,17 @@ dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
 	return idx;
 }
 
-- (void)tableView:(UITableView *)tableView 
-commitEditingStyle:(UITableViewCellEditingStyle) editingStyle 
-forRowAtIndexPath:(NSIndexPath *) indexPath 
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle) editingStyle
+forRowAtIndexPath:(NSIndexPath *) indexPath
 {
-	NSLog(@"%s", __func__);
-	
-	/* Delete a bookmark */
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		UITableViewCell *cell = [ self.tableView cellForRowAtIndexPath: indexPath ];
 		NSString *path = [ NSString stringWithFormat: @"%@/%@", ROM_PATH, cell.reuseIdentifier ];
-
-		NSLog(@"%s deleting %@", __func__, path);
+        
+		NSLog(@"%s deleting game image at %@", __PRETTY_FUNCTION__, path);
 		
-		/* Delete cell from table */	    
+		/* Delete cell from table */
 		char index = ( [ [ path lastPathComponent ] cStringUsingEncoding: NSASCIIStringEncoding ] )[0];
 		if (index >= 'a' && index <= 'z') {
 			index -= 'a';
@@ -231,9 +234,7 @@ forRowAtIndexPath:(NSIndexPath *) indexPath
 		} else {
 			index = 26;
 		}
-		
-		NSLog(@"%s deleting from index %d", __func__, index);
-		
+				
 		NSMutableArray *section = fileList[(int) index];
 		NSError *error;
 		[ [ NSFileManager defaultManager ] removeItemAtPath: path error: &error ];
@@ -248,21 +249,20 @@ forRowAtIndexPath:(NSIndexPath *) indexPath
 			
 			if (sectionIndex == -1)
 				[ self.tableView reloadData ];
-			else			
+			else
 				[ self.tableView deleteSections: [ NSIndexSet indexSetWithIndex: sectionIndex ] withRowAnimation: UITableViewRowAnimationTop ];
 		} else {
 			NSMutableArray *array;
-			array = [ [ NSMutableArray alloc ] init ];		
+			array = [ [ NSMutableArray alloc ] init ];
 			[ array addObject: indexPath ];
 			[ self.tableView deleteRowsAtIndexPaths: array withRowAnimation: UITableViewRowAnimationTop ];
 			[ array removeAllObjects ];
 			[ array release ];
-		}		
+		}
 	}
 }
 
 - (BOOL)shouldAutorotate {
-    NSLog(@"%s", __func__);
     return YES;
 }
 

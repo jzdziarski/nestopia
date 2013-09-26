@@ -1,6 +1,6 @@
 /*
  Nescaline
- Copyright (c) 2007, Jonathan A. Zdziarski
+ Copyright (c) 2007-2013, Jonathan A. Zdziarski
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -19,26 +19,27 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "ScreenView.h"
+
 #import "ControllerView.h"
 #import "EmulatorCore.h"
+#import "ScreenView.h"
 
-@interface EmulatorViewController : UIViewController {
-	UIInterfaceOrientation orientation;
-	NSUserDefaults *settings;
+#define kEmulatorCoreSavedStateNotification @"EmulatorCoreSavedState"
+
+@interface GamePlayViewController : UIViewController <UIActionSheetDelegate>
+{
+    /* Initialization */
+	UIActionSheet *saveStateSheet;
+	NSString *gamePath, *gameTitle;
+    bool shouldLoadState;
+    
+    /* Game Play */
+    EmulatorCore *emulatorCore;
 	ScreenView *screenView;
 	ControllerView *controllerView;
-    
-	EmulatorCore *emulatorCore;
-	bool resize;
 }
 
--(void)refreshControls;
-@property(nonatomic,readonly) UIInterfaceOrientation orientation;
-@property(nonatomic,readonly) ScreenView *screenView;
-@property(nonatomic,readonly) ControllerView *controllerView;
-@property(nonatomic,assign) EmulatorCore *emulatorCore;
-@property(nonatomic) bool resize;
-
-
+@property(nonatomic,copy) NSString *gamePath;
+@property(nonatomic,copy) NSString *gameTitle;
+@property(nonatomic,assign) bool shouldLoadState;
 @end

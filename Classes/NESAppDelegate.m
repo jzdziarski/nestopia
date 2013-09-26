@@ -19,18 +19,15 @@
  */
 
 #import "NESAppDelegate.h"
-#import "RootViewController.h"
 
 @implementation NESAppDelegate
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	window = [ [ UIWindow alloc ] initWithFrame: [ [ UIScreen mainScreen ] bounds ] ];
-	rootViewController = [ [ RootViewController alloc ] init ];
-	navigationController = [ [ [ NavigationController alloc ] initWithRootViewController: rootViewController ] retain ];
-	rootViewController.navigationController = navigationController;
-	rootViewController.window = window;
 	
-    window.rootViewController = navigationController;
+    tabBarController = [ self initializeTabBar ];
+    window.rootViewController = tabBarController;
+    
 	[ window makeKeyAndVisible ];
 }
 
@@ -38,16 +35,26 @@
 
 }
 
-- (void)application:(UIApplication *)application didChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation {
-
-	[ rootViewController didChangeStatusBarOrientation: oldStatusBarOrientation ];
-}
-
 - (void)dealloc {
-	[ navigationController release ];
-	[ rootViewController release ];
+    [ gameROMViewController release ];
+    [ savedGameViewController release ];
+    [ settingsViewController release ];
+    [ tabBarController release ];
+    
 	[ window release ];
 	[ super dealloc ];
+}
+
+- (UITabBarController *)initializeTabBar {
+    tabBarController = [ [ UITabBarController alloc ] init ];
+    
+	gameROMViewController = [ [ GameROMViewController alloc ] init ];
+	savedGameViewController = [ [ SavedGameViewController alloc ] init ];
+    settingsViewController = [ [ SettingsViewController alloc ] init ];
+	
+    tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, settingsViewController, nil ];
+	tabBarController.tabBar.translucent = NO;
+    return tabBarController;
 }
 
 @end

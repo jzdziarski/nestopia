@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* NESAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* NESAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
+		28C286E10D94DF7D0034E888 /* GamePlayVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* GamePlayVIewController.m */; };
 		700FBA760EDF0E88007F2024 /* a.png in Resources */ = {isa = PBXBuildFile; fileRef = 700FBA660EDF0E88007F2024 /* a.png */; };
 		700FBA770EDF0E88007F2024 /* b.png in Resources */ = {isa = PBXBuildFile; fileRef = 700FBA670EDF0E88007F2024 /* b.png */; };
-		700FBA7B0EDF0E88007F2024 /* controller_pt.png in Resources */ = {isa = PBXBuildFile; fileRef = 700FBA6B0EDF0E88007F2024 /* controller_pt.png */; };
 		700FBA810EDF0E88007F2024 /* d.png in Resources */ = {isa = PBXBuildFile; fileRef = 700FBA710EDF0E88007F2024 /* d.png */; };
 		700FBA820EDF0E88007F2024 /* l.png in Resources */ = {isa = PBXBuildFile; fileRef = 700FBA720EDF0E88007F2024 /* l.png */; };
 		700FBA830EDF0E88007F2024 /* r.png in Resources */ = {isa = PBXBuildFile; fileRef = 700FBA730EDF0E88007F2024 /* r.png */; };
@@ -24,26 +23,23 @@
 		702089040EDC625800E83959 /* NESCore_Mapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 702088720EDC625800E83959 /* NESCore_Mapper.c */; };
 		702089050EDC625800E83959 /* NESCore_pAPU.c in Sources */ = {isa = PBXBuildFile; fileRef = 702088740EDC625800E83959 /* NESCore_pAPU.c */; };
 		70208B6C0EDC8CA800E83959 /* EmulatorCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 70208B6B0EDC8CA800E83959 /* EmulatorCore.m */; };
-		7036167617F36A4A00E393BC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7036167517F36A4A00E393BC /* Default@2x.png */; };
-		7036167A17F36A9100E393BC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7036167917F36A9100E393BC /* Default-568h@2x.png */; };
-		7039774810D97E890022DB57 /* Games.png in Resources */ = {isa = PBXBuildFile; fileRef = 7039774710D97E890022DB57 /* Games.png */; };
+		7039774810D97E890022DB57 /* Games@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7039774710D97E890022DB57 /* Games@2x.png */; };
 		7044127F0ED9CF6100E54091 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127D0ED9CF6100E54091 /* AudioToolbox.framework */; };
 		704412800ED9CF6100E54091 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127E0ED9CF6100E54091 /* QuartzCore.framework */; };
 		704412BE0ED9D3D800E54091 /* GameROMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412BD0ED9D3D800E54091 /* GameROMViewController.m */; };
 		704412D90ED9D44300E54091 /* SavedGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412D80ED9D44300E54091 /* SavedGameViewController.m */; };
-		704412DE0ED9D44B00E54091 /* BookmarkedGameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412DD0ED9D44B00E54091 /* BookmarkedGameController.m */; };
-		704412E40ED9D52D00E54091 /* EmulatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412E30ED9D52D00E54091 /* EmulatorViewController.m */; };
 		704412EA0ED9D58B00E54091 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412E90ED9D58B00E54091 /* SettingsViewController.m */; };
-		704412EC0ED9D5F500E54091 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 704412EB0ED9D5F500E54091 /* icon.png */; };
-		7044140B0ED9DF6B00E54091 /* Bookmarks.png in Resources */ = {isa = PBXBuildFile; fileRef = 704414070ED9DF6B00E54091 /* Bookmarks.png */; };
-		7044140C0ED9DF6B00E54091 /* History.png in Resources */ = {isa = PBXBuildFile; fileRef = 704414080ED9DF6B00E54091 /* History.png */; };
-		7044140D0ED9DF6B00E54091 /* MostRecent.png in Resources */ = {isa = PBXBuildFile; fileRef = 704414090ED9DF6B00E54091 /* MostRecent.png */; };
-		7053BA011602A99700E8A4B5 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7053BA001602A99700E8A4B5 /* NavigationController.m */; };
-		707F21CF0FF137C5007B9489 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 707F21CE0FF137C5007B9489 /* Icon-Small.png */; };
+		7074DA8117F380B70071CD85 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA7F17F380B70071CD85 /* Default-568h@2x.png */; };
+		7074DA8217F380B70071CD85 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8017F380B70071CD85 /* Default@2x.png */; };
+		7074DA8417F3C8320071CD85 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8317F3C8320071CD85 /* icon.png */; };
+		7074DA8717F3C86E0071CD85 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8517F3C86E0071CD85 /* icon@2x.png */; };
+		7074DA8817F3C86E0071CD85 /* icon~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8617F3C86E0071CD85 /* icon~iphone.png */; };
+		7074DA8A17F3D0C10071CD85 /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8917F3D0C10071CD85 /* Settings@2x.png */; };
+		7074DA8C17F3D46D0071CD85 /* History@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8B17F3D46D0071CD85 /* History@2x.png */; };
+		7074DA8E17F3DBB80071CD85 /* controller_pt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */; };
 		70F696A8124C289500D39392 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696A7124C289500D39392 /* CoreGraphics.framework */; };
 		70F696AA124C289500D39392 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696A9124C289500D39392 /* Foundation.framework */; };
 		70F696AC124C289500D39392 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696AB124C289500D39392 /* UIKit.framework */; };
-		F5A577CB0FEBCDDF00983BDB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A577CA0FEBCDDF00983BDB /* Default.png */; };
 		F5EE71540FEEC3A000FDA0A6 /* controller_ls.png in Resources */ = {isa = PBXBuildFile; fileRef = F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */; };
 /* End PBXBuildFile section */
 
@@ -52,12 +48,11 @@
 		1D3623250D0F684500981E51 /* NESAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NESAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Nescaline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nescaline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A0AAE50D9B0CCF005BE974 /* NES_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NES_Prefix.pch; sourceTree = "<group>"; };
-		28C286DF0D94DF7D0034E888 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayViewController.h; sourceTree = "<group>"; };
+		28C286E00D94DF7D0034E888 /* GamePlayVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayVIewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		700FBA660EDF0E88007F2024 /* a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = a.png; sourceTree = "<group>"; };
 		700FBA670EDF0E88007F2024 /* b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = b.png; sourceTree = "<group>"; };
-		700FBA6B0EDF0E88007F2024 /* controller_pt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controller_pt.png; sourceTree = "<group>"; };
 		700FBA710EDF0E88007F2024 /* d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d.png; sourceTree = "<group>"; };
 		700FBA720EDF0E88007F2024 /* l.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l.png; sourceTree = "<group>"; };
 		700FBA730EDF0E88007F2024 /* r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r.png; sourceTree = "<group>"; };
@@ -219,33 +214,27 @@
 		702088770EDC625800E83959 /* Tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tables.h; sourceTree = "<group>"; };
 		70208B6A0EDC8CA800E83959 /* EmulatorCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmulatorCore.h; sourceTree = "<group>"; wrapsLines = 0; };
 		70208B6B0EDC8CA800E83959 /* EmulatorCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmulatorCore.m; sourceTree = "<group>"; };
-		7036167517F36A4A00E393BC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		7036167917F36A9100E393BC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		7039774710D97E890022DB57 /* Games.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Games.png; sourceTree = "<group>"; };
+		7039774710D97E890022DB57 /* Games@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Games@2x.png"; sourceTree = "<group>"; };
 		7044127D0ED9CF6100E54091 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		7044127E0ED9CF6100E54091 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		704412BC0ED9D3D800E54091 /* GameROMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameROMViewController.h; sourceTree = "<group>"; };
 		704412BD0ED9D3D800E54091 /* GameROMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameROMViewController.m; sourceTree = "<group>"; };
 		704412D70ED9D44300E54091 /* SavedGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedGameViewController.h; sourceTree = "<group>"; };
 		704412D80ED9D44300E54091 /* SavedGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedGameViewController.m; sourceTree = "<group>"; };
-		704412DC0ED9D44B00E54091 /* BookmarkedGameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkedGameController.h; sourceTree = "<group>"; };
-		704412DD0ED9D44B00E54091 /* BookmarkedGameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkedGameController.m; sourceTree = "<group>"; };
-		704412E20ED9D52D00E54091 /* EmulatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmulatorViewController.h; sourceTree = "<group>"; };
-		704412E30ED9D52D00E54091 /* EmulatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmulatorViewController.m; sourceTree = "<group>"; };
 		704412E80ED9D58B00E54091 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		704412E90ED9D58B00E54091 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		704412EB0ED9D5F500E54091 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		704414070ED9DF6B00E54091 /* Bookmarks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bookmarks.png; sourceTree = "<group>"; };
-		704414080ED9DF6B00E54091 /* History.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = History.png; sourceTree = "<group>"; };
-		704414090ED9DF6B00E54091 /* MostRecent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MostRecent.png; sourceTree = "<group>"; };
-		7053B9FF1602A99700E8A4B5 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
-		7053BA001602A99700E8A4B5 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
-		707F21CE0FF137C5007B9489 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		7074DA7F17F380B70071CD85 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		7074DA8017F380B70071CD85 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		7074DA8317F3C8320071CD85 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		7074DA8517F3C86E0071CD85 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		7074DA8617F3C86E0071CD85 /* icon~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon~iphone.png"; sourceTree = "<group>"; };
+		7074DA8917F3D0C10071CD85 /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings@2x.png"; sourceTree = "<group>"; };
+		7074DA8B17F3D46D0071CD85 /* History@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "History@2x.png"; sourceTree = "<group>"; };
+		7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "controller_pt@2x.png"; sourceTree = "<group>"; };
 		70F696A7124C289500D39392 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		70F696A9124C289500D39392 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		70F696AB124C289500D39392 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F5A577CA0FEBCDDF00983BDB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controller_ls.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -270,20 +259,14 @@
 			children = (
 				1D3623240D0F684500981E51 /* NESAppDelegate.h */,
 				1D3623250D0F684500981E51 /* NESAppDelegate.m */,
-				7053B9FF1602A99700E8A4B5 /* NavigationController.h */,
-				7053BA001602A99700E8A4B5 /* NavigationController.m */,
-				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
-				28C286E00D94DF7D0034E888 /* RootViewController.m */,
+				28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */,
+				28C286E00D94DF7D0034E888 /* GamePlayVIewController.m */,
 				704412BC0ED9D3D800E54091 /* GameROMViewController.h */,
 				704412BD0ED9D3D800E54091 /* GameROMViewController.m */,
 				704412D70ED9D44300E54091 /* SavedGameViewController.h */,
 				704412D80ED9D44300E54091 /* SavedGameViewController.m */,
-				704412DC0ED9D44B00E54091 /* BookmarkedGameController.h */,
-				704412DD0ED9D44B00E54091 /* BookmarkedGameController.m */,
 				704412E80ED9D58B00E54091 /* SettingsViewController.h */,
 				704412E90ED9D58B00E54091 /* SettingsViewController.m */,
-				704412E20ED9D52D00E54091 /* EmulatorViewController.h */,
-				704412E30ED9D52D00E54091 /* EmulatorViewController.m */,
 				702087860EDC5A9900E83959 /* ScreenView.h */,
 				702087870EDC5A9900E83959 /* ScreenView.m */,
 				7020878B0EDC5AA800E83959 /* ControllerView.h */,
@@ -330,11 +313,11 @@
 				70583C2E10D2A47000DA068E /* default */,
 				F573FFD90FEAF8B9001ED26B /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				F5A577CA0FEBCDDF00983BDB /* Default.png */,
-				7036167517F36A4A00E393BC /* Default@2x.png */,
-				7036167917F36A9100E393BC /* Default-568h@2x.png */,
-				704412EB0ED9D5F500E54091 /* icon.png */,
-				707F21CE0FF137C5007B9489 /* Icon-Small.png */,
+				7074DA7F17F380B70071CD85 /* Default-568h@2x.png */,
+				7074DA8017F380B70071CD85 /* Default@2x.png */,
+				7074DA8317F3C8320071CD85 /* icon.png */,
+				7074DA8517F3C86E0071CD85 /* icon@2x.png */,
+				7074DA8617F3C86E0071CD85 /* icon~iphone.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -540,10 +523,9 @@
 		70E55D850FEEDA67003CF29C /* Tab Bar Images */ = {
 			isa = PBXGroup;
 			children = (
-				704414070ED9DF6B00E54091 /* Bookmarks.png */,
-				7039774710D97E890022DB57 /* Games.png */,
-				704414080ED9DF6B00E54091 /* History.png */,
-				704414090ED9DF6B00E54091 /* MostRecent.png */,
+				7039774710D97E890022DB57 /* Games@2x.png */,
+				7074DA8B17F3D46D0071CD85 /* History@2x.png */,
+				7074DA8917F3D0C10071CD85 /* Settings@2x.png */,
 			);
 			name = "Tab Bar Images";
 			sourceTree = "<group>";
@@ -554,7 +536,7 @@
 				70E55D850FEEDA67003CF29C /* Tab Bar Images */,
 				70E55D840FEEDA4B003CF29C /* Controller Indicators */,
 				F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */,
-				700FBA6B0EDF0E88007F2024 /* controller_pt.png */,
+				7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -611,23 +593,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7036167617F36A4A00E393BC /* Default@2x.png in Resources */,
-				704412EC0ED9D5F500E54091 /* icon.png in Resources */,
-				7044140B0ED9DF6B00E54091 /* Bookmarks.png in Resources */,
-				7044140C0ED9DF6B00E54091 /* History.png in Resources */,
-				7044140D0ED9DF6B00E54091 /* MostRecent.png in Resources */,
+				7074DA8C17F3D46D0071CD85 /* History@2x.png in Resources */,
+				7074DA8417F3C8320071CD85 /* icon.png in Resources */,
 				700FBA760EDF0E88007F2024 /* a.png in Resources */,
 				700FBA770EDF0E88007F2024 /* b.png in Resources */,
-				700FBA7B0EDF0E88007F2024 /* controller_pt.png in Resources */,
-				7036167A17F36A9100E393BC /* Default-568h@2x.png in Resources */,
+				7074DA8A17F3D0C10071CD85 /* Settings@2x.png in Resources */,
 				700FBA810EDF0E88007F2024 /* d.png in Resources */,
+				7074DA8117F380B70071CD85 /* Default-568h@2x.png in Resources */,
 				700FBA820EDF0E88007F2024 /* l.png in Resources */,
+				7074DA8E17F3DBB80071CD85 /* controller_pt@2x.png in Resources */,
 				700FBA830EDF0E88007F2024 /* r.png in Resources */,
+				7074DA8717F3C86E0071CD85 /* icon@2x.png in Resources */,
 				700FBA850EDF0E88007F2024 /* u.png in Resources */,
-				F5A577CB0FEBCDDF00983BDB /* Default.png in Resources */,
+				7074DA8217F380B70071CD85 /* Default@2x.png in Resources */,
 				F5EE71540FEEC3A000FDA0A6 /* controller_ls.png in Resources */,
-				707F21CF0FF137C5007B9489 /* Icon-Small.png in Resources */,
-				7039774810D97E890022DB57 /* Games.png in Resources */,
+				7074DA8817F3C86E0071CD85 /* icon~iphone.png in Resources */,
+				7039774810D97E890022DB57 /* Games@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,11 +621,9 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* NESAppDelegate.m in Sources */,
-				28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */,
+				28C286E10D94DF7D0034E888 /* GamePlayVIewController.m in Sources */,
 				704412BE0ED9D3D800E54091 /* GameROMViewController.m in Sources */,
 				704412D90ED9D44300E54091 /* SavedGameViewController.m in Sources */,
-				704412DE0ED9D44B00E54091 /* BookmarkedGameController.m in Sources */,
-				704412E40ED9D52D00E54091 /* EmulatorViewController.m in Sources */,
 				704412EA0ED9D58B00E54091 /* SettingsViewController.m in Sources */,
 				702087880EDC5A9900E83959 /* ScreenView.m in Sources */,
 				7020878D0EDC5AA800E83959 /* ControllerView.m in Sources */,
@@ -653,7 +632,6 @@
 				702089040EDC625800E83959 /* NESCore_Mapper.c in Sources */,
 				702089050EDC625800E83959 /* NESCore_pAPU.c in Sources */,
 				70208B6C0EDC8CA800E83959 /* EmulatorCore.m in Sources */,
-				7053BA011602A99700E8A4B5 /* NavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,7 +654,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NES_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-g";
 				PRODUCT_NAME = Nescaline;
@@ -706,7 +684,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NES_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-g";
 				PRODUCT_NAME = Nescaline;
@@ -754,7 +732,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NES_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-g";
 				PRODUCT_NAME = Nescaline;

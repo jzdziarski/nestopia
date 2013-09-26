@@ -24,6 +24,7 @@
 @synthesize orientation;
 @synthesize delegate;
 @synthesize currentController;
+@synthesize gamePlayDelegate;
 
 - (id)initWithFrame:(CGRect)frame {
 	self = [ super initWithFrame: frame ];
@@ -56,7 +57,7 @@
 			AB     = CGRectMake(429.0, 240 -   0.0, 50.0, 50.0);
 			Select = CGRectMake(183.0, 250 -  33.0, 60.0, 40.0);
 			Start  = CGRectMake(250.0, 250 -  33.0, 60.0, 40.0);
-
+            Exit   = CGRectMake(200.0,       280.0, 85.0, 40.0);
 			controllerImage = [ self getControllerImage ];			
 			UIImageView *imageView = [ [ UIImageView alloc ] initWithImage: controllerImage ];
 			[ self addSubview: [ imageView autorelease ] ];
@@ -91,8 +92,8 @@
 			indicatorB.frame = CGRectMake(135.0, 12.0, 25.0, 25.0);
 			
 			Up     = CGRectMake(  0.0,   0.0, 101.0,  30.0);
-			Down   = CGRectMake(  0.0,  69.0, 101.0,  33.0);
-			Left   = CGRectMake(  0.0,  32.0,  43.0,  36.0);
+			Down   = CGRectMake(  0.0,  69.0, 101.0,  43.0);
+			Left   = CGRectMake(  0.0,  32.0,  50.0,  36.0);
 			Right  = CGRectMake( 58.0,  32.0,  43.0,  36.0);
 			UL     = CGRectMake(  0.0,  16.0,  32.0,  20.0);
 			UR     = CGRectMake( 69.0,  16.0,  32.0,  20.0);
@@ -103,7 +104,8 @@
 			AB     = CGRectMake(243.0,  27.0,  25.0,  72.0);
 			Select = CGRectMake(110.0,  50.0,  36.0,  40.0);
 			Start  = CGRectMake(155.0,  50.0,  36.0,  40.0);
-			
+			Exit   = CGRectMake(130.0,   0.0, 155.0,  25.0);
+            
 			controllerImage = [ self getControllerImage ];			
 			UIImageView *imageView = [ [ UIImageView alloc ] initWithImage: controllerImage ];
 			[ self addSubview: [ imageView autorelease ] ];
@@ -122,6 +124,8 @@
 
 - (void)updateNotifyIcons {
 	
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+
     if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
 		return;
 	}
@@ -155,6 +159,8 @@
 	NSString *controllerFilename, *path;
 	UIImage *image;
 	
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+
     if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
 		controllerFilename = [ NSString stringWithFormat: @"controller_ls" ];
     } else {
@@ -170,6 +176,13 @@
 - (int)controllerButtonPressedAtPoint:(CGPoint)point {
     int button = 0;
 		
+    if (CGRectContainsPoint(Exit, point)) {
+        if (notified == NO && [ gamePlayDelegate respondsToSelector: @selector(userDidExitGamePlay) ])
+        {
+            [ gamePlayDelegate userDidExitGamePlay ];
+            notified = YES;
+        }
+    }
 	if (CGRectContainsPoint(AB, point)) {
 		button = NCTL_A | NCTL_B;
 	} else if (CGRectContainsPoint(UL, point)) {
@@ -212,13 +225,15 @@
 	UITouch *touch;
 	dword lastState = controllerState[currentController];
 
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
 	controllerState[currentController] = 0;
 	
 	for (touch in touches) {
 		CGPoint point = [ touch locationInView: self ];
 		int button = [ self controllerButtonPressedAtPoint: point ];
 		
-		// NSLog(@"%s touchesBegan at %fx%f, button %d", __func__, point.x, point.y, button);
+		//NSLog(@"%s touchesBegan at %fx%f, button %d", __func__, point.x, point.y, button);
 		if ((button & NCTL_A) || (button & NCTL_B)) {
 			padButton = button;
 		} else if ((button & NCTL_UP) || (button & NCTL_DOWN) || (button & NCTL_LEFT) || (button & NCTL_RIGHT)) {
@@ -227,20 +242,25 @@
 			padSpecial = button;
 		}
 		controllerState[currentController] = padButton | padDir | padSpecial;
-		NSLog(@"%s begin touch %d controller state %lu", __func__, button, controllerState[currentController]);
+		//NSLog(@"%s begin touch %d controller state %lu", __func__, button, controllerState[currentController]);
 	}
 	
 	if (lastState != controllerState[currentController]) {
-        NSLog(@"%s notifying %@ of controller state change", __PRETTY_FUNCTION__, delegate);
+        //NSLog(@"%s notifying %@ of controller state change", __PRETTY_FUNCTION__, delegate);
 		[ delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController] ];
 		[ self updateNotifyIcons ];
-	}
+    }
+    
+    [ super touchesBegan: touches withEvent: event ];
+    
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch;
 	dword lastState = controllerState[currentController];
 	
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+
 	for (touch in touches) {
 		CGPoint point = [ touch locationInView: self ];
 		int button = [ self controllerButtonPressedAtPoint: point ];
@@ -267,11 +287,15 @@
 		[ delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController] ];
 		[ self updateNotifyIcons ];
 	}
+    
+    [ super touchesMoved: touches withEvent: event ];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch;
 	
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+
 	for (touch in touches) {
 		CGPoint point = [ touch locationInView: self ];
 		int button = [ self controllerButtonPressedAtPoint: point ];
@@ -303,6 +327,8 @@
 	
 	[ delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController] ];
 	[ self updateNotifyIcons ];
+    
+    [ super touchesEnded: touches withEvent: event ];
 }
 
 - (void)dealloc {

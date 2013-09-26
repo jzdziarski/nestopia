@@ -29,6 +29,7 @@
 	UIDeviceOrientation orientation;
 	NSUserDefaults *settings;
 	id delegate;
+    id gamePlayDelegate;
 	bool swapAB;
 	
     UIImage *controllerImage;
@@ -53,12 +54,14 @@
     CGRect A;
     CGRect AB;
     CGRect notifyUpdateRect;
+    CGRect Exit;
 	
 	dword controllerState[2];
 	dword padDir;
 	dword padButton;
 	dword padSpecial;
-	
+    
+	BOOL notified;
     int currentController;	
 }
 - (void)updateNotifyIcons;
@@ -67,7 +70,7 @@
 @property(nonatomic,assign) UIDeviceOrientation orientation;
 @property(nonatomic,assign) id<GameControllerDelegate> delegate;
 @property(nonatomic,assign) int currentController;
-
+@property(nonatomic,assign) id gamePlayDelegate;
 @end
 
 @protocol GameControllerDelegate

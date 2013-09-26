@@ -20,8 +20,8 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <pthread.h>
-#import "ControllerView.h"
 #import "GameROMViewController.h"
+#import "ControllerView.h"
 #include "NESCore_Types.h"
 #include "NESCore_Callback.h"
 

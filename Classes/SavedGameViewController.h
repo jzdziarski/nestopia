@@ -19,14 +19,12 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "GameROMViewController.h"
+#import "GamePlayViewController.h"
 
 @interface SavedGameViewController : UITableViewController <UITableViewDelegate> {
 	id delegate;
 	NSMutableArray *fileList;
 }
 - (void)reloadData;
-
-@property(nonatomic,assign)	id <GameROMSelectionDelegate>	delegate;
 
 @end

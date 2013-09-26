@@ -1,6 +1,6 @@
 /*
  Nescaline
- Copyright (c) 2007, Jonathan A. Zdziarski
+ Copyright (c) 2007-2013, Jonathan A. Zdziarski
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -23,25 +23,15 @@
 #import <CoreFoundation/CoreFoundation.h>
 
 #define ROM_PATH [ NSString stringWithFormat: @"%@/Documents", NSHomeDirectory() ]
-//#define ROM_PATH @"/var/mobile/Media/ROMs/NES"
-
-@protocol GameROMSelectionDelegate<NSObject>
-
-@required
-- (void)didSelectGameROMAtPath:(NSString *)path;
-@end
 
 @interface GameROMViewController : UITableViewController <UITableViewDelegate> {
-	id delegate;
 	int nActiveSections;
     int romCount;
+    
 	NSMutableArray *fileList[27];
 	NSMutableArray *activeSections;
 	NSMutableArray *sectionTitles;
 }
-- (void) reloadData;
-- (void) count: (NSTimer *) timer;
 
-@property(nonatomic,assign)	id <GameROMSelectionDelegate>	delegate;
 @end
 

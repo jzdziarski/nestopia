@@ -25,7 +25,7 @@
 
 	NSUserDefaults *settings;
 	UIBarButtonItem *leftButton;
-	NSString *currentROMImagePath, *currentGameName;
+	NSString *gamePath, *currentGameName;
 
 	UISwitch *autoSaveControl;
 	UISwitch *swapABControl;
@@ -45,7 +45,5 @@
 	bool raised;
 }
 
-- (void)saveSettings;
-
-@property(nonatomic,copy) NSString *currentROMImagePath;
+@property(nonatomic,copy) NSString *gamePath;
 @end
