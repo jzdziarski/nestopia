@@ -47,6 +47,15 @@ NSString *currentGamePath = nil;
 	
     if (UIInterfaceOrientationIsLandscape(orientation) == NO) {
         self.view.backgroundColor = [ UIColor colorWithHue: 240.0/360.0 saturation: .02 brightness: .96 alpha: 1.0 ];
+        
+        UILabel *label = [ [ UILabel alloc ] initWithFrame: CGRectMake(10.0, 20.5, self.view.bounds.size.width - 20.0, 40.0) ];
+        label.backgroundColor = [ UIColor clearColor ];
+        label.textColor = [ UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .50 alpha: 1.0 ];
+        label.font = [ UIFont fontWithName: @"HelveticaNeue-Regular" size: 14.0 ];
+        label.text = [ gameTitle uppercaseString ];
+        label.textAlignment = NSTextAlignmentLeft;
+        label.adjustsFontSizeToFitWidth = YES;
+        [ self.view addSubview: [ label autorelease ] ];
     }
     
     /* landscape */

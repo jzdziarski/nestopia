@@ -205,7 +205,7 @@
     
     GamePlayViewController *gamePlayViewController = [ [ GamePlayViewController alloc ] init ];
     gamePlayViewController.gamePath = path;
-    gamePlayViewController.gameTitle = [ path stringByDeletingPathExtension ];
+    gamePlayViewController.gameTitle = [ [ path stringByDeletingPathExtension ] lastPathComponent ];
     gamePlayViewController.shouldLoadState = NO;
     [ self presentViewController: gamePlayViewController animated: YES completion: nil ];
 }

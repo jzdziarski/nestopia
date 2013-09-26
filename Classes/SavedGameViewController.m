@@ -98,7 +98,7 @@
     
     GamePlayViewController *gamePlayViewController = [ [ GamePlayViewController alloc ] init ];
     gamePlayViewController.gamePath = [ path stringByDeletingPathExtension ];
-    gamePlayViewController.gameTitle = [ [ path stringByDeletingPathExtension ] stringByDeletingPathExtension ];
+    gamePlayViewController.gameTitle = [ [ [ path stringByDeletingPathExtension ] stringByDeletingPathExtension ] lastPathComponent ];
     gamePlayViewController.shouldLoadState = YES;
     [ self presentViewController: gamePlayViewController animated: YES completion: nil ];
 }
