@@ -460,42 +460,17 @@ void setActiveFrameBuffer(unsigned long *buf);
 /* Callbacks */
 
 - (void)emulatorCallbackWait {
-	float frameRate = (S.PAL) ? 53.355 : 60.098;
-    signed long usec_per_frame = (1000000 / frameRate) * (S.FrameSkip + 1);
-    signed long usec_this_frame;
-    signed long delta;
+	double frameRate = (S.PAL) ? 53.355 : 60.098;
+    double usec_per_frame = 1000000 * (1.0 / frameRate);
 	struct timeval tv;
 	
-    if (gettimeofday(&tv, NULL))
-        return;
-	
-    usec_this_frame = (1000000 * (tv.tv_sec - frameTimer.tv_sec))
-	+ tv.tv_usec
-	- frameTimer.tv_usec;
-    if (frameTimer.tv_sec == 0) {
-        gettimeofday(&frameTimer, NULL);
-        return;
+    if (S.FrameSkip > 0) {
+        usec_per_frame *= (S.FrameSkip + 1);
     }
-	
-    delta = (usec_per_frame - usec_this_frame) - 5000;
-    if (delta > 0) {
-		tv.tv_sec = delta / 1000000;
-		tv.tv_usec = (delta % 1000000) * 2;
-		select(1, NULL, NULL, NULL, &tv);
-		if (delta > 5000) {
-			if (defaultFrameSkip == 5 && S.FrameSkip) {
-				S.FrameSkip--;
-				NSLog(@"%s wait %0ldu frame skip %d", __func__, delta, S.FrameSkip);
-			}
-		}
-	} else if (delta < 5000) { 
-		if (defaultFrameSkip == 5 && S.FrameSkip != 4) {
-            S.FrameSkip++;
-			NSLog(@"%s lag %ldu frame skip %d", __func__, delta, S.FrameSkip);
-        }
-    }
-	gettimeofday(&frameTimer, NULL);
-	
+    
+    tv.tv_usec = usec_per_frame - 1000.0;
+    tv.tv_sec = 0.0;
+    select(1, NULL, NULL, NULL, &tv);
     return;
 }
 

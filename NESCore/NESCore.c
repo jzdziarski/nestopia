@@ -162,7 +162,7 @@ void NESCore_Callback_Wait(void *userData) {
         tv.tv_sec = delta / 1000000;
         tv.tv_usec = delta % 1000000;
         select(-1, NULL, NULL, NULL, &tv);
-        NSLog(@"%s waiting %f usec", tv.tv_usec);
+        fprintf(stderr, "%s waiting %d usec", __func__, tv.tv_usec);
         if (S.FrameSkip != 0)
             S.FrameSkip--;
     } else {
