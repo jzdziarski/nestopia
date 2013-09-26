@@ -82,23 +82,21 @@
 			indicatorA.hidden = YES;
 			indicatorB.hidden = YES;
 			
-			CGRect dirFrame = CGRectMake(105.0, 12.0, 25.0, 25.0);
-			indicatorUp.frame = dirFrame;
-			indicatorDown.frame = dirFrame;
-			indicatorLeft.frame = dirFrame;
-			indicatorRight.frame = dirFrame;
+			indicatorUp.frame = CGRectMake(236.0, 10.0, 15.0, 15.0);
+			indicatorDown.frame = CGRectMake(236.0, 10.0, 15.0, 15.0);
+			indicatorLeft.frame = CGRectMake(251.0, 10.0, 15.0, 15.0);
+			indicatorRight.frame = CGRectMake(251.0, 10.0, 15.0, 15.0);
+			indicatorA.frame = CGRectMake(281.0, 10.0, 15.0, 15.0);
+			indicatorB.frame = CGRectMake(266.0, 10.0, 15.0, 15.0);
 			
-			indicatorA.frame = CGRectMake(165.0, 12.0, 25.0, 25.0);
-			indicatorB.frame = CGRectMake(135.0, 12.0, 25.0, 25.0);
-			
-			Up     = CGRectMake(  0.0,   0.0, 101.0,  30.0);
-			Down   = CGRectMake(  0.0,  69.0, 101.0,  43.0);
-			Left   = CGRectMake(  0.0,  32.0,  50.0,  36.0);
-			Right  = CGRectMake( 58.0,  32.0,  43.0,  36.0);
-			UL     = CGRectMake(  0.0,  16.0,  32.0,  20.0);
-			UR     = CGRectMake( 69.0,  16.0,  32.0,  20.0);
-			DL     = CGRectMake(  0.0,  69.0,  32.0,  33.0);
-			DR     = CGRectMake( 69.0,  69.0,  32.0,  33.0);
+			Up     = CGRectMake(  0.0,   0.0,  94.0,  44.0);
+			Down   = CGRectMake(  0.0,  69.0,  94.0,  55.0);
+			Left   = CGRectMake(  0.0,  32.0,  40.0,  50.0);
+			Right  = CGRectMake( 55.0,  32.0,  40.0,  50.0);
+			UL     = CGRectMake(  0.0,  0.0,   32.0,  42.0);
+			UR     = CGRectMake( 62.0,  0.0,   32.0,  42.0);
+			DL     = CGRectMake(  0.0,  72.0,  32.0,  53.0);
+			DR     = CGRectMake( 62.0,  72.0,  32.0,  53.0);
 			B      = CGRectMake(197.0,  27.0,  46.0,  72.0);
 			A      = CGRectMake(268.0,  27.0,  46.0,  72.0);
 			AB     = CGRectMake(243.0,  27.0,  25.0,  72.0);
@@ -143,7 +141,7 @@
 		indicatorUp.hidden = NO;
 	else if (dwKeyPad & NCTL_DOWN)
 		indicatorDown.hidden = NO;
-	else if (dwKeyPad & NCTL_LEFT)
+    if (dwKeyPad & NCTL_LEFT)
 		indicatorLeft.hidden = NO;
 	else if (dwKeyPad & NCTL_RIGHT)
 		indicatorRight.hidden = NO;
