@@ -161,7 +161,7 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
 
     if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
-		controllerFilename = [ NSString stringWithFormat: @"controller_ls.ong" ];
+		controllerFilename = [ NSString stringWithFormat: @"controller_ls.png" ];
     } else {
         controllerFilename = [ NSString stringWithFormat: @"controller_pt.png" ];
 	}
