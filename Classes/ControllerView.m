@@ -154,20 +154,19 @@
 }
 
 - (UIImage *)getControllerImage {
-	NSString *controllerFilename, *path;
+	NSString *controllerFilename;
 	UIImage *image;
 	
     NSLog(@"%s", __PRETTY_FUNCTION__);
 
     if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
-		controllerFilename = [ NSString stringWithFormat: @"controller_ls" ];
+		controllerFilename = [ NSString stringWithFormat: @"controller_ls.ong" ];
     } else {
-        controllerFilename = [ NSString stringWithFormat: @"controller_pt" ];
+        controllerFilename = [ NSString stringWithFormat: @"controller_pt.png" ];
 	}
 	
-	path = [ [ NSBundle mainBundle ] pathForResource: controllerFilename ofType: @"png" ];
-	NSLog(@"%s loading controller image %@ at path %@\n", __func__, controllerFilename, path);
-    image = [ [ UIImage alloc ] initWithContentsOfFile: path ];
+	NSLog(@"%s loading controller image %@\n", __func__, controllerFilename);
+    image = [[ UIImage imageNamed: controllerFilename ] retain ];
 	return image;
 }
 

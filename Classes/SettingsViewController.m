@@ -46,7 +46,12 @@ extern NSString *currentGamePath;
 		
 		fullScreenControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
 		fullScreenControl.on = [ settings boolForKey: @"fullScreen" ];
-		
+        if ([ settings objectForKey: @"fullScreen" ] == nil) {
+			fullScreenControl.on = YES;
+		} else {
+			fullScreenControl.on = [ settings boolForKey: @"aspectRatio" ];
+		}
+        
 		aspectRatioControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
 		if ([ settings objectForKey: @"aspectRatio" ] == nil) {
 			aspectRatioControl.on = YES;

@@ -215,6 +215,10 @@ void setActiveFrameBuffer(unsigned long *buf);
 	defaultFullScreen = [ settings integerForKey: @"fullScreen" ];
 	defaultAspectRatio = [ settings integerForKey: @"aspectRatio" ];
 	
+    if ([ settings objectForKey: @"fullScreen" ] == nil) {
+        defaultFullScreen = 1;
+    }
+    
 	NSLog(@"%s loading defaults frameSkip: %d fullScreen: %d aspectRatio: %d\n", __func__, defaultFrameSkip, defaultFullScreen, defaultAspectRatio);
 	
 	if (defaultFullScreen) {
