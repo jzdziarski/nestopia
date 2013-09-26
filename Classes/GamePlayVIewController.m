@@ -75,7 +75,7 @@ NSString *currentGamePath = nil;
             emuWidth = 256.0;
         }
         
-        surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, (self.view.bounds.size.height - emuHeight) / 2.0, emuWidth, emuHeight);
+        surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, (self.view.bounds.size.height - (emuHeight + 125.0)) / 2.0, emuWidth, emuHeight);
 	}
     
 	NSLog(@"%s initializing surface layer with frame: %fx%f size: %fx%f", __PRETTY_FUNCTION__, surfaceRect.origin.x, surfaceRect.origin.y, surfaceRect.size.width, surfaceRect.size.height);
