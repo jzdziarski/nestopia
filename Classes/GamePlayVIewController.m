@@ -86,15 +86,25 @@ NSString *currentGamePath = nil;
         
     /* portrait */
 	} else {
+        float offset = 0.0;
+
 		if ([ [ NSUserDefaults standardUserDefaults ] boolForKey: @"fullScreen" ] == YES) {
             emuHeight = 300.0;
             emuWidth = 320.0;
+            
+            if (![ self hasFourInchDisplay ] ) {
+                offset = 28.0;
+            }
         } else {
             emuHeight = 240.0;
             emuWidth = 256.0;
+            
+            if (![ self hasFourInchDisplay ] ) {
+                offset = 14.0;
+            }
         }
         
-        surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, (self.view.bounds.size.height - (emuHeight + 125.0)) / 2.0, emuWidth, emuHeight);
+        surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, ((self.view.bounds.size.height - (emuHeight + 125.0)) / 2.0) + offset, emuWidth, emuHeight);
         
         UIView *border = [ [ UIView alloc ] initWithFrame: CGRectMake(surfaceRect.origin.x - 1.0, surfaceRect.origin.y - 1.0, surfaceRect.size.width + 2.0, surfaceRect.size.height + 2.0) ];
         border.backgroundColor = [ UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .70 alpha: 1.0 ];
@@ -186,6 +196,10 @@ NSString *currentGamePath = nil;
     [ emulatorCore finishEmulator ];
     [ emulatorCore release ];
     [ super dealloc ];
+}
+
+- (BOOL)hasFourInchDisplay {
+    return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone && [UIScreen mainScreen].bounds.size.height == 568.0);
 }
 
 - (void)refreshControls {
