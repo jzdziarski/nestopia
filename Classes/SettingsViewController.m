@@ -63,9 +63,8 @@ extern NSString *currentGamePath;
 		[ frameSkipControl insertSegmentWithTitle: @"2" atIndex: 2 animated: NO ];
 		[ frameSkipControl insertSegmentWithTitle: @"3" atIndex: 3 animated: NO ];
 		[ frameSkipControl insertSegmentWithTitle: @"4" atIndex: 4 animated: NO ];
-		[ frameSkipControl insertSegmentWithTitle: @"A" atIndex: 5 animated: NO ];
 		if ([ settings objectForKey: @"frameSkip"] == nil) {
-			frameSkipControl.selectedSegmentIndex = 5;
+			frameSkipControl.selectedSegmentIndex = 0;
 		} else {
 			frameSkipControl.selectedSegmentIndex = [ settings integerForKey: @"frameSkip" ];
 		}
@@ -263,23 +262,23 @@ extern NSString *currentGamePath;
 			case(0):
 				switch([ indexPath indexAtPosition: 1]) {
 					case(0):
-						[ cell addSubview: autoSaveControl ];
+                        cell.accessoryView = autoSaveControl;
 						cell.textLabel.text = @"Auto-Save Game";
 						break;
 					case(1):
-						[ cell addSubview: swapABControl ];
+						cell.accessoryView = swapABControl;
 						cell.textLabel.text = @"Swap A/B";
 						break;
 					case(2):
-						[ cell addSubview: fullScreenControl ];
+						cell.accessoryView = fullScreenControl;
 						cell.textLabel.text = @"Full Screen";
 						break;
 					case(3):
-						[ cell addSubview: aspectRatioControl ];
+						cell.accessoryView = aspectRatioControl;
 						cell.textLabel.text = @"Aspect Ratio";
 						break;
 					case(4):
-						[ cell addSubview: gameGenieControl ];
+						cell.accessoryView = gameGenieControl;
 						cell.textLabel.text = @"Game Genie";
 						break;
 				}
@@ -287,31 +286,31 @@ extern NSString *currentGamePath;
 			case(1):
 				switch ([ indexPath indexAtPosition: 1 ]) {
 					case(0):
-						[ cell addSubview: frameSkipControl ];
+						cell.accessoryView = frameSkipControl;
 						cell.textLabel.text = @"Frame Skip";
 						break;
 					case(1):
-						[ cell addSubview: paletteControl ];
+						cell.accessoryView = paletteControl;
 						cell.textLabel.text = @"Palette";
 						break;
 					case(2):
-						[ cell addSubview: cpuControl ];
+						cell.accessoryView = cpuControl;
 						cell.textLabel.text = @"CPU Cycle";
 						break;
 					case(3):
-						[ cell addSubview: soundBufferControl ];
+						cell.accessoryView = soundBufferControl;
 						cell.textLabel.text = @"Sound Buffers";
 						break;
 					case(4):
-						[ cell addSubview: bassBoostControl ];
+						cell.accessoryView = bassBoostControl;
 						cell.textLabel.text = @"Bass Boost";
 						break;
 					case(5):
-						[ cell addSubview: controllerStickControl ];
+						cell.accessoryView = controllerStickControl;
 						cell.textLabel.text = @"Sticky Controller";
 						break;
 					case(6):
-						[ cell addSubview: versionString ];
+						cell.accessoryView = versionString;
 						cell.textLabel.text = @"Version";
 						break;
 				}
