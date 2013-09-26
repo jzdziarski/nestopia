@@ -93,10 +93,10 @@
 			Down   = CGRectMake(  0.0,  69.0,  94.0,  55.0);
 			Left   = CGRectMake(  0.0,  32.0,  40.0,  50.0);
 			Right  = CGRectMake( 55.0,  32.0,  40.0,  50.0);
-			UL     = CGRectMake(  0.0,  0.0,   32.0,  42.0);
-			UR     = CGRectMake( 62.0,  0.0,   32.0,  42.0);
-			DL     = CGRectMake(  0.0,  72.0,  32.0,  53.0);
-			DR     = CGRectMake( 62.0,  72.0,  32.0,  53.0);
+			UL     = CGRectMake(  0.0,  0.0,   32.0,  38.0);
+			UR     = CGRectMake( 62.0,  0.0,   32.0,  38.0);
+			DL     = CGRectMake(  0.0,  76.0,  32.0,  49.0);
+			DR     = CGRectMake( 62.0,  76.0,  32.0,  49.0);
 			B      = CGRectMake(197.0,  27.0,  46.0,  72.0);
 			A      = CGRectMake(268.0,  27.0,  46.0,  72.0);
 			AB     = CGRectMake(243.0,  27.0,  25.0,  72.0);
