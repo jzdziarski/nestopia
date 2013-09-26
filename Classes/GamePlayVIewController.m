@@ -55,6 +55,12 @@ NSString *currentGamePath = nil;
         label.text = [ gameTitle uppercaseString ];
         label.textAlignment = NSTextAlignmentLeft;
         label.adjustsFontSizeToFitWidth = YES;
+        label.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer *tapGesture = [ [ UITapGestureRecognizer alloc ] initWithTarget: self action: @selector(userDidExitGamePlay)];
+        [ label addGestureRecognizer: tapGesture ];
+        [ tapGesture release ];
+        
         [ self.view addSubview: [ label autorelease ] ];
     }
     
