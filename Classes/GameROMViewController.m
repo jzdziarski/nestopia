@@ -208,7 +208,7 @@
     gamePlayViewController.gamePath = path;
     gamePlayViewController.gameTitle = [ [ path stringByDeletingPathExtension ] lastPathComponent ];
     gamePlayViewController.shouldLoadState = NO;
-    [ self presentViewController: gamePlayViewController animated: YES completion: nil ];
+    [ self presentViewController: [ gamePlayViewController autorelease ] animated: YES completion: nil ];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index;  {
