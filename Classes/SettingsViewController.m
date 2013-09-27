@@ -25,6 +25,50 @@ extern NSString *currentGamePath;
 @implementation SettingsViewController
 @synthesize gamePath;
 
+- (void) loadSettings {
+    [ settings synchronize ];
+    autoSaveControl.on = [ settings boolForKey: @"autoSave" ];
+    swapABControl.on = [ settings boolForKey: @"swapAB" ];
+    fullScreenControl.on = [ settings boolForKey: @"fullScreen" ];
+    gameGenieControl.on = [ settings boolForKey: @"gameGenie" ];
+    cpuControl.selectedSegmentIndex = [ settings integerForKey: @"cpuCycle" ];
+
+    if ([ settings objectForKey: @"fullScreen" ] == nil) {
+        fullScreenControl.on = YES;
+    } else {
+        fullScreenControl.on = [ settings boolForKey: @"aspectRatio" ];
+    }
+    
+    if ([ settings objectForKey: @"aspectRatio" ] == nil) {
+        aspectRatioControl.on = YES;
+    } else {
+        aspectRatioControl.on = [ settings boolForKey: @"aspectRatio" ];
+    }
+    
+    if ([ settings objectForKey: @"frameSkip"] == nil) {
+        frameSkipControl.selectedSegmentIndex = 0;
+    } else {
+        frameSkipControl.selectedSegmentIndex = [ settings integerForKey: @"frameSkip" ];
+    }
+
+    if ([ settings objectForKey: @"paletteControl"] == nil) {
+        paletteControl.selectedSegmentIndex = 2;
+    } else {
+        paletteControl.selectedSegmentIndex = [ settings integerForKey: @"paletteControl" ];
+    }
+
+    if ([ settings objectForKey: @"soundBuffer" ] == nil) {
+        soundBufferControl.selectedSegmentIndex = 0;
+    } else {
+        soundBufferControl.selectedSegmentIndex = [ settings integerForKey: @"soundBuffer" ];
+    }
+    
+    for(int i = 0; i < 4; i++) {
+        gameGenieCodeControl[i].text = nil;
+    }
+
+}
+
 - (id) init {
     self = [ super initWithStyle: UITableViewStyleGrouped ];
 	
@@ -39,65 +83,31 @@ extern NSString *currentGamePath;
 		settings = [ NSUserDefaults standardUserDefaults ];
 		
 		autoSaveControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
-		autoSaveControl.on = [ settings boolForKey: @"autoSave" ];
-		
 		swapABControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
-		swapABControl.on = [ settings boolForKey: @"swapAB" ];
-		
 		fullScreenControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
-		fullScreenControl.on = [ settings boolForKey: @"fullScreen" ];
-        if ([ settings objectForKey: @"fullScreen" ] == nil) {
-			fullScreenControl.on = YES;
-		} else {
-			fullScreenControl.on = [ settings boolForKey: @"aspectRatio" ];
-		}
-        
 		aspectRatioControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
-		if ([ settings objectForKey: @"aspectRatio" ] == nil) {
-			aspectRatioControl.on = YES;
-		} else {
-			aspectRatioControl.on = [ settings boolForKey: @"aspectRatio" ];
-		}
-		
 		gameGenieControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
-		gameGenieControl.on = [ settings boolForKey: @"gameGenie" ];
-		
 		frameSkipControl = [ [ UISegmentedControl alloc ] initWithFrame: CGRectMake(150.0, 5.0, 150.0, 35.0) ];
 		[ frameSkipControl insertSegmentWithTitle: @"0" atIndex: 0 animated: NO ];
 		[ frameSkipControl insertSegmentWithTitle: @"1" atIndex: 1 animated: NO ];
 		[ frameSkipControl insertSegmentWithTitle: @"2" atIndex: 2 animated: NO ];
 		[ frameSkipControl insertSegmentWithTitle: @"3" atIndex: 3 animated: NO ];
 		[ frameSkipControl insertSegmentWithTitle: @"4" atIndex: 4 animated: NO ];
-		if ([ settings objectForKey: @"frameSkip"] == nil) {
-			frameSkipControl.selectedSegmentIndex = 0;
-		} else {
-			frameSkipControl.selectedSegmentIndex = [ settings integerForKey: @"frameSkip" ];
-		}
+		
 		
 		paletteControl = [ [ UISegmentedControl alloc ] initWithFrame: CGRectMake(150.0, 5.0, 150.0, 35.0) ];
 		[ paletteControl insertSegmentWithTitle: @"A" atIndex: 0 animated: NO ];
 		[ paletteControl insertSegmentWithTitle: @"B" atIndex: 1 animated: NO ];
 		[ paletteControl insertSegmentWithTitle: @"C" atIndex: 2 animated: NO ];
 		[ paletteControl insertSegmentWithTitle: @"D" atIndex: 3 animated: NO ];
-		if ([ settings objectForKey: @"paletteControl"] == nil) {
-			paletteControl.selectedSegmentIndex = 2;
-		} else {
-			paletteControl.selectedSegmentIndex = [ settings integerForKey: @"paletteControl" ];
-		}
 		
 		cpuControl = [ [ UISegmentedControl alloc ] initWithFrame: CGRectMake(150.0, 5.0, 150.0, 35.0) ];
 		[ cpuControl insertSegmentWithTitle: @"339" atIndex: 0 animated: NO ];
 		[ cpuControl insertSegmentWithTitle: @"341" atIndex: 1 animated: NO ];
-		cpuControl.selectedSegmentIndex = [ settings integerForKey: @"cpuCycle" ];
 		
 		soundBufferControl = [ [ UISegmentedControl alloc ] initWithFrame: CGRectMake(150.0, 5.0, 150.0, 35.0) ];
 		for(int i = 0; i < 7; i++) {
 			[ soundBufferControl insertSegmentWithTitle: [ NSString stringWithFormat: @"%d", i + 3 ] atIndex: i animated: NO ];
-		}
-		if ([ settings objectForKey: @"soundBuffer" ] == nil) {
-			soundBufferControl.selectedSegmentIndex = 0;
-		} else {
-			soundBufferControl.selectedSegmentIndex = [ settings integerForKey: @"soundBuffer" ];
 		}
 		
 		bassBoostControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
@@ -113,14 +123,15 @@ extern NSString *currentGamePath;
 		NSDictionary *dict = [ NSDictionary dictionaryWithContentsOfFile: [ [ NSBundle mainBundle ] pathForResource: @"Info" ofType: @"plist" ] ];
 		versionString.text = [ dict objectForKey: @"CFBundleVersion" ];
 		
-		for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 4; i++) {
 			gameGenieCodeControl[i] = [ [ UITextField alloc ] initWithFrame: CGRectMake(100.0, 5.0, 200.0, 35.0) ];
 			gameGenieCodeControl[i].contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 			gameGenieCodeControl[i].delegate = self;
-			gameGenieCodeControl[i].text = nil;
 			gameGenieCodeControl[i].placeholder = @"Empty";
 			gameGenieCodeControl[i].returnKeyType = UIReturnKeyDone;
 		}
+
+        [ self loadSettings ];
 		[ self saveSettings ];
 	}
 	return self;
@@ -129,6 +140,9 @@ extern NSString *currentGamePath;
 - (void)viewWillAppear:(BOOL)animated {
     [ super viewWillAppear: animated ];
     
+    self.navigationController.navigationBar.hidden = NO;
+
+    [ self loadSettings ];
     [ self setGamePath ];
 }
 
@@ -220,7 +234,12 @@ extern NSString *currentGamePath;
 /* UITableViewDataSource methods */
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    
+    if (currentGameName == nil) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -262,7 +281,8 @@ extern NSString *currentGamePath;
     if (cell == nil) {
         cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: CellIdentifier ] autorelease ];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;;
+
 		switch ([ indexPath indexAtPosition: 0]) {
 			case(0):
 				switch([ indexPath indexAtPosition: 1]) {
@@ -342,7 +362,7 @@ extern NSString *currentGamePath;
 
 					cell.textLabel.text = [ NSString stringWithFormat: @"Code #%d", [ indexPath indexAtPosition: 1 ] ];
 				}
-				break;
+                break;
 		}
 	}
 	
@@ -367,11 +387,13 @@ extern NSString *currentGamePath;
     [ textField resignFirstResponder ];
     return YES;
 }
-
+ 
+/*
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 	self.tableView.scrollEnabled = NO;
 	return YES;
 }
+*/
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 	

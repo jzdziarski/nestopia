@@ -100,7 +100,10 @@
     gamePlayViewController.gamePath = [ path stringByDeletingPathExtension ];
     gamePlayViewController.gameTitle = [ [ [ path stringByDeletingPathExtension ] stringByDeletingPathExtension ] lastPathComponent ];
     gamePlayViewController.shouldLoadState = YES;
-    [ self presentViewController: [ gamePlayViewController autorelease ] animated: YES completion: nil ];
+
+    UINavigationController *navigationController = [ [ UINavigationController alloc ] initWithRootViewController: [ gamePlayViewController autorelease ] ];
+    
+    [ self presentViewController: [ navigationController autorelease ] animated: YES completion: nil ];
 }
 
 

@@ -23,6 +23,7 @@
 #import "ControllerView.h"
 #import "EmulatorCore.h"
 #import "ScreenView.h"
+#import "SettingsViewController.h"
 
 #define kEmulatorCoreSavedStateNotification @"EmulatorCoreSavedState"
 
@@ -37,6 +38,7 @@
     EmulatorCore *emulatorCore;
 	ScreenView *screenView;
 	ControllerView *controllerView;
+    BOOL emulatorRunning;
 }
 
 @property(nonatomic,copy) NSString *gamePath;

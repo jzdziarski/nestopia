@@ -105,10 +105,11 @@ NSString *currentGamePath = nil;
         }
         
         surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, ((self.view.bounds.size.height - (emuHeight + 125.0)) / 2.0) + offset, emuWidth, emuHeight);
-        
+                
         UIView *border = [ [ UIView alloc ] initWithFrame: CGRectMake(surfaceRect.origin.x - 1.0, surfaceRect.origin.y - 1.0, surfaceRect.size.width + 2.0, surfaceRect.size.height + 2.0) ];
         border.backgroundColor = [ UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .70 alpha: 1.0 ];
         [ self.view addSubview: [ border autorelease ] ];
+    
     }
     
 	NSLog(@"%s initializing surface layer with frame: %fx%f size: %fx%f", __PRETTY_FUNCTION__, surfaceRect.origin.x, surfaceRect.origin.y, surfaceRect.size.width, surfaceRect.size.height);
@@ -128,7 +129,7 @@ NSString *currentGamePath = nil;
 	}
 	
 	[ self.view addSubview: controllerView ];
-
+    [ self initializeEmulator ];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -141,7 +142,8 @@ NSString *currentGamePath = nil;
     return NO;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+//- (void)viewDidAppear:(BOOL)animated {
+- (void)initializeEmulator {
 	emulatorCore = [ [ EmulatorCore alloc ] init ];
 	EmulatorCoreLoadStatus success = [ emulatorCore loadROM: gamePath ];
 	
@@ -180,11 +182,10 @@ NSString *currentGamePath = nil;
     controllerView.gamePlayDelegate = self;
 	   
     [ emulatorCore startEmulator ];
+    emulatorRunning = YES;
 }
 
 - (void)dealloc {
-    [ emulatorCore haltEmulator ];
-    
     emulatorCore.screenDelegate = nil;
     emulatorCore.frameBufferAddress = nil;
     controllerView.delegate = nil;
@@ -225,37 +226,59 @@ NSString *currentGamePath = nil;
 			[ emulatorCore saveState ];
             [ [ NSNotificationCenter defaultCenter ] postNotificationName: kEmulatorCoreSavedStateNotification object: gamePath ];
 
-		} else if (buttonIndex == 2) {
+		} else if (buttonIndex == 3) { /* Resume Game */
             controllerView.notified = NO;
             [ emulatorCore restartEmulator ];
+            emulatorRunning = YES;
+            return;
+        } else if (buttonIndex == 1) { /* Settings */
+            controllerView.notified = NO;
+            SettingsViewController *settingsViewController = [ [ SettingsViewController alloc ] init ];
+            
+            [ self.navigationController pushViewController: [ settingsViewController autorelease ] animated: YES ];
             return;
         }
 	}
     
-    [ self dismissViewControllerAnimated: YES completion: nil ];
- }
+    if (! [self.presentedViewController isBeingDismissed]) {
+        [ currentGamePath release ];
+        currentGamePath = nil;
+        [ self dismissViewControllerAnimated: YES completion:^{} ];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    self.navigationController.navigationBar.hidden = YES;
+    if (emulatorRunning == NO) {
+        [ emulatorCore restartEmulator ];
+        emulatorRunning = YES;
+    }
+}
 
 /* UINavigationControllerDelegate Methods */
 
 - (void)userDidExitGamePlay {
 		
     [ emulatorCore haltEmulator ];
+    emulatorRunning = NO;
     
     if ([ [ NSUserDefaults standardUserDefaults ] boolForKey: @"autoSave" ] == YES) {
         [ emulatorCore saveState ];
     } else {
         saveStateSheet = [ [ UIActionSheet alloc ] init ];
-        saveStateSheet.title = @"Do you want to save this game?";
-        [ saveStateSheet addButtonWithTitle: @"Save Game" ];
-        [ saveStateSheet addButtonWithTitle: @"Don't Save" ];
-        [ saveStateSheet addButtonWithTitle: @"Cancel" ];
-        saveStateSheet.cancelButtonIndex = 2;
-        saveStateSheet.destructiveButtonIndex = 1;
+        saveStateSheet.title = @"Game Menu";
+        [ saveStateSheet addButtonWithTitle: @"Save and Exit Game" ];
+        [ saveStateSheet addButtonWithTitle: @"Settings" ];
+        [ saveStateSheet addButtonWithTitle: @"Exit Game" ];
+
+        [ saveStateSheet addButtonWithTitle: @"Resume Game" ];
+        saveStateSheet.cancelButtonIndex = 3;
+        saveStateSheet.destructiveButtonIndex = 2;
         saveStateSheet.delegate = self;
         
         [ saveStateSheet showInView: self.view ];
     }
-
 }
 
 @end
