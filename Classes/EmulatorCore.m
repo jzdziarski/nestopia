@@ -713,6 +713,12 @@ extern NSString *currentGamePath;
     [ self initializePalette ];
     [ self applyGameGenieCodes ];
     
+    if ([[ [ EmulatorCore gameSettings ] objectForKey: @"bassBoost" ] boolValue ] == YES) {
+		S.BassBoost = 1;
+	} else {
+		S.BassBoost = 0;
+	}
+    
     screenDelegate = haltedScreenDelegate;
     soundBuffersInitialized = 0;
     [ self initializeSoundBuffers ];
