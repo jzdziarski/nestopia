@@ -27,7 +27,7 @@
 @interface ControllerView : UIView {
 	
 	UIDeviceOrientation orientation;
-	NSUserDefaults *settings;
+	NSDictionary *settings;
 	id delegate;
     id gamePlayDelegate;
 	bool swapAB;

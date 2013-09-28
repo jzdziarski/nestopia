@@ -49,7 +49,7 @@ extern NSString *currentGamePath;
     if ([ settings objectForKey: @"fullScreen" ] == nil) {
         fullScreenControl.on = YES;
     } else {
-        fullScreenControl.on = [ [ settings objectForKey: @"aspectRatio" ] boolValue ];
+        fullScreenControl.on = [ [ settings objectForKey: @"fullScreen" ] boolValue ];
     }
     
     if ([ settings objectForKey: @"aspectRatio" ] == nil) {
@@ -133,6 +133,9 @@ extern NSString *currentGamePath;
 			gameGenieCodeControl[i].placeholder = @"Empty";
 			gameGenieCodeControl[i].returnKeyType = UIReturnKeyDone;
 		}
+        
+        [ self loadSettings ];
+        [ self saveSettings ];
 	}
 	return self;
 }
@@ -178,6 +181,7 @@ extern NSString *currentGamePath;
 		NSMutableDictionary *gameSettings = [ [ NSMutableDictionary alloc ] init ];
         [ gameSettings setObject: [ NSNumber numberWithBool: swapABControl.on ] forKey: @"swapAB" ];
         [ gameSettings setObject: [ NSNumber numberWithBool:fullScreenControl.on ] forKey: @"fullScreen" ];
+        
         [ gameSettings setObject: [ NSNumber numberWithBool: aspectRatioControl.on ]forKey: @"aspectRatio" ];
         [ gameSettings setObject: [ NSNumber numberWithBool: gameGenieControl.on ] forKey: @"gameGenie" ];
         [ gameSettings setObject: [ NSNumber numberWithBool: bassBoostControl.on ] forKey: @"bassBoost" ];
@@ -187,32 +191,16 @@ extern NSString *currentGamePath;
         [ gameSettings setObject: [ NSNumber numberWithInt: paletteControl.selectedSegmentIndex ] forKey: @"paletteControl" ];
         [ gameSettings setObject: [ NSNumber numberWithInt: cpuControl.selectedSegmentIndex ] forKey: @"cpuCycle" ];
         [ gameSettings setObject: [ NSNumber numberWithInt: soundBufferControl.selectedSegmentIndex  ] forKey: @"soundBuffer" ];
+                
+        for(int i = 0; i < 4; i++) {
+            if (gameGenieCodeControl[i].text == nil) {
+                gameGenieCodeControl[i].text = @"";
+            }
+            [ gameSettings setObject: gameGenieCodeControl[i].text forKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+        }
+        NSLog(@"%s saving game settings to %@\n", __func__, path);
         
-        
-		/* Clean up the property list if no codes are specified */
-		BOOL deleteFile = YES;
-		for(int i = 0; i < 4; i++) {
-			if ([ gameGenieCodeControl[i].text isEqualToString: @"" ] == NO) {
-				deleteFile = NO;
-			}
-		}
-		if (deleteFile == YES) {
-			NSError *error;
-			NSLog(@"%s deleting empty game genie file %@\n", __func__, path);
-			[ [ NSFileManager defaultManager ] removeItemAtPath: path error: &error ];
-
-		/* Codes exist; write a property list */ 
-		} else {
-			for(int i = 0; i < 4; i++) {
-				if (gameGenieCodeControl[i].text == nil) {
-					gameGenieCodeControl[i].text = @"";
-				}
-				[ gameSettings setObject: gameGenieCodeControl[i].text forKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
-			}
-			NSLog(@"%s saving Game Genie codes to %@\n", __func__, path);
-            
-			[ gameSettings writeToFile: path atomically: YES ];
-		}
+        [ gameSettings writeToFile: path atomically: YES ];
 	}
 }
 

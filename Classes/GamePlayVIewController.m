@@ -42,6 +42,19 @@ NSString *currentGamePath = nil;
     [ currentGamePath release ];
     currentGamePath = [ gamePath copy ];
     
+    if (currentGamePath) {
+        NSString *currentGameName = [ [ [ [ currentGamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
+        NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
+        NSDictionary *gameSettings = [ NSDictionary dictionaryWithContentsOfFile: path ];
+        if (gameSettings) {
+            settings = gameSettings;
+        } else {
+            settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+        }
+    } else {
+        settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+    }
+    
 	NSLog(@"%s initializing emulator view in %s mode", __PRETTY_FUNCTION__,
 		  (UIInterfaceOrientationIsLandscape(orientation) == YES) ? "landscape" : "portrait");
 	
@@ -69,8 +82,8 @@ NSString *currentGamePath = nil;
         screenHeight = [ UIScreen mainScreen ].bounds.size.width;
         screenWidth = [ UIScreen mainScreen ].bounds.size.height;
 
-		if ([ [ NSUserDefaults standardUserDefaults ] boolForKey: @"fullScreen" ] == YES) {
-            if ([ [ NSUserDefaults standardUserDefaults ] boolForKey: @"aspectRatio" ] == YES) {
+		if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            if ([ [ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) {
                 emuHeight = 320.0;
                 emuWidth = 341.0;
             } else {
@@ -88,7 +101,7 @@ NSString *currentGamePath = nil;
 	} else {
         float offset = 0.0;
 
-		if ([ [ NSUserDefaults standardUserDefaults ] boolForKey: @"fullScreen" ] == YES) {
+		if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
             emuHeight = 300.0;
             emuWidth = 320.0;
             

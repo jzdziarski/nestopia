@@ -26,10 +26,25 @@
 @synthesize frameBufferSize;
 @synthesize delegate;
 
+extern NSString *currentGamePath;
+
 - (id)initWithFrame:(CGRect)frame {	
     self = [ super initWithFrame: frame ];
 	if (self != nil) {
-		settings = [ NSUserDefaults standardUserDefaults ];
+        
+        if (currentGamePath) {
+        	NSString *currentGameName = [ [ [ [ currentGamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
+            NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
+            NSDictionary *gameSettings = [ NSDictionary dictionaryWithContentsOfFile: path ];
+            if (gameSettings) {
+                settings = gameSettings;
+            } else {
+                settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+            }
+        } else {
+            settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+        }
+        
 		[ self initializeGraphics ];
     }
     return self;
@@ -56,15 +71,15 @@
 	
     /* Landscape Resolutions */
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-		if ([ settings boolForKey: @"fullScreen" ] == YES) {
+		if ([[ settings objectForKey: @"fullScreen" ] boolValue ] == YES) {
             w = 320;
-            h = ([ settings boolForKey: @"aspectRatio" ] == YES) ? 341 : 480;
+            h = ([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341 : 480;
         } else {
             w = 240;
             h = 256;
         }
     } else {
-		if ([ settings boolForKey: @"fullScreen" ] == YES) {
+		if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
 			NSLog(@"%s initializing for full screen", __func__);
             w = 320;
             h = 300;
@@ -132,11 +147,11 @@
 	  	
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         float x, y;
-        y = (([ settings boolForKey: @"fullScreen" ] == YES) ? 320.0 : (240 + self.frame.origin.x)) - point.x;
+        y = (([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (240 + self.frame.origin.x)) - point.x;
         x = point.y - self.frame.origin.y;
 		
-        if ([ settings boolForKey: @"fullScreen" ] == YES) {
-            x = (x * (256.0 / (([ settings boolForKey: @"aspectRatio" ] == YES) ? 341.0 : 480.0)));
+        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            x = (x * (256.0 / (([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
             y = (y * (240.0 / 320.0));
         }
 		
@@ -144,7 +159,7 @@
 			  __func__, point.x, point.y, x, y, self.frame.origin.x, self.frame.origin.y);
         location = CGPointMake(x, y);
 	} else {
-        if ([ settings boolForKey: @"fullScreen" ] == YES) {
+        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
             point.x = (point.x * (256.0 / 320.0));
             point.y = (point.y * (240.0 / 300.0));
         }

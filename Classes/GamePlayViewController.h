@@ -39,6 +39,8 @@
 	ScreenView *screenView;
 	ControllerView *controllerView;
     BOOL emulatorRunning;
+    
+    NSDictionary *settings;
 }
 
 @property(nonatomic,copy) NSString *gamePath;

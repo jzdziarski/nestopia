@@ -653,7 +653,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 }
 
 - (void) initializeSoundBuffers {	
-	defaultSoundBuffer = [ [ NSUserDefaults standardUserDefaults ] integerForKey: @"soundBuffer" ];
+	defaultSoundBuffer = [[ settings objectForKey: @"soundBuffer" ] intValue ];
 	requiredBuffersToOpenSound = defaultSoundBuffer + 3;
 	NSLog(@"%s required buffers: %d", __func__, requiredBuffersToOpenSound);
 

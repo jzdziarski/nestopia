@@ -19,6 +19,7 @@
  */
 
 #import "ControllerView.h"
+#import "GameROMViewController.h"
 
 @implementation ControllerView
 @synthesize orientation;
@@ -27,15 +28,30 @@
 @synthesize gamePlayDelegate;
 @synthesize notified;
 
+extern NSString *currentGamePath;
+
 - (id)initWithFrame:(CGRect)frame {
 	self = [ super initWithFrame: frame ];
 	if (self != nil) {
 		self.multipleTouchEnabled = YES;
-		
+
+        if (currentGamePath) {
+        	NSString *currentGameName = [ [ [ [ currentGamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
+            NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
+            NSDictionary *gameSettings = [ NSDictionary dictionaryWithContentsOfFile: path ];
+            if (gameSettings) {
+                settings = gameSettings;
+            } else {
+                settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+            }
+        } else {
+            settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+        }
+
+        
 		padDir = padButton = padSpecial = 0;
-		settings = [ NSUserDefaults standardUserDefaults ];
 		orientation = [ UIApplication sharedApplication ].statusBarOrientation;
-		swapAB = [ settings boolForKey: @"swapAB" ];
+		swapAB = [[ settings objectForKey: @"swapAB" ] boolValue ];
 		
 		NSLog(@"%s initializing controller view in %s mode\n", __func__,
 			  (UIInterfaceOrientationIsLandscape(orientation) == YES) ? "landscape" : "portrait");
@@ -262,7 +278,7 @@
 		int button = [ self controllerButtonPressedAtPoint: point ];
 		
 		/* User moved off a button? Find the button they were on and cancel it */
-		if (! button && [ settings boolForKey: @"controllerStickControl" ] != YES) {
+		if (! button && [[ settings objectForKey: @"controllerStickControl" ] boolValue ]!= YES) {
 			CGPoint oldPoint = [ touch previousLocationInView: self ];
 			button = [ self controllerButtonPressedAtPoint: oldPoint ];
 			if ((button & NCTL_A) || (button & NCTL_B)) {
