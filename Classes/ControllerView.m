@@ -98,9 +98,9 @@
 			UR     = CGRectMake( 62.0,  0.0,   32.0,  38.0);
 			DL     = CGRectMake(  0.0,  76.0,  32.0,  49.0);
 			DR     = CGRectMake( 62.0,  76.0,  32.0,  49.0);
-			B      = CGRectMake(197.0,  27.0,  46.0,  72.0);
-			A      = CGRectMake(268.0,  27.0,  46.0,  72.0);
-			AB     = CGRectMake(243.0,  27.0,  25.0,  72.0);
+			B      = CGRectMake(210.0,  40.0,  49.0,  85.0);
+			A      = CGRectMake(272.0,  40.0,  49.0,  85.0);
+			AB     = CGRectMake(260.0,  40.0,  12.0,  85.0);
 			Select = CGRectMake(110.0,  50.0,  36.0,  40.0);
 			Start  = CGRectMake(155.0,  50.0,  36.0,  40.0);
 			Exit   = CGRectMake(102.0,   0.0, 100.0,  25.0);
