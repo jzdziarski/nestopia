@@ -39,7 +39,6 @@ void setActiveFrameBuffer(unsigned long *buf);
 - (id)init {
 	self = [ super init ];
 	if (self != nil) {
-		settings = [ NSUserDefaults standardUserDefaults ];
 		sharedEmulatorCoreInstance = self;
 		soundBuffersInitialized = 0;
 		currentROMImagePath = nil;
@@ -50,6 +49,16 @@ void setActiveFrameBuffer(unsigned long *buf);
 
 - (EmulatorCoreLoadStatus)loadROM:(NSString *)imagePath {
 	currentROMImagePath = [ imagePath copy ];
+    
+    NSString *currentGameName = [ [ [ [ currentROMImagePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
+    NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
+    NSDictionary *gameSettings = [ NSDictionary dictionaryWithContentsOfFile: path ];
+    if (gameSettings) {
+        settings = gameSettings;
+    } else {
+        settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+    }
+
 	char filename[strlen([ currentROMImagePath cStringUsingEncoding: NSASCIIStringEncoding ]) +1];
 	strcpy(filename, [ currentROMImagePath cStringUsingEncoding: NSASCIIStringEncoding ]);
 	int err;
@@ -114,7 +123,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 
 - (void)initializePalette {
 	
-	if ([ settings integerForKey: @"paletteControl" ] == 0) {
+	if ([[ settings objectForKey: @"paletteControl" ] intValue ]== 0) {
         word palette[64] = 
 		{
 			0x6b5b, 0x0123, 0x0029, 0x3823, 0x681b, 0x700f, 0x6801, 0x5881,
@@ -129,7 +138,7 @@ void setActiveFrameBuffer(unsigned long *buf);
         memcpy(&NESPalette, &palette, sizeof(NESPalette));
     }
 	
-    if ([ settings integerForKey: @"paletteControl" ] == 1) {
+    if ([[ settings objectForKey: @"paletteControl" ] intValue ] == 1) {
 		word palette[64] = 
 		{
 			0x738e, 0x20d1, 0x0015, 0x4013, 0x880e, 0xa802, 0xa000, 0x7840,
@@ -146,7 +155,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 		
 	}
 	
-    if ([ settings integerForKey: @"paletteControl" ] == 2) {
+    if ([[ settings objectForKey: @"paletteControl" ] intValue ] == 2) {
 		word palette[64] = 
 		{
 			0x528a, 0x0010, 0x0811, 0x280f, 0x4809, 0x5000, 0x4000, 0x2040, 
@@ -162,7 +171,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 		return;
 	}
 	
-	if ([ settings integerForKey: @"paletteControl" ] == 3) {
+	if ([[ settings objectForKey: @"paletteControl" ] intValue ] == 3) {
 		word palette[64] = 
 		{
 			0x7390, 0x0911, 0x2874, 0x3015, 0x584e, 0x580a, 0x7065, 0x6140, 
@@ -186,7 +195,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 	S.userData = self;
 	NESCore_Init();
 	
-	if ([ settings integerForKey: @"cpuCycle" ] == 0) {
+	if ([[ settings objectForKey: @"cpuCycle" ] intValue ] == 0) {
 		S.ClockCycles = 339;
 	} else {
 		S.ClockCycles = 341;
@@ -211,9 +220,9 @@ void setActiveFrameBuffer(unsigned long *buf);
 	S.userData = self;
 	S.GameGenie = 0;
 	
-	defaultFrameSkip = [ settings integerForKey: @"frameSkip" ];
-	defaultFullScreen = [ settings integerForKey: @"fullScreen" ];
-	defaultAspectRatio = [ settings integerForKey: @"aspectRatio" ];
+	defaultFrameSkip = [[ settings objectForKey: @"frameSkip" ] intValue];
+	defaultFullScreen = [[ settings objectForKey: @"fullScreen" ] intValue ];
+	defaultAspectRatio = [[ settings objectForKey: @"aspectRatio" ] intValue ];
 	
     if ([ settings objectForKey: @"fullScreen" ] == nil) {
         defaultFullScreen = 1;
@@ -235,7 +244,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 		S.FrameSkip = defaultFrameSkip;
 	}
 	
-	if ([ settings boolForKey: @"bassBoost" ] == YES) {
+	if ([[ settings objectForKey: @"bassBoost" ] boolValue ] == YES) {
 		S.BassBoost = 1;
 	} else {
 		S.BassBoost = 0;
@@ -247,15 +256,12 @@ void setActiveFrameBuffer(unsigned long *buf);
 - (int)applyGameGenieCodes {
 	int codesAccepted = 0;
 	
-	S.GameGenie = ([ settings boolForKey: @"gameGenie" ] == YES) ? 1 : 0;
+	S.GameGenie = ([[ settings objectForKey: @"gameGenie" ] boolValue ] == YES) ? 1 : 0;
 	memset(&GG, 0, sizeof(GG));
 	if (S.GameGenie) {
-		NSString *currentGameName = [ [ [ [ currentROMImagePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];		
-		NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
-		NSLog(@"%s loading Game Genie codes from %@\n", __func__, path);
-		NSMutableDictionary *gameGenieCodes = [ NSMutableDictionary dictionaryWithContentsOfFile: path ];
+		NSLog(@"%s loading Game Genie codes\n", __func__);
 		for(int i = 0; i < 4; i++) {
-			NSString *code = [ gameGenieCodes objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+			NSString *code = [ settings objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
 			if (code != nil) {
 				strncpy(GG[i].code, [ code cStringUsingEncoding: NSASCIIStringEncoding ], [ code length ]);
 				NSLog(@"%s applying game genie code %@", __func__, code);

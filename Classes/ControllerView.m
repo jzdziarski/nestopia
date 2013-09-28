@@ -123,8 +123,6 @@
 
 - (void)updateNotifyIcons {
 	
-    //NSLog(@"%s", __PRETTY_FUNCTION__);
-
     if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
 		return;
 	}

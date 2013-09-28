@@ -23,11 +23,10 @@
 
 @interface SettingsViewController : UITableViewController <UITextFieldDelegate> {
 
-	NSUserDefaults *settings;
+	NSDictionary *settings;
 	UIBarButtonItem *leftButton;
 	NSString *gamePath, *currentGameName;
 
-	UISwitch *autoSaveControl;
 	UISwitch *swapABControl;
 	UISwitch *fullScreenControl;
 	UISwitch *aspectRatioControl;

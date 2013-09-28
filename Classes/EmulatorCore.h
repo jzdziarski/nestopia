@@ -53,7 +53,8 @@ typedef struct AQCallbackStruct {
 #pragma pack(2)
 @interface EmulatorCore : NSObject <GameControllerDelegate> {
 	NSString *currentROMImagePath;
-	NSUserDefaults *settings;
+//	NSUserDefaults *settings;
+    NSDictionary *settings;
 	pthread_t emulation_tid;
 	
 	/* Resources for video rendering */
