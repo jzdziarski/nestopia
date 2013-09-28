@@ -711,6 +711,7 @@ extern NSString *currentGamePath;
 	}
     
     [ self initializePalette ];
+    [ self applyGameGenieCodes ];
     
     screenDelegate = haltedScreenDelegate;
     soundBuffersInitialized = 0;
