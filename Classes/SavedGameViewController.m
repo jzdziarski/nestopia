@@ -34,6 +34,10 @@
 	return self;
 }
 
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
 - (void)loadView {
     [ super loadView ];
     [ self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right) ];

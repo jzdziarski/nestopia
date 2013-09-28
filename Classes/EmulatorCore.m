@@ -703,6 +703,15 @@ extern NSString *currentGamePath;
 
 - (void)restartEmulator {
     S.FrameSkip = [[[ EmulatorCore gameSettings ] objectForKey: @"frameSkip" ] intValue ];
+    
+    if ([[ [ EmulatorCore gameSettings ] objectForKey: @"cpuCycle" ] intValue ] == 0) {
+		S.ClockCycles = 339;
+	} else {
+		S.ClockCycles = 341;
+	}
+    
+    [ self initializePalette ];
+    
     screenDelegate = haltedScreenDelegate;
     soundBuffersInitialized = 0;
     [ self initializeSoundBuffers ];

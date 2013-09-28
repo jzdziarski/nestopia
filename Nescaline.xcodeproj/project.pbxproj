@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* NESAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* NESAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		28C286E10D94DF7D0034E888 /* GamePlayVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* GamePlayVIewController.m */; };
+		28C286E10D94DF7D0034E888 /* GamePlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* GamePlayViewController.m */; };
 		702087880EDC5A9900E83959 /* ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 702087870EDC5A9900E83959 /* ScreenView.m */; };
 		7020878D0EDC5AA800E83959 /* ControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7020878C0EDC5AA800E83959 /* ControllerView.m */; };
 		702088780EDC625800E83959 /* M6502.c in Sources */ = {isa = PBXBuildFile; fileRef = 702087E10EDC625700E83959 /* M6502.c */; };
@@ -49,7 +49,7 @@
 		1D6058910D05DD3D006BFB54 /* Nescaline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nescaline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A0AAE50D9B0CCF005BE974 /* NES_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NES_Prefix.pch; sourceTree = "<group>"; };
 		28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayViewController.h; sourceTree = "<group>"; };
-		28C286E00D94DF7D0034E888 /* GamePlayVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayVIewController.m; sourceTree = "<group>"; };
+		28C286E00D94DF7D0034E888 /* GamePlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		702087860EDC5A9900E83959 /* ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenView.h; sourceTree = "<group>"; };
 		702087870EDC5A9900E83959 /* ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenView.m; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 				1D3623240D0F684500981E51 /* NESAppDelegate.h */,
 				1D3623250D0F684500981E51 /* NESAppDelegate.m */,
 				28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */,
-				28C286E00D94DF7D0034E888 /* GamePlayVIewController.m */,
+				28C286E00D94DF7D0034E888 /* GamePlayViewController.m */,
 				704412BC0ED9D3D800E54091 /* GameROMViewController.h */,
 				704412BD0ED9D3D800E54091 /* GameROMViewController.m */,
 				704412D70ED9D44300E54091 /* SavedGameViewController.h */,
@@ -622,7 +622,7 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* NESAppDelegate.m in Sources */,
-				28C286E10D94DF7D0034E888 /* GamePlayVIewController.m in Sources */,
+				28C286E10D94DF7D0034E888 /* GamePlayViewController.m in Sources */,
 				704412BE0ED9D3D800E54091 /* GameROMViewController.m in Sources */,
 				704412D90ED9D44300E54091 /* SavedGameViewController.m in Sources */,
 				704412EA0ED9D58B00E54091 /* SettingsViewController.m in Sources */,

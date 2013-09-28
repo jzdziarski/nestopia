@@ -205,9 +205,15 @@ extern NSString *currentGamePath;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	if (interfaceOrientation == UIDeviceOrientationLandscapeLeft || interfaceOrientation == UIDeviceOrientationPortrait)
-		return YES;
-	return NO;
+    if (currentGamePath == nil)
+        return YES;
+    return NO;
+}
+
+- (BOOL)shouldAutorotate {
+    if (currentGamePath == nil)
+        return YES;
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -370,13 +376,6 @@ extern NSString *currentGamePath;
     [ textField resignFirstResponder ];
     return YES;
 }
- 
-/*
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-	self.tableView.scrollEnabled = NO;
-	return YES;
-}
-*/
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 	
