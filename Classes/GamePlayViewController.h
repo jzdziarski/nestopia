@@ -38,7 +38,6 @@
     EmulatorCore *emulatorCore;
 	ScreenView *screenView;
 	ControllerView *controllerView;
-    BOOL emulatorRunning;    
 }
 
 @property(nonatomic,copy) NSString *gamePath;

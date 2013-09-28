@@ -21,6 +21,8 @@
 #import "GameROMViewController.h"
 #import "GamePlayViewController.h"
 
+extern BOOL emulatorRunning;
+
 @implementation GameROMViewController
 
 - (id)init {
@@ -62,6 +64,9 @@
     NSDirectoryEnumerator *dirEnum;
     NSString *file;
     int n = 0;
+    
+    if (emulatorRunning == YES)
+        return;
     
     dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
     while ((file = [ dirEnum nextObject ])) {
