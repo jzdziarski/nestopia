@@ -29,7 +29,6 @@
 
 	CALayer *screenLayer;
 	UIDeviceOrientation orientation;
-	NSDictionary *settings;
 	unsigned short *frameBufferAddress;
 	unsigned long *frameBuffer8888;
 	CGSize frameBufferSize;

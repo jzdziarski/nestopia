@@ -25,12 +25,10 @@
 @protocol GameControllerDelegate;
 
 @interface ControllerView : UIView {
-	
 	UIDeviceOrientation orientation;
-	NSDictionary *settings;
 	id delegate;
     id gamePlayDelegate;
-	bool swapAB;
+	bool swapAB, stickControl;
 	
     UIImage *controllerImage;
     UIImageView *indicatorUp;
@@ -66,6 +64,7 @@
 }
 - (void)updateNotifyIcons;
 - (UIImage *)getControllerImage;
+- (void)reloadSettings;
 
 @property(nonatomic,assign) UIDeviceOrientation orientation;
 @property(nonatomic,assign) id<GameControllerDelegate> delegate;

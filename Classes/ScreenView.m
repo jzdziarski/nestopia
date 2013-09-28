@@ -26,25 +26,9 @@
 @synthesize frameBufferSize;
 @synthesize delegate;
 
-extern NSString *currentGamePath;
-
 - (id)initWithFrame:(CGRect)frame {	
     self = [ super initWithFrame: frame ];
 	if (self != nil) {
-        
-        if (currentGamePath) {
-        	NSString *currentGameName = [ [ [ [ currentGamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
-            NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
-            NSDictionary *gameSettings = [ NSDictionary dictionaryWithContentsOfFile: path ];
-            if (gameSettings) {
-                settings = gameSettings;
-            } else {
-                settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
-            }
-        } else {
-            settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
-        }
-        
 		[ self initializeGraphics ];
     }
     return self;
@@ -71,15 +55,15 @@ extern NSString *currentGamePath;
 	
     /* Landscape Resolutions */
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-		if ([[ settings objectForKey: @"fullScreen" ] boolValue ] == YES) {
+		if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ] == YES) {
             w = 320;
-            h = ([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341 : 480;
+            h = ([[ [ EmulatorCore gameSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341 : 480;
         } else {
             w = 240;
             h = 256;
         }
     } else {
-		if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+		if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
 			NSLog(@"%s initializing for full screen", __func__);
             w = 320;
             h = 300;
@@ -147,11 +131,11 @@ extern NSString *currentGamePath;
 	  	
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         float x, y;
-        y = (([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (240 + self.frame.origin.x)) - point.x;
+        y = (([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (240 + self.frame.origin.x)) - point.x;
         x = point.y - self.frame.origin.y;
 		
-        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            x = (x * (256.0 / (([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
+        if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            x = (x * (256.0 / (([[ [ EmulatorCore gameSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
             y = (y * (240.0 / 320.0));
         }
 		
@@ -159,7 +143,7 @@ extern NSString *currentGamePath;
 			  __func__, point.x, point.y, x, y, self.frame.origin.x, self.frame.origin.y);
         location = CGPointMake(x, y);
 	} else {
-        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+        if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
             point.x = (point.x * (256.0 / 320.0));
             point.y = (point.y * (240.0 / 300.0));
         }

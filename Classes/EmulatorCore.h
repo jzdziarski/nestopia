@@ -53,8 +53,6 @@ typedef struct AQCallbackStruct {
 #pragma pack(2)
 @interface EmulatorCore : NSObject <GameControllerDelegate> {
 	NSString *currentROMImagePath;
-//	NSUserDefaults *settings;
-    NSDictionary *settings;
 	pthread_t emulation_tid;
 	
 	/* Resources for video rendering */
@@ -84,6 +82,7 @@ typedef struct AQCallbackStruct {
 } ;
 
 + (EmulatorCore *)sharedEmulatorCore;
++ (NSDictionary *)gameSettings;
 - (EmulatorCoreLoadStatus)loadROM:(NSString *)imagePath;
 - (void)initializePixelMappers;
 - (void)initializePalette;

@@ -32,6 +32,8 @@ void setActiveFrameBuffer(unsigned long *buf);
 @synthesize frameBufferSize;
 @synthesize screenDelegate;
 
+extern NSString *currentGamePath;
+
 + (EmulatorCore *)sharedEmulatorCore {
 	return sharedEmulatorCoreInstance;
 }
@@ -47,17 +49,21 @@ void setActiveFrameBuffer(unsigned long *buf);
 	return self;
 }
 
++ (NSDictionary *)gameSettings {
+    if (currentGamePath) {
+        NSString *currentGameName = [ [ [ [ currentGamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
+        NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
+        NSDictionary *gameSettings = [ NSDictionary dictionaryWithContentsOfFile: path ];
+        if (gameSettings) {
+            return gameSettings;
+        }
+    }
+    
+    return [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+}
+
 - (EmulatorCoreLoadStatus)loadROM:(NSString *)imagePath {
 	currentROMImagePath = [ imagePath copy ];
-    
-    NSString *currentGameName = [ [ [ [ currentROMImagePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
-    NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
-    NSDictionary *gameSettings = [ NSDictionary dictionaryWithContentsOfFile: path ];
-    if (gameSettings) {
-        settings = gameSettings;
-    } else {
-        settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
-    }
 
 	char filename[strlen([ currentROMImagePath cStringUsingEncoding: NSASCIIStringEncoding ]) +1];
 	strcpy(filename, [ currentROMImagePath cStringUsingEncoding: NSASCIIStringEncoding ]);
@@ -123,7 +129,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 
 - (void)initializePalette {
 	
-	if ([[ settings objectForKey: @"paletteControl" ] intValue ]== 0) {
+	if ([[ [ EmulatorCore gameSettings ] objectForKey: @"paletteControl" ] intValue ]== 0) {
         word palette[64] = 
 		{
 			0x6b5b, 0x0123, 0x0029, 0x3823, 0x681b, 0x700f, 0x6801, 0x5881,
@@ -138,7 +144,7 @@ void setActiveFrameBuffer(unsigned long *buf);
         memcpy(&NESPalette, &palette, sizeof(NESPalette));
     }
 	
-    if ([[ settings objectForKey: @"paletteControl" ] intValue ] == 1) {
+    if ([[ [ EmulatorCore gameSettings ] objectForKey: @"paletteControl" ] intValue ] == 1) {
 		word palette[64] = 
 		{
 			0x738e, 0x20d1, 0x0015, 0x4013, 0x880e, 0xa802, 0xa000, 0x7840,
@@ -155,7 +161,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 		
 	}
 	
-    if ([[ settings objectForKey: @"paletteControl" ] intValue ] == 2) {
+    if ([[ [ EmulatorCore gameSettings ] objectForKey: @"paletteControl" ] intValue ] == 2) {
 		word palette[64] = 
 		{
 			0x528a, 0x0010, 0x0811, 0x280f, 0x4809, 0x5000, 0x4000, 0x2040, 
@@ -171,7 +177,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 		return;
 	}
 	
-	if ([[ settings objectForKey: @"paletteControl" ] intValue ] == 3) {
+	if ([[ [ EmulatorCore gameSettings ] objectForKey: @"paletteControl" ] intValue ] == 3) {
 		word palette[64] = 
 		{
 			0x7390, 0x0911, 0x2874, 0x3015, 0x584e, 0x580a, 0x7065, 0x6140, 
@@ -195,7 +201,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 	S.userData = self;
 	NESCore_Init();
 	
-	if ([[ settings objectForKey: @"cpuCycle" ] intValue ] == 0) {
+	if ([[ [ EmulatorCore gameSettings ] objectForKey: @"cpuCycle" ] intValue ] == 0) {
 		S.ClockCycles = 339;
 	} else {
 		S.ClockCycles = 341;
@@ -220,11 +226,11 @@ void setActiveFrameBuffer(unsigned long *buf);
 	S.userData = self;
 	S.GameGenie = 0;
 	
-	defaultFrameSkip = [[ settings objectForKey: @"frameSkip" ] intValue];
-	defaultFullScreen = [[ settings objectForKey: @"fullScreen" ] intValue ];
-	defaultAspectRatio = [[ settings objectForKey: @"aspectRatio" ] intValue ];
+	defaultFrameSkip = [[[ EmulatorCore gameSettings ] objectForKey: @"frameSkip" ] intValue ];
+	defaultFullScreen = [[[ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] intValue ];
+	defaultAspectRatio = [[[ EmulatorCore gameSettings ] objectForKey: @"aspectRatio" ] intValue ];
 	
-    if ([ settings objectForKey: @"fullScreen" ] == nil) {
+    if ([ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] == nil) {
         defaultFullScreen = 1;
     }
     
@@ -244,7 +250,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 		S.FrameSkip = defaultFrameSkip;
 	}
 	
-	if ([[ settings objectForKey: @"bassBoost" ] boolValue ] == YES) {
+	if ([[ [ EmulatorCore gameSettings ] objectForKey: @"bassBoost" ] boolValue ] == YES) {
 		S.BassBoost = 1;
 	} else {
 		S.BassBoost = 0;
@@ -256,12 +262,12 @@ void setActiveFrameBuffer(unsigned long *buf);
 - (int)applyGameGenieCodes {
 	int codesAccepted = 0;
 	
-	S.GameGenie = ([[ settings objectForKey: @"gameGenie" ] boolValue ] == YES) ? 1 : 0;
+	S.GameGenie = ([[ [ EmulatorCore gameSettings ] objectForKey: @"gameGenie" ] boolValue ] == YES) ? 1 : 0;
 	memset(&GG, 0, sizeof(GG));
 	if (S.GameGenie) {
 		NSLog(@"%s loading Game Genie codes\n", __func__);
 		for(int i = 0; i < 4; i++) {
-			NSString *code = [ settings objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+			NSString *code = [ [ EmulatorCore gameSettings ] objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
 			if (code != nil) {
 				strncpy(GG[i].code, [ code cStringUsingEncoding: NSASCIIStringEncoding ], [ code length ]);
 				NSLog(@"%s applying game genie code %@", __func__, code);
@@ -653,7 +659,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 }
 
 - (void) initializeSoundBuffers {	
-	defaultSoundBuffer = [[ settings objectForKey: @"soundBuffer" ] intValue ];
+	defaultSoundBuffer = [ [ [ EmulatorCore gameSettings ] objectForKey: @"soundBuffer" ] intValue ];
 	requiredBuffersToOpenSound = defaultSoundBuffer + 3;
 	NSLog(@"%s required buffers: %d", __func__, requiredBuffersToOpenSound);
 
@@ -696,6 +702,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 }
 
 - (void)restartEmulator {
+    S.FrameSkip = [[[ EmulatorCore gameSettings ] objectForKey: @"frameSkip" ] intValue ];
     screenDelegate = haltedScreenDelegate;
     soundBuffersInitialized = 0;
     [ self initializeSoundBuffers ];

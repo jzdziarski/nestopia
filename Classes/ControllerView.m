@@ -20,6 +20,7 @@
 
 #import "ControllerView.h"
 #import "GameROMViewController.h"
+#import "EmulatorCore.h"
 
 @implementation ControllerView
 @synthesize orientation;
@@ -28,31 +29,16 @@
 @synthesize gamePlayDelegate;
 @synthesize notified;
 
-extern NSString *currentGamePath;
-
 - (id)initWithFrame:(CGRect)frame {
 	self = [ super initWithFrame: frame ];
 	if (self != nil) {
 		self.multipleTouchEnabled = YES;
 
-        if (currentGamePath) {
-        	NSString *currentGameName = [ [ [ [ currentGamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
-            NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
-            NSDictionary *gameSettings = [ NSDictionary dictionaryWithContentsOfFile: path ];
-            if (gameSettings) {
-                settings = gameSettings;
-            } else {
-                settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
-            }
-        } else {
-            settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
-        }
-
-        
 		padDir = padButton = padSpecial = 0;
 		orientation = [ UIApplication sharedApplication ].statusBarOrientation;
-		swapAB = [[ settings objectForKey: @"swapAB" ] boolValue ];
-		
+		swapAB = [[[ EmulatorCore gameSettings ] objectForKey: @"swapAB" ] boolValue ];
+		stickControl = [[[ EmulatorCore gameSettings ] objectForKey: @"controllerStickControl" ] boolValue ];
+        
 		NSLog(@"%s initializing controller view in %s mode\n", __func__,
 			  (UIInterfaceOrientationIsLandscape(orientation) == YES) ? "landscape" : "portrait");
 		
@@ -137,6 +123,11 @@ extern NSString *currentGamePath;
 	return self;
 }
 
+- (void)reloadSettings {
+    swapAB = [[[ EmulatorCore gameSettings ] objectForKey: @"swapAB" ] boolValue ];
+    stickControl = [[[ EmulatorCore gameSettings ] objectForKey: @"controllerStickControl" ] boolValue ];
+}
+
 - (void)updateNotifyIcons {
 	
     if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
@@ -187,7 +178,7 @@ extern NSString *currentGamePath;
 
 - (int)controllerButtonPressedAtPoint:(CGPoint)point {
     int button = 0;
-		
+
     if (CGRectContainsPoint(Exit, point)) {
         if (notified == NO && [ gamePlayDelegate respondsToSelector: @selector(userDidExitGamePlay) ])
         {
@@ -278,7 +269,7 @@ extern NSString *currentGamePath;
 		int button = [ self controllerButtonPressedAtPoint: point ];
 		
 		/* User moved off a button? Find the button they were on and cancel it */
-		if (! button && [[ settings objectForKey: @"controllerStickControl" ] boolValue ]!= YES) {
+		if (! button && stickControl != YES) {
 			CGPoint oldPoint = [ touch previousLocationInView: self ];
 			button = [ self controllerButtonPressedAtPoint: oldPoint ];
 			if ((button & NCTL_A) || (button & NCTL_B)) {
