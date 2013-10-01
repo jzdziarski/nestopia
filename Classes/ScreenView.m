@@ -1,6 +1,6 @@
 /*
- Nescaline
- Copyright (c) 2007, Jonathan A. Zdziarski
+ Nestopia for iOS
+ Copyright (c) 2013, Jonathan A. Zdziarski
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -85,6 +85,7 @@
 	NSLog(@"%s raw buffer base address: %p\n", __func__, frameBufferAddress);
 	
 	colorSpace = CGColorSpaceCreateDeviceRGB();
+    
 	frameBuffer8888 = calloc(1, w * h * 4);
 	
 	provider[0] = CGDataProviderCreateWithData(NULL, frameBuffer8888, w * h * 4, NULL);
@@ -101,28 +102,6 @@
 	
 	NSLog(@"%s graphics initialization complete\n", __func__);
 }
-
-#if 0
-- (void)drawRect:(CGRect)rect {
-		
-	CGImageRef screenImage;
-	screenImage = CGImageCreate(w, h, 8, 32, 4 * w, colorSpace, kCGBitmapByteOrder32Host | kCGImageAlphaNoneSkipFirst, provider[currentProvider], NULL, NO, kCGRenderingIntentDefault);
-	if (currentProvider==0)
-		currentProvider=1;
-	else 
-		currentProvider=0;
-
-	
-	//CGContextRef ctx = UIGraphicsGetCurrentContext();
-	//CGContextScaleCTM(ctx, 1.0, -1.0);
-	//CGContextDrawImage(ctx, CGRectMake(0, -h, w, h), screenImage);
-	//self.layer.contents = screenImage;
-	self.layer.contents = screenImage;
-	//CGImageRelease (screenImage);	
-
-	
-}
-#endif
  
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch = [ touches anyObject ];
@@ -157,9 +136,10 @@
 	}
 }
 
-- (void) emulatorCoreDidUpdateFrameBuffer {
+- (void)emulatorCoreDidUpdateFrameBuffer {
 	int x, y;
 	unsigned short px;
+
 	/* Convert active framebuffer from 565L to 8888 */
 	for (y=0; y < h; y++)
 	{
@@ -169,7 +149,7 @@
 			frameBuffer8888[w*y+x] = hightable[px >> 8 ] + lowtable[px & 0xFF];
 		}		
 	}
-	
+
 	CGImageRef screenImage;
 	screenImage = CGImageCreate(w, h, 8, 32, 4 * w, colorSpace, kCGBitmapByteOrder32Host | kCGImageAlphaNoneSkipFirst, provider[currentProvider], NULL, NO, kCGRenderingIntentDefault);
 	if (currentProvider==0)

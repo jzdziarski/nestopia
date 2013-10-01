@@ -1,6 +1,6 @@
 /*
- Nescaline
- Copyright (c) 2007-2013, Jonathan A. Zdziarski
+ Nestopia for iOS
+ Copyright (c) 2013, Jonathan A. Zdziarski
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -20,7 +20,7 @@
 
 #import <Foundation/NSFileManager.h>
 #import "GamePlayViewController.h"
-#import "NESAppDelegate.h"
+#import "NestopiaAppDelegate.h"
 #import "EmulatorCore.h"
 #include <sys/stat.h>
 
@@ -133,17 +133,6 @@ BOOL emulatorRunning;
     [ self initializeEmulator ];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-		
-	return NO;
-}
-
-- (BOOL)shouldAutorotate {
-    
-    return NO;
-}
-
-//- (void)viewDidAppear:(BOOL)animated {
 - (void)initializeEmulator {
 	emulatorCore = [ [ EmulatorCore alloc ] init ];
 	EmulatorCoreLoadStatus success = [ emulatorCore loadROM: gamePath ];
@@ -173,7 +162,6 @@ BOOL emulatorRunning;
 	}
     
 	[ emulatorCore configureEmulator ];
-	[ emulatorCore applyGameGenieCodes ];
     
     emulatorCore.screenDelegate = screenView;
 	emulatorCore.frameBufferAddress = (word *) screenView.frameBufferAddress;
@@ -182,6 +170,7 @@ BOOL emulatorRunning;
 	controllerView.delegate = emulatorCore;
     controllerView.gamePlayDelegate = self;
 	   
+    [ emulatorCore applyGameGenieCodes ];
     [ emulatorCore startEmulator ];
     emulatorRunning = YES;
 }
@@ -197,6 +186,7 @@ BOOL emulatorRunning;
     
     [ emulatorCore finishEmulator ];
     [ emulatorCore release ];
+    
     [ super dealloc ];
 }
 
@@ -232,6 +222,7 @@ BOOL emulatorRunning;
             [ [ NSNotificationCenter defaultCenter ] postNotificationName: kEmulatorCoreSavedStateNotification object: gamePath ];
         
             controllerView.notified = NO;
+            [ emulatorCore applyGameGenieCodes ];
             [ emulatorCore restartEmulator ];
             emulatorRunning = YES;
             return;
@@ -243,6 +234,7 @@ BOOL emulatorRunning;
             return;
         } else if (buttonIndex == 4) { /* Resume Game */
             controllerView.notified = NO;
+            [ emulatorCore applyGameGenieCodes ];
             [ emulatorCore restartEmulator ];
             emulatorRunning = YES;
             return;
@@ -259,6 +251,7 @@ BOOL emulatorRunning;
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = YES;
     if (emulatorRunning == NO) {
+        [ emulatorCore applyGameGenieCodes ];
         [ emulatorCore restartEmulator ];
         emulatorRunning = YES;
         [ controllerView reloadSettings ];
@@ -268,7 +261,7 @@ BOOL emulatorRunning;
 /* UINavigationControllerDelegate Methods */
 
 - (void)userDidExitGamePlay {
-		
+
     [ emulatorCore haltEmulator ];
     emulatorRunning = NO;
         

@@ -1,6 +1,6 @@
 /*
- Nescaline
- Copyright (c) 2007, Jonathan A. Zdziarski
+ Nestopia for iOS
+ Copyright (c) 2013, Jonathan A. Zdziarski
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -19,8 +19,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#include "NESCore.h"
-#include "NESCore_Callback.h"
+#include "Nestopia_Callback.h"
 
 @protocol GameControllerDelegate;
 

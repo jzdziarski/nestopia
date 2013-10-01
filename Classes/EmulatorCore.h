@@ -1,6 +1,6 @@
 /*
- Nescaline
- Copyright (c) 2007, Jonathan A. Zdziarski
+ Nestopia for iOS
+ Copyright (c) 2013, Jonathan A. Zdziarski
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -22,8 +22,8 @@
 #import <pthread.h>
 #import "GameROMViewController.h"
 #import "ControllerView.h"
-#include "NESCore_Types.h"
-#include "NESCore_Callback.h"
+#import "NestopiaCore.h"
+#include "Nestopia_Callback.h"
 
 void AQBufferCallback(void *callbackStruct, AudioQueueRef inQ, AudioQueueBufferRef outQB);
 void *emulation_thread(void *args);
@@ -35,7 +35,8 @@ typedef enum {
 } EmulatorCoreLoadStatus;
 
 #define WAVE_BUFFER_SIZE 735
-#define WAVE_BUFFER_BANKS 25
+#define WAVE_BUFFER_BANKS 10
+#define BUFFERSIZE (WAVE_BUFFER_SIZE * WAVE_BUFFER_BANKS)
 
 #define NESCORE_NATIVE_SCREEN_WIDTH 256
 #define NESCORE_NATIVE_SCREEN_HEIGHT 239
@@ -54,15 +55,13 @@ typedef struct AQCallbackStruct {
 @interface EmulatorCore : NSObject <GameControllerDelegate> {
 	NSString *currentROMImagePath;
 	pthread_t emulation_tid;
-	
+
 	/* Resources for video rendering */
 	id screenDelegate, haltedScreenDelegate;
 	word *frameBufferAddress;
 	CGSize frameBufferSize;
-	struct timeval frameTimer;
-	int pixelMap[320][480][2][2];
+
 	int destinationHeight, destinationWidth;
-	int defaultFrameSkip;
 	BOOL defaultFullScreen;
 	BOOL defaultAspectRatio;
 	
@@ -71,29 +70,24 @@ typedef struct AQCallbackStruct {
 	long writeNeedle, playNeedle;
 	int soundBuffersInitialized;
 	int requiredBuffersToOpenSound;
-	int defaultSoundBuffer;
-	byte waveBuffer[WAVE_BUFFER_SIZE * WAVE_BUFFER_BANKS];
 	
 	/* Resources for controller feedback */
 	dword controllerP1;
 	dword controllerP2;
 	byte zapperState, zapperX, zapperY;
-	bool screenBlank;
-} ;
+    
+    NestopiaCore *nestopiaCore;
+    short waveBuffer[WAVE_BUFFER_SIZE * WAVE_BUFFER_BANKS];
+}
 
 + (EmulatorCore *)sharedEmulatorCore;
 + (NSDictionary *)gameSettings;
 - (EmulatorCoreLoadStatus)loadROM:(NSString *)imagePath;
-- (void)initializePixelMappers;
-- (void)initializePalette;
 - (BOOL)initializeEmulator;
-- (void)initializeSoundBuffers;
 - (BOOL)configureEmulator;
 - (int)applyGameGenieCodes;
 - (BOOL)saveState;
 - (BOOL)loadState;
-- (BOOL)saveSRAM;
-- (BOOL)loadSRAM;
 - (void)startEmulator;
 - (void)restartEmulator;
 - (void)haltEmulator;
@@ -104,12 +98,11 @@ typedef struct AQCallbackStruct {
 - (void)gameControllerControllerDidChange:(int)controller controllerState:(dword)controllerState;
 
 /* Calbacks */
-- (void)emulatorCallbackWait;
 - (void)emulatorCallbackOutputFrame:(word *)WorkFrame frameCount:(byte)frameCount;
-- (void)emulatorCallbackInputPadState:(dword *)pad1 pad2:(dword *)pad2;
+- (void)emulatorCallbackInputPadState:(uint *)pad1 pad2:(uint *)pad2 zapper:(uint *)zapper x:(uint *)x y:(uint *)y;
 - (int)emulatorCallbackOpenSound:(int)samplesPerSync sampleRate:(int)sampleRate;
 - (void)emulatorCallbackCloseSound;
-- (void)emulatorCallbackOutputSample:(int)samples wave1:(byte *)wave1 wave2:(byte *)wave2 wave3:(byte *)wave3 wave4:(byte *)wave4 wave5:(byte *)wave5;
+- (void)emulatorCallbackOutputSampleWave:(int)samples wave1:(short *)wave1;
 - (void)AQBufferCallback:(void *)callbackStruct inQ:(AudioQueueRef)inQ outQB:(AudioQueueBufferRef)outQB;
 
 @property(nonatomic,readonly,copy) NSString *currentROMImagePath;
@@ -122,6 +115,5 @@ typedef struct AQCallbackStruct {
 @protocol EmulatorCoreScreenDelegate 
 
 @required
-- (void)emulatorCoreDidUpdateFrameBuffer; //:(EmulatorCore *)emulatorCore frameBufferAddress:(word *)frameBufferAddress;
-
+- (void)emulatorCoreDidUpdateFrameBuffer;
 @end

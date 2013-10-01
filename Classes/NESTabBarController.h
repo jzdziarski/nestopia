@@ -1,6 +1,6 @@
 /*
- Nescaline
- Copyright (c) 2007, Jonathan A. Zdziarski
+ Nestopia for iOS
+ Copyright (c) 2013, Jonathan A. Zdziarski
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -19,19 +19,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "GameROMViewController.h"
-#import "SavedGameViewController.h"
-#import "SettingsViewController.h"
 
-@interface NESAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-    
-    UITabBarController *tabBarController;
-        
-    GameROMViewController *gameROMViewController;
-	SavedGameViewController *savedGameViewController;
-	SettingsViewController *settingsViewController;
-}
+@interface NESTabBarController : UITabBarController
 
 @end
-

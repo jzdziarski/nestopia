@@ -1,6 +1,6 @@
 /*
- Nescaline
- Copyright (c) 2007-2013, Jonathan A. Zdziarski
+ Nestopia for iOS
+ Copyright (c) 2013, Jonathan A. Zdziarski
  
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -268,14 +268,6 @@ forRowAtIndexPath:(NSIndexPath *) indexPath
 			[ array release ];
 		}
 	}
-}
-
-- (BOOL)shouldAutorotate {
-    return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskPortrait;
 }
 
 @end
