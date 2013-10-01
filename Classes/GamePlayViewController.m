@@ -39,6 +39,7 @@ BOOL emulatorRunning;
 
     [ super loadView ];
     
+    loaded = NO;
     self.title = gameTitle;
     [ currentGamePath release ];
     currentGamePath = [ gamePath copy ];
@@ -133,28 +134,36 @@ BOOL emulatorRunning;
     [ self initializeEmulator ];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    [ alertView release ];
+    [ emulatorCore release ];
+    if (! [self.presentedViewController isBeingDismissed]) {
+        [ currentGamePath release ];
+        currentGamePath = nil;
+        [ self dismissViewControllerAnimated: YES completion:^{} ];
+    }
+}
+
 - (void)initializeEmulator {
 	emulatorCore = [ [ EmulatorCore alloc ] init ];
-	EmulatorCoreLoadStatus success = [ emulatorCore loadROM: gamePath ];
+	int success = [ emulatorCore loadROM: gamePath ];
 	
     NSLog(@"%s loading image at path %@", __PRETTY_FUNCTION__, gamePath);
+    controllerView.notified = NO;
 
-	if (success != EmulatorCoreLoadStatusSuccess) {
+	if (success != 0) {
         UIAlertView *myAlert = [ [ UIAlertView alloc ]
 								initWithTitle:@"Unable to Load Game ROM"
-								message: nil
+								message: @"There was an error loading the selected game image."
 								delegate: self
 								cancelButtonTitle: nil
 								otherButtonTitles: @"OK", nil ];
-		if (success == EmulatorCoreLoadStatusInvalidROM) {
-			myAlert.message = @"There was an error loading the selected game image. This game image may be invalid or corrupt.";
-		} else {
-			myAlert.message = @"There was an error loading the selected game image. This game image is not yet supported.";
-		}
 		[ myAlert show ];
 		return;
 	}
-	
+	loaded = YES;
 	[ emulatorCore initializeEmulator ];
 	
 	if (shouldLoadState == YES) {
@@ -176,17 +185,18 @@ BOOL emulatorRunning;
 }
 
 - (void)dealloc {
-    emulatorCore.screenDelegate = nil;
-    emulatorCore.frameBufferAddress = nil;
-    controllerView.delegate = nil;
-    screenView.delegate = nil;
-
-    [ controllerView release ];
-    [ screenView release ];
-    
-    [ emulatorCore finishEmulator ];
-    [ emulatorCore release ];
-    
+    if (loaded) {
+        emulatorCore.screenDelegate = nil;
+        emulatorCore.frameBufferAddress = nil;
+        controllerView.delegate = nil;
+        screenView.delegate = nil;
+        
+        [ controllerView release ];
+        [ screenView release ];
+        
+        [ emulatorCore finishEmulator ];
+        [ emulatorCore release ];
+    }
     [ super dealloc ];
 }
 
@@ -249,6 +259,8 @@ BOOL emulatorRunning;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    if (loaded == NO)
+        return;
     self.navigationController.navigationBar.hidden = YES;
     if (emulatorRunning == NO) {
         [ emulatorCore applyGameGenieCodes ];

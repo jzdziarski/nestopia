@@ -84,7 +84,11 @@
     UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier: CellIdentifier ];
     if (cell == nil) {
         cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: CellIdentifier ] autorelease ];
-		cell.textLabel.text = [ CellIdentifier stringByReplacingOccurrencesOfString: @".nes.sav" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ])  ];
+        
+        cell.textLabel.text = [[[[[ [ CellIdentifier stringByReplacingOccurrencesOfString: @".nes.sav" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ])  ] stringByReplacingOccurrencesOfString: @" [!]" withString: @"" ] stringByReplacingOccurrencesOfString: @" (U)" withString: @"" ] stringByReplacingOccurrencesOfString: @" (Unl)" withString: @"" ] stringByReplacingOccurrencesOfString: @" [!p]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[U][!]" withString: @"" ];
+        cell.textLabel.font = [ UIFont fontWithName:@"HelveticaNeue" size: 14.0 ];
+
+        
 		cell.imageView.image = [ [ UIImage alloc ] initWithContentsOfFile: [ [ NSBundle mainBundle ] pathForResource: @"History" ofType: @"png" ] ];
 	}
 	

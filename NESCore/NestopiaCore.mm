@@ -397,7 +397,7 @@ static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,
 		case Nes::Api::User::FILE_LOAD_EEPROM:
 		{
 			NSAutoreleasePool *pool = [ [ NSAutoreleasePool alloc ] init ];
-            NSString *batSaveFile = [ gameFilename stringByAppendingPathExtension: @".ram" ];
+            NSString *batSaveFile = [ gameFilename stringByAppendingPathExtension: @"sram" ];
 			NSData *fileData = [ NSData dataWithContentsOfFile: batSaveFile ];
 			
 			data.resize( [ fileData length ] );
@@ -411,7 +411,7 @@ static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,
 		case Nes::Api::User::FILE_SAVE_EEPROM: // can be treated the same as battery files
 		{
             NSAutoreleasePool *pool = [ [ NSAutoreleasePool alloc ] init ];
-            NSString *batSaveFile = [ gameFilename stringByAppendingPathExtension: @".ram" ];
+            NSString *batSaveFile = [ gameFilename stringByAppendingPathExtension: @"sram" ];
 			NSData *fileData = [ NSData dataWithBytes: (const char*)&data.front() length: data.size() ];
 			
             [ fileData writeToFile: batSaveFile atomically: NO ];

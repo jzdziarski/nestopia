@@ -62,7 +62,7 @@ extern NSString *currentGamePath;
     return [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
 }
 
-- (EmulatorCoreLoadStatus)loadROM:(NSString *)imagePath {
+- (int)loadROM:(NSString *)imagePath {
 	currentROMImagePath = [ imagePath copy ];
 	
 	NSLog(@"%s loading image %@\n", __func__ , currentROMImagePath);
@@ -74,10 +74,10 @@ extern NSString *currentGamePath;
     BOOL initialized = [ nestopiaCore initializeCore ];
     if (initialized == NO) {
         NSLog(@"%s [ nestopiaCore initializeCore ] failed", __PRETTY_FUNCTION__);
-        return EmulatorCoreLoadStatusInvalidROM;
+        return -1;
     }
     
-	return EmulatorCoreLoadStatusSuccess;
+	return 0;
 }
 
 - (BOOL)initializeEmulator {		

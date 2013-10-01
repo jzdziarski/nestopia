@@ -32,7 +32,7 @@
     /* Initialization */
 	UIActionSheet *saveStateSheet;
 	NSString *gamePath, *gameTitle;
-    bool shouldLoadState;
+    bool shouldLoadState, loaded;
     
     /* Game Play */
     EmulatorCore *emulatorCore;

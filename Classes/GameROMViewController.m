@@ -57,7 +57,7 @@ extern BOOL emulatorRunning;
     
     [ super viewDidLoad ];
     
-    [ NSTimer scheduledTimerWithTimeInterval: 10.0 target: self selector: @selector(scanForChanges:) userInfo: self repeats: YES ];
+    [ NSTimer scheduledTimerWithTimeInterval: 60.0 target: self selector: @selector(scanForChanges:) userInfo: self repeats: YES ];
 }
 
 - (void)scanForChanges:(NSTimer *) timer {
@@ -196,7 +196,8 @@ extern BOOL emulatorRunning;
     UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier: CellIdentifier ];
     if (cell == nil) {
         cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: CellIdentifier ] autorelease ];
-		cell.textLabel.text = [ CellIdentifier stringByReplacingOccurrencesOfString: @".nes" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ])  ];
+		cell.textLabel.text = [[[[[ [ CellIdentifier stringByReplacingOccurrencesOfString: @".nes" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ])  ] stringByReplacingOccurrencesOfString: @" [!]" withString: @"" ] stringByReplacingOccurrencesOfString: @" (U)" withString: @"" ] stringByReplacingOccurrencesOfString: @" (Unl)" withString: @"" ] stringByReplacingOccurrencesOfString: @" [!p]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[U][!]" withString: @"" ];
+        cell.textLabel.font = [ UIFont fontWithName:@"HelveticaNeue" size: 14.0 ];
 	}
 	
     return cell;
