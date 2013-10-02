@@ -372,7 +372,6 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
     Nes::Api::Input(emulator).ConnectController(1, Nes::Api::Input::PAD2 );
     controller = 1;
 }
-
  
 @end
 

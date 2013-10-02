@@ -84,11 +84,24 @@
 	
     UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier: CellIdentifier ];
     if (cell == nil) {
-        cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: CellIdentifier ] autorelease ];
+        NSString *title = [ CellIdentifier stringByReplacingOccurrencesOfString: @".nes.sav" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ]) ];
         
-        cell.textLabel.text = [[[[[[[[[[ CellIdentifier stringByReplacingOccurrencesOfString: @".nes.sav" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ])  ] stringByReplacingOccurrencesOfString: @"[!]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(U)" withString: @"" ] stringByReplacingOccurrencesOfString: @"(Unl)" withString: @"" ] stringByReplacingOccurrencesOfString: @"[!p]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[U]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[p1]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(PRG1)" withString: @"" ] stringByReplacingOccurrencesOfString: @"(PRG0)" withString: @"" ]stringByReplacingOccurrencesOfString: @"  " withString: @"" ];
+        NSRange range = [ title rangeOfString: @"(" ];
+        if (range.length > 0) {
+            title = [ title substringToIndex: range.location];
+        }
+        
+        range = [ title rangeOfString: @"[" ];
+        if (range.length > 0) {
+            title = [ title substringToIndex: range.location];
+        }
+        
+        cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: CellIdentifier ] autorelease ];
+        cell.textLabel.text = title;
         cell.textLabel.font = [ UIFont fontWithName:@"HelveticaNeue" size: 16.0 ];
-
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
         
 		cell.imageView.image = [ [ UIImage alloc ] initWithContentsOfFile: [ [ NSBundle mainBundle ] pathForResource: @"History" ofType: @"png" ] ];
 	}
