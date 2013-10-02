@@ -19,6 +19,7 @@
  */
 
 #import "SavedGameViewController.h"
+#import "NESNavigationController.h"
 
 @implementation SavedGameViewController
 
@@ -85,7 +86,7 @@
     if (cell == nil) {
         cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: CellIdentifier ] autorelease ];
         
-        cell.textLabel.text = [[[[[[[[[ CellIdentifier stringByReplacingOccurrencesOfString: @".nes.sav" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ])  ] stringByReplacingOccurrencesOfString: @"[!]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(U)" withString: @"" ] stringByReplacingOccurrencesOfString: @"(Unl)" withString: @"" ] stringByReplacingOccurrencesOfString: @"[!p]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[U]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[p1]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(PRG1)" withString: @"" ] stringByReplacingOccurrencesOfString: @"  " withString: @"" ];
+        cell.textLabel.text = [[[[[[[[[[ CellIdentifier stringByReplacingOccurrencesOfString: @".nes.sav" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ])  ] stringByReplacingOccurrencesOfString: @"[!]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(U)" withString: @"" ] stringByReplacingOccurrencesOfString: @"(Unl)" withString: @"" ] stringByReplacingOccurrencesOfString: @"[!p]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[U]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[p1]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(PRG1)" withString: @"" ] stringByReplacingOccurrencesOfString: @"(PRG0)" withString: @"" ]stringByReplacingOccurrencesOfString: @"  " withString: @"" ];
         cell.textLabel.font = [ UIFont fontWithName:@"HelveticaNeue" size: 16.0 ];
 
         
@@ -106,7 +107,7 @@
     gamePlayViewController.gameTitle = [ [ [ path stringByDeletingPathExtension ] stringByDeletingPathExtension ] lastPathComponent ];
     gamePlayViewController.shouldLoadState = YES;
 
-    UINavigationController *navigationController = [ [ UINavigationController alloc ] initWithRootViewController: [ gamePlayViewController autorelease ] ];
+    NESNavigationController *navigationController = [ [ NESNavigationController alloc ] initWithRootViewController: [ gamePlayViewController autorelease ] ];
     
     [ self presentViewController: [ navigationController autorelease ] animated: YES completion: nil ];
 }

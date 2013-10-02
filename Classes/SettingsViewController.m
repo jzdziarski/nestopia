@@ -26,38 +26,64 @@ extern NSString *currentGamePath;
 @synthesize gamePath;
 
 - (void) loadSettings {
-    if (currentGameName == nil) {
-        [ [ NSUserDefaults standardUserDefaults ] synchronize ];
-        settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
-        self.title = @"Settings";
-    } else {
+    [ [ NSUserDefaults standardUserDefaults ] synchronize ];
+    settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+    self.title = @"Settings";
+
+    /* Global Settings */
+    
+    swapABControl.on = [ [ settings objectForKey: @"swapAB" ] boolValue ];
+    antiAliasControl.on = [ [ settings objectForKey: @"shouldRasterize" ] boolValue ];
+    controllerStickControl.on = [ [ settings objectForKey: @"controllerStickControl" ] boolValue ];
+    fullScreenControl.on = ([ settings objectForKey: @"fullScreen" ] == nil) ? YES : [ [ settings objectForKey: @"fullScreen" ] boolValue ];
+    aspectRatioControl.on = ([ settings objectForKey: @"aspectRatio" ] == nil) ? YES : [ [ settings objectForKey: @"aspectRatio" ] boolValue ];
+    
+    /* Game-Specific Settings */
+    
+    if (currentGameName != nil) {
         NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
         settings = [ NSDictionary dictionaryWithContentsOfFile: path ];
         if (!settings) {
             settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
         }
         self.title = [ NSString stringWithFormat: @"%@", currentGameName ];
-    }
-    
-    swapABControl.on = [ [ settings objectForKey: @"swapAB" ] boolValue ];
-    fullScreenControl.on = [ [ settings objectForKey: @"fullScreen" ] boolValue ];
-    gameGenieControl.on = [ [ settings objectForKey: @"gameGenie" ] boolValue ];
-
-    if ([ settings objectForKey: @"fullScreen" ] == nil) {
-        fullScreenControl.on = YES;
-    } else {
-        fullScreenControl.on = [ [ settings objectForKey: @"fullScreen" ] boolValue ];
-    }
-    
-    if ([ settings objectForKey: @"aspectRatio" ] == nil) {
-        aspectRatioControl.on = YES;
-    } else {
-        aspectRatioControl.on = [ [ settings objectForKey: @"aspectRatio" ] boolValue ];
-    }
         
-    for(int i = 0; i < 4; i++) {
-        gameGenieCodeControl[i].text = [ settings objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+        gameGenieControl.on = [ [ settings objectForKey: @"gameGenie" ] boolValue ];
+        for(int i = 0; i < 4; i++) {
+            gameGenieCodeControl[i].text = [ settings objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+        }
     }
+}
+
+- (void)saveSettings {
+    [ [ NSUserDefaults standardUserDefaults ] setBool: swapABControl.on
+                                               forKey: @"swapAB" ];
+    [ [ NSUserDefaults standardUserDefaults ] setBool: fullScreenControl.on
+                                               forKey: @"fullScreen" ];
+    [ [ NSUserDefaults standardUserDefaults ] setBool: aspectRatioControl.on
+                                               forKey: @"aspectRatio" ];
+    [ [ NSUserDefaults standardUserDefaults ] setBool: antiAliasControl.on
+                                               forKey: @"shouldRasterize" ];
+    [ [ NSUserDefaults standardUserDefaults ] setBool: controllerStickControl.on
+                                               forKey: @"controllerStickControl" ];
+    [ [ NSUserDefaults standardUserDefaults ] synchronize ];
+    
+    if (currentGameName != nil) {
+		NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
+		NSMutableDictionary *gameSettings = [ [ NSMutableDictionary alloc ] init ];
+        [ gameSettings setObject: [ NSNumber numberWithBool: gameGenieControl.on ]
+                          forKey: @"gameGenie" ];
+        
+        for(int i = 0; i < 4; i++) {
+            if (gameGenieCodeControl[i].text == nil) {
+                gameGenieCodeControl[i].text = @"";
+            }
+            [ gameSettings setObject: gameGenieCodeControl[i].text forKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+        }
+        NSLog(@"%s saving game settings to %@\n", __func__, path);
+        
+        [ gameSettings writeToFile: path atomically: YES ];
+	}
 }
 
 - (id) init {
@@ -68,12 +94,13 @@ extern NSString *currentGamePath;
         self.tabBarItem = [ [ UITabBarItem alloc ] initWithTitle: @"Default Settings" image: tabBarImage tag: 2 ];
 
 		raised = NO;
-				
-		swapABControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
-		fullScreenControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
-		aspectRatioControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
-		gameGenieControl = [ [ UISwitch alloc ] initWithFrame: CGRectMake(200.0, 10.0, 0.0, 0.0) ];
-				
+		swapABControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
+		fullScreenControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
+		aspectRatioControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
+		gameGenieControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
+        antiAliasControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
+        controllerStickControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
+        
         for(int i = 0; i < 4; i++) {
 			gameGenieCodeControl[i] = [ [ UITextField alloc ] initWithFrame: CGRectMake(100.0, 5.0, 200.0, 35.0) ];
 			gameGenieCodeControl[i].contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -109,35 +136,6 @@ extern NSString *currentGamePath;
 	currentGameName = [ [ [ [ gamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
 }
 
-- (void)saveSettings {
-    
-    if (currentGameName == nil) {
-        [ [ NSUserDefaults standardUserDefaults ] setBool: swapABControl.on forKey: @"swapAB" ];
-        [ [ NSUserDefaults standardUserDefaults ] setBool: fullScreenControl.on forKey: @"fullScreen" ];
-        [ [ NSUserDefaults standardUserDefaults ] setBool: aspectRatioControl.on forKey: @"aspectRatio" ];
-        [ [ NSUserDefaults standardUserDefaults ] setBool: gameGenieControl.on forKey: @"gameGenie" ];
-        
-        [ [ NSUserDefaults standardUserDefaults ] synchronize ];
-    } else {
-		NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
-		NSMutableDictionary *gameSettings = [ [ NSMutableDictionary alloc ] init ];
-        [ gameSettings setObject: [ NSNumber numberWithBool: swapABControl.on ] forKey: @"swapAB" ];
-        [ gameSettings setObject: [ NSNumber numberWithBool:fullScreenControl.on ] forKey: @"fullScreen" ];
-        
-        [ gameSettings setObject: [ NSNumber numberWithBool: aspectRatioControl.on ]forKey: @"aspectRatio" ];
-        [ gameSettings setObject: [ NSNumber numberWithBool: gameGenieControl.on ] forKey: @"gameGenie" ];
-        
-        for(int i = 0; i < 4; i++) {
-            if (gameGenieCodeControl[i].text == nil) {
-                gameGenieCodeControl[i].text = @"";
-            }
-            [ gameSettings setObject: gameGenieCodeControl[i].text forKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
-        }
-        NSLog(@"%s saving game settings to %@\n", __func__, path);
-        
-        [ gameSettings writeToFile: path atomically: YES ];
-	}
-}
 
 - (void)didReceiveMemoryWarning {
     [ super didReceiveMemoryWarning ];
@@ -161,7 +159,7 @@ extern NSString *currentGamePath;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case(0):
-			return 4;
+			return 5;
 			break;
 		case(1):
 			return 5;
@@ -174,7 +172,7 @@ extern NSString *currentGamePath;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
 	switch (section) {
 		case(0):
-			return @"Options";
+			return @"Global Settings";
 			break;
 		case(1):
 			return @"Game Genie";
@@ -197,32 +195,32 @@ extern NSString *currentGamePath;
 			case(0):
 				switch([ indexPath indexAtPosition: 1]) {
 					case(0):
-						cell.accessoryView = swapABControl;
-						cell.textLabel.text = @"Swap A/B";
-						break;
-					case(1):
 						cell.accessoryView = fullScreenControl;
 						cell.textLabel.text = @"Full Screen";
 						break;
-					case(2):
+					case(1):
 						cell.accessoryView = aspectRatioControl;
 						cell.textLabel.text = @"Aspect Ratio";
 						break;
-					case(3):
-						cell.accessoryView = gameGenieControl;
-						cell.textLabel.text = @"Game Genie";
+                    case(2):
+                        cell.accessoryView = antiAliasControl;
+                        cell.textLabel.text = @"Anti-Alias Video";
+                        break;
+                    case(3):
+						cell.accessoryView = swapABControl;
+						cell.textLabel.text = @"Swap A/B";
 						break;
+                    case(4):
+                        cell.accessoryView = controllerStickControl;
+                        cell.textLabel.text = @"Sticky Controller";
+                        break;
 				}
 				break;
 			case(1):
 				if ([ indexPath indexAtPosition: 1 ] == 0) {
-					if (currentGameName == nil) {
-						cell.textLabel.text = @"Choose a Game";
-					} else {
-						cell.textLabel.text = currentGameName;
-					}
-					cell.textLabel.font = [ UIFont fontWithName: @"Arial" size: 12.0 ];
-					cell.textLabel.textColor = [ UIColor grayColor ];
+                    cell.accessoryView = gameGenieControl;
+                    cell.textLabel.text = @"Game Genie";
+                    break;
 				} else {
 					[ cell addSubview: gameGenieCodeControl[[ indexPath indexAtPosition: 1 ]-1]];
 					if (currentGameName == nil) {

@@ -62,7 +62,12 @@ extern NSString *currentGamePath;
     return [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
 }
 
-- (int)loadROM:(NSString *)imagePath {
++ (NSDictionary *)globalSettings {
+    
+    return [[ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+}
+
+- (BOOL)loadROM:(NSString *)imagePath {
 	currentROMImagePath = [ imagePath copy ];
 	
 	NSLog(@"%s loading image %@\n", __func__ , currentROMImagePath);
@@ -71,13 +76,17 @@ extern NSString *currentGamePath;
     nestopiaCore.gamePath = imagePath;
     nestopiaCore.delegate = self;
     
+    if (frameBufferSize.height && frameBufferSize.width) {
+        nestopiaCore.resolution = frameBufferSize;
+    }
+    
     BOOL initialized = [ nestopiaCore initializeCore ];
     if (initialized == NO) {
         NSLog(@"%s [ nestopiaCore initializeCore ] failed", __PRETTY_FUNCTION__);
-        return -1;
+        return NO;
     }
     
-	return 0;
+	return YES;
 }
 
 - (BOOL)initializeEmulator {		
@@ -91,10 +100,10 @@ extern NSString *currentGamePath;
 	
 	NSLog(@"%s", __func__);
 	
-	defaultFullScreen = [[[ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] intValue ];
-	defaultAspectRatio = [[[ EmulatorCore gameSettings ] objectForKey: @"aspectRatio" ] intValue ];
+	defaultFullScreen = [[[ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] intValue ];
+	defaultAspectRatio = [[[ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] intValue ];
 	
-    if ([ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] == nil) {
+    if ([ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] == nil) {
         defaultFullScreen = 1;
     }
     

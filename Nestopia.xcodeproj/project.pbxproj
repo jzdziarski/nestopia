@@ -301,6 +301,7 @@
 		702087880EDC5A9900E83959 /* ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 702087870EDC5A9900E83959 /* ScreenView.m */; };
 		7020878D0EDC5AA800E83959 /* ControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7020878C0EDC5AA800E83959 /* ControllerView.m */; };
 		70208B6C0EDC8CA800E83959 /* EmulatorCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 70208B6B0EDC8CA800E83959 /* EmulatorCore.m */; };
+		7035961217FBC44400632315 /* NESNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7035961117FBC44400632315 /* NESNavigationController.m */; };
 		7039774810D97E890022DB57 /* Games@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7039774710D97E890022DB57 /* Games@2x.png */; };
 		7044127F0ED9CF6100E54091 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127D0ED9CF6100E54091 /* AudioToolbox.framework */; };
 		704412800ED9CF6100E54091 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127E0ED9CF6100E54091 /* QuartzCore.framework */; };
@@ -974,6 +975,8 @@
 		7020878C0EDC5AA800E83959 /* ControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerView.m; sourceTree = "<group>"; };
 		70208B6A0EDC8CA800E83959 /* EmulatorCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmulatorCore.h; sourceTree = "<group>"; wrapsLines = 0; };
 		70208B6B0EDC8CA800E83959 /* EmulatorCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmulatorCore.m; sourceTree = "<group>"; };
+		7035961017FBC44400632315 /* NESNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NESNavigationController.h; sourceTree = "<group>"; };
+		7035961117FBC44400632315 /* NESNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NESNavigationController.m; sourceTree = "<group>"; };
 		7039774710D97E890022DB57 /* Games@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Games@2x.png"; sourceTree = "<group>"; };
 		7044127D0ED9CF6100E54091 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		7044127E0ED9CF6100E54091 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
@@ -1032,6 +1035,8 @@
 				1D3623250D0F684500981E51 /* NestopiaAppDelegate.m */,
 				709D4DB417F9DD8400AB2D63 /* NESTabBarController.h */,
 				709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */,
+				7035961017FBC44400632315 /* NESNavigationController.h */,
+				7035961117FBC44400632315 /* NESNavigationController.m */,
 				28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */,
 				28C286E00D94DF7D0034E888 /* GamePlayViewController.m */,
 				704412BC0ED9D3D800E54091 /* GameROMViewController.h */,
@@ -2039,6 +2044,7 @@
 				7011975A17FB1FA0005F3D73 /* NstApiDipSwitches.cpp in Sources */,
 				7011979F17FB1FA0005F3D73 /* NstInpPaddle.cpp in Sources */,
 				7011976717FB1FA0005F3D73 /* NstBrd22211.cpp in Sources */,
+				7035961217FBC44400632315 /* NESNavigationController.m in Sources */,
 				7011983C17FB1FA0005F3D73 /* NstMapper254.cpp in Sources */,
 				7011980417FB1FA0005F3D73 /* NstMapper165.cpp in Sources */,
 				7011976E17FB1FA0005F3D73 /* NstBrdBandai.cpp in Sources */,

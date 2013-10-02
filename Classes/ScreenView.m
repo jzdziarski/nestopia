@@ -55,15 +55,15 @@
 	
     /* Landscape Resolutions */
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-		if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ] == YES) {
+		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ] == YES) {
             w = 320;
-            h = ([[ [ EmulatorCore gameSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341 : 480;
+            h = ([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341 : 480;
         } else {
             w = 240;
             h = 256;
         }
     } else {
-		if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
 			NSLog(@"%s initializing for full screen", __func__);
             w = 320;
             h = 300;
@@ -80,12 +80,10 @@
     int allocSize = 2 * w * h;
 
 	NSLog(@"%s allocating screen layer for resolution %dx%d", __func__, w, h);
-
     frameBufferAddress = calloc(1, allocSize);
 	NSLog(@"%s raw buffer base address: %p\n", __func__, frameBufferAddress);
 	
 	colorSpace = CGColorSpaceCreateDeviceRGB();
-    
 	frameBuffer8888 = calloc(1, w * h * 4);
 	
 	provider[0] = CGDataProviderCreateWithData(NULL, frameBuffer8888, w * h * 4, NULL);
@@ -98,6 +96,7 @@
 	self.layer.minificationFilter = nil;
 	self.layer.compositingFilter = nil;
 	self.layer.edgeAntialiasingMask = 0;
+    self.layer.shouldRasterize = [ [ [ EmulatorCore globalSettings ] objectForKey: @"shouldRasterize" ] boolValue ];
 	self.layer.opaque = YES;
 	
 	NSLog(@"%s graphics initialization complete\n", __func__);
@@ -110,11 +109,11 @@
 	  	
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         float x, y;
-        y = (([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (240 + self.frame.origin.x)) - point.x;
+        y = (([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (240 + self.frame.origin.x)) - point.x;
         x = point.y - self.frame.origin.y;
 		
-        if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            x = (x * (256.0 / (([[ [ EmulatorCore gameSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
+        if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            x = (x * (256.0 / (([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
             y = (y * (240.0 / 320.0));
         }
 		
@@ -122,7 +121,7 @@
 			  __func__, point.x, point.y, x, y, self.frame.origin.x, self.frame.origin.y);
         location = CGPointMake(x, y);
 	} else {
-        if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+        if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
             point.x = (point.x * (256.0 / 320.0));
             point.y = (point.y * (240.0 / 300.0));
         }

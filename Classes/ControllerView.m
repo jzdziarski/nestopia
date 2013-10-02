@@ -36,8 +36,8 @@
 
 		padDir = padButton = padSpecial = 0;
 		orientation = [ UIApplication sharedApplication ].statusBarOrientation;
-		swapAB = [[[ EmulatorCore gameSettings ] objectForKey: @"swapAB" ] boolValue ];
-		stickControl = [[[ EmulatorCore gameSettings ] objectForKey: @"controllerStickControl" ] boolValue ];
+		swapAB = [[[ EmulatorCore globalSettings ] objectForKey: @"swapAB" ] boolValue ];
+		stickControl = [[[ EmulatorCore globalSettings ] objectForKey: @"controllerStickControl" ] boolValue ];
         
 		NSLog(@"%s initializing controller view in %s mode\n", __func__,
 			  (UIInterfaceOrientationIsLandscape(orientation) == YES) ? "landscape" : "portrait");
@@ -124,8 +124,8 @@
 }
 
 - (void)reloadSettings {
-    swapAB = [[[ EmulatorCore gameSettings ] objectForKey: @"swapAB" ] boolValue ];
-    stickControl = [[[ EmulatorCore gameSettings ] objectForKey: @"controllerStickControl" ] boolValue ];
+    swapAB = [[[ EmulatorCore globalSettings ] objectForKey: @"swapAB" ] boolValue ];
+    stickControl = [[[ EmulatorCore globalSettings ] objectForKey: @"controllerStickControl" ] boolValue ];
 }
 
 - (void)updateNotifyIcons {

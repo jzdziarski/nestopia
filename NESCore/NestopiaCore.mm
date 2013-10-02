@@ -63,6 +63,16 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 
 @implementation NestopiaCore
 @synthesize gamePath;
+@synthesize resolution;
+
+-(id)init {
+    self = [ super init ];
+    if (self != nil) {
+        resolution.width = 0;
+        resolution.height = 0;
+    }
+    return self;
+}
 
 -(BOOL)initializeCore {
 	void* userData = (void*) 0xDEADC0DE;
@@ -181,16 +191,17 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 	
 	cur_width = Widths[filter];
 	cur_height = Heights[filter];
-	
+
+    NSLog(@"%s initializing resolution %dx%d", __PRETTY_FUNCTION__, cur_width, cur_height);
 	renderState.bits.count  = 16;
 	renderState.bits.mask.r = 0xF800;
 	renderState.bits.mask.g = 0x07E0;
 	renderState.bits.mask.b = 0x001F;
 	renderState.filter      = filters[filter];
-	renderState.width       = Widths[filter];
-	renderState.height      = Heights[filter];
+	renderState.width       = cur_width;
+	renderState.height      = cur_height;
     
-	videoScreen = new unsigned char[cur_width * cur_height * 3];
+	videoScreen = new unsigned char[cur_width * cur_height * 2];
 	Nes::Api::Video video( emulator );
 	video.EnableUnlimSprites(true);
 	
@@ -328,6 +339,9 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 - (void)finishEmulation {
 	Nes::Api::Machine machine( emulator );
 	machine.Power(false);
+    delete videoScreen;
+    delete nstSound;
+    delete nstVideo;
 }
 
 -(void)setDelegate:(id)delegate {

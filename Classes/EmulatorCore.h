@@ -28,12 +28,6 @@
 void AQBufferCallback(void *callbackStruct, AudioQueueRef inQ, AudioQueueBufferRef outQB);
 void *emulation_thread(void *args);
 
-typedef enum {
-	EmulatorCoreLoadStatusSuccess,
-	EmulatorCoreLoadStatusInvalidROM,
-	EmulatorCoreLoadStatusROMNotSupported
-} EmulatorCoreLoadStatus;
-
 #define WAVE_BUFFER_SIZE 735
 #define WAVE_BUFFER_BANKS 10
 #define BUFFERSIZE (WAVE_BUFFER_SIZE * WAVE_BUFFER_BANKS)
@@ -82,7 +76,8 @@ typedef struct AQCallbackStruct {
 
 + (EmulatorCore *)sharedEmulatorCore;
 + (NSDictionary *)gameSettings;
-- (EmulatorCoreLoadStatus)loadROM:(NSString *)imagePath;
++ (NSDictionary *)globalSettings;
+- (BOOL)loadROM:(NSString *)imagePath;
 - (BOOL)initializeEmulator;
 - (BOOL)configureEmulator;
 - (int)applyGameGenieCodes;

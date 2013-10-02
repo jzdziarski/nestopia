@@ -25,6 +25,7 @@
 {    
     NSString *gamePath;
     NSTimer *gameTimer;
+    CGSize resolution;
 }
 
 - (BOOL)initializeCore;
@@ -37,6 +38,7 @@
 
 @property(nonatomic,copy) NSString *gamePath;
 @property(nonatomic,assign) id delegate;
+@property(nonatomic,assign) CGSize resolution;
 @end
 
 #endif

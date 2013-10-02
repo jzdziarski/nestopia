@@ -20,6 +20,7 @@
 
 #import "GameROMViewController.h"
 #import "GamePlayViewController.h"
+#import "NESNavigationController.h"
 
 extern BOOL emulatorRunning;
 
@@ -67,6 +68,11 @@ extern BOOL emulatorRunning;
     
     if (emulatorRunning == YES)
         return;
+    
+    if (self.tableView.isDragging == YES || self.tableView.isDecelerating == YES || self.tableView.isEditing == YES || self.tableView.isTracking == YES)
+    {
+        return;
+    }
     
     dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
     while ((file = [ dirEnum nextObject ])) {
@@ -196,7 +202,7 @@ extern BOOL emulatorRunning;
     UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier: CellIdentifier ];
     if (cell == nil) {
         cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: CellIdentifier ] autorelease ];
-		        cell.textLabel.text = [[[[[[[[ [ CellIdentifier stringByReplacingOccurrencesOfString: @".nes" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ])  ] stringByReplacingOccurrencesOfString: @"[!]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(U)" withString: @"" ] stringByReplacingOccurrencesOfString: @"(Unl)" withString: @"" ] stringByReplacingOccurrencesOfString: @"[!p]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[U]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[p1]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(PRG1)" withString: @"" ] stringByReplacingOccurrencesOfString: @"  " withString: @"" ];
+		        cell.textLabel.text = [[[[[[[[[[ CellIdentifier stringByReplacingOccurrencesOfString: @".nes" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ])  ] stringByReplacingOccurrencesOfString: @"[!]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(U)" withString: @"" ] stringByReplacingOccurrencesOfString: @"(Unl)" withString: @"" ] stringByReplacingOccurrencesOfString: @"[!p]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[U]" withString: @"" ] stringByReplacingOccurrencesOfString: @"[p1]" withString: @"" ] stringByReplacingOccurrencesOfString: @"(PRG1)" withString: @"" ] stringByReplacingOccurrencesOfString: @"(PRG0)" withString: @"" ]stringByReplacingOccurrencesOfString: @"  " withString: @"" ];
         cell.textLabel.font = [ UIFont fontWithName:@"HelveticaNeue" size: 16.0 ];
 	}
 	
@@ -215,7 +221,7 @@ extern BOOL emulatorRunning;
     gamePlayViewController.gameTitle = [ [ path stringByDeletingPathExtension ] lastPathComponent ];
     gamePlayViewController.shouldLoadState = NO;
     
-    UINavigationController *navigationController = [ [ UINavigationController alloc ] initWithRootViewController: [ gamePlayViewController autorelease ] ];
+    NESNavigationController *navigationController = [ [ NESNavigationController alloc ] initWithRootViewController: [ gamePlayViewController autorelease ] ];
     
     [ self presentViewController: [ navigationController autorelease ] animated: YES completion: nil ];
 }

@@ -31,6 +31,8 @@
 	UISwitch *fullScreenControl;
 	UISwitch *aspectRatioControl;
 	UISwitch *gameGenieControl;
+    UISwitch *antiAliasControl;
+    UISwitch *controllerStickControl;
 		
 	UITextField *gameGenieCodeControl[4];
 	bool raised;

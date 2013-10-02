@@ -71,8 +71,8 @@ BOOL emulatorRunning;
         screenHeight = [ UIScreen mainScreen ].bounds.size.width;
         screenWidth = [ UIScreen mainScreen ].bounds.size.height;
 
-		if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            if ([ [ [ EmulatorCore gameSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) {
+		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            if ([ [ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) {
                 emuHeight = 320.0;
                 emuWidth = 341.0;
             } else {
@@ -90,7 +90,7 @@ BOOL emulatorRunning;
 	} else {
         float offset = 0.0;
 
-		if ([[ [ EmulatorCore gameSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
             emuHeight = 300.0;
             emuWidth = 320.0;
             
@@ -148,12 +148,17 @@ BOOL emulatorRunning;
 
 - (void)initializeEmulator {
 	emulatorCore = [ [ EmulatorCore alloc ] init ];
-	int success = [ emulatorCore loadROM: gamePath ];
+    [ emulatorCore initializeEmulator ];
+
+    NSLog(@"%s frame buffer size: %.0fx%.0f", __PRETTY_FUNCTION__, screenView.frameBufferSize.width, screenView.frameBufferSize.height);
+    emulatorCore.frameBufferSize = screenView.frameBufferSize;
+
+	BOOL success = [ emulatorCore loadROM: gamePath ];
 	
     NSLog(@"%s loading image at path %@", __PRETTY_FUNCTION__, gamePath);
     controllerView.notified = NO;
 
-	if (success != 0) {
+	if (success != YES) {
         UIAlertView *myAlert = [ [ UIAlertView alloc ]
 								initWithTitle:@"Unable to Load Game ROM"
 								message: @"There was an error loading the selected game image."
@@ -164,8 +169,7 @@ BOOL emulatorRunning;
 		return;
 	}
 	loaded = YES;
-	[ emulatorCore initializeEmulator ];
-	
+    
 	if (shouldLoadState == YES) {
 		[ emulatorCore loadState ];
 	}
@@ -174,7 +178,6 @@ BOOL emulatorRunning;
     
     emulatorCore.screenDelegate = screenView;
 	emulatorCore.frameBufferAddress = (word *) screenView.frameBufferAddress;
-	emulatorCore.frameBufferSize = self.view.frame.size;
 	screenView.delegate = emulatorCore;
 	controllerView.delegate = emulatorCore;
     controllerView.gamePlayDelegate = self;
@@ -289,6 +292,10 @@ BOOL emulatorRunning;
     saveStateSheet.delegate = self;
     
     [ saveStateSheet showInView: self.view ];
+}
+
+- (BOOL)shouldAutorotate {
+    return NO;
 }
 
 @end

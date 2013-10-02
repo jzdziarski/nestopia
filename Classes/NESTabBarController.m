@@ -49,7 +49,7 @@ extern BOOL emulatorRunning;
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)shouldAutorotate {    
+- (BOOL)shouldAutorotate {
     if (emulatorRunning == YES) {
         return NO;
     }
