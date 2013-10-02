@@ -87,6 +87,8 @@ typedef struct AQCallbackStruct {
 - (void)restartEmulator;
 - (void)haltEmulator;
 - (void)finishEmulator;
+- (void)activatePad1;
+- (void)activatePad2;
 
 /* GameControllerDelegate Methods */
 - (void)gameControllerZapperDidChange: (byte)status locationInWindow:(CGPoint)locationInWindow;

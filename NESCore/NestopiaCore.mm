@@ -40,6 +40,7 @@ using namespace std;
 #include "../core/api/NstApiDipSwitches.hpp"
 #include "../core/api/NstApiBarcodeReader.hpp"
 
+static bool NST_CALLBACK ZapperCallback(void* userData, Nes::Core::Input::Controllers::Zapper& zapper);
 static bool NST_CALLBACK SoundLock(void* userData,Nes::Api::Sound::Output& sound);
 static void NST_CALLBACK SoundUnlock(void* userData,Nes::Api::Sound::Output& sound);
 static bool NST_CALLBACK VideoLock(void* userData,Nes::Api::Video::Output& video);
@@ -54,6 +55,7 @@ static uint8_t  *videoScreen;
 static int cur_width, cur_height, framerate;
 static void *callback;
 static BOOL isPlaying;
+static int controller = 0;
 
 static Nes::Api::Video::Output* nstVideo;
 static Nes::Api::Sound::Output* nstSound;
@@ -123,17 +125,13 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 
 -(void)initializeInput
 {
+    controller = 0;
 	Nes::Api::Cartridge::Database database( emulator );
-	
-	if(database.IsLoaded())
-	{
-		Nes::Api::Input(emulator).AutoSelectControllers();
-	}
-	else
-	{
-		Nes::Api::Input(emulator).ConnectController( 0, Nes::Api::Input::PAD1 );
-		Nes::Api::Input(emulator).ConnectController( 1, Nes::Api::Input::ZAPPER );
-	}
+    Nes::Api::Input(emulator).ConnectController( 0, Nes::Api::Input::PAD1 );
+    Nes::Api::Input(emulator).ConnectController( 1, Nes::Api::Input::ZAPPER );
+    
+    void* userData = (void*) 0xDEADC0DE;
+    controls.zapper.callback.Set(ZapperCallback, userData);
 }
 
 -(BOOL)initializeVideo {
@@ -317,9 +315,8 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 -(void)stepEmulator:(NSTimer *)timer {
     
     if (isPlaying) {
-        
         Nestopia_Callback_InputPadState(callback,
-                                       &controls.pad[0].buttons,
+                                       &controls.pad[controller].buttons,
                                        &controls.zapper.fire,
                                        &controls.zapper.x,
                                        &controls.zapper.y);
@@ -366,6 +363,17 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
     }
 }
 
+-(void)activatePad1 {
+    Nes::Api::Input(emulator).ConnectController(1, Nes::Api::Input::ZAPPER);
+    controller = 0;
+}
+
+-(void)activatePad2 {
+    Nes::Api::Input(emulator).ConnectController(1, Nes::Api::Input::PAD2 );
+    controller = 1;
+}
+
+ 
 @end
 
 static bool NST_CALLBACK SoundLock(void* userData,Nes::Api::Sound::Output& sound)
@@ -489,19 +497,20 @@ uint Nestopia_TranslateButtons(uint pad) {
 
 void Nestopia_Callback_InputPadState(void *userData, uint *pad1, uint *zapper, uint *x, uint *y)
 {
-    uint p1, p2, zap;
+    uint p1, p2;
 	EmulatorCore *sharedEmulator = (EmulatorCore *) userData;
-	[ sharedEmulator emulatorCallbackInputPadState: &p1 pad2: &p2 zapper: &zap x: x y: y ];
+	[ sharedEmulator emulatorCallbackInputPadState: &p1 pad2: &p2 zapper: zapper x: x y: y ];
     
     *pad1 = Nestopia_TranslateButtons(p1);
-    if (zap) {
-        *zapper = true;
+    
+    if (controls.zapper.fire) {
         NSLog(@"%s zapper: %d at %ux%u", __func__, controls.zapper.fire, *x, *y);
-    } else {
-        *zapper = false;
-        *x = 0;
-        *y = 0;
     }
+}
+
+static bool NST_CALLBACK ZapperCallback(void* userData, Nes::Core::Input::Controllers::Zapper& zapper)
+{
+    return YES;
 }
 
 

@@ -101,6 +101,40 @@
 	
 	NSLog(@"%s graphics initialization complete\n", __func__);
 }
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [ touches anyObject ];
+	CGPoint point = [ touch locationInView: self ];
+    CGPoint location;
+    
+    if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
+        float x, y;
+        y = (([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (240 + self.frame.origin.x)) - point.x;
+        x = point.y - self.frame.origin.y;
+		
+        if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            x = (x * (256.0 / (([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
+            y = (y * (240.0 / 320.0));
+        }
+		
+        NSLog(@"%s zapper touch at screen pos: %fx%f emulator pos: %fx%f layer origin: %fx%f\n",
+			  __func__, point.x, point.y, x, y, self.frame.origin.x, self.frame.origin.y);
+        location = CGPointMake(x, y);
+	} else {
+        if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            point.x = (point.x * (256.0 / 320.0));
+            point.y = (point.y * (240.0 / 300.0));
+        }
+		location = CGPointMake(point.x, point.y);
+		NSLog(@"%s zapper touch at screen pos: %fx%f emulator pos: %fx%f layer origin: %fx%f\n",
+			  __func__, point.x, point.y, location.x, location.y, self.frame.origin.x, self.frame.origin.y);
+    }
+
+    if ([ delegate respondsToSelector: @selector(gameControllerZapperDidChange:locationInWindow:) ]==YES)
+    {
+		[ delegate gameControllerZapperDidChange: 0x0 locationInWindow:location ];
+	}
+}
  
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch = [ touches anyObject ];

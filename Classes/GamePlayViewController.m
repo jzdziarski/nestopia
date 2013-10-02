@@ -184,6 +184,7 @@ BOOL emulatorRunning;
 	   
     [ emulatorCore applyGameGenieCodes ];
     [ emulatorCore startEmulator ];
+    pad1 = YES;
     emulatorRunning = YES;
 }
 
@@ -226,11 +227,11 @@ BOOL emulatorRunning;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	
 	if (actionSheet == saveStateSheet) {
-		if (buttonIndex == 0) { /* Save and Exit Game */
+		if (buttonIndex == 1) { /* Save and Exit Game */
 			[ emulatorCore saveState ];
             [ [ NSNotificationCenter defaultCenter ] postNotificationName: kEmulatorCoreSavedStateNotification object: gamePath ];
 
-		} if (buttonIndex == 1) { /* Save Game */
+		} if (buttonIndex == 2) { /* Save Game */
 			[ emulatorCore saveState ];
             [ [ NSNotificationCenter defaultCenter ] postNotificationName: kEmulatorCoreSavedStateNotification object: gamePath ];
         
@@ -239,13 +240,29 @@ BOOL emulatorRunning;
             [ emulatorCore restartEmulator ];
             emulatorRunning = YES;
             return;
-		} else if (buttonIndex == 2) { /* Settings */
+		} else if (buttonIndex == 3) { /* Settings */
             controllerView.notified = NO;
             SettingsViewController *settingsViewController = [ [ SettingsViewController alloc ] init ];
             
             [ self.navigationController pushViewController: [ settingsViewController autorelease ] animated: YES ];
             return;
-        } else if (buttonIndex == 4) { /* Resume Game */
+        } else if (buttonIndex == 0) { /* Controller Toggle */
+
+            if (pad1) {
+                [ emulatorCore activatePad2 ];
+                pad1 = NO;
+            } else {
+                pad1 = YES;
+                [ emulatorCore activatePad1 ];
+            }
+            
+            controllerView.notified = NO;
+            [ emulatorCore applyGameGenieCodes ];
+            [ emulatorCore restartEmulator ];
+            emulatorRunning = YES;
+            return;
+            
+        } else if (buttonIndex == 5) { /* Resume Game */
             controllerView.notified = NO;
             [ emulatorCore applyGameGenieCodes ];
             [ emulatorCore restartEmulator ];
@@ -282,13 +299,20 @@ BOOL emulatorRunning;
         
     saveStateSheet = [ [ UIActionSheet alloc ] init ];
     saveStateSheet.title = @"Game Paused";
+    
+    if (pad1) {
+        [ saveStateSheet addButtonWithTitle: @"Use Controller 2" ];
+    } else {
+        [ saveStateSheet addButtonWithTitle: @"Use Controller 1" ];
+    }
+    
     [ saveStateSheet addButtonWithTitle: @"Save and Exit" ];
     [ saveStateSheet addButtonWithTitle: @"Save Only" ];
     [ saveStateSheet addButtonWithTitle: @"Settings" ];
     [ saveStateSheet addButtonWithTitle: @"Exit Game" ];
     [ saveStateSheet addButtonWithTitle: @"Resume" ];
-    saveStateSheet.cancelButtonIndex = 4;
-    saveStateSheet.destructiveButtonIndex = 3;
+    saveStateSheet.cancelButtonIndex = 5;
+    saveStateSheet.destructiveButtonIndex = 4;
     saveStateSheet.delegate = self;
     
     [ saveStateSheet showInView: self.view ];

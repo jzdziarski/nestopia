@@ -35,6 +35,8 @@
 - (void)loadState;
 - (void)saveState;
 - (void)applyCheatCodes:(NSArray *)codes;
+- (void)activatePad1;
+- (void)activatePad2;
 
 @property(nonatomic,copy) NSString *gamePath;
 @property(nonatomic,assign) id delegate;

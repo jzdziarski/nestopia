@@ -194,14 +194,12 @@ extern NSString *currentGamePath;
 
 - (void)emulatorCallbackInputPadState:(uint *)pad1 pad2:(uint *)pad2 zapper:(uint *)zapper x:(uint *)x y:(uint *)y
 {
+    
     *pad1 = controllerP1;
     *pad2 = controllerP2;
     *zapper = zapperState;
     *x = zapperX;
     *y = zapperY;
-    
-    if (zapperState)
-        zapperState = 0;
 }
 
 - (void)AQBufferCallback:(void *)callbackStruct inQ:(AudioQueueRef)inQ outQB:(AudioQueueBufferRef)outQB
@@ -338,6 +336,14 @@ extern NSString *currentGamePath;
 - (void)finishEmulator {
     [ nestopiaCore finishEmulation ];
     haltedScreenDelegate = nil;
+}
+
+- (void)activatePad1 {
+    [ nestopiaCore activatePad1 ];
+}
+
+- (void)activatePad2 {
+    [ nestopiaCore activatePad2 ];
 }
 
 - (void)gameControllerZapperDidChange: (byte)status locationInWindow:(CGPoint)locationInWindow {
