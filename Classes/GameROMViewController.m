@@ -58,7 +58,7 @@ extern BOOL emulatorRunning;
     
     [ super viewDidLoad ];
     
-    [ NSTimer scheduledTimerWithTimeInterval: 60.0 target: self selector: @selector(scanForChanges:) userInfo: self repeats: YES ];
+    // [ NSTimer scheduledTimerWithTimeInterval: 60.0 target: self selector: @selector(scanForChanges:) userInfo: self repeats: YES ];
 }
 
 - (void)scanForChanges:(NSTimer *) timer {
