@@ -101,7 +101,7 @@
         cell.textLabel.font = [ UIFont fontWithName:@"HelveticaNeue" size: 16.0 ];
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.numberOfLines = 2;
         
 		cell.imageView.image = [ [ UIImage alloc ] initWithContentsOfFile: [ [ NSBundle mainBundle ] pathForResource: @"History" ofType: @"png" ] ];
 	}
