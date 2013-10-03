@@ -27,11 +27,14 @@
 @interface GameROMViewController : UITableViewController <UITableViewDelegate> {
 	int nActiveSections;
     int romCount;
+    bool favorites;
     
 	NSMutableArray *fileList[27];
 	NSMutableArray *activeSections;
 	NSMutableArray *sectionTitles;
 }
+
+@property(nonatomic,assign) bool favorites;
 
 @end
 

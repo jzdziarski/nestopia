@@ -25,7 +25,8 @@
 #import "ScreenView.h"
 #import "SettingsViewController.h"
 
-#define kEmulatorCoreSavedStateNotification @"EmulatorCoreSavedState"
+#define kGamePlaySavedStateNotification         @"GamePlaySavedStateNotification"
+#define kGamePlayChangedFavoritesNotification   @"GamePlayChangedFavoritesNotification"
 
 @interface GamePlayViewController : UIViewController <UIActionSheetDelegate>
 {

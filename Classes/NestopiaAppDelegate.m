@@ -37,6 +37,7 @@
 
 - (void)dealloc {
     [ gameROMViewController release ];
+    [ bookmarksViewController release ];
     [ savedGameViewController release ];
     [ settingsViewController release ];
     [ tabBarController release ];
@@ -48,10 +49,12 @@
 - (NESTabBarController *)initializeTabBar {
     tabBarController = [ [ NESTabBarController alloc ] init ];
 	gameROMViewController = [ [ GameROMViewController alloc ] init ];
+    bookmarksViewController = [ [ GameROMViewController alloc ] init ];
 	savedGameViewController = [ [ SavedGameViewController alloc ] init ];
     settingsViewController = [ [ SettingsViewController alloc ] init ];
 
-    tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, settingsViewController, nil ];
+    bookmarksViewController.favorites = YES;
+    tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, bookmarksViewController, settingsViewController, nil ];
 	tabBarController.tabBar.translucent = NO;
 
     return tabBarController;

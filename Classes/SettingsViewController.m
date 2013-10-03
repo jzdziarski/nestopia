@@ -19,6 +19,7 @@
  */
 
 #import "SettingsViewController.h"
+#import "GamePlayViewController.h"
 
 extern NSString *currentGamePath;
 
@@ -152,7 +153,7 @@ extern NSString *currentGamePath;
     if (currentGameName == nil) {
         return 1;
     } else {
-        return 2;
+        return 3;
     }
 }
 
@@ -164,6 +165,9 @@ extern NSString *currentGamePath;
 		case(1):
 			return 5;
 			break;
+        case(2):
+            return 1;
+            break;
 	}
 	
 	return 0;
@@ -235,10 +239,53 @@ extern NSString *currentGamePath;
 					cell.textLabel.text = [ NSString stringWithFormat: @"Code #%d", [ indexPath indexAtPosition: 1 ] ];
 				}
                 break;
+            case(2):
+            {
+                bool isFavorite = NO;
+                if ([ [ NSFileManager defaultManager ] fileExistsAtPath: [ currentGamePath stringByAppendingPathExtension: @"favorite" ] ])
+                {
+                    isFavorite = YES;
+                }
+                if (! isFavorite) {
+                    cell.textLabel.text = @"Add to Favorites";
+                } else {
+                    cell.textLabel.text = @"Remove from Favorites";
+                }
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                cell.selectionStyle  = UITableViewCellSelectionStyleBlue;
+                break;
+            }
 		}
 	}
 	
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [ self.tableView cellForRowAtIndexPath: indexPath ];
+
+    if ([ indexPath indexAtPosition: 0 ] == 2) {
+        bool isFavorite = NO;
+        if ([ [ NSFileManager defaultManager ] fileExistsAtPath: [ currentGamePath stringByAppendingPathExtension: @"favorite" ] ])
+        {
+            isFavorite = YES;
+        }
+
+        if (! isFavorite) {
+            NSLog(@"%s adding favorite at path %@", __PRETTY_FUNCTION__, [ currentGamePath stringByAppendingPathExtension: @"favorite" ]);
+            [ @"favorite" writeToFile:[ currentGamePath stringByAppendingPathExtension: @"favorite" ] atomically: YES encoding: NSASCIIStringEncoding error: nil ];
+            cell.textLabel.text = @"Remove from Favorites";
+        } else {
+            NSLog(@"%s removing favorite at path %@", __PRETTY_FUNCTION__, [ currentGamePath stringByAppendingPathExtension: @"favorite" ]);
+
+            [ [ NSFileManager defaultManager ] removeItemAtPath: [ currentGamePath stringByAppendingPathExtension: @"favorite" ] error: nil ];
+            cell.textLabel.text = @"Add to Favorites";
+        }
+        
+        [ [ NSNotificationCenter defaultCenter ] postNotificationName: kGamePlayChangedFavoritesNotification object: currentGamePath ];
+    }
+    
+    [ cell setSelected: NO animated: NO ];
 }
 
 - (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section

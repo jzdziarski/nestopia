@@ -28,7 +28,7 @@
     UIWindow *window;
     
     NESTabBarController *tabBarController;
-    GameROMViewController *gameROMViewController;
+    GameROMViewController *gameROMViewController, *bookmarksViewController;
 	SavedGameViewController *savedGameViewController;
 	SettingsViewController *settingsViewController;
 }

@@ -42,7 +42,7 @@
     
     [ [ NSNotificationCenter defaultCenter ] addObserver: self
                                                 selector: @selector(reloadData)
-                                                    name: kEmulatorCoreSavedStateNotification
+                                                    name: kGamePlaySavedStateNotification
                                                   object: nil];
 }
 

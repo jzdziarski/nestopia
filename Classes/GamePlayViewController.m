@@ -227,20 +227,11 @@ BOOL emulatorRunning;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	
 	if (actionSheet == saveStateSheet) {
-		if (buttonIndex == 1) { /* Save and Exit Game */
+		if (buttonIndex == 2) { /* Save and Exit Game */
 			[ emulatorCore saveState ];
-            [ [ NSNotificationCenter defaultCenter ] postNotificationName: kEmulatorCoreSavedStateNotification object: gamePath ];
+            [ [ NSNotificationCenter defaultCenter ] postNotificationName: kGamePlaySavedStateNotification object: gamePath ];
 
-		} if (buttonIndex == 2) { /* Save Game */
-			[ emulatorCore saveState ];
-            [ [ NSNotificationCenter defaultCenter ] postNotificationName: kEmulatorCoreSavedStateNotification object: gamePath ];
-        
-            controllerView.notified = NO;
-            [ emulatorCore applyGameGenieCodes ];
-            [ emulatorCore restartEmulator ];
-            emulatorRunning = YES;
-            return;
-		} else if (buttonIndex == 3) { /* Settings */
+		} else if (buttonIndex == 1) { /* Game Settings */
             controllerView.notified = NO;
             SettingsViewController *settingsViewController = [ [ SettingsViewController alloc ] init ];
             
@@ -262,7 +253,7 @@ BOOL emulatorRunning;
             emulatorRunning = YES;
             return;
             
-        } else if (buttonIndex == 5) { /* Resume Game */
+        } else if (buttonIndex == 4) { /* Resume Game */
             controllerView.notified = NO;
             [ emulatorCore applyGameGenieCodes ];
             [ emulatorCore restartEmulator ];
@@ -301,18 +292,19 @@ BOOL emulatorRunning;
     saveStateSheet.title = @"Game Paused";
     
     if (pad1) {
-        [ saveStateSheet addButtonWithTitle: @"Use Controller 2" ];
+        [ saveStateSheet addButtonWithTitle: @"Switch to Player 2" ];
     } else {
-        [ saveStateSheet addButtonWithTitle: @"Use Controller 1" ];
+        [ saveStateSheet addButtonWithTitle: @"Switch to Player 1" ];
     }
-    
+
+    [ saveStateSheet addButtonWithTitle: @"Game Settings" ];
     [ saveStateSheet addButtonWithTitle: @"Save and Exit" ];
-    [ saveStateSheet addButtonWithTitle: @"Save Only" ];
-    [ saveStateSheet addButtonWithTitle: @"Settings" ];
     [ saveStateSheet addButtonWithTitle: @"Exit Game" ];
+
     [ saveStateSheet addButtonWithTitle: @"Resume" ];
-    saveStateSheet.cancelButtonIndex = 5;
-    saveStateSheet.destructiveButtonIndex = 4;
+
+    saveStateSheet.cancelButtonIndex = 4;
+    saveStateSheet.destructiveButtonIndex = 3;
     saveStateSheet.delegate = self;
     
     [ saveStateSheet showInView: self.view ];

@@ -45,6 +45,23 @@ extern BOOL emulatorRunning;
 	return self;
 }
 
+- (void)setFavorites:(bool)_favorites {
+    favorites = _favorites;
+    
+    if (favorites) {
+        self.tabBarItem = [ [ UITabBarItem alloc ] initWithTabBarSystemItem: UITabBarSystemItemFavorites tag: nil ];
+        
+        [ [ NSNotificationCenter defaultCenter ] addObserver: self
+                                                    selector: @selector(refreshData)
+                                                        name: kGamePlayChangedFavoritesNotification
+                                                      object: nil];
+    }
+}
+
+- (bool)favorites {
+    return favorites;
+}
+
 - (void)loadView {
     [ super loadView ];
     
@@ -91,10 +108,17 @@ extern BOOL emulatorRunning;
     }
 }
 
+- (void) refreshData {
+    [ self reloadData ];
+    [ self.tableView reloadData ];
+}
+
 - (void) reloadData {
 	NSDirectoryEnumerator *dirEnum;
 	NSString *file;
 	int n = 0;
+    
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     
 	for(int i=0;i<27;i++) {
 	    [ fileList[i] removeAllObjects ];
@@ -103,8 +127,14 @@ extern BOOL emulatorRunning;
 	dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
 	while ((file = [ dirEnum nextObject ])) {
 		NSString *ext = [ file pathExtension ];
-		if ([ [ ext lowercaseString ] isEqualToString: @"nes" ]) {
+        NSString *extension = @"nes";
+        if (favorites)
+            extension = @"favorite";
+		if ([ [ ext lowercaseString ] isEqualToString: extension ]) {
 			n++;
+            if (favorites)
+                file = [ file stringByDeletingPathExtension ];
+            NSLog(@"%s found favorite for %@", __PRETTY_FUNCTION__, file);
 			char index = ( [ file cStringUsingEncoding: NSASCIIStringEncoding ] )[0];
 			if (index >= 'a' && index <= 'z') {
 				index -= 'a';
@@ -117,17 +147,17 @@ extern BOOL emulatorRunning;
 			}
 		}
 	}
-    
-    if (!n) {
+
+    if (!n && !favorites) {
         UIAlertView *alertView = [ [ UIAlertView alloc ] initWithTitle: @"No ROM Images Found" message: @"Use iTunes file sharing to add ROM images. Click on the device in iTunes, click the Apps tab, scroll down to File Sharing, highlight Nescaline, and click the 'Add...' button." delegate: self cancelButtonTitle: nil otherButtonTitles: @"OK", nil];
         [ alertView show ];
     }
     
-    romCount = n;
+    romCount = n+1;
 	nActiveSections = 0;
     [ activeSections removeAllObjects ];
     [ sectionTitles removeAllObjects ];
-    
+
 	for(int i=0;i<27;i++) {
 		if ( [fileList[i] count ]>0) {
 			nActiveSections++;
@@ -254,8 +284,12 @@ forRowAtIndexPath:(NSIndexPath *) indexPath
 		UITableViewCell *cell = [ self.tableView cellForRowAtIndexPath: indexPath ];
 		NSString *path = [ NSString stringWithFormat: @"%@/%@", ROM_PATH, cell.reuseIdentifier ];
         
-		NSLog(@"%s deleting game image at %@", __PRETTY_FUNCTION__, path);
-		
+        if (favorites) {
+            path = [ path stringByAppendingPathExtension: @"favorite" ];
+        }
+
+		NSLog(@"%s deleting item at %@", __PRETTY_FUNCTION__, path);
+
 		char index = ( [ [ path lastPathComponent ] cStringUsingEncoding: NSASCIIStringEncoding ] )[0];
 		if (index >= 'a' && index <= 'z') {
 			index -= 'a';
@@ -264,7 +298,7 @@ forRowAtIndexPath:(NSIndexPath *) indexPath
 		} else {
 			index = 26;
 		}
-				
+
 		NSMutableArray *section = fileList[(int) index];
 		NSError *error;
 		[ [ NSFileManager defaultManager ] removeItemAtPath: path error: &error ];
