@@ -50,7 +50,6 @@
     CGRect B;
     CGRect A;
     CGRect AB;
-    CGRect notifyUpdateRect;
     CGRect Exit;
 	
 	dword controllerState[2];

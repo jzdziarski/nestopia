@@ -84,12 +84,14 @@ BOOL emulatorRunning;
             emuWidth = 256.0;
         }
         
+
         surfaceRect = CGRectMake((screenWidth - emuWidth) / 2.0, (screenHeight - emuHeight) / 2.0, emuWidth, emuHeight);
         
     /* portrait */
 	} else {
         float offset = 0.0;
-
+        float controllerHeight = 125.0;
+        
 		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
             emuHeight = 300.0;
             emuWidth = 320.0;
@@ -106,8 +108,16 @@ BOOL emulatorRunning;
             }
         }
         
-        surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, ((self.view.bounds.size.height - (emuHeight + 125.0)) / 2.0) + offset, emuWidth, emuHeight);
-                
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            emuHeight *= 2.4;
+            emuWidth *= 2.4;
+            offset = 0.0;
+            controllerHeight = 300.0;
+        }
+        
+        surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, ((self.view.bounds.size.height - (emuHeight + controllerHeight)) / 2.0) + offset, emuWidth, emuHeight);
+        
+        NSLog(@"SURFACE ORIGIN: %f", surfaceRect.origin.y);
         UIView *border = [ [ UIView alloc ] initWithFrame: CGRectMake(surfaceRect.origin.x - 1.0, surfaceRect.origin.y - 1.0, surfaceRect.size.width + 2.0, surfaceRect.size.height + 2.0) ];
         border.backgroundColor = [ UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .70 alpha: 1.0 ];
         [ self.view addSubview: [ border autorelease ] ];
@@ -123,7 +133,12 @@ BOOL emulatorRunning;
 	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake((screenWidth - 480.0)/2.0, (screenHeight - 300.0) / 2.0, 480.0, 300.0) ];
 	} else {
-		controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake(0.0, self.view.bounds.size.height - 125.0, self.view.bounds.size.width, 125.0) ];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake(0.0, self.view.bounds.size.height - 125.0, self.view.bounds.size.width, 125.0) ];
+        } else {
+            controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake(0.0, self.view.bounds.size.height - 300.0, self.view.bounds.size.width, 300.0) ];
+
+        }
 	}
     
 	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {

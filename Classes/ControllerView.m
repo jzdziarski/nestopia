@@ -70,7 +70,6 @@
 			
 			/* Indicator icons, shown only in portrait mode */
 			
-			notifyUpdateRect = CGRectMake(105.0, 12.0, 85.0, 25.0);
 			indicatorUp    = [ [ UIImageView alloc ] initWithImage: [ UIImage imageNamed: @"u.png" ] ];
 			indicatorDown  = [ [ UIImageView alloc ] initWithImage: [ UIImage imageNamed: @"d.png" ] ];
 			indicatorLeft  = [ [ UIImageView alloc ] initWithImage: [ UIImage imageNamed: @"l.png" ] ];
@@ -85,12 +84,21 @@
 			indicatorA.hidden = YES;
 			indicatorB.hidden = YES;
 			
-			indicatorUp.frame = CGRectMake(236.0, 10.0, 15.0, 15.0);
-			indicatorDown.frame = CGRectMake(236.0, 10.0, 15.0, 15.0);
-			indicatorLeft.frame = CGRectMake(251.0, 10.0, 15.0, 15.0);
-			indicatorRight.frame = CGRectMake(251.0, 10.0, 15.0, 15.0);
-			indicatorA.frame = CGRectMake(281.0, 10.0, 15.0, 15.0);
-			indicatorB.frame = CGRectMake(266.0, 10.0, 15.0, 15.0);
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                indicatorUp.frame = CGRectMake(236.0, 10.0, 15.0, 15.0);
+                indicatorDown.frame = CGRectMake(236.0, 10.0, 15.0, 15.0);
+                indicatorLeft.frame = CGRectMake(251.0, 10.0, 15.0, 15.0);
+                indicatorRight.frame = CGRectMake(251.0, 10.0, 15.0, 15.0);
+                indicatorA.frame = CGRectMake(281.0, 10.0, 15.0, 15.0);
+                indicatorB.frame = CGRectMake(266.0, 10.0, 15.0, 15.0);
+            } else {
+                indicatorUp.frame = CGRectMake(556.0, 10.0, 30.0, 30.0);
+                indicatorDown.frame = CGRectMake(556.0, 10.0, 30.0, 30.0);
+                indicatorLeft.frame = CGRectMake(596.0, 10.0, 30.0, 30.0);
+                indicatorRight.frame = CGRectMake(596.0, 10.0, 30.0, 30.0);
+                indicatorA.frame = CGRectMake(676.0, 10.0, 30.0, 30.0);
+                indicatorB.frame = CGRectMake(636.0, 10.0, 30.0, 30.0);
+            }
 			
 			Up     = CGRectMake(  0.0,   0.0,  94.0,  44.0);
 			Down   = CGRectMake(  0.0,  69.0,  94.0,  55.0);
@@ -165,12 +173,17 @@
 	
     NSLog(@"%s", __PRETTY_FUNCTION__);
 
-    if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
-		controllerFilename = [ NSString stringWithFormat: @"controller_ls.png" ];
-    } else {
-        controllerFilename = [ NSString stringWithFormat: @"controller_pt.png" ];
-	}
-	
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
+            controllerFilename = [ NSString stringWithFormat: @"controller_ls.png" ];
+        } else {
+            controllerFilename = [ NSString stringWithFormat: @"controller_pt.png" ];
+        }
+	} else {
+        controllerFilename = [ NSString stringWithFormat: @"controller_ipad.png" ];
+    }
+    
 	NSLog(@"%s loading controller image %@\n", __func__, controllerFilename);
     image = [[ UIImage imageNamed: controllerFilename ] retain ];
 	return image;
@@ -179,6 +192,11 @@
 - (int)controllerButtonPressedAtPoint:(CGPoint)point {
     int button = 0;
 
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad   ) {
+        point.x /= 2.4;
+        point.y /= 2.4;
+    }
+    
     if (CGRectContainsPoint(Exit, point)) {
         if (notified == NO && [ gamePlayDelegate respondsToSelector: @selector(userDidExitGamePlay) ])
         {

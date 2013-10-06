@@ -326,6 +326,11 @@
 		70B3DB0417F48EC6005AA2BB /* l@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DAFE17F48EC6005AA2BB /* l@2x.png */; };
 		70B3DB0517F48EC6005AA2BB /* r@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DAFF17F48EC6005AA2BB /* r@2x.png */; };
 		70B3DB0617F48EC6005AA2BB /* u@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DB0017F48EC6005AA2BB /* u@2x.png */; };
+		70E983421801C3E9008ECA59 /* controller_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E983411801C3E9008ECA59 /* controller_ipad@2x.png */; };
+		70E983441801C450008ECA59 /* controller_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E983431801C450008ECA59 /* controller_ipad.png */; };
+		70E983481801CF96008ECA59 /* History.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E983471801CF96008ECA59 /* History.png */; };
+		70E9834A1801D1A9008ECA59 /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E983491801D1A9008ECA59 /* Settings.png */; };
+		70E9834C1801D244008ECA59 /* Games.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E9834B1801D244008ECA59 /* Games.png */; };
 		70F696A8124C289500D39392 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696A7124C289500D39392 /* CoreGraphics.framework */; };
 		70F696AA124C289500D39392 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696A9124C289500D39392 /* Foundation.framework */; };
 		70F696AC124C289500D39392 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696AB124C289500D39392 /* UIKit.framework */; };
@@ -1007,6 +1012,11 @@
 		70B3DAFE17F48EC6005AA2BB /* l@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "l@2x.png"; sourceTree = "<group>"; };
 		70B3DAFF17F48EC6005AA2BB /* r@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "r@2x.png"; sourceTree = "<group>"; };
 		70B3DB0017F48EC6005AA2BB /* u@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "u@2x.png"; sourceTree = "<group>"; };
+		70E983411801C3E9008ECA59 /* controller_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "controller_ipad@2x.png"; sourceTree = "<group>"; };
+		70E983431801C450008ECA59 /* controller_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controller_ipad.png; sourceTree = "<group>"; };
+		70E983471801CF96008ECA59 /* History.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = History.png; sourceTree = "<group>"; };
+		70E983491801D1A9008ECA59 /* Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings.png; sourceTree = "<group>"; };
+		70E9834B1801D244008ECA59 /* Games.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Games.png; sourceTree = "<group>"; };
 		70F696A7124C289500D39392 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		70F696A9124C289500D39392 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		70F696AB124C289500D39392 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1827,6 +1837,8 @@
 			children = (
 				F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */,
 				7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */,
+				70E983431801C450008ECA59 /* controller_ipad.png */,
+				70E983411801C3E9008ECA59 /* controller_ipad@2x.png */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1858,8 +1870,11 @@
 			isa = PBXGroup;
 			children = (
 				7039774710D97E890022DB57 /* Games@2x.png */,
+				70E9834B1801D244008ECA59 /* Games.png */,
 				7074DA8B17F3D46D0071CD85 /* History@2x.png */,
+				70E983471801CF96008ECA59 /* History.png */,
 				7074DA8917F3D0C10071CD85 /* Settings@2x.png */,
+				70E983491801D1A9008ECA59 /* Settings.png */,
 			);
 			name = Tabs;
 			sourceTree = "<group>";
@@ -1933,10 +1948,12 @@
 				70B3DB0317F48EC6005AA2BB /* d@2x.png in Resources */,
 				7074DA8C17F3D46D0071CD85 /* History@2x.png in Resources */,
 				7074DA8417F3C8320071CD85 /* icon.png in Resources */,
+				70E983481801CF96008ECA59 /* History.png in Resources */,
 				7074DA8A17F3D0C10071CD85 /* Settings@2x.png in Resources */,
 				7009581317FC75590038888C /* readme.txt in Resources */,
 				7074DA8117F380B70071CD85 /* Default-568h@2x.png in Resources */,
 				7074DA8E17F3DBB80071CD85 /* controller_pt@2x.png in Resources */,
+				70E983441801C450008ECA59 /* controller_ipad.png in Resources */,
 				7009581217FC75590038888C /* nes_ntsc.txt in Resources */,
 				70B3DB0117F48EC6005AA2BB /* a@2x.png in Resources */,
 				7074DA8717F3C86E0071CD85 /* icon@2x.png in Resources */,
@@ -1948,9 +1965,12 @@
 				7009581717FC75590038888C /* 3.special_frame_phase.nes in Resources */,
 				7009581517FC75590038888C /* 1.line_phase.nes in Resources */,
 				7074DA8817F3C86E0071CD85 /* icon~iphone.png in Resources */,
+				70E983421801C3E9008ECA59 /* controller_ipad@2x.png in Resources */,
 				700957FF17FC75590038888C /* NstVideoFilterHq2x.inl in Resources */,
+				70E9834A1801D1A9008ECA59 /* Settings.png in Resources */,
 				70B3DB0517F48EC6005AA2BB /* r@2x.png in Resources */,
 				7009581417FC75590038888C /* test.bmp in Resources */,
+				70E9834C1801D244008ECA59 /* Games.png in Resources */,
 				7039774810D97E890022DB57 /* Games@2x.png in Resources */,
 				7052063017FA1E2F001FFF8F /* NstDatabase.dat in Resources */,
 				7009581617FC75590038888C /* 2.frame_phase.nes in Resources */,
@@ -2287,6 +2307,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -2317,6 +2338,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A5E6E1D8-9923-44E3-A2AB-FDD4013C68D1";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
@@ -2364,6 +2386,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s";
 			};

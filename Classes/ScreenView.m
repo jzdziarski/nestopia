@@ -115,6 +115,8 @@
         if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
             x = (x * (256.0 / (([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
             y = (y * (240.0 / 320.0));
+            
+
         }
 		
         NSLog(@"%s zapper touch at screen pos: %fx%f emulator pos: %fx%f layer origin: %fx%f\n",
@@ -122,9 +124,18 @@
         location = CGPointMake(x, y);
 	} else {
         if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            point.x = (point.x * (256.0 / 320.0));
-            point.y = (point.y * (240.0 / 300.0));
+            
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+            {
+                point.x = (point.x * (256.0 / 320.0));
+                point.y = (point.y * (240.0 / 300.0));
+            } else
+            {
+                point.x = (point.x * (256.0 / 768.0));
+                point.y = (point.y * (240.0 / 576.0));
+            }
         }
+        
 		location = CGPointMake(point.x, point.y);
 		NSLog(@"%s zapper touch at screen pos: %fx%f emulator pos: %fx%f layer origin: %fx%f\n",
 			  __func__, point.x, point.y, location.x, location.y, self.frame.origin.x, self.frame.origin.y);
