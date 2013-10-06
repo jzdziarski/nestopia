@@ -22,6 +22,7 @@
 #import "EmulatorCore.h"
 #import "NestopiaCore.h"
 #import "Nestopia_Callback.h"
+#import "ScreenView.h"
 
 static EmulatorCore *sharedEmulatorCoreInstance = nil;
 void setActiveFrameBuffer(unsigned long *buf);
@@ -165,8 +166,7 @@ extern NSString *currentGamePath;
 	/* Render */
 	if (screenDelegate != nil) {
 		if (defaultFullScreen == NO) {
-			memcpy(frameBufferAddress, workFrame, 122368); 
-			/* 256 * 239 * 2, but should be 240 */
+			memcpy(frameBufferAddress, workFrame, NES_WIDTH * NES_HEIGHT * 2);
         } else {
 			int px_dest_y, px_src_y, px_src_x;
             int dest_w = 320;

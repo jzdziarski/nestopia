@@ -192,7 +192,7 @@
 - (int)controllerButtonPressedAtPoint:(CGPoint)point {
     int button = 0;
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad   ) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         point.x /= 2.4;
         point.y /= 2.4;
     }

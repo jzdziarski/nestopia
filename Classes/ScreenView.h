@@ -23,8 +23,11 @@
 #import "EmulatorCore.h"
 #import "ControllerView.h"
 
+#define NES_WIDTH   256
+#define NES_HEIGHT  240
+
 @interface ScreenView : UIView <EmulatorCoreScreenDelegate> {
-	unsigned long hightable[256], lowtable[256];
+	unsigned long hightable[NES_WIDTH], lowtable[NES_WIDTH];
 	int w, h;
 
 	CALayer *screenLayer;

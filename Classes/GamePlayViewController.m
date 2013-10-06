@@ -80,10 +80,9 @@ BOOL emulatorRunning;
                 emuWidth = screenWidth;
             }
 		} else {
-            emuHeight = 240.0;
-            emuWidth = 256.0;
+            emuHeight = NES_HEIGHT;
+            emuWidth = NES_WIDTH;
         }
-        
 
         surfaceRect = CGRectMake((screenWidth - emuWidth) / 2.0, (screenHeight - emuHeight) / 2.0, emuWidth, emuHeight);
         
@@ -100,8 +99,8 @@ BOOL emulatorRunning;
                 offset = 28.0;
             }
         } else {
-            emuHeight = 240.0;
-            emuWidth = 256.0;
+            emuHeight = NES_HEIGHT;
+            emuWidth = NES_WIDTH;
             
             if (![ self hasFourInchDisplay ] ) {
                 offset = 14.0;
@@ -109,15 +108,16 @@ BOOL emulatorRunning;
         }
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            emuHeight *= 2.4;
-            emuWidth *= 2.4;
-            offset = 20.0;
-            controllerHeight = 300.0;
+            if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+                emuHeight *= 2.4;
+                emuWidth *= 2.4;
+                offset = 20.0;
+                controllerHeight = 300.0;
+            }
         }
         
         surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, ((self.view.bounds.size.height - (emuHeight + controllerHeight)) / 2.0) + offset, emuWidth, emuHeight);
         
-        NSLog(@"SURFACE ORIGIN: %f", surfaceRect.origin.y);
         UIView *border = [ [ UIView alloc ] initWithFrame: CGRectMake(surfaceRect.origin.x - 1.0, surfaceRect.origin.y - 1.0, surfaceRect.size.width + 2.0, surfaceRect.size.height + 2.0) ];
         border.backgroundColor = [ UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .70 alpha: 1.0 ];
         [ self.view addSubview: [ border autorelease ] ];

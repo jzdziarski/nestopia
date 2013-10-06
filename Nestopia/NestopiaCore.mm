@@ -138,8 +138,8 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 	
 	Nes::Api::Video::RenderState renderState;
 	nstVideo = new Nes::Api::Video::Output;
-	int filter = [ [ NSUserDefaults standardUserDefaults] integerForKey: @"filter" ];
 	
+    int filter = 0;
 	Nes::Api::Video::RenderState::Filter filters[2] =
 	{
 		Nes::Api::Video::RenderState::FILTER_NONE,

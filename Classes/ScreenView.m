@@ -36,7 +36,7 @@
 
 - (void)gen_colorspace_tables
 {	
-	for (int i = 0; i < 256; i++)
+	for (int i = 0; i < NES_WIDTH; i++)
 	{
 		unsigned long red = (unsigned long)((i & 31) * 255.0 / 31.0);
 		unsigned long lowgreen = (unsigned long)(((i >> 5) & 7) * 255.0 / 63.0);
@@ -59,8 +59,8 @@
             w = 320;
             h = ([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341 : 480;
         } else {
-            w = 240;
-            h = 256;
+            w = NES_WIDTH;
+            h = NES_HEIGHT;
         }
     } else {
 		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
@@ -69,11 +69,11 @@
             h = 300;
         } else {
 			NSLog(@"%s initializing for standard screen", __func__);
-            w = 256;
-            h = 240;
+            w = NES_WIDTH;
+            h = NES_HEIGHT;
         }
     }
-	
+    
 	frameBufferSize.height = h;
 	frameBufferSize.width = w;
 		
@@ -96,10 +96,23 @@
 	self.layer.minificationFilter = nil;
 	self.layer.compositingFilter = nil;
 	self.layer.edgeAntialiasingMask = 0;
-    self.layer.shouldRasterize = [ [ [ EmulatorCore globalSettings ] objectForKey: @"shouldRasterize" ] boolValue ];
-	self.layer.opaque = YES;
-	
+    if ([ [ [ EmulatorCore globalSettings ] objectForKey: @"shouldRasterize" ] boolValue ] == YES ){
+        self.layer.shouldRasterize = YES;
+        NSLog(@"%s turning on shouldRasterize", __PRETTY_FUNCTION__);
+	}
+    self.layer.opaque = YES;
+
 	NSLog(@"%s graphics initialization complete\n", __func__);
+}
+
+-(void)drawLayer:(CALayer*)layer inContext:(CGContextRef)context
+{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    CGContextSetAllowsAntialiasing(context, true);
+    CGContextSetShouldAntialias(context, true);
+    CGContextSetFillColorWithColor(context, [UIColor greenColor].CGColor);
+    CGContextFillRect(context, self.bounds);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -109,12 +122,12 @@
     
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         float x, y;
-        y = (([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (240 + self.frame.origin.x)) - point.x;
+        y = (([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
         x = point.y - self.frame.origin.y;
 		
         if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            x = (x * (256.0 / (([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
-            y = (y * (240.0 / 320.0));
+            x = (x * (NES_WIDTH / (([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
+            y = (y * (NES_HEIGHT / 320.0));
             
 
         }
@@ -127,12 +140,14 @@
             
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             {
-                point.x = (point.x * (256.0 / 320.0));
-                point.y = (point.y * (240.0 / 300.0));
+                point.x = (point.x * (NES_WIDTH / 320.0));
+                point.y = (point.y * (NES_HEIGHT / 300.0));
             } else
             {
-                point.x = (point.x * (256.0 / 768.0));
-                point.y = (point.y * (240.0 / 576.0));
+                if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+                    point.x = (point.x * (NES_WIDTH / 768.0));
+                    point.y = (point.y * (NES_HEIGHT / 576.0));
+                }
             }
         }
         
@@ -154,12 +169,12 @@
 	  	
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         float x, y;
-        y = (([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (240 + self.frame.origin.x)) - point.x;
+        y = (([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
         x = point.y - self.frame.origin.y;
 		
         if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            x = (x * (256.0 / (([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
-            y = (y * (240.0 / 320.0));
+            x = (x * (NES_WIDTH / (([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
+            y = (y * (NES_HEIGHT / 320.0));
         }
 		
         NSLog(@"%s zapper touch at screen pos: %fx%f emulator pos: %fx%f layer origin: %fx%f\n", 
@@ -167,8 +182,8 @@
         location = CGPointMake(x, y);
 	} else {
         if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            point.x = (point.x * (256.0 / 320.0));
-            point.y = (point.y * (240.0 / 300.0));
+            point.x = (point.x * (NES_WIDTH / 320.0));
+            point.y = (point.y * (NES_HEIGHT / 300.0));
         }
 		location = CGPointMake(point.x, point.y);
 		NSLog(@"%s zapper touch at screen pos: %fx%f emulator pos: %fx%f layer origin: %fx%f\n", 
@@ -197,9 +212,9 @@
 	CGImageRef screenImage;
 	screenImage = CGImageCreate(w, h, 8, 32, 4 * w, colorSpace, kCGBitmapByteOrder32Host | kCGImageAlphaNoneSkipFirst, provider[currentProvider], NULL, NO, kCGRenderingIntentDefault);
 	if (currentProvider==0)
-		currentProvider=1;
+		currentProvider = 1;
 	else 
-		currentProvider=0;
+		currentProvider = 0;
 	self.layer.contents = (id) screenImage;
 	CGImageRelease(screenImage);
 }
