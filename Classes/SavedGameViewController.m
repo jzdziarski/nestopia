@@ -103,7 +103,7 @@
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 2;
         
-		cell.imageView.image = [ [ UIImage alloc ] initWithContentsOfFile: [ [ NSBundle mainBundle ] pathForResource: @"History" ofType: @"png" ] ];
+		// cell.imageView.image = [ [ UIImage alloc ] initWithContentsOfFile: [ [ NSBundle mainBundle ] pathForResource: @"History" ofType: @"png" ] ];
 	}
 	
     return cell;
