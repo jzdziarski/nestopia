@@ -53,6 +53,10 @@ extern BOOL emulatorRunning;
     if (emulatorRunning == YES) {
         return NO;
     }
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return NO;
+    }
     return YES;
 }
 
