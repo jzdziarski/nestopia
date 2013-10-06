@@ -111,7 +111,7 @@ BOOL emulatorRunning;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             emuHeight *= 2.4;
             emuWidth *= 2.4;
-            offset = 0.0;
+            offset = 20.0;
             controllerHeight = 300.0;
         }
         
@@ -136,7 +136,7 @@ BOOL emulatorRunning;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake(0.0, self.view.bounds.size.height - 125.0, self.view.bounds.size.width, 125.0) ];
         } else {
-            controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake(0.0, self.view.bounds.size.height - 300.0, self.view.bounds.size.width, 300.0) ];
+            controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake(0.0, 20 + (self.view.bounds.size.height - 300.0), self.view.bounds.size.width, 300.0) ];
 
         }
 	}
