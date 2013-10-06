@@ -102,8 +102,8 @@
 			
 			Up     = CGRectMake(  0.0,   0.0,  94.0,  44.0);
 			Down   = CGRectMake(  0.0,  69.0,  94.0,  55.0);
-			Left   = CGRectMake(  0.0,  36.0,  35.0,  40.0);
-			Right  = CGRectMake( 56.0,  36.0,  35.0,  40.0);
+			Left   = CGRectMake(  0.0,  36.0,  40.0,  42.0);
+			Right  = CGRectMake( 56.0,  36.0,  45.0,  42.0);
 			UL     = CGRectMake(  0.0,  0.0,   32.0,  38.0);
 			UR     = CGRectMake( 62.0,  0.0,   32.0,  38.0);
 			DL     = CGRectMake(  0.0,  76.0,  32.0,  49.0);
