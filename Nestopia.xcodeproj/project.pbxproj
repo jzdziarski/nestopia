@@ -320,6 +320,7 @@
 		7074DA8C17F3D46D0071CD85 /* History@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8B17F3D46D0071CD85 /* History@2x.png */; };
 		7074DA8E17F3DBB80071CD85 /* controller_pt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */; };
 		709D4DB617F9DD8400AB2D63 /* NESTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */; };
+		709DC44E1801D743000A3E91 /* icon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 709DC44D1801D743000A3E91 /* icon~ipad.png */; };
 		70B3DB0117F48EC6005AA2BB /* a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DAFB17F48EC6005AA2BB /* a@2x.png */; };
 		70B3DB0217F48EC6005AA2BB /* b@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DAFC17F48EC6005AA2BB /* b@2x.png */; };
 		70B3DB0317F48EC6005AA2BB /* d@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DAFD17F48EC6005AA2BB /* d@2x.png */; };
@@ -1006,6 +1007,7 @@
 		7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "controller_pt@2x.png"; sourceTree = "<group>"; };
 		709D4DB417F9DD8400AB2D63 /* NESTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NESTabBarController.h; sourceTree = "<group>"; };
 		709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NESTabBarController.m; sourceTree = "<group>"; };
+		709DC44D1801D743000A3E91 /* icon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon~ipad.png"; sourceTree = "<group>"; };
 		70B3DAFB17F48EC6005AA2BB /* a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "a@2x.png"; sourceTree = "<group>"; };
 		70B3DAFC17F48EC6005AA2BB /* b@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b@2x.png"; sourceTree = "<group>"; };
 		70B3DAFD17F48EC6005AA2BB /* d@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "d@2x.png"; sourceTree = "<group>"; };
@@ -1849,6 +1851,7 @@
 				7074DA8317F3C8320071CD85 /* icon.png */,
 				7074DA8517F3C86E0071CD85 /* icon@2x.png */,
 				7074DA8617F3C86E0071CD85 /* icon~iphone.png */,
+				709DC44D1801D743000A3E91 /* icon~ipad.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -1964,6 +1967,7 @@
 				70B3DB0617F48EC6005AA2BB /* u@2x.png in Resources */,
 				7009581717FC75590038888C /* 3.special_frame_phase.nes in Resources */,
 				7009581517FC75590038888C /* 1.line_phase.nes in Resources */,
+				709DC44E1801D743000A3E91 /* icon~ipad.png in Resources */,
 				7074DA8817F3C86E0071CD85 /* icon~iphone.png in Resources */,
 				70E983421801C3E9008ECA59 /* controller_ipad@2x.png in Resources */,
 				700957FF17FC75590038888C /* NstVideoFilterHq2x.inl in Resources */,
