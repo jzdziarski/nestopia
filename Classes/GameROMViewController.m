@@ -47,7 +47,7 @@ extern BOOL emulatorRunning;
 
 - (void)setFavorites:(bool)_favorites {
     favorites = _favorites;
-    
+
     if (favorites) {
         self.tabBarItem = [ [ UITabBarItem alloc ] initWithTabBarSystemItem: UITabBarSystemItemFavorites tag: nil ];
         
