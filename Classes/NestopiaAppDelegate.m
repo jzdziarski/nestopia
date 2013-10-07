@@ -55,8 +55,12 @@
 
     bookmarksViewController.favorites = YES;
     tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, bookmarksViewController, settingsViewController, nil ];
-	tabBarController.tabBar.translucent = NO;
-
+	
+    if ([ tabBarController.tabBar respondsToSelector: @selector(setTranslucent:) ])
+    {
+        tabBarController.tabBar.translucent = NO;
+    }
+    
     return tabBarController;
 }
 

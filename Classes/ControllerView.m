@@ -59,8 +59,8 @@
                 A      = CGRectMake(495.0,       170.0, 74.0, 70.0);
                 B      = CGRectMake(418.0,       250.0, 74.0, 70.0);
                 AB     = CGRectMake(495.0,       244.0, 74.0, 76.0);
-                Select = CGRectMake(215.0,       250.0, 60.0, 45.0);
-                Start  = CGRectMake(296.0,       250.0, 60.0, 45.0);
+                Select = CGRectMake(  0.0,        92.0, 82.0, 44.0);
+                Start  = CGRectMake(487.0,        92.0, 82.0, 44.0);
                 Exit   = CGRectMake(525.0,           0, 60.0, 60.0);
             } else {
                 Up     = CGRectMake( 61.0, 260 - 122.0, 60.0, 60.0);
@@ -74,8 +74,8 @@
                 A      = CGRectMake(407.0,       170.0, 74.0, 70.0);
                 B      = CGRectMake(330.0,       250.0, 74.0, 70.0);
                 AB     = CGRectMake(407.0,       244.0, 74.0, 76.0);
-                Select = CGRectMake(183.0, 270 -  33.0, 60.0, 40.0);
-                Start  = CGRectMake(250.0, 270 -  33.0, 60.0, 40.0);
+                Select = CGRectMake(  0.0,        92.0, 80.0, 50.0);
+                Start  = CGRectMake(402.0,        92.0, 80.0, 50.0);
                 Exit   = CGRectMake(435.0,           0, 60.0, 60.0);
             }
 			controllerImage = [ self getControllerImage ];

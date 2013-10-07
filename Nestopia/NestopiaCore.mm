@@ -299,8 +299,14 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 	Nes::Api::Cartridge::Database database( emulator );
     NSString *savPath = [ gameFilename stringByAppendingPathExtension: @"sav" ];
 
-    std::ofstream file( [ savPath UTF8String ], std::ifstream::out|std::ifstream::binary );
-	machine.SaveState( file );
+    std::ofstream file( [ savPath UTF8String ], std::ifstream::out | std::ifstream::binary );
+    
+    if (file.is_open()) {
+        NSLog(@"%s calling SaveState(%@)", __PRETTY_FUNCTION__, savPath);
+        machine.SaveState( file );
+    }
+    
+    NSLog(@"%s returning", __PRETTY_FUNCTION__);
 }
 
 - (void)startEmulation {
