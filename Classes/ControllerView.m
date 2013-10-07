@@ -46,22 +46,39 @@
 		controllerState[0] = controllerState[1] = 0;
 		
 		/* Landscape Controls */
-        if (UIInterfaceOrientationIsLandscape(orientation) == YES) {			
-			Up     = CGRectMake( 61.0, 240 - 122.0, 60.0, 60.0);
-			Down   = CGRectMake( 61.0, 240 -   0.0, 60.0, 60.0);
-			Left   = CGRectMake(  0.0, 240 -  61.0, 81.0, 60.0);
-			Right  = CGRectMake( 82.0, 240 -  61.0, 81.0, 60.0);
-			UL     = CGRectMake(  0.0, 240 - 122.0, 60.0, 60.0);
-			UR     = CGRectMake(122.0, 240 - 122.0, 60.0, 60.0);
-			DL     = CGRectMake(  0.0, 240 -   0.0, 60.0, 60.0);
-			DR     = CGRectMake(122.0, 240 -   0.0, 60.0, 60.0);
-			A      = CGRectMake(400.0, 240 -  80.0, 79.0, 79.0);
-			B      = CGRectMake(333.0, 240 -   0.0, 79.0, 79.0);
-			AB     = CGRectMake(429.0, 240 -   0.0, 50.0, 50.0);
-			Select = CGRectMake(183.0, 250 -  33.0, 60.0, 40.0);
-			Start  = CGRectMake(250.0, 250 -  33.0, 60.0, 40.0);
-            Exit   = CGRectMake(200.0,       280.0, 85.0, 40.0);
-			controllerImage = [ self getControllerImage ];			
+        if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
+            if ([ self hasFourInchDisplay ]) {
+                Up     = CGRectMake( 61.0, 260 - 122.0, 60.0, 60.0);
+                Down   = CGRectMake( 61.0, 260 -   0.0, 60.0, 60.0);
+                Left   = CGRectMake(  0.0, 260 -  61.0, 81.0, 60.0);
+                Right  = CGRectMake( 82.0, 260 -  61.0, 81.0, 60.0);
+                UL     = CGRectMake(  0.0, 260 - 122.0, 60.0, 60.0);
+                UR     = CGRectMake(122.0, 260 - 122.0, 60.0, 60.0);
+                DL     = CGRectMake(  0.0, 260 -   0.0, 60.0, 60.0);
+                DR     = CGRectMake(122.0, 260 -   0.0, 60.0, 60.0);
+                A      = CGRectMake(495.0,       170.0, 74.0, 70.0);
+                B      = CGRectMake(418.0,       250.0, 74.0, 70.0);
+                AB     = CGRectMake(495.0,       244.0, 74.0, 76.0);
+                Select = CGRectMake(215.0,       250.0, 60.0, 45.0);
+                Start  = CGRectMake(296.0,       250.0, 60.0, 45.0);
+                Exit   = CGRectMake(525.0,           0, 60.0, 60.0);
+            } else {
+                Up     = CGRectMake( 61.0, 260 - 122.0, 60.0, 60.0);
+                Down   = CGRectMake( 61.0, 260 -   0.0, 60.0, 60.0);
+                Left   = CGRectMake(  0.0, 260 -  61.0, 81.0, 60.0);
+                Right  = CGRectMake( 82.0, 260 -  61.0, 81.0, 60.0);
+                UL     = CGRectMake(  0.0, 260 - 122.0, 60.0, 60.0);
+                UR     = CGRectMake(122.0, 260 - 122.0, 60.0, 60.0);
+                DL     = CGRectMake(  0.0, 260 -   0.0, 60.0, 60.0);
+                DR     = CGRectMake(122.0, 260 -   0.0, 60.0, 60.0);
+                A      = CGRectMake(407.0,       170.0, 74.0, 70.0);
+                B      = CGRectMake(330.0,       250.0, 74.0, 70.0);
+                AB     = CGRectMake(407.0,       244.0, 74.0, 76.0);
+                Select = CGRectMake(183.0, 270 -  33.0, 60.0, 40.0);
+                Start  = CGRectMake(250.0, 270 -  33.0, 60.0, 40.0);
+                Exit   = CGRectMake(445.0,           0, 35.0, 32.0);
+            }
+			controllerImage = [ self getControllerImage ];
 			UIImageView *imageView = [ [ UIImageView alloc ] initWithImage: controllerImage ];
 			[ self addSubview: [ imageView autorelease ] ];
 			
@@ -167,6 +184,10 @@
 		indicatorA.hidden = NO;
 }
 
+- (BOOL)hasFourInchDisplay {
+    return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone && [UIScreen mainScreen].bounds.size.height == 568.0);
+}
+
 - (UIImage *)getControllerImage {
 	NSString *controllerFilename;
 	UIImage *image;
@@ -176,7 +197,11 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
-            controllerFilename = [ NSString stringWithFormat: @"controller_ls.png" ];
+            if ([ self hasFourInchDisplay ]) {
+                controllerFilename = [ NSString stringWithFormat: @"controller_ls-568h.png" ];
+            } else {
+                controllerFilename = [ NSString stringWithFormat: @"controller_ls.png" ];
+            }
         } else {
             controllerFilename = [ NSString stringWithFormat: @"controller_pt.png" ];
         }

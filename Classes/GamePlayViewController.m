@@ -131,7 +131,11 @@ BOOL emulatorRunning;
 	
 	NSLog(@"%s initializing controller layer", __PRETTY_FUNCTION__);
 	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-        controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake((screenWidth - 480.0)/2.0, (screenHeight - 300.0) / 2.0, 480.0, 300.0) ];
+        float h = 480.0;
+        if ([ self hasFourInchDisplay ]) {
+            h = 568.0;
+        }
+        controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake((screenWidth - h)/2.0, (screenHeight - 320.0) / 2.0, h, 320.0) ];
 	} else {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             controllerView = [ [ ControllerView alloc ] initWithFrame: CGRectMake(0.0, self.view.bounds.size.height - 125.0, self.view.bounds.size.width, 125.0) ];
