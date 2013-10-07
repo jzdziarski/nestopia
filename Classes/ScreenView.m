@@ -221,6 +221,8 @@
 
 - (void)dealloc {
 	[ screenLayer release ];
+    free(frameBufferAddress);
+    
     [ super dealloc ];
 }
 

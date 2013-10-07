@@ -76,7 +76,7 @@
                 AB     = CGRectMake(407.0,       244.0, 74.0, 76.0);
                 Select = CGRectMake(183.0, 270 -  33.0, 60.0, 40.0);
                 Start  = CGRectMake(250.0, 270 -  33.0, 60.0, 40.0);
-                Exit   = CGRectMake(445.0,           0, 35.0, 32.0);
+                Exit   = CGRectMake(435.0,           0, 60.0, 60.0);
             }
 			controllerImage = [ self getControllerImage ];
 			UIImageView *imageView = [ [ UIImageView alloc ] initWithImage: controllerImage ];

@@ -33,7 +33,7 @@ void *emulation_thread(void *args);
 #define BUFFERSIZE (WAVE_BUFFER_SIZE * WAVE_BUFFER_BANKS)
 
 #define NESCORE_NATIVE_SCREEN_WIDTH 256
-#define NESCORE_NATIVE_SCREEN_HEIGHT 239
+#define NESCORE_NATIVE_SCREEN_HEIGHT 240
 
 typedef struct AQCallbackStruct {
     AudioQueueRef queue;

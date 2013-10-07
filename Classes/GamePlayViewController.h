@@ -39,6 +39,8 @@
     EmulatorCore *emulatorCore;
 	ScreenView *screenView;
 	ControllerView *controllerView;
+    UILabel *label;
+    UIView *border;
 }
 
 @property(nonatomic,copy) NSString *gamePath;

@@ -31,7 +31,7 @@ void setActiveFrameBuffer(unsigned long *buf);
 @synthesize currentROMImagePath;
 @synthesize frameBufferAddress;
 @synthesize frameBufferSize;
-@synthesize screenDelegate;
+//@synthesize screenDelegate;
 
 extern NSString *currentGamePath;
 
@@ -185,7 +185,7 @@ extern NSString *currentGamePath;
             }
         }
 
-		[ screenDelegate performSelectorOnMainThread: @selector(emulatorCoreDidUpdateFrameBuffer) 
+		[ screenDelegate performSelectorOnMainThread: @selector(emulatorCoreDidUpdateFrameBuffer)
 											  withObject:nil waitUntilDone: NO ];
 	} else {
 		NSLog(@"%s screenDelegate = nil, skipping render", __func__);
@@ -322,6 +322,15 @@ extern NSString *currentGamePath;
     screenDelegate = haltedScreenDelegate;
     soundBuffersInitialized = 0;
     [ nestopiaCore startEmulation ];
+}
+
+- (void)setScreenDelegate:(id<EmulatorCoreScreenDelegate>)_screenDelegate {
+    screenDelegate = _screenDelegate;
+    haltedScreenDelegate = _screenDelegate;
+}
+
+- (id<EmulatorCoreScreenDelegate>)screenDelegate {
+    return screenDelegate;
 }
 
 - (void)haltEmulator {
