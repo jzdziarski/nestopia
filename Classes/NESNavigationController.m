@@ -37,6 +37,10 @@
 
 - (BOOL)shouldAutorotate {
 
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return NO;
+    }
+    
     return YES;
 }
 
