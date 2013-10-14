@@ -129,6 +129,7 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 	Nes::Api::Cartridge::Database database( emulator );
     Nes::Api::Input(emulator).ConnectController( 0, Nes::Api::Input::PAD1 );
     Nes::Api::Input(emulator).ConnectController( 1, Nes::Api::Input::ZAPPER );
+    controls.vsSystem.insertCoin = 0;
     
     void* userData = (void*) 0xDEADC0DE;
     controls.zapper.callback.Set(ZapperCallback, userData);
@@ -309,6 +310,18 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
     NSLog(@"%s returning", __PRETTY_FUNCTION__);
 }
 
+- (void)toggleCoin1 {
+    controls.vsSystem.insertCoin |= Nes::Core::Input::Controllers::VsSystem::COIN_1;
+}
+
+- (void)toggleCoin2 {
+    controls.vsSystem.insertCoin |= Nes::Core::Input::Controllers::VsSystem::COIN_2;
+}
+
+- (void)coinOff {
+    controls.vsSystem.insertCoin = 0;
+}
+
 - (void)startEmulation {
     isPlaying = true;
 
@@ -316,7 +329,6 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 
     gameTimer = [ NSTimer scheduledTimerWithTimeInterval: (1.0 / framerate) target: self selector: @selector(stepEmulator:) userInfo: nil repeats: YES ];
 }
-
 
 -(void)stepEmulator:(NSTimer *)timer {
     
@@ -517,6 +529,5 @@ static bool NST_CALLBACK ZapperCallback(void* userData, Nes::Core::Input::Contro
 {
     return YES;
 }
-
 
 

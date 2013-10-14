@@ -324,6 +324,17 @@ extern NSString *currentGamePath;
     [ nestopiaCore startEmulation ];
 }
 
+- (void)insertCoin1 {
+    [ self performSelectorInBackground: @selector(internalInsertCoin1) withObject: nil ];
+}
+
+- (void)internalInsertCoin1 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    [ nestopiaCore toggleCoin1 ];
+    usleep(250000);
+    [ nestopiaCore coinOff ];
+}
+
 - (void)setScreenDelegate:(id<EmulatorCoreScreenDelegate>)_screenDelegate {
     screenDelegate = _screenDelegate;
     haltedScreenDelegate = _screenDelegate;

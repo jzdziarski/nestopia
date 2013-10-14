@@ -233,14 +233,16 @@ extern BOOL emulatorRunning;
     if (cell == nil) {
         NSString *title = [ CellIdentifier stringByReplacingOccurrencesOfString: @".nes" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ]) ];
         
-        NSRange range = [ title rangeOfString: @"(" ];
-        if (range.length > 0) {
-            title = [ title substringToIndex: range.location];
-        }
-        
-        range = [ title rangeOfString: @"[" ];
-        if (range.length > 0) {
-            title = [ title substringToIndex: range.location];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            NSRange range = [ title rangeOfString: @"(" ];
+            if (range.length > 0) {
+                title = [ title substringToIndex: range.location];
+            }
+            
+            range = [ title rangeOfString: @"[" ];
+            if (range.length > 0) {
+                title = [ title substringToIndex: range.location];
+            }
         }
         
         cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: CellIdentifier ] autorelease ];

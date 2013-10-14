@@ -254,16 +254,32 @@ BOOL emulatorRunning;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	
 	if (actionSheet == saveStateSheet) {
-		if (buttonIndex == 2) { /* Save and Exit Game */
+        
+        if (!strstr([ gamePath cStringUsingEncoding: NSASCIIStringEncoding ], "(VS)")) {
+            if (buttonIndex > 0)
+                buttonIndex++;
+        }
+        
+		if (buttonIndex == 3) { /* Save and Exit Game */
 			[ emulatorCore saveState ];
             [ [ NSNotificationCenter defaultCenter ] postNotificationName: kGamePlaySavedStateNotification object: gamePath ];
 
-		} else if (buttonIndex == 1) { /* Game Settings */
+		} else if (buttonIndex == 2) { /* Game Settings */
             controllerView.notified = NO;
             SettingsViewController *settingsViewController = [ [ SettingsViewController alloc ] init ];
             
             [ self.navigationController pushViewController: [ settingsViewController autorelease ] animated: YES ];
             return;
+        } else if (buttonIndex == 1) { /* Insert Coin */
+            
+            controllerView.notified = NO;
+            [ emulatorCore applyGameGenieCodes ];
+            [ emulatorCore restartEmulator ];
+            emulatorRunning = YES;
+            [ emulatorCore insertCoin1 ];
+
+            return;
+            
         } else if (buttonIndex == 0) { /* Controller Toggle */
 
             if (pad1) {
@@ -280,7 +296,7 @@ BOOL emulatorRunning;
             emulatorRunning = YES;
             return;
             
-        } else if (buttonIndex == 4) { /* Resume Game */
+        } else if (buttonIndex == 5) { /* Resume Game */
             controllerView.notified = NO;
             [ emulatorCore applyGameGenieCodes ];
             [ emulatorCore restartEmulator ];
@@ -322,6 +338,10 @@ BOOL emulatorRunning;
         [ saveStateSheet addButtonWithTitle: @"Switch to Player 2" ];
     } else {
         [ saveStateSheet addButtonWithTitle: @"Switch to Player 1" ];
+    }
+    
+    if (strstr([ gamePath cStringUsingEncoding: NSASCIIStringEncoding ], "(VS)")) {
+        [ saveStateSheet addButtonWithTitle: @"Insert Coin" ];
     }
 
     [ saveStateSheet addButtonWithTitle: @"Game Settings" ];

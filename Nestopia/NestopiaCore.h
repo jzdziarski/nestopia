@@ -37,6 +37,9 @@
 - (void)applyCheatCodes:(NSArray *)codes;
 - (void)activatePad1;
 - (void)activatePad2;
+- (void)toggleCoin1;
+- (void)toggleCoin2;
+- (void)coinOff;
 
 @property(nonatomic,copy) NSString *gamePath;
 @property(nonatomic,assign) id delegate;
