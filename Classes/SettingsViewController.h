@@ -20,13 +20,15 @@
 
 #import <UIKit/UIKit.h>
 #import "GameROMViewController.h"
+#import "MultiValueViewController.h"
 
-@interface SettingsViewController : UITableViewController <UITextFieldDelegate> {
+@interface SettingsViewController : UITableViewController <UITextFieldDelegate,MultiValueViewControllerDelegate> {
 
 	NSDictionary *settings;
 	UIBarButtonItem *leftButton;
 	NSString *gamePath, *currentGameName;
-
+    NSArray *controllerLayoutDescriptions;
+    
 	UISwitch *swapABControl;
 	UISwitch *fullScreenControl;
 	UISwitch *aspectRatioControl;
@@ -35,6 +37,8 @@
     UISwitch *controllerStickControl;
 		
 	UITextField *gameGenieCodeControl[4];
+    UITextField *controllerLayout;
+    int controllerLayoutIndex;
 	bool raised;
 }
 

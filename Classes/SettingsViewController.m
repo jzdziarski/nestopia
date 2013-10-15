@@ -20,6 +20,7 @@
 
 #import "SettingsViewController.h"
 #import "GamePlayViewController.h"
+#import "DisclosureIndicator.h"
 
 extern NSString *currentGamePath;
 
@@ -38,6 +39,9 @@ extern NSString *currentGamePath;
     controllerStickControl.on = [ [ settings objectForKey: @"controllerStickControl" ] boolValue ];
     fullScreenControl.on = ([ settings objectForKey: @"fullScreen" ] == nil) ? YES : [ [ settings objectForKey: @"fullScreen" ] boolValue ];
     aspectRatioControl.on = ([ settings objectForKey: @"aspectRatio" ] == nil) ? YES : [ [ settings objectForKey: @"aspectRatio" ] boolValue ];
+    
+    controllerLayoutIndex =  [ [ settings objectForKey: @"controllerLayout" ] intValue ];
+    controllerLayout.text = [ controllerLayoutDescriptions objectAtIndex: controllerLayoutIndex ];
     
     /* Game-Specific Settings */
     
@@ -67,6 +71,8 @@ extern NSString *currentGamePath;
                                                forKey: @"shouldRasterize" ];
     [ [ NSUserDefaults standardUserDefaults ] setBool: controllerStickControl.on
                                                forKey: @"controllerStickControl" ];
+    [ [ NSUserDefaults standardUserDefaults ] setInteger: controllerLayoutIndex
+                                                  forKey: @"controllerLayout" ];
     [ [ NSUserDefaults standardUserDefaults ] synchronize ];
     
     if (currentGameName != nil) {
@@ -94,6 +100,7 @@ extern NSString *currentGamePath;
         UIImage *tabBarImage = [ UIImage imageNamed: @"Settings.png" ];
         self.tabBarItem = [ [ UITabBarItem alloc ] initWithTitle: @"Default Settings" image: tabBarImage tag: 2 ];
 
+        controllerLayoutDescriptions = [ [ NSArray alloc ] initWithObjects: @"Game Pad + Zapper", @"Zapper Only", nil ];
 		raised = NO;
 		swapABControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
 		fullScreenControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
@@ -101,7 +108,13 @@ extern NSString *currentGamePath;
 		gameGenieControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
         antiAliasControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
         controllerStickControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
-        
+
+        controllerLayout = [ [ UITextField alloc ] initWithFrame: CGRectMake(120.0, 2.0, 160.0, 30.0) ];
+        controllerLayout.textColor = [ UIColor colorWithHue: .6027 saturation: .63 brightness: .52 alpha: 1.0 ];
+        controllerLayout.enabled = NO;
+		controllerLayout.textAlignment = NSTextAlignmentRight;
+		controllerLayout.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
+
         for(int i = 0; i < 4; i++) {
 			gameGenieCodeControl[i] = [ [ UITextField alloc ] initWithFrame: CGRectMake(100.0, 5.0, 200.0, 35.0) ];
 			gameGenieCodeControl[i].contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -143,6 +156,7 @@ extern NSString *currentGamePath;
 }
 
 - (void)dealloc {
+    [ controllerLayoutDescriptions release ];
     [ super dealloc ];
 }
 
@@ -160,7 +174,7 @@ extern NSString *currentGamePath;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case(0):
-			return 5;
+			return 6;
 			break;
 		case(1):
 			return 5;
@@ -195,6 +209,9 @@ extern NSString *currentGamePath;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.textAlignment = NSTextAlignmentLeft;;
 
+        DisclosureIndicator *accessory = [ DisclosureIndicator accessoryWithColor: [ UIColor colorWithHue: 0 saturation: 0 brightness: .5 alpha: 1.0 ] ];
+        accessory.highlightedColor = [ UIColor blackColor ];
+
 		switch ([ indexPath indexAtPosition: 0]) {
 			case(0):
 				switch([ indexPath indexAtPosition: 1]) {
@@ -218,6 +235,11 @@ extern NSString *currentGamePath;
                         cell.accessoryView = controllerStickControl;
                         cell.textLabel.text = @"Sticky Controller";
                         break;
+                    case(5):
+                        cell.accessoryView = accessory;
+                        cell.textLabel.text = @"Controllers";
+                        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                        [ cell addSubview: controllerLayout ];
 				}
 				break;
 			case(1):
@@ -264,6 +286,15 @@ extern NSString *currentGamePath;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [ self.tableView cellForRowAtIndexPath: indexPath ];
 
+    if ([ indexPath indexAtPosition: 0 ] == 0) {
+    
+		MultiValueViewController *viewController = [ [ MultiValueViewController alloc ] initWithStyle: UITableViewStyleGrouped ];
+        viewController.options = [ NSArray arrayWithArray: controllerLayoutDescriptions ];
+        viewController.selectedItemIndex = controllerLayoutIndex;
+        viewController.delegate = self;
+		[ self.navigationController pushViewController: [ viewController autorelease ] animated: YES ];
+    }
+    
     if ([ indexPath indexAtPosition: 0 ] == 2) {
         bool isFavorite = NO;
         if ([ [ NSFileManager defaultManager ] fileExistsAtPath: [ currentGamePath stringByAppendingPathExtension: @"favorite" ] ])
@@ -334,5 +365,13 @@ extern NSString *currentGamePath;
 	}
 }
 
+/* MultiValueViewControllerDelegate methods */
 
+- (void) didSelectItemFromList: (MultiValueViewController *)multiValueViewController selectedItemIndex:(int)selectedItemIndex identifier:(id)identifier
+{
+    controllerLayoutIndex = selectedItemIndex;
+    controllerLayout.text = [ controllerLayoutDescriptions objectAtIndex: controllerLayoutIndex ];
+    [ self saveSettings ];
+    // [ self.tableView reloadData ];
+}
 @end

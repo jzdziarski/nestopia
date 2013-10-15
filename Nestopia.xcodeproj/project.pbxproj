@@ -336,6 +336,8 @@
 		70F696A8124C289500D39392 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696A7124C289500D39392 /* CoreGraphics.framework */; };
 		70F696AA124C289500D39392 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696A9124C289500D39392 /* Foundation.framework */; };
 		70F696AC124C289500D39392 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696AB124C289500D39392 /* UIKit.framework */; };
+		70FEB7FB180DDB9F008B6C61 /* MultiValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FEB7FA180DDB9F008B6C61 /* MultiValueViewController.m */; };
+		70FEB7FE180DDD5F008B6C61 /* DisclosureIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */; };
 		F5EE71540FEEC3A000FDA0A6 /* controller_ls.png in Resources */ = {isa = PBXBuildFile; fileRef = F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */; };
 /* End PBXBuildFile section */
 
@@ -1024,6 +1026,10 @@
 		70F696A7124C289500D39392 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		70F696A9124C289500D39392 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		70F696AB124C289500D39392 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		70FEB7F9180DDB9F008B6C61 /* MultiValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiValueViewController.h; sourceTree = "<group>"; };
+		70FEB7FA180DDB9F008B6C61 /* MultiValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiValueViewController.m; sourceTree = "<group>"; };
+		70FEB7FC180DDD5F008B6C61 /* DisclosureIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclosureIndicator.h; sourceTree = "<group>"; };
+		70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclosureIndicator.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controller_ls.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1061,6 +1067,10 @@
 				704412D80ED9D44300E54091 /* SavedGameViewController.m */,
 				704412E80ED9D58B00E54091 /* SettingsViewController.h */,
 				704412E90ED9D58B00E54091 /* SettingsViewController.m */,
+				70FEB7F9180DDB9F008B6C61 /* MultiValueViewController.h */,
+				70FEB7FA180DDB9F008B6C61 /* MultiValueViewController.m */,
+				70FEB7FC180DDD5F008B6C61 /* DisclosureIndicator.h */,
+				70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */,
 				702087860EDC5A9900E83959 /* ScreenView.h */,
 				702087870EDC5A9900E83959 /* ScreenView.m */,
 				7020878B0EDC5AA800E83959 /* ControllerView.h */,
@@ -2128,6 +2138,7 @@
 				7009576A17FC75590038888C /* NstMapper055.cpp in Sources */,
 				7009578317FC75590038888C /* NstMapper094.cpp in Sources */,
 				700956F717FC75590038888C /* NstApiBarcodeReader.cpp in Sources */,
+				70FEB7FE180DDD5F008B6C61 /* DisclosureIndicator.m in Sources */,
 				7009572217FC75590038888C /* NstBrdN118.cpp in Sources */,
 				700957A317FC75590038888C /* NstMapper164.cpp in Sources */,
 				7009570817FC75590038888C /* NstBrd6035052.cpp in Sources */,
@@ -2138,6 +2149,7 @@
 				7009578117FC75590038888C /* NstMapper091.cpp in Sources */,
 				7009574717FC75590038888C /* NstMapper000.cpp in Sources */,
 				700957CD17FC75590038888C /* NstMapper232.cpp in Sources */,
+				70FEB7FB180DDB9F008B6C61 /* MultiValueViewController.m in Sources */,
 				7009579D17FC75590038888C /* NstMapper149.cpp in Sources */,
 				700957AB17FC75590038888C /* NstMapper183.cpp in Sources */,
 				7009575917FC75590038888C /* NstMapper037.cpp in Sources */,

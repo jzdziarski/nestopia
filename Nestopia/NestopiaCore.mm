@@ -66,6 +66,7 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 @implementation NestopiaCore
 @synthesize gamePath;
 @synthesize resolution;
+@synthesize controllerLayout;
 
 -(id)init {
     self = [ super init ];
@@ -125,10 +126,16 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 
 -(void)initializeInput
 {
+    NSLog(@"%s: %d", __PRETTY_FUNCTION__, controllerLayout);
+ 
     controller = 0;
 	Nes::Api::Cartridge::Database database( emulator );
-    Nes::Api::Input(emulator).ConnectController( 0, Nes::Api::Input::PAD1 );
-    Nes::Api::Input(emulator).ConnectController( 1, Nes::Api::Input::ZAPPER );
+    if (controllerLayout == 0) {
+        Nes::Api::Input(emulator).ConnectController( 0, Nes::Api::Input::PAD1 );
+        Nes::Api::Input(emulator).ConnectController( 1, Nes::Api::Input::ZAPPER );
+    } else {
+        Nes::Api::Input(emulator).ConnectController( 0, Nes::Api::Input::ZAPPER );
+    }
     controls.vsSystem.insertCoin = 0;
     
     void* userData = (void*) 0xDEADC0DE;

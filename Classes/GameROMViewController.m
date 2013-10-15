@@ -134,7 +134,7 @@ extern BOOL emulatorRunning;
 			n++;
             if (favorites)
                 file = [ file stringByDeletingPathExtension ];
-            NSLog(@"%s found favorite for %@", __PRETTY_FUNCTION__, file);
+            // NSLog(@"%s found file %@", __PRETTY_FUNCTION__, file);
 			char index = ( [ file cStringUsingEncoding: NSASCIIStringEncoding ] )[0];
 			if (index >= 'a' && index <= 'z') {
 				index -= 'a';
@@ -232,7 +232,8 @@ extern BOOL emulatorRunning;
     UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier: CellIdentifier ];
     if (cell == nil) {
         NSString *title = [ CellIdentifier stringByReplacingOccurrencesOfString: @".nes" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ]) ];
-        
+      
+#if 0
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             NSRange range = [ title rangeOfString: @"(" ];
             if (range.length > 0) {
@@ -244,7 +245,7 @@ extern BOOL emulatorRunning;
                 title = [ title substringToIndex: range.location];
             }
         }
-        
+#endif
         cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: CellIdentifier ] autorelease ];
         cell.textLabel.text = title;
         cell.textLabel.font = [ UIFont fontWithName:@"HelveticaNeue" size: 16.0 ];

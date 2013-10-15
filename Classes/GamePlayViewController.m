@@ -256,8 +256,7 @@ BOOL emulatorRunning;
 	if (actionSheet == saveStateSheet) {
         
         if (!strstr([ gamePath cStringUsingEncoding: NSASCIIStringEncoding ], "(VS)")) {
-            if (buttonIndex > 0)
-                buttonIndex++;
+            buttonIndex++;
         }
         
 		if (buttonIndex == 3) { /* Save and Exit Game */
@@ -270,7 +269,7 @@ BOOL emulatorRunning;
             
             [ self.navigationController pushViewController: [ settingsViewController autorelease ] animated: YES ];
             return;
-        } else if (buttonIndex == 1) { /* Insert Coin */
+        } else if (buttonIndex == 0) { /* Insert Coin */
             
             controllerView.notified = NO;
             [ emulatorCore applyGameGenieCodes ];
@@ -280,7 +279,7 @@ BOOL emulatorRunning;
 
             return;
             
-        } else if (buttonIndex == 0) { /* Controller Toggle */
+        } else if (buttonIndex == 1) { /* Controller Toggle */
 
             if (pad1) {
                 [ emulatorCore activatePad2 ];
@@ -332,16 +331,16 @@ BOOL emulatorRunning;
     emulatorRunning = NO;
         
     saveStateSheet = [ [ UIActionSheet alloc ] init ];
-    saveStateSheet.title = @"Game Paused";
+    saveStateSheet.title = @"Game Options";
+    
+    if (strstr([ gamePath cStringUsingEncoding: NSASCIIStringEncoding ], "(VS)")) {
+        [ saveStateSheet addButtonWithTitle: @"Insert Coin" ];
+    }
     
     if (pad1) {
         [ saveStateSheet addButtonWithTitle: @"Switch to Player 2" ];
     } else {
         [ saveStateSheet addButtonWithTitle: @"Switch to Player 1" ];
-    }
-    
-    if (strstr([ gamePath cStringUsingEncoding: NSASCIIStringEncoding ], "(VS)")) {
-        [ saveStateSheet addButtonWithTitle: @"Insert Coin" ];
     }
 
     [ saveStateSheet addButtonWithTitle: @"Game Settings" ];

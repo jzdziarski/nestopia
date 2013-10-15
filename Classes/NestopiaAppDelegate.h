@@ -31,6 +31,8 @@
     GameROMViewController *gameROMViewController, *bookmarksViewController;
 	SavedGameViewController *savedGameViewController;
 	SettingsViewController *settingsViewController;
+  
+    UINavigationController *settingsNavigationController;
 }
 
 @end

@@ -72,10 +72,11 @@ extern NSString *currentGamePath;
 	currentROMImagePath = [ imagePath copy ];
 	
 	NSLog(@"%s loading image %@\n", __func__ , currentROMImagePath);
-	
+
     nestopiaCore = [ [ NestopiaCore alloc ] init ];
     nestopiaCore.gamePath = imagePath;
     nestopiaCore.delegate = self;
+    nestopiaCore.controllerLayout = [ [ [ EmulatorCore globalSettings ] objectForKey: @"controllerLayout" ] intValue ];
     
     if (frameBufferSize.height && frameBufferSize.width) {
         nestopiaCore.resolution = frameBufferSize;
@@ -317,8 +318,10 @@ extern NSString *currentGamePath;
 }
 
 - (void)restartEmulator {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"%s controllerLayout: %d", __PRETTY_FUNCTION__, [ [ [ EmulatorCore globalSettings ] objectForKey: @"controllerLayout" ] intValue ]);
     
+    nestopiaCore.controllerLayout = [ [ [ EmulatorCore globalSettings ] objectForKey: @"controllerLayout" ] intValue ];
+    [ nestopiaCore initializeInput ];
     screenDelegate = haltedScreenDelegate;
     soundBuffersInitialized = 0;
     [ nestopiaCore startEmulation ];

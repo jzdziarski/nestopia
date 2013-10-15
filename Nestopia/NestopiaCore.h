@@ -26,9 +26,11 @@
     NSString *gamePath;
     NSTimer *gameTimer;
     CGSize resolution;
+    int controllerLayout;
 }
 
 - (BOOL)initializeCore;
+- (void)initializeInput;
 - (void)startEmulation;
 - (void)stopEmulation;
 - (void)finishEmulation;
@@ -44,6 +46,7 @@
 @property(nonatomic,copy) NSString *gamePath;
 @property(nonatomic,assign) id delegate;
 @property(nonatomic,assign) CGSize resolution;
+@property(nonatomic,assign) int controllerLayout;
 @end
 
 #endif

@@ -53,8 +53,9 @@
 	savedGameViewController = [ [ SavedGameViewController alloc ] init ];
     settingsViewController = [ [ SettingsViewController alloc ] init ];
 
+    settingsNavigationController = [ [ UINavigationController alloc ] initWithRootViewController: settingsViewController ];
     bookmarksViewController.favorites = YES;
-    tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, bookmarksViewController, settingsViewController, nil ];
+    tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, bookmarksViewController, settingsNavigationController, nil ];
 	
     if ([ tabBarController.tabBar respondsToSelector: @selector(setTranslucent:) ])
     {
