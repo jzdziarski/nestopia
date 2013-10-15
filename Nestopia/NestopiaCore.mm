@@ -135,6 +135,7 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
         Nes::Api::Input(emulator).ConnectController( 1, Nes::Api::Input::ZAPPER );
     } else {
         Nes::Api::Input(emulator).ConnectController( 0, Nes::Api::Input::ZAPPER );
+        Nes::Api::Input(emulator).ConnectController( 1, Nes::Api::Input::PAD1 );
     }
     controls.vsSystem.insertCoin = 0;
     

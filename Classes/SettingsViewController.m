@@ -109,7 +109,7 @@ extern NSString *currentGamePath;
         antiAliasControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
         controllerStickControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
 
-        controllerLayout = [ [ UITextField alloc ] initWithFrame: CGRectMake(120.0, 2.0, 160.0, 30.0) ];
+        controllerLayout = [ [ UITextField alloc ] initWithFrame: CGRectMake(-170, -12.0, 160.0, 30.0) ];
         controllerLayout.textColor = [ UIColor colorWithHue: .6027 saturation: .63 brightness: .52 alpha: 1.0 ];
         controllerLayout.enabled = NO;
 		controllerLayout.textAlignment = NSTextAlignmentRight;
@@ -237,9 +237,12 @@ extern NSString *currentGamePath;
                         break;
                     case(5):
                         cell.accessoryView = accessory;
-                        cell.textLabel.text = @"Controllers";
+                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                            cell.textLabel.text = @"Controller Layout";
+                        else
+                            cell.textLabel.text = @"Controllers";
                         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                        [ cell addSubview: controllerLayout ];
+                        [ cell.accessoryView addSubview: controllerLayout ];
 				}
 				break;
 			case(1):
