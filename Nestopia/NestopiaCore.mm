@@ -27,6 +27,7 @@
 #include <sys/time.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 #include "../core/api/NstApiEmulator.hpp"
@@ -282,11 +283,14 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 		}
 	}
 	
-	std::ifstream file([ gamePath UTF8String ] , std::ios::in|std::ios::binary );
-	Nes::Result result = machine.Load( file );
+	std::ifstream *file = new std::ifstream([ gamePath UTF8String ] , std::ios::in|std::ios::binary );
+    
+	Nes::Result result = machine.Load( *file );
 	if (NES_FAILED(result)) {
         return NO;
     }
+    
+    delete file;
 
 	machine.Power( true );
     return YES;
@@ -298,8 +302,11 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 	Nes::Api::Cartridge::Database database( emulator );
     NSString *savPath = [ gameFilename stringByAppendingPathExtension: @"sav" ];
 
-	std::ifstream file([ savPath UTF8String ] , std::ios::in|std::ios::binary );
-	machine.LoadState( file );
+	std::ifstream *file = new std::ifstream([ savPath UTF8String ] , std::ios::in|std::ios::binary );
+    
+	machine.LoadState( *file );
+    
+    delete file;
 }
 
 - (void)saveState
@@ -308,12 +315,15 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 	Nes::Api::Cartridge::Database database( emulator );
     NSString *savPath = [ gameFilename stringByAppendingPathExtension: @"sav" ];
 
-    std::ofstream file( [ savPath UTF8String ], std::ifstream::out | std::ifstream::binary );
+    std::ostringstream *buffer = new std::ostringstream(std::stringstream::out | std::stringstream::binary);
     
-    if (file.is_open()) {
-        NSLog(@"%s calling SaveState(%@)", __PRETTY_FUNCTION__, savPath);
-        machine.SaveState( file );
-    }
+    NSLog(@"%s calling SaveState(%@)", __PRETTY_FUNCTION__, savPath);
+    machine.SaveState( *buffer );
+    
+    NSData *data = [NSData dataWithBytes:buffer->str().c_str() length:buffer->tellp()];
+    [data writeToFile:savPath atomically:YES];
+
+    delete buffer;
     
     NSLog(@"%s returning", __PRETTY_FUNCTION__);
 }
