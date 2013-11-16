@@ -30,12 +30,12 @@
 @synthesize notified;
 
 - (id)initWithFrame:(CGRect)frame {
-	self = [ super initWithFrame: frame ];
+	self = [super initWithFrame: frame];
 	if (self != nil) {
 		self.multipleTouchEnabled = YES;
 
 		padDir = padButton = padSpecial = 0;
-		orientation = [ UIApplication sharedApplication ].statusBarOrientation;
+		orientation = [UIApplication sharedApplication].statusBarOrientation;
         
 		NSLog(@"%s initializing controller view in %s mode\n", __func__,
 			  (UIInterfaceOrientationIsLandscape(orientation) == YES) ? "landscape" : "portrait");
@@ -45,7 +45,7 @@
 		
 		/* Landscape Controls */
         if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-            if ([ self hasFourInchDisplay ]) {
+            if ([self hasFourInchDisplay]) {
                 Up     = CGRectMake( 61.0, 260 - 122.0, 60.0, 60.0);
                 Down   = CGRectMake( 61.0, 260 -   0.0, 60.0, 60.0);
                 Left   = CGRectMake(  0.0, 260 -  61.0, 81.0, 60.0);
@@ -76,21 +76,21 @@
                 Start  = CGRectMake(402.0,        92.0, 80.0, 50.0);
                 Exit   = CGRectMake(435.0,           0, 60.0, 60.0);
             }
-			controllerImage = [ self getControllerImage ];
-			UIImageView *imageView = [ [ UIImageView alloc ] initWithImage: controllerImage ];
-			[ self addSubview: imageView ];
+			controllerImage = [self getControllerImage];
+			UIImageView *imageView = [[UIImageView alloc] initWithImage: controllerImage];
+			[self addSubview: imageView];
 			
 		/* Portrait Controls */
 		} else {
 			
 			/* Indicator icons, shown only in portrait mode */
 			
-			indicatorUp    = [ [ UIImageView alloc ] initWithImage: [ UIImage imageNamed: @"u.png" ] ];
-			indicatorDown  = [ [ UIImageView alloc ] initWithImage: [ UIImage imageNamed: @"d.png" ] ];
-			indicatorLeft  = [ [ UIImageView alloc ] initWithImage: [ UIImage imageNamed: @"l.png" ] ];
-			indicatorRight = [ [ UIImageView alloc ] initWithImage: [ UIImage imageNamed: @"r.png" ] ];
-			indicatorA     = [ [ UIImageView alloc ] initWithImage: [ UIImage imageNamed: @"a.png" ] ];
-			indicatorB     = [ [ UIImageView alloc ] initWithImage: [ UIImage imageNamed: @"b.png" ] ];
+			indicatorUp    = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"u.png"]];
+			indicatorDown  = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"d.png"]];
+			indicatorLeft  = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"l.png"]];
+			indicatorRight = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"r.png"]];
+			indicatorA     = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"a.png"]];
+			indicatorB     = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"b.png"]];
 			
 			indicatorUp.hidden = YES;
 			indicatorDown.hidden = YES;
@@ -130,16 +130,16 @@
 			Start  = CGRectMake(155.0,  50.0,  36.0,  40.0);
 			Exit   = CGRectMake(102.0,   0.0, 100.0,  25.0);
             
-			controllerImage = [ self getControllerImage ];			
-			UIImageView *imageView = [ [ UIImageView alloc ] initWithImage: controllerImage ];
-			[ self addSubview: imageView ];
+			controllerImage = [self getControllerImage];			
+			UIImageView *imageView = [[UIImageView alloc] initWithImage: controllerImage];
+			[self addSubview: imageView];
 			
-			[ self addSubview: indicatorUp ];
-			[ self addSubview: indicatorDown ];
-			[ self addSubview: indicatorLeft ];
-			[ self addSubview: indicatorRight ];
-			[ self addSubview: indicatorA ];
-			[ self addSubview: indicatorB ];
+			[self addSubview: indicatorUp];
+			[self addSubview: indicatorDown];
+			[self addSubview: indicatorLeft];
+			[self addSubview: indicatorRight];
+			[self addSubview: indicatorA];
+			[self addSubview: indicatorB];
 		}
 	}
 	
@@ -190,20 +190,20 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
-            if ([ self hasFourInchDisplay ]) {
-                controllerFilename = [ NSString stringWithFormat: @"controller_ls-568h.png" ];
+            if ([self hasFourInchDisplay]) {
+                controllerFilename = [NSString stringWithFormat: @"controller_ls-568h.png"];
             } else {
-                controllerFilename = [ NSString stringWithFormat: @"controller_ls.png" ];
+                controllerFilename = [NSString stringWithFormat: @"controller_ls.png"];
             }
         } else {
-            controllerFilename = [ NSString stringWithFormat: @"controller_pt.png" ];
+            controllerFilename = [NSString stringWithFormat: @"controller_pt.png"];
         }
 	} else {
-        controllerFilename = [ NSString stringWithFormat: @"controller_ipad.png" ];
+        controllerFilename = [NSString stringWithFormat: @"controller_ipad.png"];
     }
     
 	NSLog(@"%s loading controller image %@\n", __func__, controllerFilename);
-    image = [ UIImage imageNamed: controllerFilename ];
+    image = [UIImage imageNamed: controllerFilename];
 	return image;
 }
 
@@ -216,9 +216,9 @@
     }
     
 //    if (CGRectContainsPoint(Exit, point)) {
-//        if (notified == NO && [ gamePlayDelegate respondsToSelector: @selector(userDidExitGamePlay) ])
+//        if (notified == NO && [gamePlayDelegate respondsToSelector: @selector(userDidExitGamePlay)])
 //        {
-//            [ gamePlayDelegate userDidExitGamePlay ];
+//            [gamePlayDelegate userDidExitGamePlay];
 //            notified = YES;
 //        }
 //    }
@@ -269,8 +269,8 @@
 	controllerState[currentController] = 0;
 	
 	for (touch in touches) {
-		CGPoint point = [ touch locationInView: self ];
-		int button = [ self controllerButtonPressedAtPoint: point ];
+		CGPoint point = [touch locationInView: self];
+		int button = [self controllerButtonPressedAtPoint: point];
 		
 		//NSLog(@"%s touchesBegan at %fx%f, button %d", __func__, point.x, point.y, button);
 		if ((button & NCTL_A) || (button & NCTL_B)) {
@@ -286,11 +286,11 @@
 	
 	if (lastState != controllerState[currentController]) {
         //NSLog(@"%s notifying %@ of controller state change", __PRETTY_FUNCTION__, delegate);
-		[ delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController] ];
-		[ self updateNotifyIcons ];
+		[delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController]];
+		[self updateNotifyIcons];
     }
     
-    [ super touchesBegan: touches withEvent: event ];
+    [super touchesBegan: touches withEvent: event];
     
 }
 
@@ -301,13 +301,13 @@
     // NSLog(@"%s", __PRETTY_FUNCTION__);
 
 	for (touch in touches) {
-		CGPoint point = [ touch locationInView: self ];
-		int button = [ self controllerButtonPressedAtPoint: point ];
+		CGPoint point = [touch locationInView: self];
+		int button = [self controllerButtonPressedAtPoint: point];
 		
 		/* User moved off a button? Find the button they were on and cancel it */
 		if (!button && !self.stickControl) {
-			CGPoint oldPoint = [ touch previousLocationInView: self ];
-			button = [ self controllerButtonPressedAtPoint: oldPoint ];
+			CGPoint oldPoint = [touch previousLocationInView: self];
+			button = [self controllerButtonPressedAtPoint: oldPoint];
 			if ((button & NCTL_A) || (button & NCTL_B)) {
 				padButton = 0;
 			} else if ((button & NCTL_UP) || (button & NCTL_DOWN) || (button & NCTL_LEFT) || (button & NCTL_RIGHT)) {
@@ -323,11 +323,11 @@
 	}
 	
 	if (lastState != controllerState[currentController]) {
-		[ delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController] ];
-		[ self updateNotifyIcons ];
+		[delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController]];
+		[self updateNotifyIcons];
 	}
     
-    [ super touchesMoved: touches withEvent: event ];
+    [super touchesMoved: touches withEvent: event];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -336,8 +336,8 @@
     //NSLog(@"%s", __PRETTY_FUNCTION__);
 
 	for (touch in touches) {
-		CGPoint point = [ touch locationInView: self ];
-		int button = [ self controllerButtonPressedAtPoint: point ];
+		CGPoint point = [touch locationInView: self];
+		int button = [self controllerButtonPressedAtPoint: point];
 		if ((button & NCTL_A) || (button & NCTL_B)) {
 			padButton = 0;
 		} else if ((button & NCTL_UP) || (button & NCTL_DOWN) || (button & NCTL_LEFT) || (button & NCTL_RIGHT)) {
@@ -364,10 +364,10 @@
 		//	NSLog(@"%s end touch %d controller state %d", __func__, button, controllerState[currentController]);
 	}
 	
-	[ delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController] ];
-	[ self updateNotifyIcons ];
+	[delegate gameControllerControllerDidChange:currentController controllerState: controllerState[currentController]];
+	[self updateNotifyIcons];
     
-    [ super touchesEnded: touches withEvent: event ];
+    [super touchesEnded: touches withEvent: event];
 }
 
 

@@ -23,12 +23,12 @@
 @implementation NestopiaAppDelegate
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	window = [ [ UIWindow alloc ] initWithFrame: [ [ UIScreen mainScreen ] bounds ] ];
+	window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
 
-    tabBarController = [ self initializeTabBar ];
+    tabBarController = [self initializeTabBar];
     window.rootViewController = tabBarController;
 
-	[ window makeKeyAndVisible ];
+	[window makeKeyAndVisible];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -36,22 +36,22 @@
 }
 
 - (NESTabBarController *)initializeTabBar {
-    tabBarController = [ [ NESTabBarController alloc ] init ];
+    tabBarController = [[NESTabBarController alloc] init];
     
-	gameROMViewController = [ [ GameROMViewController alloc ] init ];
+	gameROMViewController = [[GameROMViewController alloc] init];
     
-    favoritesViewController = [ [ GameROMViewController alloc ] init ];
+    favoritesViewController = [[GameROMViewController alloc] init];
     favoritesViewController.favorite = YES;
     
-	savedGameViewController = [ [ GameROMViewController alloc ] init ];
+	savedGameViewController = [[GameROMViewController alloc] init];
     savedGameViewController.saved = YES;
     
-    settingsViewController = [ [ SettingsViewController alloc ] init ];
+    settingsViewController = [[SettingsViewController alloc] init];
 
-    settingsNavigationController = [ [ UINavigationController alloc ] initWithRootViewController: settingsViewController ];
-    tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, favoritesViewController, settingsNavigationController, nil ];
+    settingsNavigationController = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
+    tabBarController.viewControllers = [NSArray arrayWithObjects: gameROMViewController, savedGameViewController, favoritesViewController, settingsNavigationController, nil];
 	
-    if ([ tabBarController.tabBar respondsToSelector: @selector(setTranslucent:) ])
+    if ([tabBarController.tabBar respondsToSelector: @selector(setTranslucent:)])
     {
         tabBarController.tabBar.translucent = NO;
     }

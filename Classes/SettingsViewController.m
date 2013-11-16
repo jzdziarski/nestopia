@@ -37,21 +37,21 @@
 
     /* Global Settings */
     
-    swapABControl.on = [ [ settings objectForKey: @"swapAB" ] boolValue ];
-    antiAliasControl.on = [ [ settings objectForKey: @"shouldRasterize" ] boolValue ];
-    controllerStickControl.on = [ [ settings objectForKey: @"controllerStickControl" ] boolValue ];
-    fullScreenControl.on = ([ settings objectForKey: @"fullScreen" ] == nil) ? YES : [ [ settings objectForKey: @"fullScreen" ] boolValue ];
-    aspectRatioControl.on = ([ settings objectForKey: @"aspectRatio" ] == nil) ? YES : [ [ settings objectForKey: @"aspectRatio" ] boolValue ];
+    swapABControl.on = [[settings objectForKey: @"swapAB"] boolValue];
+    antiAliasControl.on = [[settings objectForKey: @"shouldRasterize"] boolValue];
+    controllerStickControl.on = [[settings objectForKey: @"controllerStickControl"] boolValue];
+    fullScreenControl.on = ([settings objectForKey: @"fullScreen"] == nil) ? YES : [[settings objectForKey: @"fullScreen"] boolValue];
+    aspectRatioControl.on = ([settings objectForKey: @"aspectRatio"] == nil) ? YES : [[settings objectForKey: @"aspectRatio"] boolValue];
     
-    controllerLayoutIndex =  [ [ settings objectForKey: @"controllerLayout" ] intValue ];
-    controllerLayout.text = [ controllerLayoutDescriptions objectAtIndex: controllerLayoutIndex ];
+    controllerLayoutIndex =  [[settings objectForKey: @"controllerLayout"] intValue];
+    controllerLayout.text = [controllerLayoutDescriptions objectAtIndex: controllerLayoutIndex];
     
     /* Game-Specific Settings */
     
     if (self.game) {
-        gameGenieControl.on = [ [ settings objectForKey: @"gameGenie" ] boolValue ];
+        gameGenieControl.on = [[settings objectForKey: @"gameGenie"] boolValue];
         for(int i = 0; i < 4; i++) {
-            gameGenieCodeControl[i].text = [ settings objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+            gameGenieCodeControl[i].text = [settings objectForKey: [NSString stringWithFormat: @"gameGenieCode%d", i]];
         }
     }
 }
@@ -81,58 +81,58 @@
 }
 
 - (id) init {
-    self = [ super initWithStyle: UITableViewStyleGrouped ];
+    self = [super initWithStyle: UITableViewStyleGrouped];
 	
 	if (self != nil) {
-        UIImage *tabBarImage = [ UIImage imageNamed: @"Settings.png" ];
-        self.tabBarItem = [ [ UITabBarItem alloc ] initWithTitle: @"Default Settings" image: tabBarImage tag: 2 ];
+        UIImage *tabBarImage = [UIImage imageNamed: @"Settings.png"];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle: @"Default Settings" image: tabBarImage tag: 2];
 
-        controllerLayoutDescriptions = [ [ NSArray alloc ] initWithObjects: @"Game Pad + Zapper", @"Zapper Only", nil ];
+        controllerLayoutDescriptions = [[NSArray alloc] initWithObjects: @"Game Pad + Zapper", @"Zapper Only", nil];
 		raised = NO;
-		swapABControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
-		fullScreenControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
-		aspectRatioControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
-		gameGenieControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
-        antiAliasControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
-        controllerStickControl = [ [ UISwitch alloc ] initWithFrame: CGRectZero ];
+		swapABControl = [[UISwitch alloc] initWithFrame: CGRectZero];
+		fullScreenControl = [[UISwitch alloc] initWithFrame: CGRectZero];
+		aspectRatioControl = [[UISwitch alloc] initWithFrame: CGRectZero];
+		gameGenieControl = [[UISwitch alloc] initWithFrame: CGRectZero];
+        antiAliasControl = [[UISwitch alloc] initWithFrame: CGRectZero];
+        controllerStickControl = [[UISwitch alloc] initWithFrame: CGRectZero];
 
-        controllerLayout = [ [ UITextField alloc ] initWithFrame: CGRectMake(-170, -12.0, 160.0, 30.0) ];
-        controllerLayout.textColor = [ UIColor colorWithHue: .6027 saturation: .63 brightness: .52 alpha: 1.0 ];
+        controllerLayout = [[UITextField alloc] initWithFrame: CGRectMake(-170, -12.0, 160.0, 30.0)];
+        controllerLayout.textColor = [UIColor colorWithHue: .6027 saturation: .63 brightness: .52 alpha: 1.0];
         controllerLayout.enabled = NO;
 		controllerLayout.textAlignment = NSTextAlignmentRight;
 		controllerLayout.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
 
         for(int i = 0; i < 4; i++) {
-			gameGenieCodeControl[i] = [ [ UITextField alloc ] initWithFrame: CGRectMake(100.0, 5.0, 200.0, 35.0) ];
+			gameGenieCodeControl[i] = [[UITextField alloc] initWithFrame: CGRectMake(100.0, 5.0, 200.0, 35.0)];
 			gameGenieCodeControl[i].contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 			gameGenieCodeControl[i].delegate = self;
 			gameGenieCodeControl[i].placeholder = @"Empty";
 			gameGenieCodeControl[i].returnKeyType = UIReturnKeyDone;
 		}
         
-        [ self loadSettings ];
-        [ self saveSettings ];
+        [self loadSettings];
+        [self saveSettings];
 	}
 	return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [ super viewWillAppear: animated ];
+    [super viewWillAppear: animated];
     
     self.navigationController.navigationBar.hidden = NO;
 
-    [ self loadSettings ];
+    [self loadSettings];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	
 	NSLog(@"%s saving settings", __func__);
 	
-	[ self saveSettings ];
+	[self saveSettings];
 }
 
 - (void)didReceiveMemoryWarning {
-    [ super didReceiveMemoryWarning ];
+    [super didReceiveMemoryWarning];
 }
 
 
@@ -175,21 +175,21 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSString *CellIdentifier = [ NSString stringWithFormat: @"%d:%d", [ indexPath indexAtPosition: 0 ],
-								[ indexPath indexAtPosition:1 ] ];
+	NSString *CellIdentifier = [NSString stringWithFormat: @"%d:%d", [indexPath indexAtPosition: 0],
+								[indexPath indexAtPosition:1]];
 	
-    UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier: CellIdentifier ];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: CellIdentifier];
     if (cell == nil) {
-        cell = [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: CellIdentifier ];
+        cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: CellIdentifier];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.textAlignment = NSTextAlignmentLeft;;
 
-        DisclosureIndicator *accessory = [ DisclosureIndicator accessoryWithColor: [ UIColor colorWithHue: 0 saturation: 0 brightness: .5 alpha: 1.0 ] ];
-        accessory.highlightedColor = [ UIColor blackColor ];
+        DisclosureIndicator *accessory = [DisclosureIndicator accessoryWithColor: [UIColor colorWithHue: 0 saturation: 0 brightness: .5 alpha: 1.0]];
+        accessory.highlightedColor = [UIColor blackColor];
 
-		switch ([ indexPath indexAtPosition: 0]) {
+		switch ([indexPath indexAtPosition: 0]) {
 			case(0):
-				switch([ indexPath indexAtPosition: 1]) {
+				switch([indexPath indexAtPosition: 1]) {
 					case(0):
 						cell.accessoryView = fullScreenControl;
 						cell.textLabel.text = @"Full Screen";
@@ -217,26 +217,26 @@
                         else
                             cell.textLabel.text = @"Controllers";
                         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                        [ cell.accessoryView addSubview: controllerLayout ];
+                        [cell.accessoryView addSubview: controllerLayout];
 				}
 				break;
 			case(1):
-				if ([ indexPath indexAtPosition: 1 ] == 0) {
+				if ([indexPath indexAtPosition: 1] == 0) {
                     cell.accessoryView = gameGenieControl;
                     cell.textLabel.text = @"Game Genie";
                     break;
 				} else {
-					[ cell addSubview: gameGenieCodeControl[[ indexPath indexAtPosition: 1 ]-1]];
+					[cell addSubview: gameGenieCodeControl[[indexPath indexAtPosition: 1]-1]];
 					if (!self.game) {
-						gameGenieCodeControl[[indexPath indexAtPosition: 1 ]-1].text = nil;
-						gameGenieCodeControl[[indexPath indexAtPosition: 1 ]-1].placeholder = @"None";
-						gameGenieCodeControl[[indexPath indexAtPosition: 1 ]-1].enabled = NO;
+						gameGenieCodeControl[[indexPath indexAtPosition: 1]-1].text = nil;
+						gameGenieCodeControl[[indexPath indexAtPosition: 1]-1].placeholder = @"None";
+						gameGenieCodeControl[[indexPath indexAtPosition: 1]-1].enabled = NO;
 					} else {
-						gameGenieCodeControl[[indexPath indexAtPosition: 1 ]-1].placeholder = @"Empty";
-						gameGenieCodeControl[[indexPath indexAtPosition: 1 ]-1].enabled = YES;
+						gameGenieCodeControl[[indexPath indexAtPosition: 1]-1].placeholder = @"Empty";
+						gameGenieCodeControl[[indexPath indexAtPosition: 1]-1].enabled = YES;
 					}
 
-					cell.textLabel.text = [ NSString stringWithFormat: @"Code #%d", [ indexPath indexAtPosition: 1 ] ];
+					cell.textLabel.text = [NSString stringWithFormat: @"Code #%d", [indexPath indexAtPosition: 1]];
 				}
                 break;
             case(2):
@@ -257,18 +257,18 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [ self.tableView cellForRowAtIndexPath: indexPath ];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath: indexPath];
 
-    if ([ indexPath indexAtPosition: 0 ] == 0) {
+    if ([indexPath indexAtPosition: 0] == 0) {
     
-		MultiValueViewController *viewController = [ [ MultiValueViewController alloc ] initWithStyle: UITableViewStyleGrouped ];
-        viewController.options = [ NSArray arrayWithArray: controllerLayoutDescriptions ];
+		MultiValueViewController *viewController = [[MultiValueViewController alloc] initWithStyle: UITableViewStyleGrouped];
+        viewController.options = [NSArray arrayWithArray: controllerLayoutDescriptions];
         viewController.selectedItemIndex = controllerLayoutIndex;
         viewController.delegate = self;
-		[ self.navigationController pushViewController: viewController animated: YES ];
+		[self.navigationController pushViewController: viewController animated: YES];
     }
     
-    if ([ indexPath indexAtPosition: 0 ] == 2) {
+    if ([indexPath indexAtPosition: 0] == 2) {
         self.game.favorite = !self.game.favorite;
         
         if (! self.game.favorite) {
@@ -278,7 +278,7 @@
         }
     }
     
-    [ cell setSelected: NO animated: NO ];
+    [cell setSelected: NO animated: NO];
 }
 
 - (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section
@@ -294,17 +294,17 @@
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
 	
 	if (raised == YES) {
-		[ UIView beginAnimations: nil context: NULL ]; 
-		[ UIView setAnimationDuration: 0.3 ]; 
+		[UIView beginAnimations: nil context: NULL]; 
+		[UIView setAnimationDuration: 0.3]; 
 		CGRect frame = self.view.frame; 
 		frame.origin.y += 200.0; 
 		self.view.frame = frame; 
-		[ UIView commitAnimations ]; 
+		[UIView commitAnimations]; 
 		raised = NO;
 	}
 	
 	self.tableView.scrollEnabled = YES;
-    [ textField resignFirstResponder ];
+    [textField resignFirstResponder];
     return YES;
 }
 
@@ -316,12 +316,12 @@
 			|| textField == gameGenieCodeControl[2] 
 			|| textField == gameGenieCodeControl[3])
 		{
-			[ UIView beginAnimations: nil context: NULL ]; 
-			[ UIView setAnimationDuration: 0.3 ]; 
+			[UIView beginAnimations: nil context: NULL]; 
+			[UIView setAnimationDuration: 0.3]; 
 			CGRect frame = self.view.frame; 
 			frame.origin.y -= 200.0; 
 			self.view.frame = frame; 
-			[ UIView commitAnimations ];
+			[UIView commitAnimations];
 			raised = YES;
 		}
 	}
@@ -332,8 +332,8 @@
 - (void) didSelectItemFromList: (MultiValueViewController *)multiValueViewController selectedItemIndex:(int)selectedItemIndex identifier:(id)identifier
 {
     controllerLayoutIndex = selectedItemIndex;
-    controllerLayout.text = [ controllerLayoutDescriptions objectAtIndex: controllerLayoutIndex ];
-    [ self saveSettings ];
-    // [ self.tableView reloadData ];
+    controllerLayout.text = [controllerLayoutDescriptions objectAtIndex: controllerLayoutIndex];
+    [self saveSettings];
+    // [self.tableView reloadData];
 }
 @end

@@ -27,10 +27,10 @@
 @synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame settings:(NSDictionary *)aSettings {
-    self = [ super initWithFrame: frame ];
+    self = [super initWithFrame: frame];
 	if (self != nil) {
         settings = [aSettings copy];
-		[ self initializeGraphics ];
+		[self initializeGraphics];
     }
     return self;
 }
@@ -56,15 +56,15 @@
 	
     /* Landscape Resolutions */
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-		if ([[ settings objectForKey: @"fullScreen" ] boolValue ] == YES) {
+		if ([[settings objectForKey: @"fullScreen"] boolValue] == YES) {
             w = 320;
-            h = ([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341 : 480;
+            h = ([[settings objectForKey: @"aspectRatio"] boolValue]== YES) ? 341 : 480;
         } else {
             w = NES_WIDTH;
             h = NES_HEIGHT;
         }
     } else {
-		if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+		if ([[settings objectForKey: @"fullScreen"] boolValue]== YES) {
 			NSLog(@"%s initializing for full screen", __func__);
             w = 320;
             h = 300;
@@ -91,13 +91,13 @@
 	provider[1] = CGDataProviderCreateWithData(NULL, frameBuffer8888, w * h * 4, NULL);
 	currentProvider = 0;
 	
-	[ self gen_colorspace_tables ];
+	[self gen_colorspace_tables];
 	
 	self.layer.magnificationFilter = nil;
 	self.layer.minificationFilter = nil;
 	self.layer.compositingFilter = nil;
 	self.layer.edgeAntialiasingMask = 0;
-    if ([ [ settings objectForKey: @"shouldRasterize" ] boolValue ] == YES ){
+    if ([[settings objectForKey: @"shouldRasterize"] boolValue] == YES ){
         self.layer.shouldRasterize = YES;
         NSLog(@"%s turning on shouldRasterize", __PRETTY_FUNCTION__);
 	}
@@ -117,17 +117,17 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [ touches anyObject ];
-	CGPoint point = [ touch locationInView: self ];
+    UITouch *touch = [touches anyObject];
+	CGPoint point = [touch locationInView: self];
     CGPoint location;
     
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         float x, y;
-        y = (([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
+        y = (([[settings objectForKey: @"fullScreen"] boolValue]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
         x = point.y - self.frame.origin.y;
 		
-        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            x = (x * (NES_WIDTH / (([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
+        if ([[settings objectForKey: @"fullScreen"] boolValue]== YES) {
+            x = (x * (NES_WIDTH / (([[settings objectForKey: @"aspectRatio"] boolValue]== YES) ? 341.0 : 480.0)));
             y = (y * (NES_HEIGHT / 320.0));
             
 
@@ -137,7 +137,7 @@
 			  __func__, point.x, point.y, x, y, self.frame.origin.x, self.frame.origin.y);
         location = CGPointMake(x, y);
 	} else {
-        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+        if ([[settings objectForKey: @"fullScreen"] boolValue]== YES) {
             
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             {
@@ -145,7 +145,7 @@
                 point.y = (point.y * (NES_HEIGHT / 300.0));
             } else
             {
-                if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+                if ([[settings objectForKey: @"fullScreen"] boolValue]== YES) {
                     point.x = (point.x * (NES_WIDTH / 768.0));
                     point.y = (point.y * (NES_HEIGHT / 576.0));
                 }
@@ -157,24 +157,24 @@
 			  __func__, point.x, point.y, location.x, location.y, self.frame.origin.x, self.frame.origin.y);
     }
 
-    if ([ delegate respondsToSelector: @selector(gameControllerZapperDidChange:locationInWindow:) ]==YES)
+    if ([delegate respondsToSelector: @selector(gameControllerZapperDidChange:locationInWindow:)]==YES)
     {
-		[ delegate gameControllerZapperDidChange: 0x0 locationInWindow:location ];
+		[delegate gameControllerZapperDidChange: 0x0 locationInWindow:location];
 	}
 }
  
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	UITouch *touch = [ touches anyObject ];
-	CGPoint point = [ touch locationInView: self ];
+	UITouch *touch = [touches anyObject];
+	CGPoint point = [touch locationInView: self];
     CGPoint location;
 	  	
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         float x, y;
-        y = (([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
+        y = (([[settings objectForKey: @"fullScreen"] boolValue]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
         x = point.y - self.frame.origin.y;
 		
-        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            x = (x * (NES_WIDTH / (([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
+        if ([[settings objectForKey: @"fullScreen"] boolValue]== YES) {
+            x = (x * (NES_WIDTH / (([[settings objectForKey: @"aspectRatio"] boolValue]== YES) ? 341.0 : 480.0)));
             y = (y * (NES_HEIGHT / 320.0));
         }
 		
@@ -182,7 +182,7 @@
 			  __func__, point.x, point.y, x, y, self.frame.origin.x, self.frame.origin.y);
         location = CGPointMake(x, y);
 	} else {
-        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+        if ([[settings objectForKey: @"fullScreen"] boolValue]== YES) {
             point.x = (point.x * (NES_WIDTH / 320.0));
             point.y = (point.y * (NES_HEIGHT / 300.0));
         }
@@ -191,8 +191,8 @@
 			  __func__, point.x, point.y, location.x, location.y, self.frame.origin.x, self.frame.origin.y);
     }
 	
-	if ([ delegate respondsToSelector: @selector(gameControllerZapperDidChange:locationInWindow:) ]==YES) {
-		[ delegate gameControllerZapperDidChange: 0x10 locationInWindow:location ];
+	if ([delegate respondsToSelector: @selector(gameControllerZapperDidChange:locationInWindow:)]==YES) {
+		[delegate gameControllerZapperDidChange: 0x10 locationInWindow:location];
 	}
 }
 
@@ -206,7 +206,7 @@
 		for (x=0; x< w; x++)
 		{
 			px = frameBufferAddress[w*y+x];
-			frameBuffer8888[w*y+x] = hightable[px >> 8 ] + lowtable[px & 0xFF];
+			frameBuffer8888[w*y+x] = hightable[px >> 8] + lowtable[px & 0xFF];
 		}		
 	}
 

@@ -69,7 +69,7 @@ extern NSString *currentGamePath;
 	
 	NSLog(@"%s loading image %@\n", __func__ , self.currentGame.path);
 
-    nestopiaCore = [ [ NestopiaCore alloc ] init ];
+    nestopiaCore = [[NestopiaCore alloc] init];
     nestopiaCore.gamePath = self.currentGame.path;
     nestopiaCore.delegate = self;
     nestopiaCore.controllerLayout = [[self.currentGame.settings objectForKey: @"controllerLayout"] intValue];
@@ -78,9 +78,9 @@ extern NSString *currentGamePath;
         nestopiaCore.resolution = frameBufferSize;
     }
     
-    BOOL initialized = [ nestopiaCore initializeCore ];
+    BOOL initialized = [nestopiaCore initializeCore];
     if (initialized == NO) {
-        NSLog(@"%s [ nestopiaCore initializeCore ] failed", __PRETTY_FUNCTION__);
+        NSLog(@"%s [nestopiaCore initializeCore] failed", __PRETTY_FUNCTION__);
         return NO;
     }
     
@@ -98,8 +98,8 @@ extern NSString *currentGamePath;
 	
 	NSLog(@"%s", __func__);
 	
-	defaultFullScreen = [[self.currentGame.settings objectForKey: @"fullScreen" ] intValue ];
-	defaultAspectRatio = [[self.currentGame.settings objectForKey: @"aspectRatio" ] intValue ];
+	defaultFullScreen = [[self.currentGame.settings objectForKey: @"fullScreen"] intValue];
+	defaultAspectRatio = [[self.currentGame.settings objectForKey: @"aspectRatio"] intValue];
 	   
 	if (defaultFullScreen) {
 		destinationWidth = (defaultAspectRatio) ? 341 : 479;
@@ -113,34 +113,34 @@ extern NSString *currentGamePath;
 }
 
 - (int)applyGameGenieCodes {
-    NSMutableArray *codes = [ [ NSMutableArray alloc ] init ];
+    NSMutableArray *codes = [[NSMutableArray alloc] init];
     
     NSLog(@"%s loading Game Genie codes\n", __func__);
-    if ([[ self.currentGame.settings objectForKey: @"gameGenie" ] boolValue ] == YES) {
+    if ([[self.currentGame.settings objectForKey: @"gameGenie"] boolValue] == YES) {
         
         for(int i = 0; i < 4; i++) {
-            NSString *code = [ self.currentGame.settings objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+            NSString *code = [self.currentGame.settings objectForKey: [NSString stringWithFormat: @"gameGenieCode%d", i]];
             if (code != nil) {
                 
                 NSLog(@"%s applying game genie code %@", __func__, code);
-                [ codes addObject: code ];
+                [codes addObject: code];
             }
         }
     }
     
-    [ nestopiaCore applyCheatCodes: codes ];
+    [nestopiaCore applyCheatCodes: codes];
 
 	return 0;
 }	
 
 - (BOOL)saveState {
-    [ nestopiaCore saveState ];
+    [nestopiaCore saveState];
     return YES;
 }
 
 - (BOOL)loadState {
     
-    [ nestopiaCore loadState ];
+    [nestopiaCore loadState];
     return YES;
 }
 
@@ -172,8 +172,8 @@ extern NSString *currentGamePath;
             }
         }
 
-		[ screenDelegate performSelectorOnMainThread: @selector(emulatorCoreDidUpdateFrameBuffer)
-											  withObject:nil waitUntilDone: NO ];
+		[screenDelegate performSelectorOnMainThread: @selector(emulatorCoreDidUpdateFrameBuffer)
+											  withObject:nil waitUntilDone: NO];
 	} else {
 		NSLog(@"%s screenDelegate = nil, skipping render", __func__);
 	}
@@ -232,7 +232,7 @@ extern NSString *currentGamePath;
     audioCallback.mDataFormat.mBitsPerChannel = 16;
 	audioCallback.userData = (__bridge void *)(self);
 	
-	[ self initializeSoundBuffers: samplesPerSync ];
+	[self initializeSoundBuffers: samplesPerSync];
 	
     return 0;
 }
@@ -300,28 +300,28 @@ extern NSString *currentGamePath;
     NSLog(@"%s", __PRETTY_FUNCTION__);
 
 	soundBuffersInitialized = 0;
-	[ nestopiaCore startEmulation ];
+	[nestopiaCore startEmulation];
 }
 
 - (void)restartEmulator {
-    NSLog(@"%s controllerLayout: %d", __PRETTY_FUNCTION__, [ [ self.currentGame.settings objectForKey: @"controllerLayout" ] intValue ]);
+    NSLog(@"%s controllerLayout: %d", __PRETTY_FUNCTION__, [[self.currentGame.settings objectForKey: @"controllerLayout"] intValue]);
     
-    nestopiaCore.controllerLayout = [ [ self.currentGame.settings objectForKey: @"controllerLayout" ] intValue ];
-    [ nestopiaCore initializeInput ];
+    nestopiaCore.controllerLayout = [[self.currentGame.settings objectForKey: @"controllerLayout"] intValue];
+    [nestopiaCore initializeInput];
     screenDelegate = haltedScreenDelegate;
     soundBuffersInitialized = 0;
-    [ nestopiaCore startEmulation ];
+    [nestopiaCore startEmulation];
 }
 
 - (void)insertCoin1 {
-    [ self performSelectorInBackground: @selector(internalInsertCoin1) withObject: nil ];
+    [self performSelectorInBackground: @selector(internalInsertCoin1) withObject: nil];
 }
 
 - (void)internalInsertCoin1 {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-    [ nestopiaCore toggleCoin1 ];
+    [nestopiaCore toggleCoin1];
     usleep(250000);
-    [ nestopiaCore coinOff ];
+    [nestopiaCore coinOff];
 }
 
 - (void)setScreenDelegate:(id<EmulatorCoreScreenDelegate>)_screenDelegate {
@@ -339,20 +339,20 @@ extern NSString *currentGamePath;
     screenDelegate = nil;
     
 	NSLog(@"%s halting emulator\n", __func__);
-	[ nestopiaCore stopEmulation ];	
+	[nestopiaCore stopEmulation];	
 }
 
 - (void)finishEmulator {
-    [ nestopiaCore finishEmulation ];
+    [nestopiaCore finishEmulation];
     haltedScreenDelegate = nil;
 }
 
 - (void)activatePad1 {
-    [ nestopiaCore activatePad1 ];
+    [nestopiaCore activatePad1];
 }
 
 - (void)activatePad2 {
-    [ nestopiaCore activatePad2 ];
+    [nestopiaCore activatePad2];
 }
 
 - (void)gameControllerZapperDidChange: (byte)status locationInWindow:(CGPoint)locationInWindow {
@@ -376,7 +376,7 @@ void AQBufferCallback(void *callbackStruct, AudioQueueRef inQ, AudioQueueBufferR
 {
 	AQCallbackStruct *inData = (AQCallbackStruct *) callbackStruct;
 	EmulatorCore *sharedEmulatorCore = (__bridge EmulatorCore *) inData->userData;
-	[ sharedEmulatorCore AQBufferCallback: inData inQ: inQ outQB: outQB ];
+	[sharedEmulatorCore AQBufferCallback: inData inQ: inQ outQB: outQB];
 }
 @end
 
