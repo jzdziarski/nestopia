@@ -57,7 +57,7 @@
     while ((filename = [enumerator nextObject])) {
         if ([[[filename pathExtension] lowercaseString] isEqualToString:@"nes"]) {
             NSString *title = [[filename lastPathComponent] stringByDeletingPathExtension];
-            NSString *path = [documentsPath stringByAppendingPathExtension:filename];
+            NSString *path = [documentsPath stringByAppendingPathComponent:filename];
             NSString *savePath = [path stringByAppendingPathExtension:@"sav"];
             
             Game *game = [[Game alloc] initWithTitle:title path:path savePath:savePath];

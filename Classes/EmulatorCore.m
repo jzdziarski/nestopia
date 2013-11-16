@@ -129,7 +129,6 @@ extern NSString *currentGamePath;
     }
     
     [ nestopiaCore applyCheatCodes: codes ];
-    [ codes release ];
 
 	return 0;
 }	
@@ -145,11 +144,6 @@ extern NSString *currentGamePath;
     return YES;
 }
 
-- (void)dealloc {
-	[ currentROMImagePath release ];
-    [ nestopiaCore release ];
-    [ super dealloc ];
-}
 
 /* Callbacks */
 
@@ -236,7 +230,7 @@ extern NSString *currentGamePath;
     audioCallback.mDataFormat.mBytesPerFrame = 4;
     audioCallback.mDataFormat.mChannelsPerFrame = 2;
     audioCallback.mDataFormat.mBitsPerChannel = 16;
-	audioCallback.userData = self;
+	audioCallback.userData = (__bridge void *)(self);
 	
 	[ self initializeSoundBuffers: samplesPerSync ];
 	

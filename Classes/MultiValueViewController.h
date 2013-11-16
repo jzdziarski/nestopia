@@ -9,7 +9,7 @@
 	UITableViewCell *selectedCell;
 }
 
-@property(retain) id identifier;
+@property(strong) id identifier;
 @property(unsafe_unretained,assign) id<MultiValueViewControllerDelegate> delegate;
 @property(assign) int selectedItemIndex;
 @property(copy) NSArray *options, *images;

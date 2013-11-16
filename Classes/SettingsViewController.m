@@ -135,10 +135,6 @@
     [ super didReceiveMemoryWarning ];
 }
 
-- (void)dealloc {
-    [ controllerLayoutDescriptions release ];
-    [ super dealloc ];
-}
 
 /* UITableViewDataSource methods */
 
@@ -184,7 +180,7 @@
 	
     UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier: CellIdentifier ];
     if (cell == nil) {
-        cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: CellIdentifier ] autorelease ];
+        cell = [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: CellIdentifier ];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.textAlignment = NSTextAlignmentLeft;;
 
@@ -269,7 +265,7 @@
         viewController.options = [ NSArray arrayWithArray: controllerLayoutDescriptions ];
         viewController.selectedItemIndex = controllerLayoutIndex;
         viewController.delegate = self;
-		[ self.navigationController pushViewController: [ viewController autorelease ] animated: YES ];
+		[ self.navigationController pushViewController: viewController animated: YES ];
     }
     
     if ([ indexPath indexAtPosition: 0 ] == 2) {

@@ -34,7 +34,7 @@
 	NSString *CellIdentifier = [ options objectAtIndex: [ indexPath indexAtPosition: 1 ] ]; //@"Cell";
     UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier:CellIdentifier ];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		cell.textLabel.text = [ options objectAtIndex: [ indexPath indexAtPosition: 1 ] ];
 		
 		if ([ images count ] > [ indexPath indexAtPosition: 1 ]) {
@@ -95,8 +95,6 @@
 	
 	NSLog(@"%s", __func__);
 	
-	[ options dealloc ];
-    [ super dealloc ];
 }
 
 

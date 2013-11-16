@@ -108,7 +108,7 @@ typedef struct AQCallbackStruct {
 @property(nonatomic,readonly,copy) NSString *currentROMImagePath;
 @property(nonatomic,assign) word *frameBufferAddress;
 @property(nonatomic,assign) CGSize frameBufferSize;
-@property(nonatomic,assign) id<EmulatorCoreScreenDelegate> screenDelegate;
+@property(nonatomic,weak) id<EmulatorCoreScreenDelegate> screenDelegate;
 
 @end
 

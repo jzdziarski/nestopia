@@ -61,9 +61,8 @@
         
         UITapGestureRecognizer *tapGesture = [ [ UITapGestureRecognizer alloc ] initWithTarget: self action: @selector(userDidExitGamePlay)];
         [ label addGestureRecognizer: tapGesture ];
-        [ tapGesture release ];
         
-        [ self.view addSubview: [ label autorelease ] ];
+        [ self.view addSubview: label ];
     }
     
     /* landscape */
@@ -122,7 +121,7 @@
         
         border = [ [ UIView alloc ] initWithFrame: CGRectMake(surfaceRect.origin.x - 1.0, surfaceRect.origin.y - 1.0, surfaceRect.size.width + 2.0, surfaceRect.size.height + 2.0) ];
         border.backgroundColor = [ UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .70 alpha: 1.0 ];
-        [ self.view addSubview: [ border autorelease ] ];
+        [ self.view addSubview: border ];
         
     }
     
@@ -160,8 +159,6 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
-    [ alertView release ];
-    [ emulatorCore release ];
     if (! [self.presentedViewController isBeingDismissed]) {
         [ self dismissViewControllerAnimated: YES completion:^{} ];
     }
@@ -215,13 +212,9 @@
         controllerView.delegate = nil;
         screenView.delegate = nil;
         
-        [ controllerView release ];
-        [ screenView release ];
         
         [ emulatorCore finishEmulator ];
-        [ emulatorCore release ];
     }
-    [ super dealloc ];
 }
 
 - (BOOL)hasFourInchDisplay {
@@ -234,7 +227,6 @@
     
 	NSLog(@"%s re-initializing controllerView with frame %fx%f", __PRETTY_FUNCTION__, frame.size.width, frame.size.height);
 	[ controllerView removeFromSuperview ];
-    [ controllerView release ];
 	controllerView = [ [ ControllerView alloc ] initWithFrame: frame ];
 	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
 		controllerView.alpha = 0.5;
@@ -260,7 +252,7 @@
             controllerView.notified = NO;
             SettingsViewController *settingsViewController = [ [ SettingsViewController alloc ] init ];
             
-            [ self.navigationController pushViewController: [ settingsViewController autorelease ] animated: YES ];
+            [ self.navigationController pushViewController: settingsViewController animated: YES ];
             return;
         } else if (buttonIndex == 0) { /* Insert Coin */
             
@@ -355,8 +347,6 @@
     [ controllerView removeFromSuperview ];
     [ label removeFromSuperview ];
     [ border removeFromSuperview ];
-    [ screenView release ];
-    [ controllerView release ];
     
     screenView = nil;
     controllerView = nil;

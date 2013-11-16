@@ -25,8 +25,8 @@
 
 @interface ControllerView : UIView {
 	UIDeviceOrientation orientation;
-	id delegate;
-    id gamePlayDelegate;
+	id __weak delegate;
+    id __weak gamePlayDelegate;
 	
     UIImage *controllerImage;
     UIImageView *indicatorUp;
@@ -66,9 +66,9 @@
 @property (nonatomic, assign) BOOL stickControl;
 
 @property(nonatomic,assign) UIDeviceOrientation orientation;
-@property(nonatomic,assign) id<GameControllerDelegate> delegate;
+@property(nonatomic,weak) id<GameControllerDelegate> delegate;
 @property(nonatomic,assign) int currentController;
-@property(nonatomic,assign) id gamePlayDelegate;
+@property(nonatomic,weak) id gamePlayDelegate;
 @property(nonatomic,assign) BOOL notified;
 
 @end

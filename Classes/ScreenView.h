@@ -38,7 +38,7 @@
 	CGSize frameBufferSize;
 	CGColorSpaceRef colorSpace;
 	CGDataProviderRef provider[2];
-	id delegate;	
+	id __weak delegate;	
 	int currentProvider;
 }
 
@@ -52,5 +52,5 @@
 @property(nonatomic,assign) UIDeviceOrientation orientation;
 @property(nonatomic,assign,readonly) unsigned short *frameBufferAddress;
 @property(nonatomic,assign) CGSize frameBufferSize;
-@property(nonatomic,assign) id<GameControllerDelegate> delegate;
+@property(nonatomic,weak) id<GameControllerDelegate> delegate;
 @end

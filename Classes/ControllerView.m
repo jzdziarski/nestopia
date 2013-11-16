@@ -78,7 +78,7 @@
             }
 			controllerImage = [ self getControllerImage ];
 			UIImageView *imageView = [ [ UIImageView alloc ] initWithImage: controllerImage ];
-			[ self addSubview: [ imageView autorelease ] ];
+			[ self addSubview: imageView ];
 			
 		/* Portrait Controls */
 		} else {
@@ -132,7 +132,7 @@
             
 			controllerImage = [ self getControllerImage ];			
 			UIImageView *imageView = [ [ UIImageView alloc ] initWithImage: controllerImage ];
-			[ self addSubview: [ imageView autorelease ] ];
+			[ self addSubview: imageView ];
 			
 			[ self addSubview: indicatorUp ];
 			[ self addSubview: indicatorDown ];
@@ -203,7 +203,7 @@
     }
     
 	NSLog(@"%s loading controller image %@\n", __func__, controllerFilename);
-    image = [[ UIImage imageNamed: controllerFilename ] retain ];
+    image = [ UIImage imageNamed: controllerFilename ];
 	return image;
 }
 
@@ -370,16 +370,6 @@
     [ super touchesEnded: touches withEvent: event ];
 }
 
-- (void)dealloc {
-	[ controllerImage release ];
-	[ indicatorUp release ];
-	[ indicatorDown release ];
-	[ indicatorLeft release ];
-	[ indicatorRight release ];
-	[ indicatorA release ];
-	[ indicatorB release ];
-    [ super dealloc ];
-}
 
 
 @end
