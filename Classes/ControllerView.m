@@ -36,8 +36,6 @@
 
 		padDir = padButton = padSpecial = 0;
 		orientation = [ UIApplication sharedApplication ].statusBarOrientation;
-		swapAB = [[[ EmulatorCore globalSettings ] objectForKey: @"swapAB" ] boolValue ];
-		stickControl = [[[ EmulatorCore globalSettings ] objectForKey: @"controllerStickControl" ] boolValue ];
         
 		NSLog(@"%s initializing controller view in %s mode\n", __func__,
 			  (UIInterfaceOrientationIsLandscape(orientation) == YES) ? "landscape" : "portrait");
@@ -148,11 +146,6 @@
 	return self;
 }
 
-- (void)reloadSettings {
-    swapAB = [[[ EmulatorCore globalSettings ] objectForKey: @"swapAB" ] boolValue ];
-    stickControl = [[[ EmulatorCore globalSettings ] objectForKey: @"controllerStickControl" ] boolValue ];
-}
-
 - (void)updateNotifyIcons {
 	
     if (UIInterfaceOrientationIsLandscape(orientation)==YES) {
@@ -222,13 +215,13 @@
         point.y /= 2.4;
     }
     
-    if (CGRectContainsPoint(Exit, point)) {
-        if (notified == NO && [ gamePlayDelegate respondsToSelector: @selector(userDidExitGamePlay) ])
-        {
-            [ gamePlayDelegate userDidExitGamePlay ];
-            notified = YES;
-        }
-    }
+//    if (CGRectContainsPoint(Exit, point)) {
+//        if (notified == NO && [ gamePlayDelegate respondsToSelector: @selector(userDidExitGamePlay) ])
+//        {
+//            [ gamePlayDelegate userDidExitGamePlay ];
+//            notified = YES;
+//        }
+//    }
 	if (CGRectContainsPoint(AB, point)) {
 		button = NCTL_A | NCTL_B;
 	} else if (CGRectContainsPoint(UL, point)) {
@@ -248,13 +241,13 @@
 	} else if (CGRectContainsPoint(Right, point)) {
 		button = NCTL_RIGHT;
 	} else if (CGRectContainsPoint(A, point)) {
-		if (swapAB==YES) {
+		if (self.swapAB) {
 			button = NCTL_B;
 		} else {
 			button = NCTL_A;
 		}
 	} else if (CGRectContainsPoint(B, point)) {
-		if (swapAB== YES)
+		if (self.swapAB)
 			button = NCTL_A;
 		else
 			button = NCTL_B;
@@ -312,7 +305,7 @@
 		int button = [ self controllerButtonPressedAtPoint: point ];
 		
 		/* User moved off a button? Find the button they were on and cancel it */
-		if (! button && stickControl != YES) {
+		if (!button && !self.stickControl) {
 			CGPoint oldPoint = [ touch previousLocationInView: self ];
 			button = [ self controllerButtonPressedAtPoint: oldPoint ];
 			if ((button & NCTL_A) || (button & NCTL_B)) {

@@ -24,20 +24,13 @@
 #import "EmulatorCore.h"
 #include <sys/stat.h>
 
-NSString *currentGamePath = nil;
-BOOL emulatorRunning;
-
 @implementation GamePlayViewController
-@synthesize gamePath, gameTitle, shouldLoadState;
 
 - (void)loadView {
-
     [ super loadView ];
     
     loaded = NO;
-    self.title = gameTitle;
-    [ currentGamePath release ];
-    currentGamePath = [ gamePath copy ];
+    self.title = self.game.title;
     
     [ self initializeEmulatorView ];
     [ self initializeEmulator ];
@@ -61,7 +54,7 @@ BOOL emulatorRunning;
         label.backgroundColor = [ UIColor clearColor ];
         label.textColor = [ UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .50 alpha: 1.0 ];
         //label.textColor = [ UIColor colorWithHue: 211.0/360.0 saturation: 1.0 brightness: 1.0 alpha: 1.0 ];        label.font = [ UIFont fontWithName: @"HelveticaNeue-Regular" size: 14.0 ];
-        label.text = [ gameTitle uppercaseString ];
+        label.text = [ self.game.title uppercaseString ];
         label.textAlignment = NSTextAlignmentLeft;
         label.adjustsFontSizeToFitWidth = YES;
         label.userInteractionEnabled = YES;
@@ -79,8 +72,8 @@ BOOL emulatorRunning;
         screenWidth = [ UIScreen mainScreen ].bounds.size.height;
         self.view.backgroundColor = [ UIColor blackColor ];
         
-		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            if ([ [ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) {
+		if ([[ self.game.settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            if ([ [ self.game.settings objectForKey: @"aspectRatio" ] boolValue ]== YES) {
                 emuHeight = 320.0;
                 emuWidth = 341.0;
             } else {
@@ -100,7 +93,7 @@ BOOL emulatorRunning;
         float controllerHeight = 125.0;
         self.view.backgroundColor = [ UIColor whiteColor ];
         
-		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+		if ([[ self.game.settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
             emuHeight = 300.0;
             emuWidth = 320.0;
             
@@ -117,7 +110,7 @@ BOOL emulatorRunning;
         }
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            if ([[ self.game.settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
                 emuHeight *= 2.4;
                 emuWidth *= 2.4;
                 offset = 20.0;
@@ -134,7 +127,7 @@ BOOL emulatorRunning;
     }
     
 	NSLog(@"%s initializing surface layer with frame: %fx%f size: %fx%f", __PRETTY_FUNCTION__, surfaceRect.origin.x, surfaceRect.origin.y, surfaceRect.size.width, surfaceRect.size.height);
-	screenView = [ [ ScreenView alloc ] initWithFrame: surfaceRect ];
+	screenView = [ [ ScreenView alloc ] initWithFrame: surfaceRect settings:self.game.settings ];
 	screenView.orientation = orientation;
 	[ self.view addSubview: screenView ];
 	
@@ -157,6 +150,9 @@ BOOL emulatorRunning;
 	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
 		controllerView.alpha = 0.5;
 	}
+    
+    controllerView.swapAB = [[self.game.settings objectForKey:@"swapAB"] boolValue];
+    controllerView.stickControl = [[self.game.settings objectForKey:@"controllerStickControl"] boolValue];
 	
 	[ self.view addSubview: controllerView ];
 }
@@ -167,8 +163,6 @@ BOOL emulatorRunning;
     [ alertView release ];
     [ emulatorCore release ];
     if (! [self.presentedViewController isBeingDismissed]) {
-        [ currentGamePath release ];
-        currentGamePath = nil;
         [ self dismissViewControllerAnimated: YES completion:^{} ];
     }
 }
@@ -180,9 +174,9 @@ BOOL emulatorRunning;
     NSLog(@"%s frame buffer size: %.0fx%.0f", __PRETTY_FUNCTION__, screenView.frameBufferSize.width, screenView.frameBufferSize.height);
     emulatorCore.frameBufferSize = screenView.frameBufferSize;
 
-	BOOL success = [ emulatorCore loadROM: gamePath ];
+	BOOL success = [ emulatorCore loadGame:self.game ];
 	
-    NSLog(@"%s loading image at path %@", __PRETTY_FUNCTION__, gamePath);
+    NSLog(@"%s loading image at path %@", __PRETTY_FUNCTION__, self.game.path);
     controllerView.notified = NO;
 
 	if (success != YES) {
@@ -197,7 +191,7 @@ BOOL emulatorRunning;
 	}
 	loaded = YES;
     
-	if (shouldLoadState == YES) {
+	if (self.shouldLoadState) {
 		[ emulatorCore loadState ];
 	}
     
@@ -212,7 +206,6 @@ BOOL emulatorRunning;
     [ emulatorCore applyGameGenieCodes ];
     [ emulatorCore startEmulator ];
     pad1 = YES;
-    emulatorRunning = YES;
 }
 
 - (void)dealloc {
@@ -255,13 +248,13 @@ BOOL emulatorRunning;
 	
 	if (actionSheet == saveStateSheet) {
         
-        if (!strstr([ gamePath cStringUsingEncoding: NSASCIIStringEncoding ], "(VS)")) {
+        if (!strstr([ self.game.path cStringUsingEncoding: NSASCIIStringEncoding ], "(VS)")) {
             buttonIndex++;
         }
         
 		if (buttonIndex == 3) { /* Save and Exit Game */
 			[ emulatorCore saveState ];
-            [ [ NSNotificationCenter defaultCenter ] postNotificationName: kGamePlaySavedStateNotification object: gamePath ];
+            [ [ NSNotificationCenter defaultCenter ] postNotificationName: kGamePlaySavedStateNotification object: self.game.path ];
 
 		} else if (buttonIndex == 2) { /* Game Settings */
             controllerView.notified = NO;
@@ -274,7 +267,6 @@ BOOL emulatorRunning;
             controllerView.notified = NO;
             [ emulatorCore applyGameGenieCodes ];
             [ emulatorCore restartEmulator ];
-            emulatorRunning = YES;
             [ emulatorCore insertCoin1 ];
 
             return;
@@ -292,48 +284,43 @@ BOOL emulatorRunning;
             controllerView.notified = NO;
             [ emulatorCore applyGameGenieCodes ];
             [ emulatorCore restartEmulator ];
-            emulatorRunning = YES;
             return;
             
         } else if (buttonIndex == 5) { /* Resume Game */
             controllerView.notified = NO;
             [ emulatorCore applyGameGenieCodes ];
             [ emulatorCore restartEmulator ];
-            emulatorRunning = YES;
             return;
         }
 	}
     
     if (! [self.presentedViewController isBeingDismissed]) {
-        [ currentGamePath release ];
-        currentGamePath = nil;
         [ self dismissViewControllerAnimated: YES completion:^{} ];
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    if (loaded == NO)
-        return;
-    self.navigationController.navigationBar.hidden = YES;
-    if (emulatorRunning == NO) {
-        [ emulatorCore applyGameGenieCodes ];
-        [ emulatorCore restartEmulator ];
-        emulatorRunning = YES;
-        [ controllerView reloadSettings ];
-    }
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    if (loaded == NO)
+//        return;
+//    self.navigationController.navigationBar.hidden = YES;
+//    if (emulatorRunning == NO) {
+//        [ emulatorCore applyGameGenieCodes ];
+//        [ emulatorCore restartEmulator ];
+//        emulatorRunning = YES;
+//        [ controllerView reloadSettings ];
+//    }
+//}
 
 /* UINavigationControllerDelegate Methods */
 
 - (void)userDidExitGamePlay {
 
     [ emulatorCore haltEmulator ];
-    emulatorRunning = NO;
         
     saveStateSheet = [ [ UIActionSheet alloc ] init ];
     saveStateSheet.title = @"Game Options";
     
-    if (strstr([ gamePath cStringUsingEncoding: NSASCIIStringEncoding ], "(VS)")) {
+    if (strstr([ self.game.path cStringUsingEncoding: NSASCIIStringEncoding ], "(VS)")) {
         [ saveStateSheet addButtonWithTitle: @"Insert Coin" ];
     }
     

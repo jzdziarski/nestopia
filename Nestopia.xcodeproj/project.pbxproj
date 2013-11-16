@@ -309,7 +309,6 @@
 		7044127F0ED9CF6100E54091 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127D0ED9CF6100E54091 /* AudioToolbox.framework */; };
 		704412800ED9CF6100E54091 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127E0ED9CF6100E54091 /* QuartzCore.framework */; };
 		704412BE0ED9D3D800E54091 /* GameROMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412BD0ED9D3D800E54091 /* GameROMViewController.m */; };
-		704412D90ED9D44300E54091 /* SavedGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412D80ED9D44300E54091 /* SavedGameViewController.m */; };
 		704412EA0ED9D58B00E54091 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412E90ED9D58B00E54091 /* SettingsViewController.m */; };
 		7052063017FA1E2F001FFF8F /* NstDatabase.dat in Resources */ = {isa = PBXBuildFile; fileRef = 7052062F17FA1E2F001FFF8F /* NstDatabase.dat */; };
 		7074DA8117F380B70071CD85 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA7F17F380B70071CD85 /* Default-568h@2x.png */; };
@@ -338,6 +337,8 @@
 		70F696AC124C289500D39392 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696AB124C289500D39392 /* UIKit.framework */; };
 		70FEB7FB180DDB9F008B6C61 /* MultiValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FEB7FA180DDB9F008B6C61 /* MultiValueViewController.m */; };
 		70FEB7FE180DDD5F008B6C61 /* DisclosureIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */; };
+		80909A1E1835B1A800CC9F6F /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 80909A1D1835B1A800CC9F6F /* Game.m */; };
+		80C3B6331836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B6321836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m */; };
 		F5EE71540FEEC3A000FDA0A6 /* controller_ls.png in Resources */ = {isa = PBXBuildFile; fileRef = F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */; };
 /* End PBXBuildFile section */
 
@@ -996,8 +997,6 @@
 		7044127E0ED9CF6100E54091 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		704412BC0ED9D3D800E54091 /* GameROMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameROMViewController.h; sourceTree = "<group>"; };
 		704412BD0ED9D3D800E54091 /* GameROMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameROMViewController.m; sourceTree = "<group>"; };
-		704412D70ED9D44300E54091 /* SavedGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedGameViewController.h; sourceTree = "<group>"; };
-		704412D80ED9D44300E54091 /* SavedGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedGameViewController.m; sourceTree = "<group>"; };
 		704412E80ED9D58B00E54091 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		704412E90ED9D58B00E54091 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		7052062F17FA1E2F001FFF8F /* NstDatabase.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = NstDatabase.dat; sourceTree = "<group>"; };
@@ -1030,6 +1029,10 @@
 		70FEB7FA180DDB9F008B6C61 /* MultiValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiValueViewController.m; sourceTree = "<group>"; };
 		70FEB7FC180DDD5F008B6C61 /* DisclosureIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclosureIndicator.h; sourceTree = "<group>"; };
 		70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclosureIndicator.m; sourceTree = "<group>"; };
+		80909A1C1835B1A800CC9F6F /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		80909A1D1835B1A800CC9F6F /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		80C3B6311836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TableViewAlphabeticIndexes.h"; sourceTree = "<group>"; };
+		80C3B6321836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TableViewAlphabeticIndexes.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controller_ls.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1063,8 +1066,6 @@
 				28C286E00D94DF7D0034E888 /* GamePlayViewController.m */,
 				704412BC0ED9D3D800E54091 /* GameROMViewController.h */,
 				704412BD0ED9D3D800E54091 /* GameROMViewController.m */,
-				704412D70ED9D44300E54091 /* SavedGameViewController.h */,
-				704412D80ED9D44300E54091 /* SavedGameViewController.m */,
 				704412E80ED9D58B00E54091 /* SettingsViewController.h */,
 				704412E90ED9D58B00E54091 /* SettingsViewController.m */,
 				70FEB7F9180DDB9F008B6C61 /* MultiValueViewController.h */,
@@ -1077,6 +1078,10 @@
 				7020878C0EDC5AA800E83959 /* ControllerView.m */,
 				70208B6A0EDC8CA800E83959 /* EmulatorCore.h */,
 				70208B6B0EDC8CA800E83959 /* EmulatorCore.m */,
+				80909A1C1835B1A800CC9F6F /* Game.h */,
+				80909A1D1835B1A800CC9F6F /* Game.m */,
+				80C3B6311836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.h */,
+				80C3B6321836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m */,
 				7052028917FA15F5001FFF8F /* Nestopia */,
 			);
 			path = Classes;
@@ -2072,6 +2077,7 @@
 				7009574217FC75590038888C /* NstInpPowerGlove.cpp in Sources */,
 				7009571617FC75590038888C /* NstBrdFme7.cpp in Sources */,
 				7009576F17FC75590038888C /* NstMapper062.cpp in Sources */,
+				80C3B6331836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m in Sources */,
 				7009576217FC75590038888C /* NstMapper046.cpp in Sources */,
 				7009570717FC75590038888C /* NstBrd22211.cpp in Sources */,
 				7009576917FC75590038888C /* NstMapper054.cpp in Sources */,
@@ -2080,10 +2086,10 @@
 				700957D717FC75590038888C /* NstMapper245.cpp in Sources */,
 				7009572617FC75590038888C /* NstBrdSubor.cpp in Sources */,
 				700957A817FC75590038888C /* NstMapper178.cpp in Sources */,
+				80909A1E1835B1A800CC9F6F /* Game.m in Sources */,
 				700957C517FC75590038888C /* NstMapper222.cpp in Sources */,
 				704412BE0ED9D3D800E54091 /* GameROMViewController.m in Sources */,
 				7009572C17FC75590038888C /* NstBrdTf1201.cpp in Sources */,
-				704412D90ED9D44300E54091 /* SavedGameViewController.m in Sources */,
 				700957E217FC75590038888C /* NstCartridgeUnif.cpp in Sources */,
 				7009579717FC75590038888C /* NstMapper140.cpp in Sources */,
 				700956FF17FC75590038888C /* NstApiMovie.cpp in Sources */,

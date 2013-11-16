@@ -26,9 +26,10 @@
 @synthesize frameBufferSize;
 @synthesize delegate;
 
-- (id)initWithFrame:(CGRect)frame {	
+- (id)initWithFrame:(CGRect)frame settings:(NSDictionary *)aSettings {
     self = [ super initWithFrame: frame ];
 	if (self != nil) {
+        settings = [aSettings copy];
 		[ self initializeGraphics ];
     }
     return self;
@@ -55,15 +56,15 @@
 	
     /* Landscape Resolutions */
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ] == YES) {
+		if ([[ settings objectForKey: @"fullScreen" ] boolValue ] == YES) {
             w = 320;
-            h = ([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341 : 480;
+            h = ([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341 : 480;
         } else {
             w = NES_WIDTH;
             h = NES_HEIGHT;
         }
     } else {
-		if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+		if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
 			NSLog(@"%s initializing for full screen", __func__);
             w = 320;
             h = 300;
@@ -96,7 +97,7 @@
 	self.layer.minificationFilter = nil;
 	self.layer.compositingFilter = nil;
 	self.layer.edgeAntialiasingMask = 0;
-    if ([ [ [ EmulatorCore globalSettings ] objectForKey: @"shouldRasterize" ] boolValue ] == YES ){
+    if ([ [ settings objectForKey: @"shouldRasterize" ] boolValue ] == YES ){
         self.layer.shouldRasterize = YES;
         NSLog(@"%s turning on shouldRasterize", __PRETTY_FUNCTION__);
 	}
@@ -122,11 +123,11 @@
     
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         float x, y;
-        y = (([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
+        y = (([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
         x = point.y - self.frame.origin.y;
 		
-        if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            x = (x * (NES_WIDTH / (([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
+        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            x = (x * (NES_WIDTH / (([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
             y = (y * (NES_HEIGHT / 320.0));
             
 
@@ -136,7 +137,7 @@
 			  __func__, point.x, point.y, x, y, self.frame.origin.x, self.frame.origin.y);
         location = CGPointMake(x, y);
 	} else {
-        if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
             
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             {
@@ -144,7 +145,7 @@
                 point.y = (point.y * (NES_HEIGHT / 300.0));
             } else
             {
-                if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+                if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
                     point.x = (point.x * (NES_WIDTH / 768.0));
                     point.y = (point.y * (NES_HEIGHT / 576.0));
                 }
@@ -169,11 +170,11 @@
 	  	
     if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
         float x, y;
-        y = (([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
+        y = (([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) ? 320.0 : (NES_HEIGHT + self.frame.origin.x)) - point.x;
         x = point.y - self.frame.origin.y;
 		
-        if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
-            x = (x * (NES_WIDTH / (([[ [ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
+        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
+            x = (x * (NES_WIDTH / (([[ settings objectForKey: @"aspectRatio" ] boolValue ]== YES) ? 341.0 : 480.0)));
             y = (y * (NES_HEIGHT / 320.0));
         }
 		
@@ -181,7 +182,7 @@
 			  __func__, point.x, point.y, x, y, self.frame.origin.x, self.frame.origin.y);
         location = CGPointMake(x, y);
 	} else {
-        if ([[ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] boolValue ]== YES) {
+        if ([[ settings objectForKey: @"fullScreen" ] boolValue ]== YES) {
             point.x = (point.x * (NES_WIDTH / 320.0));
             point.y = (point.y * (NES_HEIGHT / 300.0));
         }
@@ -215,7 +216,7 @@
 		currentProvider = 1;
 	else 
 		currentProvider = 0;
-	self.layer.contents = (id) screenImage;
+	self.layer.contents = (__bridge id) screenImage;
 	CGImageRelease(screenImage);
 }
 

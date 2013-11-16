@@ -27,7 +27,6 @@
 	UIDeviceOrientation orientation;
 	id delegate;
     id gamePlayDelegate;
-	bool swapAB, stickControl;
 	
     UIImage *controllerImage;
     UIImageView *indicatorUp;
@@ -62,13 +61,16 @@
 }
 - (void)updateNotifyIcons;
 - (UIImage *)getControllerImage;
-- (void)reloadSettings;
+
+@property (nonatomic, assign) BOOL swapAB;
+@property (nonatomic, assign) BOOL stickControl;
 
 @property(nonatomic,assign) UIDeviceOrientation orientation;
 @property(nonatomic,assign) id<GameControllerDelegate> delegate;
 @property(nonatomic,assign) int currentController;
 @property(nonatomic,assign) id gamePlayDelegate;
 @property(nonatomic,assign) BOOL notified;
+
 @end
 
 @protocol GameControllerDelegate

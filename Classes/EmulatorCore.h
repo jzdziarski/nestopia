@@ -22,6 +22,7 @@
 #import <pthread.h>
 #import "GameROMViewController.h"
 #import "ControllerView.h"
+#import "Game.h"
 #import "NestopiaCore.h"
 #include "Nestopia_Callback.h"
 
@@ -47,7 +48,6 @@ typedef struct AQCallbackStruct {
 
 #pragma pack(2)
 @interface EmulatorCore : NSObject <GameControllerDelegate> {
-	NSString *currentROMImagePath;
 	pthread_t emulation_tid;
 
 	/* Resources for video rendering */
@@ -75,9 +75,11 @@ typedef struct AQCallbackStruct {
 }
 
 + (EmulatorCore *)sharedEmulatorCore;
-+ (NSDictionary *)gameSettings;
+
 + (NSDictionary *)globalSettings;
-- (BOOL)loadROM:(NSString *)imagePath;
++ (void)saveGlobalSettings:(NSDictionary *)settings;
+
+- (BOOL)loadGame:(Game *)game;
 - (BOOL)initializeEmulator;
 - (BOOL)configureEmulator;
 - (int)applyGameGenieCodes;

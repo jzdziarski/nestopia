@@ -35,27 +35,21 @@
 
 }
 
-- (void)dealloc {
-    [ gameROMViewController release ];
-    [ bookmarksViewController release ];
-    [ savedGameViewController release ];
-    [ settingsViewController release ];
-    [ tabBarController release ];
-
-	[ window release ];
-	[ super dealloc ];
-}
-
 - (NESTabBarController *)initializeTabBar {
     tabBarController = [ [ NESTabBarController alloc ] init ];
+    
 	gameROMViewController = [ [ GameROMViewController alloc ] init ];
-    bookmarksViewController = [ [ GameROMViewController alloc ] init ];
-	savedGameViewController = [ [ SavedGameViewController alloc ] init ];
+    
+    favoritesViewController = [ [ GameROMViewController alloc ] init ];
+    favoritesViewController.favorite = YES;
+    
+	savedGameViewController = [ [ GameROMViewController alloc ] init ];
+    savedGameViewController.saved = YES;
+    
     settingsViewController = [ [ SettingsViewController alloc ] init ];
 
     settingsNavigationController = [ [ UINavigationController alloc ] initWithRootViewController: settingsViewController ];
-    bookmarksViewController.favorites = YES;
-    tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, bookmarksViewController, settingsNavigationController, nil ];
+    tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, favoritesViewController, settingsNavigationController, nil ];
 	
     if ([ tabBarController.tabBar respondsToSelector: @selector(setTranslucent:) ])
     {

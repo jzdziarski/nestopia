@@ -378,11 +378,11 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 }
 
 -(void)setDelegate:(id)delegate {
-    callback = (void *)delegate;
+    callback = (__bridge void *)delegate;
 }
 
 -(id)delegate {
-    return (id)callback;
+    return (__bridge id)callback;
 }
 
 -(void)applyCheatCodes:(NSArray *)codes
@@ -488,22 +488,22 @@ static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,
 /* Nestopia callback hooks */
 void Nestopia_Callback_OutputFrame(void *sender, void *video)
 {
-    EmulatorCore *sharedEmulatorCore = (EmulatorCore *)sender;
+    EmulatorCore *sharedEmulatorCore = (__bridge EmulatorCore *)sender;
 	[ sharedEmulatorCore emulatorCallbackOutputFrame: (word *)video frameCount: 1 ];
 }
 
 int Nestopia_Callback_OpenSound(void *sender, int samples_per_sync, int sample_rate) {
-	EmulatorCore *sharedEmulator = (EmulatorCore *)sender;
+	EmulatorCore *sharedEmulator = (__bridge EmulatorCore *)sender;
 	return [ sharedEmulator emulatorCallbackOpenSound: samples_per_sync sampleRate: sample_rate ];
 }
 
 void Nestopia_Callback_OutputSample(void *sender, int samples, void *audio) {
-	EmulatorCore *sharedEmulator = (EmulatorCore *)sender;
+	EmulatorCore *sharedEmulator = (__bridge EmulatorCore *)sender;
 	[ sharedEmulator emulatorCallbackOutputSampleWave: samples wave1: (short *)audio ];
 }
 
 void Nestopia_Callback_CloseSound(void *userData) {
-	EmulatorCore *sharedEmulator = (EmulatorCore *) userData;
+	EmulatorCore *sharedEmulator = (__bridge EmulatorCore *) userData;
 	[ sharedEmulator emulatorCallbackCloseSound ];
 }
 
@@ -533,7 +533,7 @@ uint Nestopia_TranslateButtons(uint pad) {
 void Nestopia_Callback_InputPadState(void *userData, uint *pad1, uint *zapper, uint *x, uint *y)
 {
     uint p1, p2;
-	EmulatorCore *sharedEmulator = (EmulatorCore *) userData;
+	EmulatorCore *sharedEmulator = (__bridge EmulatorCore *) userData;
 	[ sharedEmulator emulatorCallbackInputPadState: &p1 pad2: &p2 zapper: zapper x: x y: y ];
     
     *pad1 = Nestopia_TranslateButtons(p1);

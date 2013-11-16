@@ -24,8 +24,14 @@
 #import "Nestopia_Callback.h"
 #import "ScreenView.h"
 
-static EmulatorCore *sharedEmulatorCoreInstance = nil;
 void setActiveFrameBuffer(unsigned long *buf);
+
+@interface EmulatorCore ()
+
+@property (nonatomic, strong) Game *currentGame;
+
+@end
+
 
 @implementation EmulatorCore
 @synthesize currentROMImagePath;
@@ -36,47 +42,37 @@ void setActiveFrameBuffer(unsigned long *buf);
 extern NSString *currentGamePath;
 
 + (EmulatorCore *)sharedEmulatorCore {
-	return sharedEmulatorCoreInstance;
-}
-
-- (id)init {
-	self = [ super init ];
-	if (self != nil) {
-		sharedEmulatorCoreInstance = self;
-		soundBuffersInitialized = 0;
-		currentROMImagePath = nil;
-	}
-	
-	return self;
-}
-
-+ (NSDictionary *)gameSettings {
-    if (currentGamePath) {
-        NSString *currentGameName = [ [ [ [ currentGamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
-        NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
-        NSDictionary *gameSettings = [ NSDictionary dictionaryWithContentsOfFile: path ];
-        if (gameSettings) {
-            return gameSettings;
-        }
-    }
-    
-    return [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+    static EmulatorCore *sharedInstance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[EmulatorCore alloc] init];
+    });
+	return sharedInstance;
 }
 
 + (NSDictionary *)globalSettings {
-    
-    return [[ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
+    return [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"GlobalSettings"];
 }
 
-- (BOOL)loadROM:(NSString *)imagePath {
-	currentROMImagePath = [ imagePath copy ];
++ (void)saveGlobalSettings:(NSDictionary *)settings {
+    if (settings) {
+        [[NSUserDefaults standardUserDefaults] setObject:settings forKey:@"GlobalSettings"];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"GlobalSettings"];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)loadGame:(Game *)game {
+    self.currentGame = game;
 	
-	NSLog(@"%s loading image %@\n", __func__ , currentROMImagePath);
+	NSLog(@"%s loading image %@\n", __func__ , self.currentGame.path);
 
     nestopiaCore = [ [ NestopiaCore alloc ] init ];
-    nestopiaCore.gamePath = imagePath;
+    nestopiaCore.gamePath = self.currentGame.path;
     nestopiaCore.delegate = self;
-    nestopiaCore.controllerLayout = [ [ [ EmulatorCore globalSettings ] objectForKey: @"controllerLayout" ] intValue ];
+    nestopiaCore.controllerLayout = [[self.currentGame.settings objectForKey: @"controllerLayout"] intValue];
     
     if (frameBufferSize.height && frameBufferSize.width) {
         nestopiaCore.resolution = frameBufferSize;
@@ -102,13 +98,9 @@ extern NSString *currentGamePath;
 	
 	NSLog(@"%s", __func__);
 	
-	defaultFullScreen = [[[ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] intValue ];
-	defaultAspectRatio = [[[ EmulatorCore globalSettings ] objectForKey: @"aspectRatio" ] intValue ];
-	
-    if ([ [ EmulatorCore globalSettings ] objectForKey: @"fullScreen" ] == nil) {
-        defaultFullScreen = 1;
-    }
-    
+	defaultFullScreen = [[self.currentGame.settings objectForKey: @"fullScreen" ] intValue ];
+	defaultAspectRatio = [[self.currentGame.settings objectForKey: @"aspectRatio" ] intValue ];
+	   
 	if (defaultFullScreen) {
 		destinationWidth = (defaultAspectRatio) ? 341 : 479;
 		destinationHeight = 320;
@@ -124,10 +116,10 @@ extern NSString *currentGamePath;
     NSMutableArray *codes = [ [ NSMutableArray alloc ] init ];
     
     NSLog(@"%s loading Game Genie codes\n", __func__);
-    if ([[ [ EmulatorCore gameSettings ] objectForKey: @"gameGenie" ] boolValue ] == YES) {
+    if ([[ self.currentGame.settings objectForKey: @"gameGenie" ] boolValue ] == YES) {
         
         for(int i = 0; i < 4; i++) {
-            NSString *code = [ [ EmulatorCore gameSettings ] objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+            NSString *code = [ self.currentGame.settings objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
             if (code != nil) {
                 
                 NSLog(@"%s applying game genie code %@", __func__, code);
@@ -318,9 +310,9 @@ extern NSString *currentGamePath;
 }
 
 - (void)restartEmulator {
-    NSLog(@"%s controllerLayout: %d", __PRETTY_FUNCTION__, [ [ [ EmulatorCore globalSettings ] objectForKey: @"controllerLayout" ] intValue ]);
+    NSLog(@"%s controllerLayout: %d", __PRETTY_FUNCTION__, [ [ self.currentGame.settings objectForKey: @"controllerLayout" ] intValue ]);
     
-    nestopiaCore.controllerLayout = [ [ [ EmulatorCore globalSettings ] objectForKey: @"controllerLayout" ] intValue ];
+    nestopiaCore.controllerLayout = [ [ self.currentGame.settings objectForKey: @"controllerLayout" ] intValue ];
     [ nestopiaCore initializeInput ];
     screenDelegate = haltedScreenDelegate;
     soundBuffersInitialized = 0;
@@ -389,7 +381,7 @@ extern NSString *currentGamePath;
 void AQBufferCallback(void *callbackStruct, AudioQueueRef inQ, AudioQueueBufferRef outQB)
 {
 	AQCallbackStruct *inData = (AQCallbackStruct *) callbackStruct;
-	EmulatorCore *sharedEmulatorCore = (EmulatorCore *) inData->userData;
+	EmulatorCore *sharedEmulatorCore = (__bridge EmulatorCore *) inData->userData;
 	[ sharedEmulatorCore AQBufferCallback: inData inQ: inQ outQB: outQB ];
 }
 @end

@@ -21,311 +21,168 @@
 #import "GameROMViewController.h"
 #import "GamePlayViewController.h"
 #import "NESNavigationController.h"
+#import "NSString+TableViewAlphabeticIndexes.h"
 
-extern BOOL emulatorRunning;
+@interface GameROMViewController ()
+
+@property (nonatomic, strong) NSDictionary *gamesPerIndex;
+
+@end
+
 
 @implementation GameROMViewController
 
+#pragma mark Properties
+
+- (void)setFavorite:(BOOL)favorite {
+    _favorite = favorite;
+    
+    [self updateTabBarItem];
+    self.gamesPerIndex = nil;
+}
+
+- (void)setSaved:(BOOL)saved {
+    _saved = saved;
+    
+    [self updateTabBarItem];
+    self.gamesPerIndex = nil;
+}
+
+- (NSDictionary *)gamesPerIndex {
+    if (!_gamesPerIndex) {
+        [self reloadData];
+    }
+    return _gamesPerIndex;
+}
+
+#pragma mark Init
+
 - (id)init {
-	self = [ super init ];
-    if (self != nil) {
-        UIImage *tabBarImage = [ UIImage imageNamed: @"Games.png" ];
-        self.tabBarItem = [ [ UITabBarItem alloc ] initWithTitle: @"All Games" image: tabBarImage tag: 0 ];
-        
-        romCount = 0;
-        nActiveSections = 0;
-        
-        for(int i=0;i<27;i++) {
-            fileList[i] = [ [ NSMutableArray alloc ] init ];
-        }
-        
-        activeSections = [ [ NSMutableArray alloc ] init ];
-        sectionTitles = [ [ NSMutableArray alloc ] init ];
+    if ((self = [super init])) {
+        [self updateTabBarItem];
     }
 	return self;
 }
 
-- (void)setFavorites:(bool)_favorites {
-    favorites = _favorites;
+#pragma mark UIViewController
 
-    if (favorites) {
-        self.tabBarItem = [ [ UITabBarItem alloc ] initWithTabBarSystemItem: UITabBarSystemItemFavorites tag: nil ];
-        
-        [ [ NSNotificationCenter defaultCenter ] addObserver: self
-                                                    selector: @selector(refreshData)
-                                                        name: kGamePlayChangedFavoritesNotification
-                                                      object: nil];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.gamesPerIndex = nil;
+    [self.tableView reloadData];
+}
+
+#pragma mark Private
+
+- (void)updateTabBarItem {
+    if (self.favorite) {
+        self.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0];
+    } else if (self.saved) {
+		self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Saved Games" image:[UIImage imageNamed:@"History.png"] tag:1];
+    } else {
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"All Games" image:[UIImage imageNamed:@"Games.png"] tag:0];
     }
 }
 
-- (bool)favorites {
-    return favorites;
-}
-
-- (void)loadView {
-    [ super loadView ];
-    
-	[ self reloadData ];
-    [ self.tableView reloadData ];
-
-    [ self.tableView setContentInset:UIEdgeInsetsMake(20, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right) ];
-}
-
-- (void)viewDidLoad {
-    
-    [ super viewDidLoad ];
-    
-    // [ NSTimer scheduledTimerWithTimeInterval: 60.0 target: self selector: @selector(scanForChanges:) userInfo: self repeats: YES ];
-}
-
-- (void)scanForChanges:(NSTimer *) timer {
-    NSDirectoryEnumerator *dirEnum;
-    NSString *file;
-    int n = 0;
-    
-    if (emulatorRunning == YES)
-        return;
-    
-    if (self.tableView.isDragging == YES || self.tableView.isDecelerating == YES || self.tableView.isEditing == YES || self.tableView.isTracking == YES)
-    {
-        return;
-    }
-    
-    dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
-    while ((file = [ dirEnum nextObject ])) {
-        NSString *ext = [ file pathExtension ];
-        if ([ [ ext lowercaseString ] isEqualToString: @"nes" ]) {
-            n++;
+- (NSArray *)allGames {
+    NSArray *games = [Game gamesList];
+    games = [games filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Game *game, NSDictionary *bindings) {
+        if (self.favorite && !game.favorite) {
+            return NO;
         }
+        if (self.saved && !game.saved) {
+            return NO;
+        }
+        return YES;        
+    }]];
+    return games;
+}
+
+- (void)reloadData {
+    NSMutableDictionary *gamesPerIndex = [[NSMutableDictionary alloc] init];
+    
+    NSArray *games = [self allGames];
+    
+    for (Game *game in games) {
+        NSString *index = [game.title tableViewAlphabeticIndex];
+        
+        NSMutableArray *gamesForIndex = [gamesPerIndex objectForKey:index];
+        if (!gamesForIndex) {
+            gamesForIndex = [NSMutableArray array];
+            [gamesPerIndex setObject:gamesForIndex forKey:index];
+        }
+        
+        [gamesForIndex addObject:game];
     }
     
-    NSLog(@"%s current .nes file count: %d", __PRETTY_FUNCTION__, n);
-    
-    if (n != romCount) {
-        romCount = n;
-        [ self reloadData ];
-        [ self.tableView reloadData ];
-    }
-}
-
-- (void) refreshData {
-    [ self reloadData ];
-    [ self.tableView reloadData ];
-}
-
-- (void) reloadData {
-	NSDirectoryEnumerator *dirEnum;
-	NSString *file;
-	int n = 0;
-    
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
-	for(int i=0;i<27;i++) {
-	    [ fileList[i] removeAllObjects ];
-	}
-    
-	dirEnum = [ [ NSFileManager defaultManager ] enumeratorAtPath: ROM_PATH ];
-	while ((file = [ dirEnum nextObject ])) {
-		NSString *ext = [ file pathExtension ];
-        NSString *extension = @"nes";
-        if (favorites)
-            extension = @"favorite";
-		if ([ [ ext lowercaseString ] isEqualToString: extension ]) {
-			n++;
-            if (favorites)
-                file = [ file stringByDeletingPathExtension ];
-            // NSLog(@"%s found file %@", __PRETTY_FUNCTION__, file);
-			char index = ( [ file cStringUsingEncoding: NSASCIIStringEncoding ] )[0];
-			if (index >= 'a' && index <= 'z') {
-				index -= 'a';
-				[ fileList[(int) index] addObject: file ];
-			} else if (index >= 'A' && index <= 'Z') {
-				index -= 'A';
-				[ fileList[(int) index] addObject: file ];
-			} else {
-				[ fileList[26] addObject: file ];
-			}
-		}
-	}
-
-    if (!n && !favorites) {
-        UIAlertView *alertView = [ [ UIAlertView alloc ] initWithTitle: @"No ROM Images Found" message: @"Use iTunes file sharing to add ROM images. Click on the device in iTunes, click the Apps tab, scroll down to File Sharing, highlight Nescaline, and click the 'Add...' button." delegate: self cancelButtonTitle: nil otherButtonTitles: @"OK", nil];
-        [ alertView show ];
+    for (NSMutableArray *gamesForIndex in [gamesPerIndex allValues]) {
+        [gamesForIndex sortUsingComparator:^NSComparisonResult(Game *game1, Game *game2) {
+            return [game1.title localizedCaseInsensitiveCompare:game2.title];
+        }];
     }
     
-    romCount = n+1;
-	nActiveSections = 0;
-    [ activeSections removeAllObjects ];
-    [ sectionTitles removeAllObjects ];
-
-	for(int i=0;i<27;i++) {
-		if ( [fileList[i] count ]>0) {
-			nActiveSections++;
-			[ activeSections addObject: fileList[i] ];
-			if (i < 26)
-				[ sectionTitles addObject: [ NSString stringWithFormat: @"%c", i + 'A' ] ];
-			else
-				[ sectionTitles addObject: @"0-9" ];
-		}
-	}
-    
+    self.gamesPerIndex = [gamesPerIndex copy];
 }
 
-- (void)dealloc {
-    
-	for(int i = 0; i < 27; i ++) {
-		[ fileList[i] release ];
-	}
-    
-	[ activeSections release ];
-	[ sectionTitles release ];
-    
-    [ super dealloc ];
+- (NSArray *)gamesForSection:(NSInteger)section {
+    NSString *sectionIndex = [[NSString tableViewAlphabeticIndexes] objectAtIndex:section];
+    return [self.gamesPerIndex objectForKey:sectionIndex];
 }
 
-
-/* UITableViewControllerDelegate Methods */
-
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-	
-	return [ NSMutableArray arrayWithObjects:
-			@"A", @"B", @"C", @"D", @"E", @"F",
-			@"G", @"H", @"I", @"J", @"K", @"L",
-			@"M", @"N", @"O", @"P", @"Q", @"R",
-			@"S", @"T", @"U", @"V", @"W", @"X",
-			@"Y", @"Z", @"#", nil
-            ];
+- (Game *)gameAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self gamesForSection:indexPath.section] objectAtIndex:indexPath.row];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (!nActiveSections) {
-		return nil;
-	}
-	
-	return [ sectionTitles objectAtIndex: section ];
-}
+#pragma mark UITableViewDelegate & UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (nActiveSections)
-		return nActiveSections;
-	else
-		return 1;
+    return [[NSString tableViewAlphabeticIndexes] count];
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!nActiveSections) {
-		return 0;
-	}
-	
-	return [ [ activeSections objectAtIndex: section] count ];
+    return [[self gamesForSection:section] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	if (!nActiveSections) {
-		return nil;
-	}
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return [NSString tableViewAlphabeticIndexes];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    return index;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"GameCell";
     
-	NSString *CellIdentifier = [[ activeSections objectAtIndex: [ indexPath indexAtPosition: 0 ]] objectAtIndex: [ indexPath indexAtPosition: 1 ] ];
-	
-    UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier: CellIdentifier ];
-    if (cell == nil) {
-        NSString *title = [ CellIdentifier stringByReplacingOccurrencesOfString: @".nes" withString: @"" options: NSCaseInsensitiveSearch range: NSMakeRange(0, [ CellIdentifier length ]) ];
-      
-#if 0
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            NSRange range = [ title rangeOfString: @"(" ];
-            if (range.length > 0) {
-                title = [ title substringToIndex: range.location];
-            }
-            
-            range = [ title rangeOfString: @"[" ];
-            if (range.length > 0) {
-                title = [ title substringToIndex: range.location];
-            }
-        }
-#endif
-        cell = [ [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault  reuseIdentifier: CellIdentifier ] autorelease ];
-        cell.textLabel.text = title;
-        cell.textLabel.font = [ UIFont fontWithName:@"HelveticaNeue" size: 16.0 ];
-        cell.textLabel.adjustsFontSizeToFitWidth = YES;
-        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.textLabel.numberOfLines = 2;
-	}
-	
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    
+    Game *game = [self gameAtIndexPath:indexPath];
+    cell.textLabel.text = game.title;
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Game *game = [self gameAtIndexPath:indexPath];
     
-	UITableViewCell *cell = [ self.tableView cellForRowAtIndexPath: indexPath ];
-	NSString *path = [ [ [ NSString alloc ] initWithFormat: @"%@/%@", ROM_PATH, cell.reuseIdentifier ] autorelease ];
+    NSLog(@"%s starting game play for %@", __PRETTY_FUNCTION__, game.title);
     
-    NSLog(@"%s starting game play for %@", __PRETTY_FUNCTION__, path);
+    GamePlayViewController *gamePlayViewController = [[GamePlayViewController alloc] init];
+    gamePlayViewController.game = game;
+    gamePlayViewController.shouldLoadState = self.saved;
     
-    GamePlayViewController *gamePlayViewController = [ [ GamePlayViewController alloc ] init ];
-    gamePlayViewController.gamePath = path;
-    gamePlayViewController.gameTitle = [ [ path stringByDeletingPathExtension ] lastPathComponent ];
-    gamePlayViewController.shouldLoadState = NO;
+    NESNavigationController *navigationController = [[NESNavigationController alloc] initWithRootViewController:gamePlayViewController];
     
-    NESNavigationController *navigationController = [ [ NESNavigationController alloc ] initWithRootViewController: [ gamePlayViewController autorelease ] ];
-    
-    [ self presentViewController: [ navigationController autorelease ] animated: YES completion: nil ];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index;  {
-	NSInteger idx = [ sectionTitles indexOfObject: title ];
-	return idx;
-}
-
-- (void)tableView:(UITableView *)tableView
-commitEditingStyle:(UITableViewCellEditingStyle) editingStyle
-forRowAtIndexPath:(NSIndexPath *) indexPath
-{
-	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		UITableViewCell *cell = [ self.tableView cellForRowAtIndexPath: indexPath ];
-		NSString *path = [ NSString stringWithFormat: @"%@/%@", ROM_PATH, cell.reuseIdentifier ];
-        
-        if (favorites) {
-            path = [ path stringByAppendingPathExtension: @"favorite" ];
-        }
-
-		NSLog(@"%s deleting item at %@", __PRETTY_FUNCTION__, path);
-
-		char index = ( [ [ path lastPathComponent ] cStringUsingEncoding: NSASCIIStringEncoding ] )[0];
-		if (index >= 'a' && index <= 'z') {
-			index -= 'a';
-		} else if (index >= 'A' && index <= 'Z') {
-			index -= 'A';
-		} else {
-			index = 26;
-		}
-
-		NSMutableArray *section = fileList[(int) index];
-		NSError *error;
-		[ [ NSFileManager defaultManager ] removeItemAtPath: path error: &error ];
-		[ self reloadData ];
-		
-		if ([ section count ] == 1) {
-			char sectionIndex;
-			if (index == 26)
-				sectionIndex = [ sectionTitles count ];
-			else
-				sectionIndex = [ sectionTitles indexOfObject: [ NSString stringWithFormat: @"%c", index + 'A' ] ];
-			
-			if (sectionIndex == -1)
-				[ self.tableView reloadData ];
-			else
-				[ self.tableView deleteSections: [ NSIndexSet indexSetWithIndex: sectionIndex ] withRowAnimation: UITableViewRowAnimationTop ];
-		} else {
-			NSMutableArray *array;
-			array = [ [ NSMutableArray alloc ] init ];
-			[ array addObject: indexPath ];
-			[ self.tableView deleteRowsAtIndexPaths: array withRowAnimation: UITableViewRowAnimationTop ];
-			[ array removeAllObjects ];
-			[ array release ];
-		}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle) editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (editingStyle == UITableViewCellEditingStyleDelete) {        
+        // TODO
 	}
 }
 

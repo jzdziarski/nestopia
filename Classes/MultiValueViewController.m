@@ -2,7 +2,6 @@
 
 @implementation MultiValueViewController
 @synthesize identifier;
-@synthesize delegate;
 @synthesize options, images;
 @synthesize selectedItemIndex;
 
@@ -65,9 +64,9 @@
 	[ cell setSelected: NO animated: YES ];
 	
 	selectedCell = cell;
-    if ([ delegate respondsToSelector: @selector(didSelectItemFromList:selectedItemIndex:identifier:) ]) {
+    if ([ self.delegate respondsToSelector: @selector(didSelectItemFromList:selectedItemIndex:identifier:) ]) {
         NSLog(@"%s selected item: %d", __PRETTY_FUNCTION__, [ indexPath indexAtPosition: 1 ]);
-		[ delegate didSelectItemFromList: self selectedItemIndex: [ indexPath indexAtPosition: 1 ] identifier: identifier ];
+		[ self.delegate didSelectItemFromList: self selectedItemIndex: [ indexPath indexAtPosition: 1 ] identifier: identifier ];
 	}
 }
 

@@ -26,14 +26,12 @@
 #import "SettingsViewController.h"
 
 #define kGamePlaySavedStateNotification         @"GamePlaySavedStateNotification"
-#define kGamePlayChangedFavoritesNotification   @"GamePlayChangedFavoritesNotification"
 
 @interface GamePlayViewController : UIViewController <UIActionSheetDelegate>
 {
     /* Initialization */
 	UIActionSheet *saveStateSheet;
-	NSString *gamePath, *gameTitle;
-    bool shouldLoadState, loaded, pad1;
+    bool loaded, pad1;
     
     /* Game Play */
     EmulatorCore *emulatorCore;
@@ -43,7 +41,7 @@
     UIView *border;
 }
 
-@property(nonatomic,copy) NSString *gamePath;
-@property(nonatomic,copy) NSString *gameTitle;
-@property(nonatomic,assign) bool shouldLoadState;
+@property (nonatomic, strong) Game *game;
+@property (nonatomic, assign) BOOL shouldLoadState;
+
 @end

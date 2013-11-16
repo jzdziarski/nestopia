@@ -30,6 +30,7 @@
 	unsigned long hightable[NES_WIDTH], lowtable[NES_WIDTH];
 	int w, h;
 
+    NSDictionary *settings;
 	CALayer *screenLayer;
 	UIDeviceOrientation orientation;
 	unsigned short *frameBufferAddress;
@@ -40,6 +41,8 @@
 	id delegate;	
 	int currentProvider;
 }
+
+- (id)initWithFrame:(CGRect)frame settings:(NSDictionary *)settings;
 - (void)initializeGraphics;
 
 /* EmulatorCoreScreenDelegate */

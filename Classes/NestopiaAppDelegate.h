@@ -20,7 +20,6 @@
 
 #import <UIKit/UIKit.h>
 #import "GameROMViewController.h"
-#import "SavedGameViewController.h"
 #import "SettingsViewController.h"
 #import "NESTabBarController.h"
 
@@ -28,8 +27,9 @@
     UIWindow *window;
     
     NESTabBarController *tabBarController;
-    GameROMViewController *gameROMViewController, *bookmarksViewController;
-	SavedGameViewController *savedGameViewController;
+    GameROMViewController *gameROMViewController;
+    GameROMViewController *favoritesViewController;
+	GameROMViewController *savedGameViewController;
 	SettingsViewController *settingsViewController;
   
     UINavigationController *settingsNavigationController;

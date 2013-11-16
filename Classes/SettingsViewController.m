@@ -22,15 +22,18 @@
 #import "GamePlayViewController.h"
 #import "DisclosureIndicator.h"
 
-extern NSString *currentGamePath;
-
 @implementation SettingsViewController
-@synthesize gamePath;
 
 - (void) loadSettings {
-    [ [ NSUserDefaults standardUserDefaults ] synchronize ];
-    settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
-    self.title = @"Settings";
+    NSDictionary *settings;
+    
+    if (self.game) {
+        self.title = self.game.title;
+        settings = self.game.settings;
+    } else {
+        self.title = @"Settings";
+        settings = [EmulatorCore globalSettings];
+    }
 
     /* Global Settings */
     
@@ -45,14 +48,7 @@ extern NSString *currentGamePath;
     
     /* Game-Specific Settings */
     
-    if (currentGameName != nil) {
-        NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
-        settings = [ NSDictionary dictionaryWithContentsOfFile: path ];
-        if (!settings) {
-            settings = [ [ NSUserDefaults standardUserDefaults ] dictionaryRepresentation ];
-        }
-        self.title = [ NSString stringWithFormat: @"%@", currentGameName ];
-        
+    if (self.game) {
         gameGenieControl.on = [ [ settings objectForKey: @"gameGenie" ] boolValue ];
         for(int i = 0; i < 4; i++) {
             gameGenieCodeControl[i].text = [ settings objectForKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
@@ -61,36 +57,27 @@ extern NSString *currentGamePath;
 }
 
 - (void)saveSettings {
-    [ [ NSUserDefaults standardUserDefaults ] setBool: swapABControl.on
-                                               forKey: @"swapAB" ];
-    [ [ NSUserDefaults standardUserDefaults ] setBool: fullScreenControl.on
-                                               forKey: @"fullScreen" ];
-    [ [ NSUserDefaults standardUserDefaults ] setBool: aspectRatioControl.on
-                                               forKey: @"aspectRatio" ];
-    [ [ NSUserDefaults standardUserDefaults ] setBool: antiAliasControl.on
-                                               forKey: @"shouldRasterize" ];
-    [ [ NSUserDefaults standardUserDefaults ] setBool: controllerStickControl.on
-                                               forKey: @"controllerStickControl" ];
-    [ [ NSUserDefaults standardUserDefaults ] setInteger: controllerLayoutIndex
-                                                  forKey: @"controllerLayout" ];
-    [ [ NSUserDefaults standardUserDefaults ] synchronize ];
+    NSMutableDictionary *settings = [NSMutableDictionary dictionary];
     
-    if (currentGameName != nil) {
-		NSString *path = [ NSString stringWithFormat: @"%@/%@.plist", ROM_PATH, currentGameName ];
-		NSMutableDictionary *gameSettings = [ [ NSMutableDictionary alloc ] init ];
-        [ gameSettings setObject: [ NSNumber numberWithBool: gameGenieControl.on ]
-                          forKey: @"gameGenie" ];
-        
-        for(int i = 0; i < 4; i++) {
-            if (gameGenieCodeControl[i].text == nil) {
-                gameGenieCodeControl[i].text = @"";
-            }
-            [ gameSettings setObject: gameGenieCodeControl[i].text forKey: [ NSString stringWithFormat: @"gameGenieCode%d", i ] ];
+    [settings setObject:@(swapABControl.on) forKey:@"swapAB"];
+    [settings setObject:@(fullScreenControl.on) forKey:@"fullScreen"];
+    [settings setObject:@(aspectRatioControl.on) forKey:@"aspectRatio"];
+    [settings setObject:@(antiAliasControl.on) forKey:@"shouldRasterize"];
+    [settings setObject:@(controllerStickControl.on) forKey:@"controllerStickControl"];
+    [settings setObject:@(controllerLayoutIndex) forKey:@"controllerLayout"];
+    
+    if (self.game) {
+        [settings setObject:@(gameGenieControl.on) forKey:@"gameGenie"];
+        for (int i = 0; i < 4; i++) {
+            [settings setObject:(gameGenieCodeControl[i].text ?: @"") forKey:[NSString stringWithFormat: @"gameGenieCode%d", i]];
         }
-        NSLog(@"%s saving game settings to %@\n", __func__, path);
-        
-        [ gameSettings writeToFile: path atomically: YES ];
 	}
+    
+    if (self.game) {
+        self.game.settings = settings;
+    } else {
+        [EmulatorCore saveGlobalSettings:settings];
+    }
 }
 
 - (id) init {
@@ -134,7 +121,6 @@ extern NSString *currentGamePath;
     
     self.navigationController.navigationBar.hidden = NO;
 
-    [ self setGamePath ];
     [ self loadSettings ];
 }
 
@@ -144,12 +130,6 @@ extern NSString *currentGamePath;
 	
 	[ self saveSettings ];
 }
-
-- (void)setGamePath {
-    gamePath = [ currentGamePath copy ];
-	currentGameName = [ [ [ [ gamePath lastPathComponent ] stringByReplacingOccurrencesOfString: @".sav" withString: @"" ] stringByReplacingOccurrencesOfString: @".nes" withString: @"" ] copy ];
-}
-
 
 - (void)didReceiveMemoryWarning {
     [ super didReceiveMemoryWarning ];
@@ -163,8 +143,7 @@ extern NSString *currentGamePath;
 /* UITableViewDataSource methods */
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    if (currentGameName == nil) {
+    if (!self.game) {
         return 1;
     } else {
         return 3;
@@ -252,7 +231,7 @@ extern NSString *currentGamePath;
                     break;
 				} else {
 					[ cell addSubview: gameGenieCodeControl[[ indexPath indexAtPosition: 1 ]-1]];
-					if (currentGameName == nil) {
+					if (!self.game) {
 						gameGenieCodeControl[[indexPath indexAtPosition: 1 ]-1].text = nil;
 						gameGenieCodeControl[[indexPath indexAtPosition: 1 ]-1].placeholder = @"None";
 						gameGenieCodeControl[[indexPath indexAtPosition: 1 ]-1].enabled = NO;
@@ -266,12 +245,7 @@ extern NSString *currentGamePath;
                 break;
             case(2):
             {
-                bool isFavorite = NO;
-                if ([ [ NSFileManager defaultManager ] fileExistsAtPath: [ currentGamePath stringByAppendingPathExtension: @"favorite" ] ])
-                {
-                    isFavorite = YES;
-                }
-                if (! isFavorite) {
+                if (! self.game.favorite) {
                     cell.textLabel.text = @"Add to Favorites";
                 } else {
                     cell.textLabel.text = @"Remove from Favorites";
@@ -299,24 +273,13 @@ extern NSString *currentGamePath;
     }
     
     if ([ indexPath indexAtPosition: 0 ] == 2) {
-        bool isFavorite = NO;
-        if ([ [ NSFileManager defaultManager ] fileExistsAtPath: [ currentGamePath stringByAppendingPathExtension: @"favorite" ] ])
-        {
-            isFavorite = YES;
-        }
-
-        if (! isFavorite) {
-            NSLog(@"%s adding favorite at path %@", __PRETTY_FUNCTION__, [ currentGamePath stringByAppendingPathExtension: @"favorite" ]);
-            [ @"favorite" writeToFile:[ currentGamePath stringByAppendingPathExtension: @"favorite" ] atomically: YES encoding: NSASCIIStringEncoding error: nil ];
+        self.game.favorite = !self.game.favorite;
+        
+        if (! self.game.favorite) {
             cell.textLabel.text = @"Remove from Favorites";
         } else {
-            NSLog(@"%s removing favorite at path %@", __PRETTY_FUNCTION__, [ currentGamePath stringByAppendingPathExtension: @"favorite" ]);
-
-            [ [ NSFileManager defaultManager ] removeItemAtPath: [ currentGamePath stringByAppendingPathExtension: @"favorite" ] error: nil ];
             cell.textLabel.text = @"Add to Favorites";
         }
-        
-        [ [ NSNotificationCenter defaultCenter ] postNotificationName: kGamePlayChangedFavoritesNotification object: currentGamePath ];
     }
     
     [ cell setSelected: NO animated: NO ];
@@ -324,7 +287,7 @@ extern NSString *currentGamePath;
 
 - (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section
 {
-    if (section == 0 && currentGamePath == nil) {
+    if (section == 0 && !self.game) {
         return @"To access Game Genie settings, enter settings from within the active game play menu.";
     }
     return nil;

@@ -4,7 +4,6 @@
 
 @interface MultiValueViewController : UITableViewController {
 	id identifier;
-	id delegate;
 	NSArray *options, *images;
 	int selectedItemIndex;
 	UITableViewCell *selectedCell;
@@ -17,7 +16,7 @@
 
 @end
 
-@protocol MultiValueViewControllerDelegate
+@protocol MultiValueViewControllerDelegate <NSObject>
 
 @required
 - (void) didSelectItemFromList: (MultiValueViewController *)multiValueViewController selectedItemIndex:(int)selectedItemIndex identifier:(id)identifier;

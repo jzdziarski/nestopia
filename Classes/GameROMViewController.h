@@ -22,19 +22,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreFoundation/CoreFoundation.h>
 
-#define ROM_PATH [ NSString stringWithFormat: @"%@/Documents", NSHomeDirectory() ]
+@interface GameROMViewController : UITableViewController
 
-@interface GameROMViewController : UITableViewController <UITableViewDelegate> {
-	int nActiveSections;
-    int romCount;
-    bool favorites;
-    
-	NSMutableArray *fileList[27];
-	NSMutableArray *activeSections;
-	NSMutableArray *sectionTitles;
-}
-
-@property(nonatomic,assign) bool favorites;
+@property (nonatomic, assign) BOOL favorite;
+@property (nonatomic, assign) BOOL saved;
 
 @end
 
