@@ -72,6 +72,7 @@
     nestopiaCore = [NestopiaCore sharedCore];
     
     nestopiaCore.gamePath = self.game.path;
+    nestopiaCore.gameSavePath = self.game.savePath;
     BOOL success = [nestopiaCore powerOn];
 	
     NSLog(@"%s loading image at path %@", __PRETTY_FUNCTION__, self.game.path);
