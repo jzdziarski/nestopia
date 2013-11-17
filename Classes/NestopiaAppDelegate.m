@@ -19,11 +19,13 @@
  */
 
 #import "NestopiaAppDelegate.h"
+#import "GamesViewController.h"
+#import "SettingsViewController.h"
 
 @implementation NestopiaAppDelegate {
     UIWindow *window;
     
-    NESTabBarController *tabBarController;
+    UITabBarController *tabBarController;
     GamesViewController *gamesViewController;
 	GamesViewController *savedGamesViewController;
     GamesViewController *favoritesViewController;
@@ -51,7 +53,7 @@
     settingsViewController = [[SettingsViewController alloc] init];
     settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
 
-    tabBarController = [[NESTabBarController alloc] init];
+    tabBarController = [[UITabBarController alloc] init];
     tabBarController.viewControllers = @[ gamesViewController, savedGamesViewController, favoritesViewController, settingsNavigationController ];
 }
 

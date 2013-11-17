@@ -19,9 +19,6 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "GamesViewController.h"
-#import "SettingsViewController.h"
-#import "NESTabBarController.h"
 
 @interface NestopiaAppDelegate : NSObject <UIApplicationDelegate> 
 

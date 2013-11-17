@@ -214,7 +214,7 @@
     [nestopiaCore stopEmulation];
     
     saveStateSheet = [[UIActionSheet alloc] init];
-    saveStateSheet.title = @"Game Options";
+    saveStateSheet.title = self.game.title;
     
     if (strstr([self.game.path cStringUsingEncoding: NSASCIIStringEncoding], "(VS)")) {
         [saveStateSheet addButtonWithTitle: @"Insert Coin"];
@@ -306,6 +306,10 @@
 
 - (void)settingsDoneButtonClicked {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark NestopiaCoreInputDelegate

@@ -301,7 +301,6 @@
 		7009581617FC75590038888C /* 2.frame_phase.nes in Resources */ = {isa = PBXBuildFile; fileRef = 700956F517FC75590038888C /* 2.frame_phase.nes */; };
 		7009581717FC75590038888C /* 3.special_frame_phase.nes in Resources */ = {isa = PBXBuildFile; fileRef = 700956F617FC75590038888C /* 3.special_frame_phase.nes */; };
 		702087880EDC5A9900E83959 /* ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 702087870EDC5A9900E83959 /* ScreenView.m */; };
-		7035961217FBC44400632315 /* NESNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7035961117FBC44400632315 /* NESNavigationController.m */; };
 		7039774810D97E890022DB57 /* Games@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7039774710D97E890022DB57 /* Games@2x.png */; };
 		7040D5AD1802203B00D2B455 /* History@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040D5AC1802203B00D2B455 /* History@2x.png */; };
 		7044127F0ED9CF6100E54091 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127D0ED9CF6100E54091 /* AudioToolbox.framework */; };
@@ -316,7 +315,6 @@
 		7074DA8817F3C86E0071CD85 /* icon~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8617F3C86E0071CD85 /* icon~iphone.png */; };
 		7074DA8A17F3D0C10071CD85 /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8917F3D0C10071CD85 /* Settings@2x.png */; };
 		7074DA8E17F3DBB80071CD85 /* controller_pt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */; };
-		709D4DB617F9DD8400AB2D63 /* NESTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */; };
 		709DC44E1801D743000A3E91 /* icon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 709DC44D1801D743000A3E91 /* icon~ipad.png */; };
 		70B3DB0117F48EC6005AA2BB /* a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DAFB17F48EC6005AA2BB /* a@2x.png */; };
 		70B3DB0217F48EC6005AA2BB /* b@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DAFC17F48EC6005AA2BB /* b@2x.png */; };
@@ -986,8 +984,6 @@
 		700956F617FC75590038888C /* 3.special_frame_phase.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = 3.special_frame_phase.nes; sourceTree = "<group>"; };
 		702087860EDC5A9900E83959 /* ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenView.h; sourceTree = "<group>"; };
 		702087870EDC5A9900E83959 /* ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenView.m; sourceTree = "<group>"; };
-		7035961017FBC44400632315 /* NESNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NESNavigationController.h; sourceTree = "<group>"; };
-		7035961117FBC44400632315 /* NESNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NESNavigationController.m; sourceTree = "<group>"; };
 		7039774710D97E890022DB57 /* Games@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Games@2x.png"; sourceTree = "<group>"; };
 		7040D5AC1802203B00D2B455 /* History@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "History@2x.png"; sourceTree = "<group>"; };
 		7044127D0ED9CF6100E54091 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -1004,8 +1000,6 @@
 		7074DA8617F3C86E0071CD85 /* icon~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon~iphone.png"; sourceTree = "<group>"; };
 		7074DA8917F3D0C10071CD85 /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings@2x.png"; sourceTree = "<group>"; };
 		7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "controller_pt@2x.png"; sourceTree = "<group>"; };
-		709D4DB417F9DD8400AB2D63 /* NESTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NESTabBarController.h; sourceTree = "<group>"; };
-		709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NESTabBarController.m; sourceTree = "<group>"; };
 		709DC44D1801D743000A3E91 /* icon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon~ipad.png"; sourceTree = "<group>"; };
 		70B3DAFB17F48EC6005AA2BB /* a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "a@2x.png"; sourceTree = "<group>"; };
 		70B3DAFC17F48EC6005AA2BB /* b@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b@2x.png"; sourceTree = "<group>"; };
@@ -1063,10 +1057,6 @@
 			children = (
 				1D3623240D0F684500981E51 /* NestopiaAppDelegate.h */,
 				1D3623250D0F684500981E51 /* NestopiaAppDelegate.m */,
-				709D4DB417F9DD8400AB2D63 /* NESTabBarController.h */,
-				709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */,
-				7035961017FBC44400632315 /* NESNavigationController.h */,
-				7035961117FBC44400632315 /* NESNavigationController.m */,
 				704412BC0ED9D3D800E54091 /* GamesViewController.h */,
 				704412BD0ED9D3D800E54091 /* GamesViewController.m */,
 				28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */,
@@ -2021,7 +2011,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7035961217FBC44400632315 /* NESNavigationController.m in Sources */,
 				700957A017FC75590038888C /* NstMapper152.cpp in Sources */,
 				7009580A17FC75590038888C /* NstZlib.cpp in Sources */,
 				700957E517FC75590038888C /* NstCpu.cpp in Sources */,
@@ -2038,7 +2027,6 @@
 				700957CE17FC75590038888C /* NstMapper233.cpp in Sources */,
 				7009572E17FC75590038888C /* NstBrdVrc6.cpp in Sources */,
 				700957BF17FC75590038888C /* NstMapper212.cpp in Sources */,
-				709D4DB617F9DD8400AB2D63 /* NESTabBarController.m in Sources */,
 				7009575717FC75590038888C /* NstMapper032.cpp in Sources */,
 				7009580717FC75590038888C /* NstVideoFilterScanlines.cpp in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,

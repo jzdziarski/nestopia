@@ -8,7 +8,6 @@
 
 #import "GamesViewController.h"
 #import "GamePlayViewController.h"
-#import "NESNavigationController.h"
 #import "NSString+TableViewAlphabeticIndexes.h"
 
 @interface GamesViewController () <GamePlayViewControllerDelegate>
