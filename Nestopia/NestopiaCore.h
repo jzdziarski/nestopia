@@ -94,6 +94,7 @@ typedef struct {
 @property (nonatomic, weak) id<NestopiaCoreInputDelegate> inputDelegate;
 
 @property (nonatomic, copy) NSString *gamePath;
+@property (nonatomic, copy) NSString *gameSavePath;
 @property (nonatomic, assign) int controllerLayout; // TODO: enum
 
 @end

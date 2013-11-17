@@ -389,9 +389,8 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 - (void)loadState {
 	Nes::Api::Machine machine( emulator );
 	Nes::Api::Cartridge::Database database( emulator );
-    NSString *savPath = [gamePath stringByAppendingPathExtension: @"sav"];
 
-	std::ifstream *file = new std::ifstream([savPath UTF8String] , std::ios::in|std::ios::binary );
+	std::ifstream *file = new std::ifstream([self.gameSavePath UTF8String] , std::ios::in|std::ios::binary );
     
 	machine.LoadState( *file );
     
@@ -401,15 +400,14 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 - (void)saveState {
 	Nes::Api::Machine machine( emulator );
 	Nes::Api::Cartridge::Database database( emulator );
-    NSString *savPath = [gamePath stringByAppendingPathExtension: @"sav"];
 
     std::ostringstream *buffer = new std::ostringstream(std::stringstream::out | std::stringstream::binary);
     
-    NSLog(@"%s calling SaveState(%@)", __PRETTY_FUNCTION__, savPath);
+    NSLog(@"%s calling SaveState(%@)", __PRETTY_FUNCTION__, self.gameSavePath);
     machine.SaveState( *buffer );
     
     NSData *data = [NSData dataWithBytes:buffer->str().c_str() length:buffer->tellp()];
-    [data writeToFile:savPath atomically:YES];
+    [data writeToFile:self.gameSavePath atomically:YES];
 
     delete buffer;
     

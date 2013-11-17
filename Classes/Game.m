@@ -8,11 +8,18 @@
 
 #import "Game.h"
 
+@interface Game ()
+
+@property (nonatomic, assign) BOOL saved;
+
+@end
+
+
 @implementation Game
 
 #pragma mark Properties
 
-@dynamic settings;
+@dynamic settings, favorite;
 
 - (NSDictionary *)settings {
     NSDictionary *settings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:[self settingsKey]];
@@ -29,7 +36,13 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-// TODO: favorite, saved
+- (BOOL)favorite {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:[self favoriteKey]];
+}
+
+- (void)setFavorite:(BOOL)favorite {
+    [[NSUserDefaults standardUserDefaults] setBool:favorite forKey:[self favoriteKey]];
+}
 
 #pragma mark Init
 
@@ -50,7 +63,8 @@
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsPath = [searchPaths lastObject];
     
-    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:documentsPath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:documentsPath];
     NSString *filename;
     
     while ((filename = [enumerator nextObject])) {
@@ -58,8 +72,9 @@
             NSString *title = [[filename lastPathComponent] stringByDeletingPathExtension];
             NSString *path = [documentsPath stringByAppendingPathComponent:filename];
             NSString *savePath = [path stringByAppendingPathExtension:@"sav"];
-            
+
             Game *game = [[Game alloc] initWithTitle:title path:path savePath:savePath];
+            game.saved = [fileManager fileExistsAtPath:savePath];
             [games addObject:game];
         }
     }
@@ -85,6 +100,10 @@
 
 - (NSString *)settingsKey {
     return [NSString stringWithFormat:@"Games.%@.settings", self.title];
+}
+
+- (NSString *)favoriteKey {
+    return [NSString stringWithFormat:@"Games.%@.favorite", self.title];
 }
 
 @end

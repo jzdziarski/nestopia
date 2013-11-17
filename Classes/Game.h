@@ -15,7 +15,7 @@
 @property (nonatomic, strong, readonly) NSString *savePath;
 
 @property (nonatomic, assign) BOOL favorite;
-@property (nonatomic, assign) BOOL saved;
+@property (nonatomic, assign, readonly) BOOL saved;
 
 @property (nonatomic, copy) NSDictionary *settings;
 
