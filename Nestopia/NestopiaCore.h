@@ -21,6 +21,9 @@
 #ifndef __NESTOPIACORE_H__
 #define __NESTOPIACORE_H__
 
+#import <Foundation/Foundation.h>
+
+
 #ifndef DWORD_TYPE_DEFINED
 typedef unsigned long dword;
 #define DWORD_TYPE_DEFINED
