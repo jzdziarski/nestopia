@@ -80,6 +80,15 @@
     
     [self reloadData];
     [self.tableView reloadData];
+    
+    if ([self.gamesPerIndex count] == 0 && !self.saved && !self.favorite) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No ROM Images Found"
+                                                            message:@"Use iTunes file sharing to add ROM images. Click on the device in iTunes, click the Apps tab, scroll down to File Sharing, highlight Nescaline, and click the 'Add...' button."
+                                                           delegate:self
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:@"OK", nil];
+        [alertView show];
+    }
 }
 
 #pragma mark Private
