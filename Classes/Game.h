@@ -21,4 +21,8 @@
 
 + (NSArray *)gamesList;
 
+// TODO: move somewhere?
++ (NSDictionary *)globalSettings;
++ (void)saveGlobalSettings:(NSDictionary *)settings;
+
 @end

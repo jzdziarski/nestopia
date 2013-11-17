@@ -301,8 +301,6 @@
 		7009581617FC75590038888C /* 2.frame_phase.nes in Resources */ = {isa = PBXBuildFile; fileRef = 700956F517FC75590038888C /* 2.frame_phase.nes */; };
 		7009581717FC75590038888C /* 3.special_frame_phase.nes in Resources */ = {isa = PBXBuildFile; fileRef = 700956F617FC75590038888C /* 3.special_frame_phase.nes */; };
 		702087880EDC5A9900E83959 /* ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 702087870EDC5A9900E83959 /* ScreenView.m */; };
-		7020878D0EDC5AA800E83959 /* ControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7020878C0EDC5AA800E83959 /* ControllerView.m */; };
-		70208B6C0EDC8CA800E83959 /* EmulatorCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 70208B6B0EDC8CA800E83959 /* EmulatorCore.m */; };
 		7035961217FBC44400632315 /* NESNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7035961117FBC44400632315 /* NESNavigationController.m */; };
 		7039774810D97E890022DB57 /* Games@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7039774710D97E890022DB57 /* Games@2x.png */; };
 		7040D5AD1802203B00D2B455 /* History@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040D5AC1802203B00D2B455 /* History@2x.png */; };
@@ -339,6 +337,10 @@
 		70FEB7FE180DDD5F008B6C61 /* DisclosureIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */; };
 		80909A1E1835B1A800CC9F6F /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 80909A1D1835B1A800CC9F6F /* Game.m */; };
 		80C3B6331836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B6321836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m */; };
+		80C3B63818385A85000B68E0 /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B63718385A85000B68E0 /* AudioPlayer.m */; };
+		80C3B63B1838841B000B68E0 /* PadDirectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B63A1838841B000B68E0 /* PadDirectionButton.m */; };
+		80C3B63E18389066000B68E0 /* PadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B63D18389066000B68E0 /* PadButton.m */; };
+		80C3B641183890ED000B68E0 /* PadSingleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B640183890ED000B68E0 /* PadSingleButton.m */; };
 		F5EE71540FEEC3A000FDA0A6 /* controller_ls.png in Resources */ = {isa = PBXBuildFile; fileRef = F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */; };
 /* End PBXBuildFile section */
 
@@ -350,7 +352,6 @@
 		28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* GamePlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		70094FB317FC739F0038888C /* Nestopia_Callback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Nestopia_Callback.h; path = Nestopia/Nestopia_Callback.h; sourceTree = "<group>"; };
 		70094FB417FC739F0038888C /* NestopiaCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NestopiaCore.h; path = Nestopia/NestopiaCore.h; sourceTree = "<group>"; };
 		70094FB517FC739F0038888C /* NestopiaCore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NestopiaCore.mm; path = Nestopia/NestopiaCore.mm; sourceTree = "<group>"; };
 		7009547A17FC75570038888C /* NstApi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NstApi.hpp; sourceTree = "<group>"; };
@@ -985,10 +986,6 @@
 		700956F617FC75590038888C /* 3.special_frame_phase.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = 3.special_frame_phase.nes; sourceTree = "<group>"; };
 		702087860EDC5A9900E83959 /* ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenView.h; sourceTree = "<group>"; };
 		702087870EDC5A9900E83959 /* ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenView.m; sourceTree = "<group>"; };
-		7020878B0EDC5AA800E83959 /* ControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerView.h; sourceTree = "<group>"; };
-		7020878C0EDC5AA800E83959 /* ControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerView.m; sourceTree = "<group>"; };
-		70208B6A0EDC8CA800E83959 /* EmulatorCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmulatorCore.h; sourceTree = "<group>"; wrapsLines = 0; };
-		70208B6B0EDC8CA800E83959 /* EmulatorCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmulatorCore.m; sourceTree = "<group>"; };
 		7035961017FBC44400632315 /* NESNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NESNavigationController.h; sourceTree = "<group>"; };
 		7035961117FBC44400632315 /* NESNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NESNavigationController.m; sourceTree = "<group>"; };
 		7039774710D97E890022DB57 /* Games@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Games@2x.png"; sourceTree = "<group>"; };
@@ -1033,6 +1030,14 @@
 		80909A1D1835B1A800CC9F6F /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		80C3B6311836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TableViewAlphabeticIndexes.h"; sourceTree = "<group>"; };
 		80C3B6321836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TableViewAlphabeticIndexes.m"; sourceTree = "<group>"; };
+		80C3B63618385A85000B68E0 /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
+		80C3B63718385A85000B68E0 /* AudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlayer.m; sourceTree = "<group>"; };
+		80C3B6391838841B000B68E0 /* PadDirectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadDirectionButton.h; sourceTree = "<group>"; };
+		80C3B63A1838841B000B68E0 /* PadDirectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadDirectionButton.m; sourceTree = "<group>"; };
+		80C3B63C18389066000B68E0 /* PadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadButton.h; sourceTree = "<group>"; };
+		80C3B63D18389066000B68E0 /* PadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadButton.m; sourceTree = "<group>"; };
+		80C3B63F183890ED000B68E0 /* PadSingleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadSingleButton.h; sourceTree = "<group>"; };
+		80C3B640183890ED000B68E0 /* PadSingleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadSingleButton.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controller_ls.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1074,10 +1079,14 @@
 				70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */,
 				702087860EDC5A9900E83959 /* ScreenView.h */,
 				702087870EDC5A9900E83959 /* ScreenView.m */,
-				7020878B0EDC5AA800E83959 /* ControllerView.h */,
-				7020878C0EDC5AA800E83959 /* ControllerView.m */,
-				70208B6A0EDC8CA800E83959 /* EmulatorCore.h */,
-				70208B6B0EDC8CA800E83959 /* EmulatorCore.m */,
+				80C3B63618385A85000B68E0 /* AudioPlayer.h */,
+				80C3B63718385A85000B68E0 /* AudioPlayer.m */,
+				80C3B63C18389066000B68E0 /* PadButton.h */,
+				80C3B63D18389066000B68E0 /* PadButton.m */,
+				80C3B63F183890ED000B68E0 /* PadSingleButton.h */,
+				80C3B640183890ED000B68E0 /* PadSingleButton.m */,
+				80C3B6391838841B000B68E0 /* PadDirectionButton.h */,
+				80C3B63A1838841B000B68E0 /* PadDirectionButton.m */,
 				80909A1C1835B1A800CC9F6F /* Game.h */,
 				80909A1D1835B1A800CC9F6F /* Game.m */,
 				80C3B6311836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.h */,
@@ -1843,7 +1852,6 @@
 			children = (
 				7009547817FC75570038888C /* core */,
 				700956E817FC75590038888C /* nes_ntsc */,
-				70094FB317FC739F0038888C /* Nestopia_Callback.h */,
 				70094FB417FC739F0038888C /* NestopiaCore.h */,
 				70094FB517FC739F0038888C /* NestopiaCore.mm */,
 			);
@@ -2023,6 +2031,7 @@
 				7009571717FC75590038888C /* NstBrdGs2004.cpp in Sources */,
 				700957C917FC75590038888C /* NstMapper228.cpp in Sources */,
 				7009570A17FC75590038888C /* NstBrd8157.cpp in Sources */,
+				80C3B63E18389066000B68E0 /* PadButton.m in Sources */,
 				7009573317FC75590038888C /* NstInpDoremikkoKeyboard.cpp in Sources */,
 				7009571C17FC75590038888C /* NstBrdMmc1.cpp in Sources */,
 				700957BE17FC75590038888C /* NstMapper208.cpp in Sources */,
@@ -2085,6 +2094,7 @@
 				7009576C17FC75590038888C /* NstMapper058.cpp in Sources */,
 				700957D717FC75590038888C /* NstMapper245.cpp in Sources */,
 				7009572617FC75590038888C /* NstBrdSubor.cpp in Sources */,
+				80C3B63B1838841B000B68E0 /* PadDirectionButton.m in Sources */,
 				700957A817FC75590038888C /* NstMapper178.cpp in Sources */,
 				80909A1E1835B1A800CC9F6F /* Game.m in Sources */,
 				700957C517FC75590038888C /* NstMapper222.cpp in Sources */,
@@ -2119,6 +2129,7 @@
 				700957C317FC75590038888C /* NstMapper216.cpp in Sources */,
 				700957A417FC75590038888C /* NstMapper165.cpp in Sources */,
 				7009572817FC75590038888C /* NstBrdT230.cpp in Sources */,
+				80C3B641183890ED000B68E0 /* PadSingleButton.m in Sources */,
 				7009580317FC75590038888C /* NstVideoFilterNone.cpp in Sources */,
 				700957B417FC75590038888C /* NstMapper197.cpp in Sources */,
 				7009580C17FC75590038888C /* NstVsSuperXevious.cpp in Sources */,
@@ -2176,6 +2187,7 @@
 				700957A717FC75590038888C /* NstMapper171.cpp in Sources */,
 				7009573417FC75590038888C /* NstInpExcitingBoxing.cpp in Sources */,
 				7009574917FC75590038888C /* NstMapper002.cpp in Sources */,
+				80C3B63818385A85000B68E0 /* AudioPlayer.m in Sources */,
 				700957E817FC75590038888C /* NstFile.cpp in Sources */,
 				7009580617FC75590038888C /* NstVideoFilterScaleX.cpp in Sources */,
 				7009578A17FC75590038888C /* NstMapper108.cpp in Sources */,
@@ -2248,7 +2260,6 @@
 				7009577217FC75590038888C /* NstMapper065.cpp in Sources */,
 				7009574317FC75590038888C /* NstInpPowerPad.cpp in Sources */,
 				7009580417FC75590038888C /* NstVideoFilterNtsc.cpp in Sources */,
-				7020878D0EDC5AA800E83959 /* ControllerView.m in Sources */,
 				700957C817FC75590038888C /* NstMapper227.cpp in Sources */,
 				7009570617FC75590038888C /* NstBrd190in1.cpp in Sources */,
 				7009575E17FC75590038888C /* NstMapper042.cpp in Sources */,
@@ -2299,7 +2310,6 @@
 				700957EE17FC75590038888C /* NstMemory.cpp in Sources */,
 				700957E117FC75590038888C /* NstCartridgeInes.cpp in Sources */,
 				7009576417FC75590038888C /* NstMapper049.cpp in Sources */,
-				70208B6C0EDC8CA800E83959 /* EmulatorCore.m in Sources */,
 				7009578F17FC75590038888C /* NstMapper117.cpp in Sources */,
 				700957D817FC75590038888C /* NstMapper246.cpp in Sources */,
 				7009579217FC75590038888C /* NstMapper121.cpp in Sources */,

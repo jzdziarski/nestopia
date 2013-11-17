@@ -19,11 +19,7 @@
  */
 
 #import <UIKit/UIKit.h>
-
-#import "ControllerView.h"
-#import "EmulatorCore.h"
-#import "ScreenView.h"
-#import "SettingsViewController.h"
+#import "Game.h"
 
 @interface GamePlayViewController : UIViewController
 

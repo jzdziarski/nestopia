@@ -24,7 +24,7 @@
 
 @implementation SettingsViewController
 
-- (void) loadSettings {
+- (void)loadSettings {
     NSDictionary *settings;
     
     if (self.game) {
@@ -32,7 +32,7 @@
         settings = self.game.settings;
     } else {
         self.title = @"Settings";
-        settings = [EmulatorCore globalSettings];
+        settings = [Game globalSettings];
     }
 
     /* Global Settings */
@@ -76,7 +76,7 @@
     if (self.game) {
         self.game.settings = settings;
     } else {
-        [EmulatorCore saveGlobalSettings:settings];
+        [Game saveGlobalSettings:settings];
     }
 }
 

@@ -19,16 +19,13 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
-#import "EmulatorCore.h"
-#import "ControllerView.h"
+#import "NestopiaCore.h"
 
-@interface ScreenView : UIView <EmulatorCoreScreenDelegate> 
+@interface ScreenView : UIView <NestopiaCoreVideoDelegate>
 
 // TODO: zapper
 
 @property (nonatomic, assign) BOOL antialiasing;
-@property (nonatomic, weak) id<GameControllerDelegate> delegate;
 
 - (void)commonInit;
 

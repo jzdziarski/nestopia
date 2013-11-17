@@ -19,8 +19,17 @@
  */
 
 #import "ScreenView.h"
+#import <QuartzCore/QuartzCore.h>
 
-@implementation ScreenView
+@implementation ScreenView {
+    unsigned long hightable[256], lowtable[256];
+    
+    int width, height;
+    unsigned long *frameBuffer8888;
+    CGColorSpaceRef colorSpace;
+    CGDataProviderRef provider[2];
+	int currentProvider;
+}
 
 #pragma mark Properties
 
@@ -46,6 +55,8 @@
 }
 
 - (void)commonInit {
+    [self generateColorTables];
+    
     self.antialiasing = NO;
     
 	self.layer.compositingFilter = nil;
@@ -53,12 +64,51 @@
     self.layer.opaque = YES;
 }
 
-- (void)drawLayer:(CALayer*)layer inContext:(CGContextRef)context {
-    CGContextSetAllowsAntialiasing(context, true);
-    CGContextSetShouldAntialias(context, true);
-    CGContextSetFillColorWithColor(context, [UIColor greenColor].CGColor);
-    CGContextFillRect(context, self.bounds);
+#pragma mark Private
+
+- (void)generateColorTables {
+    for (int i = 0; i < 256; i++) {
+		unsigned long red = (unsigned long)((i & 31) * 255.0 / 31.0);
+		unsigned long lowgreen = (unsigned long)(((i >> 5) & 7) * 255.0 / 63.0);
+		lowtable[i] = red | (lowgreen << 8);
+		
+		unsigned long highgreen = (unsigned long)(((i & 7) << 3) * 255.0 / 63.0);
+		unsigned long blue = (unsigned long)((i >> 3) * 255.0 / 31.0);
+		hightable[i] = (blue << 16) | (highgreen << 8);
+	}
 }
+
+- (void)setupBuffers {
+    size_t size = width * height * 4;
+    frameBuffer8888 = malloc(size);
+    
+    colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    provider[0] = CGDataProviderCreateWithData(NULL, frameBuffer8888, size, NULL);
+    provider[1] = CGDataProviderCreateWithData(NULL, frameBuffer8888, size, NULL);
+    
+    currentProvider = 0;
+}
+
+- (void)destroyBuffers {
+    if (frameBuffer8888) {
+        free(frameBuffer8888);
+        frameBuffer8888 = NULL;
+    }
+    if (colorSpace) {
+        CGColorSpaceRelease(colorSpace);
+        colorSpace = NULL;
+    }
+    if (provider[0]) {
+        CGDataProviderRelease(provider[0]);
+        provider[0] = NULL;
+    }
+    if (provider[1]) {
+        CGDataProviderRelease(provider[1]);
+        provider[1] = NULL;
+    }
+}
+
 
 //- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 //    UITouch *touch = [touches anyObject];
@@ -140,10 +190,38 @@
 //	}
 //}
 
-#pragma mark EmulatorCoreScreenDelegate
+#pragma mark NestopiaCoreVideoDelegate
 
-- (void)emulatorCoreDidRenderFrame:(CGImageRef)frameImageRef {
-    self.layer.contents = (__bridge id)frameImageRef;
+- (void)nestopiaCoreCallbackInitializeVideoWithWidth:(int)aWidth height:(int)aHeight {
+    width = aWidth;
+    height = aHeight;
+
+    [self setupBuffers];
+}
+
+- (void)nestopiaCoreCallbackOutputFrame:(unsigned short *)frameBuffer {
+    int x, y;
+    unsigned short px;
+    
+    /* Convert active framebuffer from 565L to 8888 */
+    for (y = 0; y < height; y++) {
+        for (x = 0; x < width; x++) {
+            px = frameBuffer[width*y + x];
+            frameBuffer8888[width*y+x] = hightable[px >> 8] + lowtable[px & 0xFF];
+        }
+    }
+    
+    CGImageRef screenImage;
+    screenImage = CGImageCreate(width, height, 8, 32, 4 * width, colorSpace, kCGBitmapByteOrder32Host | kCGImageAlphaNoneSkipFirst, provider[currentProvider], NULL, NO, kCGRenderingIntentDefault);
+    
+    currentProvider = 1 - currentProvider;
+    
+    self.layer.contents = (__bridge id)screenImage;
+    CGImageRelease(screenImage);
+}
+
+- (void)nestopiaCoreCallbackDestroyVideo {
+    [self destroyBuffers];
 }
 
 @end

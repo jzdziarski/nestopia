@@ -21,27 +21,40 @@
 #import <Foundation/NSFileManager.h>
 #import "GamePlayViewController.h"
 #import "NestopiaAppDelegate.h"
-#import "EmulatorCore.h"
-#include <sys/stat.h>
+#import "NestopiaCore.h"
+#import "AudioPlayer.h"
+#import "ScreenView.h"
+#import "SettingsViewController.h"
+#import "PadDirectionButton.h"
+#import "PadSingleButton.h"
 
-@interface GamePlayViewController () <UIActionSheetDelegate>
+
+@interface GamePlayViewController () <UIActionSheetDelegate, NestopiaCoreInputDelegate>
 
 @property (nonatomic, strong) Game *game;
 @property (nonatomic, assign) BOOL shouldLoadState;
+
+@property (nonatomic, strong) ScreenView *screenView;
+@property (nonatomic, strong) UIView *buttonsView;
+@property (nonatomic, strong) PadDirectionButton *directionButton;
+@property (nonatomic, strong) PadSingleButton *selectButton;
+@property (nonatomic, strong) PadSingleButton *startButton;
+@property (nonatomic, strong) PadSingleButton *aButton;
+@property (nonatomic, strong) PadSingleButton *bButton;
+@property (nonatomic, strong) UIButton *menuButton;
 
 @end
 
 
 @implementation GamePlayViewController {
-    /* Initialization */
 	UIActionSheet *saveStateSheet;
-    bool loaded, pad1;
+    bool pad1;
     
-    /* Game Play */
-	ScreenView *screenView;
-	ControllerView *controllerView;
-    EmulatorCore *emulatorCore;
+    AudioPlayer *audioPlayer;
+    NestopiaCore *nestopiaCore;
 }
+
+#pragma mark Init
 
 - (id)initWithGame:(Game *)game loadState:(BOOL)loadState {
     if ((self = [super init])) {
@@ -49,61 +62,21 @@
         _shouldLoadState = loadState;
         
         self.title = self.game.title;
+    
+        [self setupEmulator];
     }
     return self;
 }
 
-- (void)loadView {
-    [super loadView];
+- (void)setupEmulator {
+    nestopiaCore = [NestopiaCore sharedCore];
     
-    [self initializeEmulatorView];
-    [self initializeEmulator];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    CGSize screenViewSize = [EmulatorCore sharedEmulatorCore].nativeScreenResolution;
-    CGFloat scale = self.view.bounds.size.width / screenViewSize.width;
-    screenViewSize.width *= scale;
-    screenViewSize.height *= scale;
-    screenView.frame = CGRectMake(0, 0,
-                                  screenViewSize.width, screenViewSize.height);
-    
-    CGSize controllerViewSize = CGSizeMake(self.view.bounds.size.width, 320);
-    controllerView.frame = CGRectMake(0, CGRectGetMaxY(self.view.bounds) - controllerViewSize.height,
-                                      controllerViewSize.width, controllerViewSize.height);
-}
-
-- (void)initializeEmulatorView {
-	screenView = [[ScreenView alloc] init];
-    screenView.antialiasing = [[self.game.settings objectForKey:@"antiAliasing"] boolValue];
-	[self.view addSubview:screenView];
-	
-    controllerView = [[ControllerView alloc] init];
-    controllerView.swapAB = [[self.game.settings objectForKey:@"swapAB"] boolValue];
-    controllerView.stickControl = [[self.game.settings objectForKey:@"controllerStickControl"] boolValue];
-	[self.view addSubview:controllerView];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    if (! [self.presentedViewController isBeingDismissed]) {
-        [self dismissViewControllerAnimated: YES completion:^{}];
-    }
-}
-
-- (void)initializeEmulator {
-	emulatorCore = [EmulatorCore sharedEmulatorCore];
-    [emulatorCore initializeEmulator];
-
-	BOOL success = [emulatorCore loadGame:self.game];
+    nestopiaCore.gamePath = self.game.path;
+    BOOL success = [nestopiaCore powerOn];
 	
     NSLog(@"%s loading image at path %@", __PRETTY_FUNCTION__, self.game.path);
-    controllerView.notified = NO;
-
-	if (success != YES) {
+    
+	if (!success) {
         UIAlertView *myAlert = [[UIAlertView alloc]
 								initWithTitle:@"Unable to Load Game ROM"
 								message: @"There was an error loading the selected game image."
@@ -113,123 +86,132 @@
 		[myAlert show];
 		return;
 	}
-	loaded = YES;
     
 	if (self.shouldLoadState) {
-		[emulatorCore loadState];
+		[nestopiaCore loadState];
 	}
     
-    emulatorCore.screenDelegate = screenView;
-	screenView.delegate = emulatorCore;
-	controllerView.delegate = emulatorCore;
-    controllerView.gamePlayDelegate = self;
-	   
-    [emulatorCore applyGameGenieCodes];
-    [emulatorCore startEmulator];
+    audioPlayer = [[AudioPlayer alloc] init];
+    nestopiaCore.audioDelegate = audioPlayer;
+    
+    nestopiaCore.inputDelegate = self;
+    
     pad1 = YES;
 }
 
+#pragma mark Dealloc
+
 - (void)dealloc {
-    if (loaded) {
-        emulatorCore.screenDelegate = nil;
-        controllerView.delegate = nil;
-        screenView.delegate = nil;
-        
-        
-        [emulatorCore finishEmulator];
+    [nestopiaCore powerOff];
+}
+
+#pragma mark Life cycle
+
+- (void)loadView {
+    [super loadView];
+    
+    self.screenView = [[ScreenView alloc] init];
+    self.screenView.antialiasing = [[self.game.settings objectForKey:@"antiAliasing"] boolValue];
+    nestopiaCore.videoDelegate = self.screenView;
+    [self.view addSubview:self.screenView];
+    
+    self.buttonsView = [[UIView alloc] init];
+    self.buttonsView.alpha = 0.3;
+    [self.view addSubview:self.buttonsView];
+    
+    self.directionButton = [[PadDirectionButton alloc] init];
+    //controllerView.swapAB = [[self.game.settings objectForKey:@"swapAB"] boolValue];
+    //controllerView.stickControl = [[self.game.settings objectForKey:@"controllerStickControl"] boolValue];
+	[self.buttonsView addSubview:self.directionButton];
+    
+    self.selectButton = [[PadSingleButton alloc] init];
+    self.selectButton.singleInput = NestopiaPadInputSelect;
+    [self.buttonsView addSubview:self.selectButton];
+    
+    self.startButton = [[PadSingleButton alloc] init];
+    self.startButton.singleInput = NestopiaPadInputStart;
+    [self.buttonsView addSubview:self.startButton];
+    
+    self.aButton = [[PadSingleButton alloc] init];
+    self.aButton.singleInput = NestopiaPadInputA;
+    [self.buttonsView addSubview:self.aButton];
+    
+    self.bButton = [[PadSingleButton alloc] init];
+    self.bButton.singleInput = NestopiaPadInputB;
+    [self.buttonsView addSubview:self.bButton];
+    
+    self.menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.menuButton.backgroundColor = [UIColor redColor];
+    [self.menuButton addTarget:self action:@selector(menuButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonsView addSubview:self.menuButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // TODO
+    //[nestopiaCore applyCheatCodes:nil];
+    [nestopiaCore startEmulation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [nestopiaCore stopEmulation];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    self.screenView.frame = [self frameForScreenView];
+    
+    self.buttonsView.frame = self.view.bounds;
+    
+    // TODO: proper buttons and layout
+    
+    self.directionButton.bounds = CGRectMake(0, 0, 200, 200);
+    self.directionButton.center = CGPointMake(150, CGRectGetMidY(self.view.bounds));
+    
+    self.aButton.bounds = CGRectMake(0, 0, 100, 100);
+    self.aButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 100, CGRectGetMidY(self.view.bounds));
+    
+    self.bButton.bounds = CGRectMake(0, 0, 100, 100);
+    self.bButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 250, CGRectGetMidY(self.view.bounds));
+    
+    self.selectButton.bounds = CGRectMake(0, 0, 50, 50);
+    self.selectButton.center = CGPointMake(75, CGRectGetMidY(self.view.bounds) - 175);
+    
+    self.startButton.bounds = CGRectMake(0, 0, 50, 50);
+    self.startButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 75, CGRectGetMidY(self.view.bounds) - 175);
+    
+    self.menuButton.bounds = CGRectMake(0, 0, 50, 50);
+    self.menuButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 50, 50);
+}
+
+- (CGRect)frameForScreenView {
+    CGSize nativeSize = nestopiaCore.nativeResolution;
+    CGFloat nativeRatio = nativeSize.width / nativeSize.height;
+    
+    CGSize viewSize = self.view.bounds.size;
+    CGFloat viewRatio = viewSize.width / viewSize.height;
+    
+    CGFloat scale;
+    if (viewRatio > nativeRatio) {
+        scale = viewSize.height / nativeSize.height;
+    } else {
+        scale = viewSize.width / nativeSize.width;
     }
-}
-
-- (BOOL)hasFourInchDisplay {
-    return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone && [UIScreen mainScreen].bounds.size.height == 568.0);
-}
-
-- (void)refreshControls {
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-	CGRect frame = controllerView.frame;
     
-	NSLog(@"%s re-initializing controllerView with frame %fx%f", __PRETTY_FUNCTION__, frame.size.width, frame.size.height);
-	[controllerView removeFromSuperview];
-	controllerView = [[ControllerView alloc] initWithFrame: frame];
-	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-		controllerView.alpha = 0.5;
-	}
+    CGSize screenSize = CGSizeMake(nativeSize.width * scale, nativeSize.height * scale);
+    CGPoint screenOrigin = CGPointMake(floor((viewSize.width - screenSize.width) / 2),
+                                       floor((viewSize.height - screenSize.height) / 2));
     
-	[self.view addSubview: controllerView];
+    return CGRectMake(screenOrigin.x, screenOrigin.y, screenSize.width, screenSize.height);
 }
 
-/* UIActionSheetDelegate Methods */
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	
-	if (actionSheet == saveStateSheet) {
-        
-        if (!strstr([self.game.path cStringUsingEncoding: NSASCIIStringEncoding], "(VS)")) {
-            buttonIndex++;
-        }
-        
-		if (buttonIndex == 3) { /* Save and Exit Game */
-			[emulatorCore saveState];
-		} else if (buttonIndex == 2) { /* Game Settings */
-            controllerView.notified = NO;
-            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-            
-            [self.navigationController pushViewController: settingsViewController animated: YES];
-            return;
-        } else if (buttonIndex == 0) { /* Insert Coin */
-            
-            controllerView.notified = NO;
-            [emulatorCore applyGameGenieCodes];
-            [emulatorCore restartEmulator];
-            [emulatorCore insertCoin1];
-
-            return;
-            
-        } else if (buttonIndex == 1) { /* Controller Toggle */
-
-            if (pad1) {
-                [emulatorCore activatePad2];
-                pad1 = NO;
-            } else {
-                pad1 = YES;
-                [emulatorCore activatePad1];
-            }
-            
-            controllerView.notified = NO;
-            [emulatorCore applyGameGenieCodes];
-            [emulatorCore restartEmulator];
-            return;
-            
-        } else if (buttonIndex == 5) { /* Resume Game */
-            controllerView.notified = NO;
-            [emulatorCore applyGameGenieCodes];
-            [emulatorCore restartEmulator];
-            return;
-        }
-	}
+- (void)menuButtonClicked {
+    [nestopiaCore stopEmulation];
     
-    if (! [self.presentedViewController isBeingDismissed]) {
-        [self dismissViewControllerAnimated: YES completion:^{}];
-    }
-}
-
-//- (void)viewWillAppear:(BOOL)animated {
-//    if (loaded == NO)
-//        return;
-//    self.navigationController.navigationBar.hidden = YES;
-//    if (emulatorRunning == NO) {
-//        [emulatorCore applyGameGenieCodes];
-//        [emulatorCore restartEmulator];
-//        emulatorRunning = YES;
-//        [controllerView reloadSettings];
-//    }
-//}
-
-/* UINavigationControllerDelegate Methods */
-
-- (void)userDidExitGamePlay {
-
-    [emulatorCore haltEmulator];
-        
     saveStateSheet = [[UIActionSheet alloc] init];
     saveStateSheet.title = @"Game Options";
     
@@ -242,13 +224,13 @@
     } else {
         [saveStateSheet addButtonWithTitle: @"Switch to Player 1"];
     }
-
+    
     [saveStateSheet addButtonWithTitle: @"Game Settings"];
     [saveStateSheet addButtonWithTitle: @"Save and Exit"];
     [saveStateSheet addButtonWithTitle: @"Exit Game"];
-
+    
     [saveStateSheet addButtonWithTitle: @"Resume"];
-
+    
     saveStateSheet.cancelButtonIndex = 4;
     saveStateSheet.destructiveButtonIndex = 3;
     saveStateSheet.delegate = self;
@@ -256,31 +238,92 @@
     [saveStateSheet showInView: self.view];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (! [self.presentedViewController isBeingDismissed]) {
+        [self dismissViewControllerAnimated: YES completion:^{}];
+    }
+}
+
+/* UIActionSheetDelegate Methods */
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	
+	if (actionSheet == saveStateSheet) {
+        
+        if (!strstr([self.game.path cStringUsingEncoding: NSASCIIStringEncoding], "(VS)")) {
+            buttonIndex++;
+        }
+        
+		if (buttonIndex == 3) { /* Save and Exit Game */
+			[nestopiaCore saveState];
+		} else if (buttonIndex == 2) { /* Game Settings */
+            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+            
+            [self.navigationController pushViewController: settingsViewController animated: YES];
+            return;
+        } else if (buttonIndex == 0) { /* Insert Coin */
+            
+            //[nestopiaCore applyGameGenieCodes]; // TODO
+            [nestopiaCore startEmulation];
+            //[emulatorCore insertCoin1]; // TODO
+
+            return;
+            
+        } else if (buttonIndex == 1) { /* Controller Toggle */
+
+            if (pad1) {
+                [nestopiaCore activatePad2];
+                pad1 = NO;
+            } else {
+                pad1 = YES;
+                [nestopiaCore activatePad1];
+            }
+            
+            //[nestopiaCore applyGameGenieCodes]; // TODO
+            [nestopiaCore startEmulation];
+            return;
+            
+        } else if (buttonIndex == 5) { /* Resume Game */
+            //[emulatorCore applyGameGenieCodes]; // TODO
+            [nestopiaCore startEmulation];
+            return;
+        }
+	}
+    
+    if (! [self.presentedViewController isBeingDismissed]) {
+        [self dismissViewControllerAnimated: YES completion:^{}];
+    }
+}
+
 - (BOOL)shouldAutorotate {
     return YES;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [emulatorCore haltEmulator];
-    
-    [screenView removeFromSuperview];
-    [controllerView removeFromSuperview];
-    
-    screenView = nil;
-    controllerView = nil;
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [nestopiaCore stopEmulation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {    
-    [self initializeEmulatorView];
+    //[emulatorCore applyGameGenieCodes]; // TODO
+    [nestopiaCore startEmulation];
+}
 
-    emulatorCore.screenDelegate = screenView;
-	screenView.delegate = emulatorCore;
-	controllerView.delegate = emulatorCore;
-    controllerView.gamePlayDelegate = self;
-    
-    [emulatorCore applyGameGenieCodes];
-    [emulatorCore restartEmulator];
+#pragma mark NestopiaCoreInputDelegate
+
+- (NestopiaInput)nestopiaCoreCallbackInput {
+    NestopiaPadInput padInput = 0;
+    padInput |= self.directionButton.input;
+    padInput |= self.selectButton.input;
+    padInput |= self.startButton.input;
+    padInput |= self.aButton.input;
+    padInput |= self.bButton.input;
+
+    NestopiaInput input;
+    input.pad1 = pad1 ? padInput : 0;
+    input.pad2 = pad1 ? 0 : padInput;
+    input.zapper = 0; // TODO
+    input.zapperX = 0;
+    input.zapperY = 0;
+    return input;
 }
 
 @end

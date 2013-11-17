@@ -21,19 +21,65 @@
 #ifndef __NESTOPIACORE_H__
 #define __NESTOPIACORE_H__
 
-@protocol NestopiaCoreDelegate;
+#ifndef DWORD_TYPE_DEFINED
+typedef unsigned long dword;
+#define DWORD_TYPE_DEFINED
+#endif
+
+#ifndef SDWORD_TYPE_DEFINED
+typedef signed long sdword;
+#define SDWORD_TYPE_DEFINED
+#endif
+
+#ifndef WORD_TYPE_DEFINED
+typedef unsigned short word;
+#define WORD_TYPE_DEFINED
+#endif
+
+#ifndef BYTE_TYPE_DEFINED
+typedef unsigned char byte;
+#define BYTE_TYPE_DEFINED
+#endif
+
+
+@protocol NestopiaCoreAudioDelegate;
+@protocol NestopiaCoreVideoDelegate;
+@protocol NestopiaCoreInputDelegate;
+
+
+typedef NS_OPTIONS(int, NestopiaPadInput) {
+    NestopiaPadInputA       = 1 << 0,
+    NestopiaPadInputB       = 1 << 1,
+    NestopiaPadInputSelect  = 1 << 2,
+    NestopiaPadInputStart   = 1 << 3,
+    NestopiaPadInputUp      = 1 << 4,
+    NestopiaPadInputDown    = 1 << 5,
+    NestopiaPadInputLeft    = 1 << 6,
+    NestopiaPadInputRight   = 1 << 7
+};
+
+
+typedef struct {
+    NestopiaPadInput pad1;
+    NestopiaPadInput pad2;
+    int zapper;
+    int zapperX;
+    int zapperY;
+} NestopiaInput;
 
 
 @interface NestopiaCore : NSObject
 
-- (BOOL)initializeCore;
-- (void)initializeInput;
++ (NestopiaCore *)sharedCore;
+
+- (BOOL)powerOn;
 - (void)startEmulation;
 - (void)stopEmulation;
-- (void)finishEmulation;
-- (BOOL)loadGame;
+- (void)powerOff;
+
 - (void)loadState;
 - (void)saveState;
+
 - (void)applyCheatCodes:(NSArray *)codes;
 - (void)activatePad1;
 - (void)activatePad2;
@@ -41,23 +87,39 @@
 - (void)toggleCoin2;
 - (void)coinOff;
 
-@property (nonatomic, readonly) int screenWidth;
-@property (nonatomic, readonly) int screenHeight;
+@property (nonatomic, readonly) CGSize nativeResolution;
+
+@property (nonatomic, weak) id<NestopiaCoreAudioDelegate> audioDelegate;
+@property (nonatomic, weak) id<NestopiaCoreVideoDelegate> videoDelegate;
+@property (nonatomic, weak) id<NestopiaCoreInputDelegate> inputDelegate;
 
 @property (nonatomic, copy) NSString *gamePath;
-@property (nonatomic, weak) id<NestopiaCoreDelegate> delegate;
-@property (nonatomic, assign) int controllerLayout;
+@property (nonatomic, assign) int controllerLayout; // TODO: enum
 
 @end
 
 
-@protocol NestopiaCoreDelegate <NSObject>
+@protocol NestopiaCoreAudioDelegate <NSObject>
 
-- (void)nestopiaCoreCallbackOutputFrame:(unsigned short *)frameBuffer;
 - (void)nestopiaCoreCallbackOpenSound:(int)samplesPerSync sampleRate:(int)sampleRate;
 - (void)nestopiaCoreCallbackOutputSamples:(int)samples waves:(short *)waves;
 - (void)nestopiaCoreCallbackCloseSound;
-- (void)nestopiaCoreCallbackInputPadState:(uint *)pad1 pad2:(uint *)pad2 zapper:(uint *)zapper x:(uint *)x y:(uint *)y;
+
+@end
+
+
+@protocol NestopiaCoreVideoDelegate <NSObject>
+
+- (void)nestopiaCoreCallbackInitializeVideoWithWidth:(int)width height:(int)height;
+- (void)nestopiaCoreCallbackOutputFrame:(unsigned short *)frameBuffer;
+- (void)nestopiaCoreCallbackDestroyVideo;
+
+@end
+
+
+@protocol NestopiaCoreInputDelegate <NSObject>
+
+- (NestopiaInput)nestopiaCoreCallbackInput;
 
 @end
 

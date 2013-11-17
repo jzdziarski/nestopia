@@ -7,7 +7,6 @@
 //
 
 #import "Game.h"
-#import "EmulatorCore.h"
 
 @implementation Game
 
@@ -17,7 +16,7 @@
 
 - (NSDictionary *)settings {
     NSDictionary *settings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:[self settingsKey]];
-    return settings ?: [EmulatorCore globalSettings];
+    return settings ?: [[self class] globalSettings];
 }
 
 - (void)setSettings:(NSDictionary *)settings {
@@ -66,6 +65,20 @@
     }
     
     return games;
+}
+
++ (NSDictionary *)globalSettings {
+    return [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"GlobalSettings"];
+}
+
++ (void)saveGlobalSettings:(NSDictionary *)settings {
+    if (settings) {
+        [[NSUserDefaults standardUserDefaults] setObject:settings forKey:@"GlobalSettings"];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"GlobalSettings"];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark Private
