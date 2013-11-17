@@ -26,20 +26,38 @@
 
 void setActiveFrameBuffer(unsigned long *buf);
 
-@interface EmulatorCore ()
+@interface EmulatorCore () <NestopiaCoreDelegate>
 
 @property (nonatomic, strong) Game *currentGame;
 
 @end
 
 
-@implementation EmulatorCore
-@synthesize currentROMImagePath;
-@synthesize frameBufferAddress;
-@synthesize frameBufferSize;
-//@synthesize screenDelegate;
-
-extern NSString *currentGamePath;
+@implementation EmulatorCore {
+	pthread_t emulation_tid;
+    
+	/* Resources for video rendering */
+	id screenDelegate, haltedScreenDelegate;
+    unsigned long hightable[256], lowtable[256];
+    unsigned long *frameBuffer8888;
+    CGColorSpaceRef colorSpace;
+    CGDataProviderRef provider[2];
+	int currentProvider;
+    
+	/* Resources for audio playback */
+	AQCallbackStruct audioCallback;
+	long writeNeedle, playNeedle;
+	int soundBuffersInitialized;
+	int requiredBuffersToOpenSound;
+	
+	/* Resources for controller feedback */
+	dword controllerP1;
+	dword controllerP2;
+	byte zapperState, zapperX, zapperY;
+    
+    NestopiaCore *nestopiaCore;
+    short waveBuffer[WAVE_BUFFER_SIZE * WAVE_BUFFER_BANKS];
+}
 
 + (EmulatorCore *)sharedEmulatorCore {
     static EmulatorCore *sharedInstance;
@@ -64,25 +82,60 @@ extern NSString *currentGamePath;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (CGSize)nativeScreenResolution {
+    return CGSizeMake(nestopiaCore.screenWidth, nestopiaCore.screenHeight);
+}
+
+- (id)init {
+    if ((self = [super init])) {
+        nestopiaCore = [[NestopiaCore alloc] init];
+        nestopiaCore.delegate = self;
+        nestopiaCore.controllerLayout = [[self.currentGame.settings objectForKey: @"controllerLayout"] intValue];
+        if (![nestopiaCore initializeCore]) {
+            NSLog(@"%s [nestopiaCore initializeCore] failed", __PRETTY_FUNCTION__);
+            return nil;
+        }
+        
+        size_t size = nestopiaCore.screenWidth * nestopiaCore.screenHeight * 4;
+        frameBuffer8888 = malloc(size);
+        
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+        
+        provider[0] = CGDataProviderCreateWithData(NULL, frameBuffer8888, size, NULL);
+        provider[1] = CGDataProviderCreateWithData(NULL, frameBuffer8888, size, NULL);
+        currentProvider = 0;
+        
+        [self generateColorTables];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    free(frameBuffer8888);
+    CGColorSpaceRelease(colorSpace);
+    CGDataProviderRelease(provider[0]);
+    CGDataProviderRelease(provider[1]);
+}
+
+- (void)generateColorTables {
+    for (int i = 0; i < 256; i++) {
+		unsigned long red = (unsigned long)((i & 31) * 255.0 / 31.0);
+		unsigned long lowgreen = (unsigned long)(((i >> 5) & 7) * 255.0 / 63.0);
+		lowtable[i] = red | (lowgreen << 8);
+		
+		unsigned long highgreen = (unsigned long)(((i & 7) << 3) * 255.0 / 63.0);
+		unsigned long blue = (unsigned long)((i >> 3) * 255.0 / 31.0);
+		hightable[i] = (blue << 16) | (highgreen << 8);
+	}
+}
+
 - (BOOL)loadGame:(Game *)game {
     self.currentGame = game;
 	
 	NSLog(@"%s loading image %@\n", __func__ , self.currentGame.path);
 
-    nestopiaCore = [[NestopiaCore alloc] init];
     nestopiaCore.gamePath = self.currentGame.path;
-    nestopiaCore.delegate = self;
-    nestopiaCore.controllerLayout = [[self.currentGame.settings objectForKey: @"controllerLayout"] intValue];
-    
-    if (frameBufferSize.height && frameBufferSize.width) {
-        nestopiaCore.resolution = frameBufferSize;
-    }
-    
-    BOOL initialized = [nestopiaCore initializeCore];
-    if (initialized == NO) {
-        NSLog(@"%s [nestopiaCore initializeCore] failed", __PRETTY_FUNCTION__);
-        return NO;
-    }
+    [nestopiaCore loadGame];
     
 	return YES;
 }
@@ -90,24 +143,6 @@ extern NSString *currentGamePath;
 - (BOOL)initializeEmulator {		
 	controllerP1 = controllerP2 = 0;
 	zapperState = zapperX = zapperY = 0;
-		
-	return YES;
-}
-
-- (BOOL)configureEmulator {
-	
-	NSLog(@"%s", __func__);
-	
-	defaultFullScreen = [[self.currentGame.settings objectForKey: @"fullScreen"] intValue];
-	defaultAspectRatio = [[self.currentGame.settings objectForKey: @"aspectRatio"] intValue];
-	   
-	if (defaultFullScreen) {
-		destinationWidth = (defaultAspectRatio) ? 341 : 479;
-		destinationHeight = 320;
-	} else {
-		destinationWidth = 255;
-		destinationHeight = 240;
-	}
 		
 	return YES;
 }
@@ -142,114 +177,6 @@ extern NSString *currentGamePath;
     
     [nestopiaCore loadState];
     return YES;
-}
-
-
-/* Callbacks */
-
-- (void) emulatorCallbackOutputFrame:(word *)workFrame frameCount:(byte)frameCount {
-	int x, y;
-	
-	/* Render */
-	if (screenDelegate != nil) {
-		if (defaultFullScreen == NO) {
-			memcpy(frameBufferAddress, workFrame, NES_WIDTH * NES_HEIGHT * 2);
-        } else {
-			int px_dest_y, px_src_y, px_src_x;
-            int dest_w = 320;
-            int dest_h = 300;
-			
-            for (y=0; y<dest_h; y++)
-            {
-                px_dest_y = y * dest_w;
-                px_src_y = (y * NESCORE_NATIVE_SCREEN_HEIGHT/dest_h);
-				
-                for (x=0; x < dest_w; x++) {
-                    px_src_x = (x * NESCORE_NATIVE_SCREEN_WIDTH/dest_w);
-                    frameBufferAddress[px_dest_y + x] 
-					= workFrame[(px_src_y * NESCORE_NATIVE_SCREEN_WIDTH) + px_src_x];
-                }
-            }
-        }
-
-		[screenDelegate performSelectorOnMainThread: @selector(emulatorCoreDidUpdateFrameBuffer)
-											  withObject:nil waitUntilDone: NO];
-	} else {
-		NSLog(@"%s screenDelegate = nil, skipping render", __func__);
-	}
-}
-
-- (void)emulatorCallbackInputPadState:(uint *)pad1 pad2:(uint *)pad2 zapper:(uint *)zapper x:(uint *)x y:(uint *)y
-{
-    
-    *pad1 = controllerP1;
-    *pad2 = controllerP2;
-    *zapper = zapperState;
-    *x = zapperX;
-    *y = zapperY;
-}
-
-- (void)AQBufferCallback:(void *)callbackStruct inQ:(AudioQueueRef)inQ outQB:(AudioQueueBufferRef)outQB
-{
-	AQCallbackStruct * inData;
-    short *coreAudioBuffer;
-    short sample;
-    int i;
-    
-    inData = (AQCallbackStruct *)callbackStruct;
-    coreAudioBuffer = (short*) outQB->mAudioData;
-	   
-    if (inData->frameCount > 0) {
-        outQB->mAudioDataByteSize = 4 * inData->frameCount;
-        for(i=0; i < inData->frameCount * 2; i+=2) {
-            sample = waveBuffer[playNeedle];
-            waveBuffer[playNeedle] = 0;
-            playNeedle++;
-            if (playNeedle >= BUFFERSIZE-1)
-				playNeedle = 0;
-
-            coreAudioBuffer[i] =   sample;
-            coreAudioBuffer[i+1] = sample;
-
-        }
-        AudioQueueEnqueueBuffer(inQ, outQB, 0, NULL);
-    }
-}
-
-- (int)emulatorCallbackOpenSound:(int)samplesPerSync sampleRate:(int)sampleRate {
-
-	memset(&waveBuffer, 0, sizeof(waveBuffer));
-    writeNeedle = 0;
-    playNeedle = 0;
-
-    audioCallback.mDataFormat.mSampleRate = sampleRate;
-    audioCallback.mDataFormat.mFormatID = kAudioFormatLinearPCM;
-    audioCallback.mDataFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian;
-    audioCallback.mDataFormat.mBytesPerPacket = 4;
-    audioCallback.mDataFormat.mFramesPerPacket = 1;
-    audioCallback.mDataFormat.mBytesPerFrame = 4;
-    audioCallback.mDataFormat.mChannelsPerFrame = 2;
-    audioCallback.mDataFormat.mBitsPerChannel = 16;
-	audioCallback.userData = (__bridge void *)(self);
-	
-	[self initializeSoundBuffers: samplesPerSync];
-	
-    return 0;
-}
-
-- (void)emulatorCallbackCloseSound {
-    AudioQueueDispose(audioCallback.queue, YES);
-    soundBuffersInitialized = 0;
-}
-
-- (void)emulatorCallbackOutputSampleWave:(int)samples wave1:(short *)wave1 {
-
-    for (int i = 0; i < samples; i++)
-    {
-        waveBuffer[writeNeedle++] = wave1[i];
-        if (writeNeedle >= BUFFERSIZE-1)
-            writeNeedle = 0;
-    }
 }
 
 - (void)initializeSoundBuffers:(int)samplesPerSync {
@@ -372,11 +299,111 @@ extern NSString *currentGamePath;
 		controllerP2 = controllerState;
 }
 
+#pragma mark AQCallback
+
 void AQBufferCallback(void *callbackStruct, AudioQueueRef inQ, AudioQueueBufferRef outQB)
 {
 	AQCallbackStruct *inData = (AQCallbackStruct *) callbackStruct;
-	EmulatorCore *sharedEmulatorCore = (__bridge EmulatorCore *) inData->userData;
-	[sharedEmulatorCore AQBufferCallback: inData inQ: inQ outQB: outQB];
+	EmulatorCore *emulatorCore = (__bridge EmulatorCore *) inData->userData;
+	[emulatorCore AQBufferCallback: inData inQ: inQ outQB: outQB];
 }
+
+- (void)AQBufferCallback:(void *)callbackStruct inQ:(AudioQueueRef)inQ outQB:(AudioQueueBufferRef)outQB
+{
+	AQCallbackStruct * inData;
+    short *coreAudioBuffer;
+    short sample;
+    int i;
+    
+    inData = (AQCallbackStruct *)callbackStruct;
+    coreAudioBuffer = (short*) outQB->mAudioData;
+    
+    if (inData->frameCount > 0) {
+        outQB->mAudioDataByteSize = 4 * inData->frameCount;
+        for(i=0; i < inData->frameCount * 2; i+=2) {
+            sample = waveBuffer[playNeedle];
+            waveBuffer[playNeedle] = 0;
+            playNeedle++;
+            if (playNeedle >= BUFFERSIZE-1)
+				playNeedle = 0;
+            
+            coreAudioBuffer[i] =   sample;
+            coreAudioBuffer[i+1] = sample;
+            
+        }
+        AudioQueueEnqueueBuffer(inQ, outQB, 0, NULL);
+    }
+}
+
+#pragma mark NestopiaCoreDelegate
+
+- (void)nestopiaCoreCallbackOutputFrame:(unsigned short *)frameBuffer {
+	if (!self.screenDelegate) {
+        return;
+    }
+    
+    int x, y;
+    int w = nestopiaCore.screenWidth;
+    int h = nestopiaCore.screenHeight;
+    unsigned short px;
+    
+    /* Convert active framebuffer from 565L to 8888 */
+    for (y = 0; y < h; y++) {
+        for (x = 0; x < w; x++) {
+            px = frameBuffer[w*y + x];
+            frameBuffer8888[w*y+x] = hightable[px >> 8] + lowtable[px & 0xFF];
+        }
+    }
+    
+    CGImageRef screenImage;
+    screenImage = CGImageCreate(w, h, 8, 32, 4 * w, colorSpace, kCGBitmapByteOrder32Host | kCGImageAlphaNoneSkipFirst, provider[currentProvider], NULL, NO, kCGRenderingIntentDefault);
+    
+    currentProvider = 1 - currentProvider;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.screenDelegate emulatorCoreDidRenderFrame:screenImage];
+        CGImageRelease(screenImage);
+    });
+}
+
+- (void)nestopiaCoreCallbackOpenSound:(int)samplesPerSync sampleRate:(int)sampleRate {
+    memset(&waveBuffer, 0, sizeof(waveBuffer));
+    writeNeedle = 0;
+    playNeedle = 0;
+    
+    audioCallback.mDataFormat.mSampleRate = sampleRate;
+    audioCallback.mDataFormat.mFormatID = kAudioFormatLinearPCM;
+    audioCallback.mDataFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian;
+    audioCallback.mDataFormat.mBytesPerPacket = 4;
+    audioCallback.mDataFormat.mFramesPerPacket = 1;
+    audioCallback.mDataFormat.mBytesPerFrame = 4;
+    audioCallback.mDataFormat.mChannelsPerFrame = 2;
+    audioCallback.mDataFormat.mBitsPerChannel = 16;
+	audioCallback.userData = (__bridge void *)(self);
+	
+	[self initializeSoundBuffers: samplesPerSync];
+}
+
+- (void)nestopiaCoreCallbackOutputSamples:(int)samples waves:(short *)waves {
+    for (int i = 0; i < samples; i++) {
+        waveBuffer[writeNeedle++] = waves[i];
+        if (writeNeedle >= BUFFERSIZE-1)
+            writeNeedle = 0;
+    }
+}
+
+- (void)nestopiaCoreCallbackCloseSound {
+    AudioQueueDispose(audioCallback.queue, YES);
+    soundBuffersInitialized = 0;
+}
+
+- (void)nestopiaCoreCallbackInputPadState:(uint *)pad1 pad2:(uint *)pad2 zapper:(uint *)zapper x:(uint *)x y:(uint *)y {
+    *pad1 = controllerP1;
+    *pad2 = controllerP2;
+    *zapper = zapperState;
+    *x = zapperX;
+    *y = zapperY;
+}
+
 @end
 

@@ -22,12 +22,6 @@
 
 #include <stdio.h>
 
-void Nestopia_Callback_OutputFrame(void *sender, void *video);
-int Nestopia_Callback_OpenSound(void *sender, int samples_per_sync, int sample_rate);
-void Nestopia_Callback_OutputSample(void *sender, int samples, void *audio);
-void Nestopia_Callback_CloseSound(void *userData);
-void Nestopia_Callback_InputPadState(void *userData, uint *pad1, uint *zapper, uint *x, uint*y);
-
 #define NCTL_A      0x01
 #define NCTL_B      0x02
 #define NCTL_SELECT 0x04

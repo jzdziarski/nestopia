@@ -24,136 +24,65 @@
 #import "EmulatorCore.h"
 #include <sys/stat.h>
 
-@implementation GamePlayViewController
+@interface GamePlayViewController () <UIActionSheetDelegate>
+
+@property (nonatomic, strong) Game *game;
+@property (nonatomic, assign) BOOL shouldLoadState;
+
+@end
+
+
+@implementation GamePlayViewController {
+    /* Initialization */
+	UIActionSheet *saveStateSheet;
+    bool loaded, pad1;
+    
+    /* Game Play */
+	ScreenView *screenView;
+	ControllerView *controllerView;
+    EmulatorCore *emulatorCore;
+}
+
+- (id)initWithGame:(Game *)game loadState:(BOOL)loadState {
+    if ((self = [super init])) {
+        _game = game;
+        _shouldLoadState = loadState;
+        
+        self.title = self.game.title;
+    }
+    return self;
+}
 
 - (void)loadView {
     [super loadView];
-    
-    loaded = NO;
-    self.title = self.game.title;
     
     [self initializeEmulatorView];
     [self initializeEmulator];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    CGSize screenViewSize = [EmulatorCore sharedEmulatorCore].nativeScreenResolution;
+    CGFloat scale = self.view.bounds.size.width / screenViewSize.height;
+    screenViewSize.width *= scale;
+    screenViewSize.height *= scale;
+    screenView.frame = CGRectMake(0, 0,
+                                  screenViewSize.width, screenViewSize.height);
+    
+    CGSize controllerViewSize = CGSizeMake(self.view.bounds.size.width, 320);
+    controllerView.frame = CGRectMake(0, CGRectGetMaxY(self.view.bounds) - controllerViewSize.height,
+                                      controllerViewSize.width, controllerViewSize.height);
+}
+
 - (void)initializeEmulatorView {
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-
-    float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    float screenWidth = [UIScreen mainScreen].bounds.size.width;
-    float emuHeight, emuWidth;
-    CGRect surfaceRect;
-
-	NSLog(@"%s initializing emulator view in %s mode", __PRETTY_FUNCTION__,
-		  (UIInterfaceOrientationIsLandscape(orientation) == YES) ? "landscape" : "portrait");
+	screenView = [[ScreenView alloc] init];
+	[self.view addSubview:screenView];
 	
-    if (UIInterfaceOrientationIsLandscape(orientation) == NO) {
-        self.view.backgroundColor = [UIColor colorWithHue: 240.0/360.0 saturation: .02 brightness: .96 alpha: 1.0];
-        
-        label = [[UILabel alloc] initWithFrame: CGRectMake(10.0, 20.5, self.view.bounds.size.width - 20.0, 40.0)];
-        label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .50 alpha: 1.0];
-        //label.textColor = [UIColor colorWithHue: 211.0/360.0 saturation: 1.0 brightness: 1.0 alpha: 1.0];        label.font = [UIFont fontWithName: @"HelveticaNeue-Regular" size: 14.0];
-        label.text = [self.game.title uppercaseString];
-        label.textAlignment = NSTextAlignmentLeft;
-        label.adjustsFontSizeToFitWidth = YES;
-        label.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(userDidExitGamePlay)];
-        [label addGestureRecognizer: tapGesture];
-        
-        [self.view addSubview: label];
-    }
-    
-    /* landscape */
-	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-        screenHeight = [UIScreen mainScreen].bounds.size.width;
-        screenWidth = [UIScreen mainScreen].bounds.size.height;
-        self.view.backgroundColor = [UIColor blackColor];
-        
-		if ([[self.game.settings objectForKey: @"fullScreen"] boolValue]== YES) {
-            if ([[self.game.settings objectForKey: @"aspectRatio"] boolValue]== YES) {
-                emuHeight = 320.0;
-                emuWidth = 341.0;
-            } else {
-                emuHeight = screenHeight;
-                emuWidth = screenWidth;
-            }
-		} else {
-            emuHeight = NES_HEIGHT;
-            emuWidth = NES_WIDTH;
-        }
-        
-        surfaceRect = CGRectMake((screenWidth - emuWidth) / 2.0, (screenHeight - emuHeight) / 2.0, emuWidth, emuHeight);
-        
-        /* portrait */
-	} else {
-        float offset = 0.0;
-        float controllerHeight = 125.0;
-        self.view.backgroundColor = [UIColor whiteColor];
-        
-		if ([[self.game.settings objectForKey: @"fullScreen"] boolValue]== YES) {
-            emuHeight = 300.0;
-            emuWidth = 320.0;
-            
-            if (![self hasFourInchDisplay] ) {
-                offset = 28.0;
-            }
-        } else {
-            emuHeight = NES_HEIGHT;
-            emuWidth = NES_WIDTH;
-            
-            if (![self hasFourInchDisplay] ) {
-                offset = 14.0;
-            }
-        }
-        
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            if ([[self.game.settings objectForKey: @"fullScreen"] boolValue]== YES) {
-                emuHeight *= 2.4;
-                emuWidth *= 2.4;
-                offset = 20.0;
-                controllerHeight = 300.0;
-            }
-        }
-        
-        surfaceRect = CGRectMake((self.view.bounds.size.width - emuWidth) / 2.0, ((self.view.bounds.size.height - (emuHeight + controllerHeight)) / 2.0) + offset, emuWidth, emuHeight);
-        
-        border = [[UIView alloc] initWithFrame: CGRectMake(surfaceRect.origin.x - 1.0, surfaceRect.origin.y - 1.0, surfaceRect.size.width + 2.0, surfaceRect.size.height + 2.0)];
-        border.backgroundColor = [UIColor colorWithHue: 252.0/360.0 saturation: .02 brightness: .70 alpha: 1.0];
-        [self.view addSubview: border];
-        
-    }
-    
-	NSLog(@"%s initializing surface layer with frame: %fx%f size: %fx%f", __PRETTY_FUNCTION__, surfaceRect.origin.x, surfaceRect.origin.y, surfaceRect.size.width, surfaceRect.size.height);
-	screenView = [[ScreenView alloc] initWithFrame: surfaceRect settings:self.game.settings];
-	screenView.orientation = orientation;
-	[self.view addSubview: screenView];
-	
-	NSLog(@"%s initializing controller layer", __PRETTY_FUNCTION__);
-	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-        float h = 480.0;
-        if ([self hasFourInchDisplay]) {
-            h = 568.0;
-        }
-        controllerView = [[ControllerView alloc] initWithFrame: CGRectMake((screenWidth - h)/2.0, (screenHeight - 320.0) / 2.0, h, 320.0)];
-	} else {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            controllerView = [[ControllerView alloc] initWithFrame: CGRectMake(0.0, self.view.bounds.size.height - 125.0, self.view.bounds.size.width, 125.0)];
-        } else {
-            controllerView = [[ControllerView alloc] initWithFrame: CGRectMake(0.0, 20 + (self.view.bounds.size.height - 300.0), self.view.bounds.size.width, 300.0)];
-            
-        }
-	}
-    
-	if (UIInterfaceOrientationIsLandscape(orientation) == YES) {
-		controllerView.alpha = 0.5;
-	}
-    
+    controllerView = [[ControllerView alloc] init];
     controllerView.swapAB = [[self.game.settings objectForKey:@"swapAB"] boolValue];
     controllerView.stickControl = [[self.game.settings objectForKey:@"controllerStickControl"] boolValue];
-	
-	[self.view addSubview: controllerView];
+	[self.view addSubview:controllerView];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -165,11 +94,8 @@
 }
 
 - (void)initializeEmulator {
-	emulatorCore = [[EmulatorCore alloc] init];
+	emulatorCore = [EmulatorCore sharedEmulatorCore];
     [emulatorCore initializeEmulator];
-
-    NSLog(@"%s frame buffer size: %.0fx%.0f", __PRETTY_FUNCTION__, screenView.frameBufferSize.width, screenView.frameBufferSize.height);
-    emulatorCore.frameBufferSize = screenView.frameBufferSize;
 
 	BOOL success = [emulatorCore loadGame:self.game];
 	
@@ -192,10 +118,7 @@
 		[emulatorCore loadState];
 	}
     
-	[emulatorCore configureEmulator];
-    
     emulatorCore.screenDelegate = screenView;
-	emulatorCore.frameBufferAddress = (word *) screenView.frameBufferAddress;
 	screenView.delegate = emulatorCore;
 	controllerView.delegate = emulatorCore;
     controllerView.gamePlayDelegate = self;
@@ -208,7 +131,6 @@
 - (void)dealloc {
     if (loaded) {
         emulatorCore.screenDelegate = nil;
-        emulatorCore.frameBufferAddress = nil;
         controllerView.delegate = nil;
         screenView.delegate = nil;
         
@@ -345,20 +267,15 @@
     
     [screenView removeFromSuperview];
     [controllerView removeFromSuperview];
-    [label removeFromSuperview];
-    [border removeFromSuperview];
     
     screenView = nil;
     controllerView = nil;
-    label = nil;
-    border = nil;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {    
     [self initializeEmulatorView];
 
     emulatorCore.screenDelegate = screenView;
-	emulatorCore.frameBufferAddress = (word *) screenView.frameBufferAddress;
 	screenView.delegate = emulatorCore;
 	controllerView.delegate = emulatorCore;
     controllerView.gamePlayDelegate = self;

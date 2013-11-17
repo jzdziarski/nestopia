@@ -19,7 +19,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "GameROMViewController.h"
+#import "GamesViewController.h"
 #import "MultiValueViewController.h"
 #import "Game.h"
 

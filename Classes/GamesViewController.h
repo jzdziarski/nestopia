@@ -22,7 +22,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreFoundation/CoreFoundation.h>
 
-@interface GameROMViewController : UITableViewController
+@interface GamesViewController : UITableViewController
 
 @property (nonatomic, assign) BOOL favorite;
 @property (nonatomic, assign) BOOL saved;

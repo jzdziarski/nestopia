@@ -308,7 +308,7 @@
 		7040D5AD1802203B00D2B455 /* History@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040D5AC1802203B00D2B455 /* History@2x.png */; };
 		7044127F0ED9CF6100E54091 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127D0ED9CF6100E54091 /* AudioToolbox.framework */; };
 		704412800ED9CF6100E54091 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127E0ED9CF6100E54091 /* QuartzCore.framework */; };
-		704412BE0ED9D3D800E54091 /* GameROMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412BD0ED9D3D800E54091 /* GameROMViewController.m */; };
+		704412BE0ED9D3D800E54091 /* GamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412BD0ED9D3D800E54091 /* GamesViewController.m */; };
 		704412EA0ED9D58B00E54091 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412E90ED9D58B00E54091 /* SettingsViewController.m */; };
 		7052063017FA1E2F001FFF8F /* NstDatabase.dat in Resources */ = {isa = PBXBuildFile; fileRef = 7052062F17FA1E2F001FFF8F /* NstDatabase.dat */; };
 		7074DA8117F380B70071CD85 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA7F17F380B70071CD85 /* Default-568h@2x.png */; };
@@ -995,8 +995,8 @@
 		7040D5AC1802203B00D2B455 /* History@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "History@2x.png"; sourceTree = "<group>"; };
 		7044127D0ED9CF6100E54091 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		7044127E0ED9CF6100E54091 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
-		704412BC0ED9D3D800E54091 /* GameROMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameROMViewController.h; sourceTree = "<group>"; };
-		704412BD0ED9D3D800E54091 /* GameROMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameROMViewController.m; sourceTree = "<group>"; };
+		704412BC0ED9D3D800E54091 /* GamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesViewController.h; sourceTree = "<group>"; };
+		704412BD0ED9D3D800E54091 /* GamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesViewController.m; sourceTree = "<group>"; };
 		704412E80ED9D58B00E54091 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		704412E90ED9D58B00E54091 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		7052062F17FA1E2F001FFF8F /* NstDatabase.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = NstDatabase.dat; sourceTree = "<group>"; };
@@ -1062,10 +1062,10 @@
 				709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */,
 				7035961017FBC44400632315 /* NESNavigationController.h */,
 				7035961117FBC44400632315 /* NESNavigationController.m */,
+				704412BC0ED9D3D800E54091 /* GamesViewController.h */,
+				704412BD0ED9D3D800E54091 /* GamesViewController.m */,
 				28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */,
 				28C286E00D94DF7D0034E888 /* GamePlayViewController.m */,
-				704412BC0ED9D3D800E54091 /* GameROMViewController.h */,
-				704412BD0ED9D3D800E54091 /* GameROMViewController.m */,
 				704412E80ED9D58B00E54091 /* SettingsViewController.h */,
 				704412E90ED9D58B00E54091 /* SettingsViewController.m */,
 				70FEB7F9180DDB9F008B6C61 /* MultiValueViewController.h */,
@@ -2088,7 +2088,7 @@
 				700957A817FC75590038888C /* NstMapper178.cpp in Sources */,
 				80909A1E1835B1A800CC9F6F /* Game.m in Sources */,
 				700957C517FC75590038888C /* NstMapper222.cpp in Sources */,
-				704412BE0ED9D3D800E54091 /* GameROMViewController.m in Sources */,
+				704412BE0ED9D3D800E54091 /* GamesViewController.m in Sources */,
 				7009572C17FC75590038888C /* NstBrdTf1201.cpp in Sources */,
 				700957E217FC75590038888C /* NstCartridgeUnif.cpp in Sources */,
 				7009579717FC75590038888C /* NstMapper140.cpp in Sources */,

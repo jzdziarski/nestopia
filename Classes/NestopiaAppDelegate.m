@@ -20,43 +20,39 @@
 
 #import "NestopiaAppDelegate.h"
 
-@implementation NestopiaAppDelegate
+@implementation NestopiaAppDelegate {
+    UIWindow *window;
+    
+    NESTabBarController *tabBarController;
+    GamesViewController *gamesViewController;
+	GamesViewController *savedGamesViewController;
+    GamesViewController *favoritesViewController;
+	SettingsViewController *settingsViewController;
+    UINavigationController *settingsNavigationController;
+}
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
-
-    tabBarController = [self initializeTabBar];
+    [self setupViewControllers];
+    
+	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     window.rootViewController = tabBarController;
-
 	[window makeKeyAndVisible];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-
-}
-
-- (NESTabBarController *)initializeTabBar {
-    tabBarController = [[NESTabBarController alloc] init];
+- (void)setupViewControllers {
+	gamesViewController = [[GamesViewController alloc] init];
     
-	gameROMViewController = [[GameROMViewController alloc] init];
+    savedGamesViewController = [[GamesViewController alloc] init];
+    savedGamesViewController.saved = YES;
     
-    favoritesViewController = [[GameROMViewController alloc] init];
+    favoritesViewController = [[GamesViewController alloc] init];
     favoritesViewController.favorite = YES;
     
-	savedGameViewController = [[GameROMViewController alloc] init];
-    savedGameViewController.saved = YES;
-    
     settingsViewController = [[SettingsViewController alloc] init];
+    settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
 
-    settingsNavigationController = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
-    tabBarController.viewControllers = [NSArray arrayWithObjects: gameROMViewController, savedGameViewController, favoritesViewController, settingsNavigationController, nil];
-	
-    if ([tabBarController.tabBar respondsToSelector: @selector(setTranslucent:)])
-    {
-        tabBarController.tabBar.translucent = NO;
-    }
-    
-    return tabBarController;
+    tabBarController = [[NESTabBarController alloc] init];
+    tabBarController.viewControllers = @[ gamesViewController, savedGamesViewController, favoritesViewController, settingsNavigationController ];
 }
 
 @end

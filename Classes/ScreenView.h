@@ -23,34 +23,11 @@
 #import "EmulatorCore.h"
 #import "ControllerView.h"
 
-#define NES_WIDTH   256
-#define NES_HEIGHT  240
+@interface ScreenView : UIView <EmulatorCoreScreenDelegate> 
 
-@interface ScreenView : UIView <EmulatorCoreScreenDelegate> {
-	unsigned long hightable[NES_WIDTH], lowtable[NES_WIDTH];
-	int w, h;
+// TODO: zapper
+@property (nonatomic, weak) id<GameControllerDelegate> delegate;
 
-    NSDictionary *settings;
-	CALayer *screenLayer;
-	UIDeviceOrientation orientation;
-	unsigned short *frameBufferAddress;
-	unsigned long *frameBuffer8888;
-	CGSize frameBufferSize;
-	CGColorSpaceRef colorSpace;
-	CGDataProviderRef provider[2];
-	id __weak delegate;	
-	int currentProvider;
-}
+- (void)commonInit;
 
-- (id)initWithFrame:(CGRect)frame settings:(NSDictionary *)settings;
-- (void)initializeGraphics;
-
-/* EmulatorCoreScreenDelegate */
-
-- (void)emulatorCoreDidUpdateFrameBuffer;
-
-@property(nonatomic,assign) UIDeviceOrientation orientation;
-@property(nonatomic,assign,readonly) unsigned short *frameBufferAddress;
-@property(nonatomic,assign) CGSize frameBufferSize;
-@property(nonatomic,weak) id<GameControllerDelegate> delegate;
 @end

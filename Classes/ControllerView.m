@@ -19,7 +19,7 @@
  */
 
 #import "ControllerView.h"
-#import "GameROMViewController.h"
+#import "GamesViewController.h"
 #import "EmulatorCore.h"
 
 @implementation ControllerView

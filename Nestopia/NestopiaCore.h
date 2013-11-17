@@ -21,19 +21,17 @@
 #ifndef __NESTOPIACORE_H__
 #define __NESTOPIACORE_H__
 
+@protocol NestopiaCoreDelegate;
+
+
 @interface NestopiaCore : NSObject
-{    
-    NSString *gamePath;
-    NSTimer *gameTimer;
-    CGSize resolution;
-    int controllerLayout;
-}
 
 - (BOOL)initializeCore;
 - (void)initializeInput;
 - (void)startEmulation;
 - (void)stopEmulation;
 - (void)finishEmulation;
+- (BOOL)loadGame;
 - (void)loadState;
 - (void)saveState;
 - (void)applyCheatCodes:(NSArray *)codes;
@@ -43,10 +41,24 @@
 - (void)toggleCoin2;
 - (void)coinOff;
 
-@property(nonatomic,copy) NSString *gamePath;
-@property(nonatomic,weak) id delegate;
-@property(nonatomic,assign) CGSize resolution;
-@property(nonatomic,assign) int controllerLayout;
+@property (nonatomic, readonly) int screenWidth;
+@property (nonatomic, readonly) int screenHeight;
+
+@property (nonatomic, copy) NSString *gamePath;
+@property (nonatomic, weak) id<NestopiaCoreDelegate> delegate;
+@property (nonatomic, assign) int controllerLayout;
+
+@end
+
+
+@protocol NestopiaCoreDelegate <NSObject>
+
+- (void)nestopiaCoreCallbackOutputFrame:(unsigned short *)frameBuffer;
+- (void)nestopiaCoreCallbackOpenSound:(int)samplesPerSync sampleRate:(int)sampleRate;
+- (void)nestopiaCoreCallbackOutputSamples:(int)samples waves:(short *)waves;
+- (void)nestopiaCoreCallbackCloseSound;
+- (void)nestopiaCoreCallbackInputPadState:(uint *)pad1 pad2:(uint *)pad2 zapper:(uint *)zapper x:(uint *)x y:(uint *)y;
+
 @end
 
 #endif

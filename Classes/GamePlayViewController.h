@@ -27,21 +27,8 @@
 
 #define kGamePlaySavedStateNotification         @"GamePlaySavedStateNotification"
 
-@interface GamePlayViewController : UIViewController <UIActionSheetDelegate>
-{
-    /* Initialization */
-	UIActionSheet *saveStateSheet;
-    bool loaded, pad1;
-    
-    /* Game Play */
-    EmulatorCore *emulatorCore;
-	ScreenView *screenView;
-	ControllerView *controllerView;
-    UILabel *label;
-    UIView *border;
-}
+@interface GamePlayViewController : UIViewController
 
-@property (nonatomic, strong) Game *game;
-@property (nonatomic, assign) BOOL shouldLoadState;
+- (id)initWithGame:(Game *)game loadState:(BOOL)loadState;
 
 @end

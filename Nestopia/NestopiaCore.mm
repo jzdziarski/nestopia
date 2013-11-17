@@ -48,12 +48,14 @@ static bool NST_CALLBACK VideoLock(void* userData,Nes::Api::Video::Output& video
 static void NST_CALLBACK VideoUnlock(void* userData,Nes::Api::Video::Output& video);
 static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,Nes::Api::User::FileData& data);
 
-NSString *gameFilename, *saveFilename;
+static NSString *gamePath;
 static NSLock *soundLock;
 static short soundBuffer[0x8000];
 static int soundOffset;
 static uint8_t  *videoScreen;
-static int cur_width, cur_height, framerate;
+static int screenWidth;
+static int screenHeight;
+static int framerate;
 static void *callback;
 static BOOL isPlaying;
 static int controller = 0;
@@ -64,26 +66,38 @@ static Nes::Api::Emulator emulator;
 static Nes::Api::Input::Controllers controls;
 static Nes::Api::Cartridge::Database::Entry dbentry;
 
-@implementation NestopiaCore
-@synthesize gamePath;
-@synthesize resolution;
-@synthesize controllerLayout;
 
--(id)init {
-    self = [super init];
-    if (self != nil) {
-        resolution.width = 0;
-        resolution.height = 0;
-    }
-    return self;
+@interface NestopiaCore ()
+
+@property (nonatomic, strong) NSTimer *gameTimer;
+
+@end
+
+
+@implementation NestopiaCore
+
+@dynamic screenWidth, screenHeight, gamePath;
+
+- (int)screenWidth {
+    return screenWidth;
+}
+
+- (int)screenHeight {
+    return screenHeight;
+}
+
+- (NSString *)gamePath {
+    return gamePath;
+}
+
+- (void)setGamePath:(NSString *)aGamePath {
+    gamePath = [aGamePath copy];
 }
 
 -(BOOL)initializeCore {
 	void* userData = (void*) 0xDEADC0DE;
 	Nes::Api::Machine machine( emulator );
 
-    gameFilename = [gamePath copy];
-    saveFilename = [gameFilename stringByAppendingPathExtension: @"sav"];
     soundLock = [[NSLock alloc] init];
     isPlaying = false;
 
@@ -95,12 +109,9 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
     
     [self loadDatabase];
     
-    if ([self loadGame] == NO) {
-        isPlaying = false;
+    if (![self initializeVideo]) {
         return NO;
     }
-    
-    [self initializeVideo];
     [self initializeSound];
     [self initializeInput];
 
@@ -127,11 +138,11 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 
 -(void)initializeInput
 {
-    NSLog(@"%s: %d", __PRETTY_FUNCTION__, controllerLayout);
+    NSLog(@"%s: %d", __PRETTY_FUNCTION__, self.controllerLayout);
  
     controller = 0;
 	Nes::Api::Cartridge::Database database( emulator );
-    if (controllerLayout == 0) {
+    if (self.controllerLayout == 0) {
         Nes::Api::Input(emulator).ConnectController( 0, Nes::Api::Input::PAD1 );
         Nes::Api::Input(emulator).ConnectController( 1, Nes::Api::Input::ZAPPER );
     } else {
@@ -197,19 +208,19 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 		
 	}
 	
-	cur_width = Widths[filter];
-	cur_height = Heights[filter];
+	screenWidth = Widths[filter];
+	screenHeight = Heights[filter];
 
-    NSLog(@"%s initializing resolution %dx%d", __PRETTY_FUNCTION__, cur_width, cur_height);
+    NSLog(@"%s initializing resolution %dx%d", __PRETTY_FUNCTION__, screenWidth, screenHeight);
 	renderState.bits.count  = 16;
 	renderState.bits.mask.r = 0xF800;
 	renderState.bits.mask.g = 0x07E0;
 	renderState.bits.mask.b = 0x001F;
 	renderState.filter      = filters[filter];
-	renderState.width       = cur_width;
-	renderState.height      = cur_height;
+	renderState.width       = screenWidth;
+	renderState.height      = screenHeight;
     
-	videoScreen = new unsigned char[cur_width * cur_height * 2];
+	videoScreen = new unsigned char[screenWidth * screenHeight * 2];
 	Nes::Api::Video video( emulator );
 	video.EnableUnlimSprites(true);
 	
@@ -300,7 +311,7 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 {
 	Nes::Api::Machine machine( emulator );
 	Nes::Api::Cartridge::Database database( emulator );
-    NSString *savPath = [gameFilename stringByAppendingPathExtension: @"sav"];
+    NSString *savPath = [gamePath stringByAppendingPathExtension: @"sav"];
 
 	std::ifstream *file = new std::ifstream([savPath UTF8String] , std::ios::in|std::ios::binary );
     
@@ -313,7 +324,7 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 {
 	Nes::Api::Machine machine( emulator );
 	Nes::Api::Cartridge::Database database( emulator );
-    NSString *savPath = [gameFilename stringByAppendingPathExtension: @"sav"];
+    NSString *savPath = [gamePath stringByAppendingPathExtension: @"sav"];
 
     std::ostringstream *buffer = new std::ostringstream(std::stringstream::out | std::stringstream::binary);
     
@@ -343,19 +354,25 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 - (void)startEmulation {
     isPlaying = true;
 
-    Nestopia_Callback_OpenSound(callback, 735, 44100);
+	[(__bridge id<NestopiaCoreDelegate>)callback nestopiaCoreCallbackOpenSound:735 sampleRate:44100];
 
-    gameTimer = [NSTimer scheduledTimerWithTimeInterval: (1.0 / framerate) target: self selector: @selector(stepEmulator:) userInfo: nil repeats: YES];
+    self.gameTimer = [NSTimer scheduledTimerWithTimeInterval: (1.0 / framerate) target: self selector: @selector(stepEmulator:) userInfo: nil repeats: YES];
 }
 
 -(void)stepEmulator:(NSTimer *)timer {
-    
     if (isPlaying) {
-        Nestopia_Callback_InputPadState(callback,
-                                       &controls.pad[controller].buttons,
-                                       &controls.zapper.fire,
-                                       &controls.zapper.x,
-                                       &controls.zapper.y);
+        uint p1, p2;
+        [(__bridge id<NestopiaCoreDelegate>)callback nestopiaCoreCallbackInputPadState:&p1
+                                                                                  pad2:&p2
+                                                                                zapper:&controls.zapper.fire
+                                                                                     x:&controls.zapper.x
+                                                                                     y:&controls.zapper.y];
+        
+        controls.pad[controller].buttons = [self translateButtons:p1];
+        
+        if (controls.zapper.fire) {
+            NSLog(@"%s zapper: %d at %ux%u", __func__, controls.zapper.fire, controls.zapper.x, controls.zapper.y);
+        }
 
         emulator.Execute(nstVideo, nstSound, &controls);
     } else {
@@ -366,7 +383,7 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
 -(void)stopEmulation
 {
     isPlaying = NO;
-    Nestopia_Callback_CloseSound(callback);
+    [(__bridge id<NestopiaCoreDelegate>)callback nestopiaCoreCallbackCloseSound];
 }
 
 - (void)finishEmulation {
@@ -377,12 +394,12 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
     delete nstVideo;
 }
 
--(void)setDelegate:(id)delegate {
+- (void)setDelegate:(id<NestopiaCoreDelegate>)delegate {
     callback = (__bridge void *)delegate;
 }
 
--(id)delegate {
-    return (__bridge id)callback;
+- (id<NestopiaCoreDelegate>)delegate {
+    return (__bridge id<NestopiaCoreDelegate>)callback;
 }
 
 -(void)applyCheatCodes:(NSArray *)codes
@@ -408,106 +425,8 @@ static Nes::Api::Cartridge::Database::Entry dbentry;
     Nes::Api::Input(emulator).ConnectController(1, Nes::Api::Input::PAD2 );
     controller = 1;
 }
- 
-@end
 
-static bool NST_CALLBACK SoundLock(void* userData,Nes::Api::Sound::Output& sound)
-{
-	if ([soundLock tryLock]) {
-        nstSound->samples[0] = soundBuffer + soundOffset;
-		return true;
-    }
-	return false;
-}
-
-static void NST_CALLBACK SoundUnlock(void* userData,Nes::Api::Sound::Output& sound)
-{
-    Nestopia_Callback_OutputSample(callback, sound.length[0], soundBuffer + soundOffset);
-    if (soundOffset) {
-        soundOffset = 0;
-    } else {
-        soundOffset = 16384;
-    }
-    nstSound->samples[0] = soundBuffer+soundOffset;
-    
-	[soundLock unlock];
-}
-
-static bool NST_CALLBACK VideoLock(void* userData, Nes::Api::Video::Output& video)
-{
-	video.pixels = videoScreen;
-	video.pitch = cur_width * 2;
-	return true;
-}
-
-static void NST_CALLBACK VideoUnlock(void* userData, Nes::Api::Video::Output& video)
-{
-    video.pixels = NULL;
-    Nestopia_Callback_OutputFrame(callback, videoScreen);
-}
-
-static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,Nes::Api::User::FileData& data)
-{
-	switch (operation)
-	{
-		case Nes::Api::User::FILE_LOAD_BATTERY:
-		case Nes::Api::User::FILE_LOAD_EEPROM:
-		{
-			@autoreleasepool {
-            NSString *batSaveFile = [gameFilename stringByAppendingPathExtension: @"sram"];
-			NSData *fileData = [NSData dataWithContentsOfFile: batSaveFile];
-			
-			data.resize( [fileData length] );
-			memcpy(&data.front(), [fileData bytes],[fileData length]);
-			}
-
-			break;
-		}
-			
-		case Nes::Api::User::FILE_SAVE_BATTERY: // save battery data to a file
-		case Nes::Api::User::FILE_SAVE_EEPROM: // can be treated the same as battery files
-		{
-            @autoreleasepool {
-            NSString *batSaveFile = [gameFilename stringByAppendingPathExtension: @"sram"];
-			NSData *fileData = [NSData dataWithBytes: (const char*)&data.front() length: data.size()];
-			
-            [fileData writeToFile: batSaveFile atomically: NO];
-			}
-			break;
-		}
-			
-		case Nes::Api::User::FILE_SAVE_FDS:
-		case Nes::Api::User::FILE_LOAD_TAPE:
-		case Nes::Api::User::FILE_SAVE_TAPE:
-		case Nes::Api::User::FILE_LOAD_TURBOFILE:
-		case Nes::Api::User::FILE_SAVE_TURBOFILE:
-			break;
-	}
-}
-
-/* Nestopia callback hooks */
-void Nestopia_Callback_OutputFrame(void *sender, void *video)
-{
-    EmulatorCore *sharedEmulatorCore = (__bridge EmulatorCore *)sender;
-	[sharedEmulatorCore emulatorCallbackOutputFrame: (word *)video frameCount: 1];
-}
-
-int Nestopia_Callback_OpenSound(void *sender, int samples_per_sync, int sample_rate) {
-	EmulatorCore *sharedEmulator = (__bridge EmulatorCore *)sender;
-	return [sharedEmulator emulatorCallbackOpenSound: samples_per_sync sampleRate: sample_rate];
-}
-
-void Nestopia_Callback_OutputSample(void *sender, int samples, void *audio) {
-	EmulatorCore *sharedEmulator = (__bridge EmulatorCore *)sender;
-	[sharedEmulator emulatorCallbackOutputSampleWave: samples wave1: (short *)audio];
-}
-
-void Nestopia_Callback_CloseSound(void *userData) {
-	EmulatorCore *sharedEmulator = (__bridge EmulatorCore *) userData;
-	[sharedEmulator emulatorCallbackCloseSound];
-}
-
-uint Nestopia_TranslateButtons(uint pad) {
+- (uint)translateButtons:(uint)pad {
     uint out = 0;
     
     if (pad & NCTL_A)
@@ -529,23 +448,86 @@ uint Nestopia_TranslateButtons(uint pad) {
     
     return out;
 }
+ 
+@end
 
-void Nestopia_Callback_InputPadState(void *userData, uint *pad1, uint *zapper, uint *x, uint *y)
+
+static bool NST_CALLBACK SoundLock(void* userData,Nes::Api::Sound::Output& sound)
 {
-    uint p1, p2;
-	EmulatorCore *sharedEmulator = (__bridge EmulatorCore *) userData;
-	[sharedEmulator emulatorCallbackInputPadState: &p1 pad2: &p2 zapper: zapper x: x y: y];
-    
-    *pad1 = Nestopia_TranslateButtons(p1);
-    
-    if (controls.zapper.fire) {
-        NSLog(@"%s zapper: %d at %ux%u", __func__, controls.zapper.fire, *x, *y);
+	if ([soundLock tryLock]) {
+        nstSound->samples[0] = soundBuffer + soundOffset;
+		return true;
     }
+	return false;
+}
+
+static void NST_CALLBACK SoundUnlock(void* userData,Nes::Api::Sound::Output& sound)
+{
+    [(__bridge id<NestopiaCoreDelegate>)callback nestopiaCoreCallbackOutputSamples:sound.length[0] waves:soundBuffer + soundOffset];
+    
+    if (soundOffset) {
+        soundOffset = 0;
+    } else {
+        soundOffset = 16384;
+    }
+    nstSound->samples[0] = soundBuffer+soundOffset;
+    
+	[soundLock unlock];
+}
+
+static bool NST_CALLBACK VideoLock(void* userData, Nes::Api::Video::Output& video)
+{
+	video.pixels = videoScreen;
+	video.pitch = screenWidth * 2;
+	return true;
+}
+
+static void NST_CALLBACK VideoUnlock(void* userData, Nes::Api::Video::Output& video)
+{
+    video.pixels = NULL;
+    [(__bridge id<NestopiaCoreDelegate>)callback nestopiaCoreCallbackOutputFrame:(unsigned short *)videoScreen];
+}
+
+static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,Nes::Api::User::FileData& data)
+{
+	switch (operation)
+	{
+		case Nes::Api::User::FILE_LOAD_BATTERY:
+		case Nes::Api::User::FILE_LOAD_EEPROM:
+		{
+			@autoreleasepool {
+            NSString *batSaveFile = [gamePath stringByAppendingPathExtension: @"sram"];
+			NSData *fileData = [NSData dataWithContentsOfFile: batSaveFile];
+			
+			data.resize( [fileData length] );
+			memcpy(&data.front(), [fileData bytes],[fileData length]);
+			}
+
+			break;
+		}
+			
+		case Nes::Api::User::FILE_SAVE_BATTERY: // save battery data to a file
+		case Nes::Api::User::FILE_SAVE_EEPROM: // can be treated the same as battery files
+		{
+            @autoreleasepool {
+            NSString *batSaveFile = [gamePath stringByAppendingPathExtension: @"sram"];
+			NSData *fileData = [NSData dataWithBytes: (const char*)&data.front() length: data.size()];
+			
+            [fileData writeToFile: batSaveFile atomically: NO];
+			}
+			break;
+		}
+			
+		case Nes::Api::User::FILE_SAVE_FDS:
+		case Nes::Api::User::FILE_LOAD_TAPE:
+		case Nes::Api::User::FILE_SAVE_TAPE:
+		case Nes::Api::User::FILE_LOAD_TURBOFILE:
+		case Nes::Api::User::FILE_SAVE_TURBOFILE:
+			break;
+	}
 }
 
 static bool NST_CALLBACK ZapperCallback(void* userData, Nes::Core::Input::Controllers::Zapper& zapper)
 {
     return YES;
 }
-
-

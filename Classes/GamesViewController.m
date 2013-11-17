@@ -18,19 +18,19 @@
  
  */
 
-#import "GameROMViewController.h"
+#import "GamesViewController.h"
 #import "GamePlayViewController.h"
 #import "NESNavigationController.h"
 #import "NSString+TableViewAlphabeticIndexes.h"
 
-@interface GameROMViewController ()
+@interface GamesViewController ()
 
 @property (nonatomic, strong) NSDictionary *gamesPerIndex;
 
 @end
 
 
-@implementation GameROMViewController
+@implementation GamesViewController
 
 #pragma mark Properties
 
@@ -66,10 +66,32 @@
 
 #pragma mark UIViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+//    if ([self.tableView respondsToSelector:@selector(setSectionIndexBackgroundColor:)]) {
+//        self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+//    }
+//    self.tableView.sectionIndexTrackingBackgroundColor = [UIColor colorWithWhite:1.0 alpha:0.85];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    UIEdgeInsets contentInset = UIEdgeInsetsZero;
+    if ([self respondsToSelector:@selector(topLayoutGuide)]) {
+        contentInset.top = self.topLayoutGuide.length;
+    }
+    if ([self respondsToSelector:@selector(bottomLayoutGuide)]) {
+        contentInset.bottom = self.bottomLayoutGuide.length;
+    }
+    self.tableView.contentInset = contentInset;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.gamesPerIndex = nil;
+    [self reloadData];
     [self.tableView reloadData];
 }
 
@@ -87,6 +109,7 @@
 
 - (NSArray *)allGames {
     NSArray *games = [Game gamesList];
+    
     games = [games filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Game *game, NSDictionary *bindings) {
         if (self.favorite && !game.favorite) {
             return NO;
@@ -96,6 +119,7 @@
         }
         return YES;        
     }]];
+    
     return games;
 }
 
@@ -171,18 +195,26 @@
     
     NSLog(@"%s starting game play for %@", __PRETTY_FUNCTION__, game.title);
     
-    GamePlayViewController *gamePlayViewController = [[GamePlayViewController alloc] init];
-    gamePlayViewController.game = game;
-    gamePlayViewController.shouldLoadState = self.saved;
-    
-    NESNavigationController *navigationController = [[NESNavigationController alloc] initWithRootViewController:gamePlayViewController];
-    
-    [self presentViewController:navigationController animated:YES completion:nil];
+    GamePlayViewController *gamePlayViewController = [[GamePlayViewController alloc] initWithGame:game loadState:self.saved];
+    [self presentViewController:gamePlayViewController animated:YES completion:nil];
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle) editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (editingStyle == UITableViewCellEditingStyleDelete) {        
-        // TODO
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Game *game = [self gameAtIndexPath:indexPath];
+        
+        if (self.favorite) {
+            game.favorite = NO;
+        } else {
+            [[NSFileManager defaultManager] removeItemAtPath:game.savePath error:NULL];
+            
+            if (!self.saved) {
+                [[NSFileManager defaultManager] removeItemAtPath:game.path error:NULL];
+            }
+        }
+        
+        [self reloadData];
+        [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
 	}
 }
 

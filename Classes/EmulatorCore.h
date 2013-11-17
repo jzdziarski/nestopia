@@ -20,7 +20,6 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <pthread.h>
-#import "GameROMViewController.h"
 #import "ControllerView.h"
 #import "Game.h"
 #import "NestopiaCore.h"
@@ -46,33 +45,8 @@ typedef struct AQCallbackStruct {
 
 @protocol EmulatorCoreScreenDelegate;
 
-#pragma pack(2)
-@interface EmulatorCore : NSObject <GameControllerDelegate> {
-	pthread_t emulation_tid;
 
-	/* Resources for video rendering */
-	id screenDelegate, haltedScreenDelegate;
-	word *frameBufferAddress;
-	CGSize frameBufferSize;
-
-	int destinationHeight, destinationWidth;
-	BOOL defaultFullScreen;
-	BOOL defaultAspectRatio;
-	
-	/* Resources for audio playback */
-	AQCallbackStruct audioCallback;
-	long writeNeedle, playNeedle;
-	int soundBuffersInitialized;
-	int requiredBuffersToOpenSound;
-	
-	/* Resources for controller feedback */
-	dword controllerP1;
-	dword controllerP2;
-	byte zapperState, zapperX, zapperY;
-    
-    NestopiaCore *nestopiaCore;
-    short waveBuffer[WAVE_BUFFER_SIZE * WAVE_BUFFER_BANKS];
-}
+@interface EmulatorCore : NSObject <GameControllerDelegate>
 
 + (EmulatorCore *)sharedEmulatorCore;
 
@@ -81,7 +55,6 @@ typedef struct AQCallbackStruct {
 
 - (BOOL)loadGame:(Game *)game;
 - (BOOL)initializeEmulator;
-- (BOOL)configureEmulator;
 - (int)applyGameGenieCodes;
 - (BOOL)saveState;
 - (BOOL)loadState;
@@ -93,27 +66,16 @@ typedef struct AQCallbackStruct {
 - (void)activatePad2;
 - (void)insertCoin1;
 
-/* GameControllerDelegate Methods */
-- (void)gameControllerZapperDidChange: (byte)status locationInWindow:(CGPoint)locationInWindow;
-- (void)gameControllerControllerDidChange:(int)controller controllerState:(dword)controllerState;
+@property (nonatomic, readonly) CGSize nativeScreenResolution;
 
-/* Calbacks */
-- (void)emulatorCallbackOutputFrame:(word *)WorkFrame frameCount:(byte)frameCount;
-- (void)emulatorCallbackInputPadState:(uint *)pad1 pad2:(uint *)pad2 zapper:(uint *)zapper x:(uint *)x y:(uint *)y;
-- (int)emulatorCallbackOpenSound:(int)samplesPerSync sampleRate:(int)sampleRate;
-- (void)emulatorCallbackCloseSound;
-- (void)emulatorCallbackOutputSampleWave:(int)samples wave1:(short *)wave1;
-- (void)AQBufferCallback:(void *)callbackStruct inQ:(AudioQueueRef)inQ outQB:(AudioQueueBufferRef)outQB;
-
-@property(nonatomic,readonly,copy) NSString *currentROMImagePath;
-@property(nonatomic,assign) word *frameBufferAddress;
-@property(nonatomic,assign) CGSize frameBufferSize;
-@property(nonatomic,weak) id<EmulatorCoreScreenDelegate> screenDelegate;
+@property (nonatomic, readonly, copy) NSString *currentROMImagePath;
+@property (nonatomic, weak) id<EmulatorCoreScreenDelegate> screenDelegate;
 
 @end
 
+
 @protocol EmulatorCoreScreenDelegate 
 
-@required
-- (void)emulatorCoreDidUpdateFrameBuffer;
+- (void)emulatorCoreDidRenderFrame:(CGImageRef)frameImageRef;
+
 @end

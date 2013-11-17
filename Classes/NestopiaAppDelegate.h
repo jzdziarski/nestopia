@@ -19,21 +19,11 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "GameROMViewController.h"
+#import "GamesViewController.h"
 #import "SettingsViewController.h"
 #import "NESTabBarController.h"
 
-@interface NestopiaAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-    
-    NESTabBarController *tabBarController;
-    GameROMViewController *gameROMViewController;
-    GameROMViewController *favoritesViewController;
-	GameROMViewController *savedGameViewController;
-	SettingsViewController *settingsViewController;
-  
-    UINavigationController *settingsNavigationController;
-}
+@interface NestopiaAppDelegate : NSObject <UIApplicationDelegate> 
 
 @end
 
