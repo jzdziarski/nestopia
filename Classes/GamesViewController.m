@@ -172,6 +172,14 @@
     return index;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if ([[self gamesForSection:section] count] > 0) {
+        return [[NSString tableViewAlphabeticIndexes] objectAtIndex:section];
+    } else {
+        return nil;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"GameCell";
     

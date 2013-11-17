@@ -339,6 +339,9 @@
 		80C3B63B1838841B000B68E0 /* PadDirectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B63A1838841B000B68E0 /* PadDirectionButton.m */; };
 		80C3B63E18389066000B68E0 /* PadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B63D18389066000B68E0 /* PadButton.m */; };
 		80C3B641183890ED000B68E0 /* PadSingleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B640183890ED000B68E0 /* PadSingleButton.m */; };
+		80C3B64418397526000B68E0 /* TransparentMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B64318397526000B68E0 /* TransparentMaskView.m */; };
+		80C3B64718397740000B68E0 /* PadRoundTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B64618397740000B68E0 /* PadRoundTextButton.m */; };
+		80C3B64D18398CFB000B68E0 /* RoundTextMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B64C18398CFB000B68E0 /* RoundTextMaskView.m */; };
 		F5EE71540FEEC3A000FDA0A6 /* controller_ls.png in Resources */ = {isa = PBXBuildFile; fileRef = F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */; };
 /* End PBXBuildFile section */
 
@@ -1032,6 +1035,12 @@
 		80C3B63D18389066000B68E0 /* PadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadButton.m; sourceTree = "<group>"; };
 		80C3B63F183890ED000B68E0 /* PadSingleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadSingleButton.h; sourceTree = "<group>"; };
 		80C3B640183890ED000B68E0 /* PadSingleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadSingleButton.m; sourceTree = "<group>"; };
+		80C3B64218397526000B68E0 /* TransparentMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentMaskView.h; sourceTree = "<group>"; };
+		80C3B64318397526000B68E0 /* TransparentMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentMaskView.m; sourceTree = "<group>"; };
+		80C3B64518397740000B68E0 /* PadRoundTextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadRoundTextButton.h; sourceTree = "<group>"; };
+		80C3B64618397740000B68E0 /* PadRoundTextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadRoundTextButton.m; sourceTree = "<group>"; };
+		80C3B64B18398CFB000B68E0 /* RoundTextMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundTextMaskView.h; sourceTree = "<group>"; };
+		80C3B64C18398CFB000B68E0 /* RoundTextMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundTextMaskView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controller_ls.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1075,8 +1084,14 @@
 				80C3B63D18389066000B68E0 /* PadButton.m */,
 				80C3B63F183890ED000B68E0 /* PadSingleButton.h */,
 				80C3B640183890ED000B68E0 /* PadSingleButton.m */,
+				80C3B64518397740000B68E0 /* PadRoundTextButton.h */,
+				80C3B64618397740000B68E0 /* PadRoundTextButton.m */,
 				80C3B6391838841B000B68E0 /* PadDirectionButton.h */,
 				80C3B63A1838841B000B68E0 /* PadDirectionButton.m */,
+				80C3B64218397526000B68E0 /* TransparentMaskView.h */,
+				80C3B64318397526000B68E0 /* TransparentMaskView.m */,
+				80C3B64B18398CFB000B68E0 /* RoundTextMaskView.h */,
+				80C3B64C18398CFB000B68E0 /* RoundTextMaskView.m */,
 				80909A1C1835B1A800CC9F6F /* Game.h */,
 				80909A1D1835B1A800CC9F6F /* Game.m */,
 				80C3B6311836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.h */,
@@ -2035,6 +2050,7 @@
 				7009579517FC75590038888C /* NstMapper134.cpp in Sources */,
 				7009572A17FC75590038888C /* NstBrdTaitoTc.cpp in Sources */,
 				7009575C17FC75590038888C /* NstMapper040.cpp in Sources */,
+				80C3B64D18398CFB000B68E0 /* RoundTextMaskView.m in Sources */,
 				700957FC17FC75590038888C /* NstTrackerMovie.cpp in Sources */,
 				7009574C17FC75590038888C /* NstMapper005.cpp in Sources */,
 				7009578417FC75590038888C /* NstMapper096.cpp in Sources */,
@@ -2252,6 +2268,7 @@
 				7009570617FC75590038888C /* NstBrd190in1.cpp in Sources */,
 				7009575E17FC75590038888C /* NstMapper042.cpp in Sources */,
 				7009573017FC75590038888C /* NstBrdWs.cpp in Sources */,
+				80C3B64418397526000B68E0 /* TransparentMaskView.m in Sources */,
 				700957DA17FC75590038888C /* NstMapper250.cpp in Sources */,
 				7009579917FC75590038888C /* NstMapper145.cpp in Sources */,
 				7009571317FC75590038888C /* NstBrdEdu2000.cpp in Sources */,
@@ -2301,6 +2318,7 @@
 				7009578F17FC75590038888C /* NstMapper117.cpp in Sources */,
 				700957D817FC75590038888C /* NstMapper246.cpp in Sources */,
 				7009579217FC75590038888C /* NstMapper121.cpp in Sources */,
+				80C3B64718397740000B68E0 /* PadRoundTextButton.m in Sources */,
 				7009579B17FC75590038888C /* NstMapper147.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

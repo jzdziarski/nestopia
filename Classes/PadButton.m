@@ -40,8 +40,7 @@
 - (void)commonInit {
     _touchInputDictionary = [NSMutableDictionary dictionary];
     
-    // TODO: remove
-    self.backgroundColor = [UIColor whiteColor];
+    self.opaque = NO;
 }
 
 #pragma mark UIView

@@ -27,6 +27,13 @@
 #import "SettingsViewController.h"
 #import "PadDirectionButton.h"
 #import "PadSingleButton.h"
+#import "PadRoundTextButton.h"
+#import "RoundTextMaskView.h"
+
+
+static CGFloat const kDirectionButtonRadius = 100;
+static CGFloat const kABButtonRadius = 50;
+static CGFloat const kSpecialButtonRadius = 35;
 
 
 @interface GamePlayViewController () <UIActionSheetDelegate, NestopiaCoreInputDelegate>
@@ -37,10 +44,10 @@
 @property (nonatomic, strong) ScreenView *screenView;
 @property (nonatomic, strong) UIView *buttonsView;
 @property (nonatomic, strong) PadDirectionButton *directionButton;
-@property (nonatomic, strong) PadSingleButton *selectButton;
-@property (nonatomic, strong) PadSingleButton *startButton;
-@property (nonatomic, strong) PadSingleButton *aButton;
-@property (nonatomic, strong) PadSingleButton *bButton;
+@property (nonatomic, strong) PadRoundTextButton *selectButton;
+@property (nonatomic, strong) PadRoundTextButton *startButton;
+@property (nonatomic, strong) PadRoundTextButton *aButton;
+@property (nonatomic, strong) PadRoundTextButton *bButton;
 @property (nonatomic, strong) UIButton *menuButton;
 
 @end
@@ -125,26 +132,41 @@
     //controllerView.stickControl = [[self.game.settings objectForKey:@"controllerStickControl"] boolValue];
 	[self.buttonsView addSubview:self.directionButton];
     
-    self.selectButton = [[PadSingleButton alloc] init];
+    self.selectButton = [[PadRoundTextButton alloc] init];
     self.selectButton.singleInput = NestopiaPadInputSelect;
+    self.selectButton.font = [UIFont systemFontOfSize:20];
+    self.selectButton.text = @"Select";
     [self.buttonsView addSubview:self.selectButton];
     
-    self.startButton = [[PadSingleButton alloc] init];
+    self.startButton = [[PadRoundTextButton alloc] init];
     self.startButton.singleInput = NestopiaPadInputStart;
+    self.startButton.font = [UIFont systemFontOfSize:20];
+    self.startButton.text = @"Start";
     [self.buttonsView addSubview:self.startButton];
     
-    self.aButton = [[PadSingleButton alloc] init];
+    self.aButton = [[PadRoundTextButton alloc] init];
     self.aButton.singleInput = NestopiaPadInputA;
+    self.aButton.font = [UIFont boldSystemFontOfSize:40];
+    self.aButton.text = @"A";
     [self.buttonsView addSubview:self.aButton];
     
-    self.bButton = [[PadSingleButton alloc] init];
+    self.bButton = [[PadRoundTextButton alloc] init];
     self.bButton.singleInput = NestopiaPadInputB;
+    self.bButton.font = [UIFont boldSystemFontOfSize:40];
+    self.bButton.text = @"B";
     [self.buttonsView addSubview:self.bButton];
     
     self.menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.menuButton.backgroundColor = [UIColor redColor];
+    self.menuButton.bounds = CGRectMake(0, 0, 2*kSpecialButtonRadius, 2*kSpecialButtonRadius);
     [self.menuButton addTarget:self action:@selector(menuButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonsView addSubview:self.menuButton];
+    
+    RoundTextMaskView *menuMaskView = [[RoundTextMaskView alloc] initWithFrame:self.menuButton.bounds];
+    menuMaskView.userInteractionEnabled = NO;
+    menuMaskView.text = @"Menu";
+    menuMaskView.font = [UIFont systemFontOfSize:20];
+    menuMaskView.color = [UIColor redColor];
+    [self.menuButton addSubview:menuMaskView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -164,29 +186,28 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
+    CGFloat top = [self respondsToSelector:@selector(topLayoutGuide)] ? [self.topLayoutGuide length] : 0;
+    
     self.screenView.frame = [self frameForScreenView];
     
     self.buttonsView.frame = self.view.bounds;
     
-    // TODO: proper buttons and layout
+    self.directionButton.bounds = CGRectMake(0, 0, 2*kDirectionButtonRadius, 2*kDirectionButtonRadius);
+    self.directionButton.center = CGPointMake(kDirectionButtonRadius + 5, CGRectGetMidY(self.view.bounds));
     
-    self.directionButton.bounds = CGRectMake(0, 0, 200, 200);
-    self.directionButton.center = CGPointMake(105, CGRectGetMidY(self.view.bounds));
+    self.aButton.bounds = CGRectMake(0, 0, 2*kABButtonRadius, 2*kABButtonRadius);
+    self.aButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - kABButtonRadius - 5, CGRectGetMidY(self.view.bounds));
     
-    self.aButton.bounds = CGRectMake(0, 0, 100, 100);
-    self.aButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 55, CGRectGetMidY(self.view.bounds));
+    self.bButton.bounds = CGRectMake(0, 0, 2*kABButtonRadius, 2*kABButtonRadius);
+    self.bButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 3*kABButtonRadius - 20, CGRectGetMidY(self.view.bounds));
     
-    self.bButton.bounds = CGRectMake(0, 0, 100, 100);
-    self.bButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 170, CGRectGetMidY(self.view.bounds));
+    self.selectButton.bounds = CGRectMake(0, 0, 2*kSpecialButtonRadius, 2*kSpecialButtonRadius);
+    self.selectButton.center = CGPointMake(kSpecialButtonRadius + 5, CGRectGetMidY(self.view.bounds) - 175);
     
-    self.selectButton.bounds = CGRectMake(0, 0, 50, 50);
-    self.selectButton.center = CGPointMake(30, CGRectGetMidY(self.view.bounds) - 175);
+    self.startButton.bounds = CGRectMake(0, 0, 2*kSpecialButtonRadius, 2*kSpecialButtonRadius);
+    self.startButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - kSpecialButtonRadius - 5, CGRectGetMidY(self.view.bounds) - 175);
     
-    self.startButton.bounds = CGRectMake(0, 0, 50, 50);
-    self.startButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 30, CGRectGetMidY(self.view.bounds) - 175);
-    
-    self.menuButton.bounds = CGRectMake(0, 0, 50, 50);
-    self.menuButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 50, 50);
+    self.menuButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - kSpecialButtonRadius - 5, kSpecialButtonRadius + 5 + top);
 }
 
 - (CGRect)frameForScreenView {
