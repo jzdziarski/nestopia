@@ -259,8 +259,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath: indexPath];
 
-    if ([indexPath indexAtPosition: 0] == 0) {
-    
+    if (indexPath.section == 0 && indexPath.row == 5) {
 		MultiValueViewController *viewController = [[MultiValueViewController alloc] initWithStyle: UITableViewStyleGrouped];
         viewController.options = [NSArray arrayWithArray: controllerLayoutDescriptions];
         viewController.selectedItemIndex = controllerLayoutIndex;
@@ -268,21 +267,20 @@
 		[self.navigationController pushViewController: viewController animated: YES];
     }
     
-    if ([indexPath indexAtPosition: 0] == 2) {
+    if (indexPath.section == 2 && indexPath.row == 0) {
         self.game.favorite = !self.game.favorite;
         
-        if (! self.game.favorite) {
-            cell.textLabel.text = @"Remove from Favorites";
-        } else {
+        if (!self.game.favorite) {
             cell.textLabel.text = @"Add to Favorites";
+        } else {
+            cell.textLabel.text = @"Remove from Favorites";
         }
     }
     
-    [cell setSelected: NO animated: NO];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section {
     if (section == 0 && !self.game) {
         return @"To access Game Genie settings, enter settings from within the active game play menu.";
     }

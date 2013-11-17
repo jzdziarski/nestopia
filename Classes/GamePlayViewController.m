@@ -240,26 +240,26 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (! [self.presentedViewController isBeingDismissed]) {
-        [self dismissViewControllerAnimated: YES completion:^{}];
-    }
+    [self.delegate gamePlayViewControllerDidFinish:self];
 }
 
-/* UIActionSheetDelegate Methods */
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	
 	if (actionSheet == saveStateSheet) {
-        
         if (!strstr([self.game.path cStringUsingEncoding: NSASCIIStringEncoding], "(VS)")) {
             buttonIndex++;
         }
         
 		if (buttonIndex == 3) { /* Save and Exit Game */
 			[nestopiaCore saveState];
+            [self.delegate gamePlayViewControllerDidFinish:self];
+            return;
 		} else if (buttonIndex == 2) { /* Game Settings */
-            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+            SettingsViewController *settingsVC = [[SettingsViewController alloc] init];
+            settingsVC.game = self.game;
+            settingsVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(settingsDoneButtonClicked)];
             
-            [self.navigationController pushViewController: settingsViewController animated: YES];
+            UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+            [self presentViewController:navCon animated:YES completion:nil];
             return;
         } else if (buttonIndex == 0) { /* Insert Coin */
             
@@ -268,9 +268,7 @@
             //[emulatorCore insertCoin1]; // TODO
 
             return;
-            
         } else if (buttonIndex == 1) { /* Controller Toggle */
-
             if (pad1) {
                 [nestopiaCore activatePad2];
                 pad1 = NO;
@@ -282,17 +280,15 @@
             //[nestopiaCore applyGameGenieCodes]; // TODO
             [nestopiaCore startEmulation];
             return;
-            
         } else if (buttonIndex == 5) { /* Resume Game */
             //[emulatorCore applyGameGenieCodes]; // TODO
             [nestopiaCore startEmulation];
             return;
+        } else {
+            [self.delegate gamePlayViewControllerDidFinish:self];
+            return;
         }
 	}
-    
-    if (! [self.presentedViewController isBeingDismissed]) {
-        [self dismissViewControllerAnimated: YES completion:^{}];
-    }
 }
 
 - (BOOL)shouldAutorotate {
@@ -306,6 +302,10 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {    
     //[emulatorCore applyGameGenieCodes]; // TODO
     [nestopiaCore startEmulation];
+}
+
+- (void)settingsDoneButtonClicked {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark NestopiaCoreInputDelegate

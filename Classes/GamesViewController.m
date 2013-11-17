@@ -11,7 +11,7 @@
 #import "NESNavigationController.h"
 #import "NSString+TableViewAlphabeticIndexes.h"
 
-@interface GamesViewController ()
+@interface GamesViewController () <GamePlayViewControllerDelegate>
 
 @property (nonatomic, strong) NSDictionary *gamesPerIndex;
 
@@ -184,6 +184,7 @@
     NSLog(@"%s starting game play for %@", __PRETTY_FUNCTION__, game.title);
     
     GamePlayViewController *gamePlayViewController = [[GamePlayViewController alloc] initWithGame:game loadState:self.saved];
+    gamePlayViewController.delegate = self;
     [self presentViewController:gamePlayViewController animated:YES completion:nil];
 }
 
@@ -204,6 +205,12 @@
         [self reloadData];
         [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
 	}
+}
+
+#pragma mark GamePlayViewControllerDelegate
+
+- (void)gamePlayViewControllerDidFinish:(GamePlayViewController *)gamePlayViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

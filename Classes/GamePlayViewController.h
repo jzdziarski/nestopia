@@ -21,8 +21,20 @@
 #import <UIKit/UIKit.h>
 #import "Game.h"
 
+@protocol GamePlayViewControllerDelegate;
+
+
 @interface GamePlayViewController : UIViewController
 
+@property (nonatomic, weak) id<GamePlayViewControllerDelegate> delegate;
+
 - (id)initWithGame:(Game *)game loadState:(BOOL)loadState;
+
+@end
+
+
+@protocol GamePlayViewControllerDelegate <NSObject>
+
+- (void)gamePlayViewControllerDidFinish:(GamePlayViewController *)gamePlayViewController;
 
 @end
