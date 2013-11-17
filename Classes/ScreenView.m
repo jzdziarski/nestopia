@@ -22,6 +22,13 @@
 
 @implementation ScreenView
 
+#pragma mark Properties
+
+- (void)setAntialiasing:(BOOL)antialiasing {
+    _antialiasing = antialiasing;
+    self.layer.minificationFilter = self.layer.magnificationFilter = antialiasing ? kCAFilterLinear : kCAFilterNearest;
+}
+
 #pragma mark Init
 
 - (id)initWithFrame:(CGRect)frame {
@@ -39,8 +46,8 @@
 }
 
 - (void)commonInit {
-	self.layer.magnificationFilter = nil;
-	self.layer.minificationFilter = nil;
+    self.antialiasing = NO;
+    
 	self.layer.compositingFilter = nil;
 	self.layer.edgeAntialiasingMask = 0;    
     self.layer.opaque = YES;

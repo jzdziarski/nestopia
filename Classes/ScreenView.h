@@ -26,6 +26,8 @@
 @interface ScreenView : UIView <EmulatorCoreScreenDelegate> 
 
 // TODO: zapper
+
+@property (nonatomic, assign) BOOL antialiasing;
 @property (nonatomic, weak) id<GameControllerDelegate> delegate;
 
 - (void)commonInit;

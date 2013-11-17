@@ -25,8 +25,6 @@
 #import "ScreenView.h"
 #import "SettingsViewController.h"
 
-#define kGamePlaySavedStateNotification         @"GamePlaySavedStateNotification"
-
 @interface GamePlayViewController : UIViewController
 
 - (id)initWithGame:(Game *)game loadState:(BOOL)loadState;

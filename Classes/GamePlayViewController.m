@@ -64,7 +64,7 @@
     [super viewDidLayoutSubviews];
     
     CGSize screenViewSize = [EmulatorCore sharedEmulatorCore].nativeScreenResolution;
-    CGFloat scale = self.view.bounds.size.width / screenViewSize.height;
+    CGFloat scale = self.view.bounds.size.width / screenViewSize.width;
     screenViewSize.width *= scale;
     screenViewSize.height *= scale;
     screenView.frame = CGRectMake(0, 0,
@@ -77,6 +77,7 @@
 
 - (void)initializeEmulatorView {
 	screenView = [[ScreenView alloc] init];
+    screenView.antialiasing = [[self.game.settings objectForKey:@"antiAliasing"] boolValue];
 	[self.view addSubview:screenView];
 	
     controllerView = [[ControllerView alloc] init];
@@ -168,8 +169,6 @@
         
 		if (buttonIndex == 3) { /* Save and Exit Game */
 			[emulatorCore saveState];
-            [[NSNotificationCenter defaultCenter] postNotificationName: kGamePlaySavedStateNotification object: self.game.path];
-
 		} else if (buttonIndex == 2) { /* Game Settings */
             controllerView.notified = NO;
             SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];

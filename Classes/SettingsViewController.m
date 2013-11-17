@@ -38,7 +38,7 @@
     /* Global Settings */
     
     swapABControl.on = [[settings objectForKey: @"swapAB"] boolValue];
-    antiAliasControl.on = [[settings objectForKey: @"shouldRasterize"] boolValue];
+    antiAliasControl.on = [[settings objectForKey: @"antiAliasing"] boolValue];
     controllerStickControl.on = [[settings objectForKey: @"controllerStickControl"] boolValue];
     fullScreenControl.on = ([settings objectForKey: @"fullScreen"] == nil) ? YES : [[settings objectForKey: @"fullScreen"] boolValue];
     aspectRatioControl.on = ([settings objectForKey: @"aspectRatio"] == nil) ? YES : [[settings objectForKey: @"aspectRatio"] boolValue];
@@ -62,7 +62,7 @@
     [settings setObject:@(swapABControl.on) forKey:@"swapAB"];
     [settings setObject:@(fullScreenControl.on) forKey:@"fullScreen"];
     [settings setObject:@(aspectRatioControl.on) forKey:@"aspectRatio"];
-    [settings setObject:@(antiAliasControl.on) forKey:@"shouldRasterize"];
+    [settings setObject:@(antiAliasControl.on) forKey:@"antiAliasing"];
     [settings setObject:@(controllerStickControl.on) forKey:@"controllerStickControl"];
     [settings setObject:@(controllerLayoutIndex) forKey:@"controllerLayout"];
     
