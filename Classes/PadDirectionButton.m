@@ -10,8 +10,6 @@
 
 @implementation PadDirectionButton
 
-#pragma mark PadButtonView
-
 - (NestopiaPadInput)inputForLocation:(CGPoint)location {
     if (!CGRectContainsPoint(self.bounds, location)) {
         return 0;

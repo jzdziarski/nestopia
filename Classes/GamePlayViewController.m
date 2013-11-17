@@ -171,19 +171,19 @@
     // TODO: proper buttons and layout
     
     self.directionButton.bounds = CGRectMake(0, 0, 200, 200);
-    self.directionButton.center = CGPointMake(150, CGRectGetMidY(self.view.bounds));
+    self.directionButton.center = CGPointMake(105, CGRectGetMidY(self.view.bounds));
     
     self.aButton.bounds = CGRectMake(0, 0, 100, 100);
-    self.aButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 100, CGRectGetMidY(self.view.bounds));
+    self.aButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 55, CGRectGetMidY(self.view.bounds));
     
     self.bButton.bounds = CGRectMake(0, 0, 100, 100);
-    self.bButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 250, CGRectGetMidY(self.view.bounds));
+    self.bButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 170, CGRectGetMidY(self.view.bounds));
     
     self.selectButton.bounds = CGRectMake(0, 0, 50, 50);
-    self.selectButton.center = CGPointMake(75, CGRectGetMidY(self.view.bounds) - 175);
+    self.selectButton.center = CGPointMake(30, CGRectGetMidY(self.view.bounds) - 175);
     
     self.startButton.bounds = CGRectMake(0, 0, 50, 50);
-    self.startButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 75, CGRectGetMidY(self.view.bounds) - 175);
+    self.startButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 30, CGRectGetMidY(self.view.bounds) - 175);
     
     self.menuButton.bounds = CGRectMake(0, 0, 50, 50);
     self.menuButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 50, 50);

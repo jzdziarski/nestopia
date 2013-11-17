@@ -8,7 +8,18 @@
 
 #import "PadButton.h"
 
+@interface PadButton ()
+
+@property (nonatomic, strong) NSMutableDictionary *touchInputDictionary;
+
+@end
+
+
 @implementation PadButton
+
+#pragma mark Properties
+
+@dynamic input;
 
 #pragma mark Init
 
@@ -27,6 +38,8 @@
 }
 
 - (void)commonInit {
+    _touchInputDictionary = [NSMutableDictionary dictionary];
+    
     // TODO: remove
     self.backgroundColor = [UIColor whiteColor];
 }
@@ -36,38 +49,55 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInView:self];
-        _input |= [self inputForLocation:location];
+        [self setInput:[self inputForLocation:location] forTouch:touch];
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
-        CGPoint location = [touch previousLocationInView:self];
-        _input &= ~[self inputForLocation:location];
-        
-        location = [touch locationInView:self];
-        _input |= [self inputForLocation:location];
+        CGPoint location = [touch locationInView:self];
+        [self setInput:[self inputForLocation:location] forTouch:touch];
     }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInView:self];
-        _input &= ~[self inputForLocation:location];
+        [self setInput:0 forTouch:touch];
     }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInView:self];
-        _input &= ~[self inputForLocation:location];
+        [self setInput:0 forTouch:touch];
     }
+}
+
+#pragma mark Abstract
+
+- (NestopiaPadInput)inputForLocation:(CGPoint)location {
+    return 0;
 }
 
 #pragma mark Private
 
-- (NestopiaPadInput)inputForLocation:(CGPoint)location {
-    return 0;
+- (NestopiaPadInput)inputForTouch:(UITouch *)touch {
+    return [[self.touchInputDictionary objectForKey:[NSValue valueWithNonretainedObject:touch]] intValue];
+}
+
+- (void)setInput:(NestopiaPadInput)input forTouch:(UITouch *)touch {
+    if (input) {
+        [self.touchInputDictionary setObject:@(input) forKey:[NSValue valueWithNonretainedObject:touch]];
+    } else {
+        [self.touchInputDictionary removeObjectForKey:[NSValue valueWithNonretainedObject:touch]];
+    }
+}
+
+- (NestopiaPadInput)input {
+    NestopiaPadInput input = 0;
+    for (NSNumber *wrapper in [self.touchInputDictionary allValues]) {
+        input |= [wrapper intValue];
+    }
+    return input;
 }
 
 @end
