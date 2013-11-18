@@ -312,6 +312,10 @@ static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,
 }
 
 - (void)startEmulation {
+    if (isPlaying) {
+        return;
+    }
+    
     isPlaying = true;
     
     [self applyGameGenieCodes];
@@ -342,6 +346,10 @@ static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,
 }
 
 - (void)stopEmulation {
+    if (!isPlaying) {
+        return;
+    }
+    
     isPlaying = NO;
     
     [self.audioDelegate nestopiaCoreCallbackCloseSound];
