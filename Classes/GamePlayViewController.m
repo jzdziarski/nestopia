@@ -31,11 +31,6 @@
 #import "RoundTextMaskView.h"
 
 
-static CGFloat const kDirectionButtonRadius = 100;
-static CGFloat const kABButtonRadius = 50;
-static CGFloat const kSpecialButtonRadius = 35;
-
-
 @interface GamePlayViewController () <UIActionSheetDelegate, NestopiaCoreInputDelegate>
 
 @property (nonatomic, strong) Game *game;
@@ -49,6 +44,7 @@ static CGFloat const kSpecialButtonRadius = 35;
 @property (nonatomic, strong) PadRoundTextButton *selectButton;
 @property (nonatomic, strong) PadRoundTextButton *startButton;
 @property (nonatomic, strong) UIButton *menuButton;
+@property (nonatomic, strong) RoundTextMaskView *menuMaskView;
 
 @end
 
@@ -127,46 +123,48 @@ static CGFloat const kSpecialButtonRadius = 35;
     self.buttonsView.alpha = 0.3;
     [self.view addSubview:self.buttonsView];
     
-    self.directionButton = [[PadDirectionButton alloc] initWithFrame:CGRectMake(0, 0, 2*kDirectionButtonRadius, 2*kDirectionButtonRadius)];
+    self.directionButton = [[PadDirectionButton alloc] init];
     //controllerView.swapAB = [[self.game.settings objectForKey:@"swapAB"] boolValue];
     //controllerView.stickControl = [[self.game.settings objectForKey:@"controllerStickControl"] boolValue];
 	[self.buttonsView addSubview:self.directionButton];
     
-    self.aButton = [[PadRoundTextButton alloc] initWithFrame:CGRectMake(0, 0, 2*kABButtonRadius, 2*kABButtonRadius)];
+    UIFont *abButtonFont = [self abButtonFont];
+    UIFont *specialButtonFont = [self specialButtonFont];
+    
+    self.aButton = [[PadRoundTextButton alloc] init];
     self.aButton.singleInput = NestopiaPadInputA;
-    self.aButton.font = [UIFont boldSystemFontOfSize:40];
+    self.aButton.font = abButtonFont;
     self.aButton.text = @"A";
     [self.buttonsView addSubview:self.aButton];
     
-    self.bButton = [[PadRoundTextButton alloc] initWithFrame:CGRectMake(0, 0, 2*kABButtonRadius, 2*kABButtonRadius)];
+    self.bButton = [[PadRoundTextButton alloc] init];
     self.bButton.singleInput = NestopiaPadInputB;
-    self.bButton.font = [UIFont boldSystemFontOfSize:40];
+    self.bButton.font = abButtonFont;
     self.bButton.text = @"B";
     [self.buttonsView addSubview:self.bButton];
     
-    self.selectButton = [[PadRoundTextButton alloc] initWithFrame:CGRectMake(0, 0, 2*kSpecialButtonRadius, 2*kSpecialButtonRadius)];
+    self.selectButton = [[PadRoundTextButton alloc] init];
     self.selectButton.singleInput = NestopiaPadInputSelect;
-    self.selectButton.font = [UIFont systemFontOfSize:20];
+    self.selectButton.font = specialButtonFont;
     self.selectButton.text = @"Select";
     [self.buttonsView addSubview:self.selectButton];
     
-    self.startButton = [[PadRoundTextButton alloc] initWithFrame:CGRectMake(0, 0, 2*kSpecialButtonRadius, 2*kSpecialButtonRadius)];
+    self.startButton = [[PadRoundTextButton alloc] init];
     self.startButton.singleInput = NestopiaPadInputStart;
-    self.startButton.font = [UIFont systemFontOfSize:20];
+    self.startButton.font = specialButtonFont;
     self.startButton.text = @"Start";
     [self.buttonsView addSubview:self.startButton];
     
     self.menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.menuButton.bounds = CGRectMake(0, 0, 2*kSpecialButtonRadius, 2*kSpecialButtonRadius);
     [self.menuButton addTarget:self action:@selector(menuButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonsView addSubview:self.menuButton];
     
-    RoundTextMaskView *menuMaskView = [[RoundTextMaskView alloc] initWithFrame:self.menuButton.bounds];
-    menuMaskView.userInteractionEnabled = NO;
-    menuMaskView.text = @"Menu";
-    menuMaskView.font = [UIFont systemFontOfSize:20];
-    menuMaskView.color = [UIColor redColor];
-    [self.menuButton addSubview:menuMaskView];
+    self.menuMaskView = [[RoundTextMaskView alloc] init];
+    self.menuMaskView.userInteractionEnabled = NO;
+    self.menuMaskView.text = @"Menu";
+    self.menuMaskView.font = specialButtonFont;
+    self.menuMaskView.color = [UIColor redColor];
+    [self.menuButton addSubview:self.menuMaskView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -185,19 +183,85 @@ static CGFloat const kSpecialButtonRadius = 35;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    
-    CGFloat top = [self respondsToSelector:@selector(topLayoutGuide)] ? [self.topLayoutGuide length] : 0;
-    
+
     self.screenView.frame = [self frameForScreenView];
     
     self.buttonsView.frame = self.view.bounds;
     
-    self.directionButton.center = CGPointMake(kDirectionButtonRadius + 5, CGRectGetMidY(self.view.bounds));
-    self.aButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - kABButtonRadius - 5, CGRectGetMidY(self.view.bounds) - 20);
-    self.bButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 3*kABButtonRadius - 15, CGRectGetMidY(self.view.bounds) + 20);
-    self.selectButton.center = CGPointMake(kSpecialButtonRadius + 5, CGRectGetMidY(self.view.bounds) - 175);
-    self.startButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - kSpecialButtonRadius - 5, CGRectGetMidY(self.view.bounds) - 175);
-    self.menuButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - kSpecialButtonRadius - 5, kSpecialButtonRadius + 5 + top);
+    CGFloat directionButtonRadius = [self directionButtonRadius];
+    CGFloat abButtonRadius = [self abButtonRadius];
+    CGFloat specialButtonRadius = [self specialButtonRadius];
+    CGFloat top = [self respondsToSelector:@selector(topLayoutGuide)] ? [self.topLayoutGuide length] : 0;
+    
+    CGFloat padLayoutBaseLine;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        padLayoutBaseLine = CGRectGetMaxY(self.view.bounds) - directionButtonRadius - 5;
+    } else {
+        padLayoutBaseLine = CGRectGetMidY(self.view.bounds);
+    }
+    
+    CGFloat specialButtonIndent;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        specialButtonIndent = 5;
+    } else {
+        specialButtonIndent = 25;
+    }
+    
+    self.directionButton.bounds = CGRectMake(0, 0, 2*directionButtonRadius, 2*directionButtonRadius);
+    self.aButton.bounds = CGRectMake(0, 0, 2*abButtonRadius, 2*abButtonRadius);
+    self.bButton.bounds = CGRectMake(0, 0, 2*abButtonRadius, 2*abButtonRadius);
+    self.selectButton.bounds = CGRectMake(0, 0, 2*specialButtonRadius, 2*specialButtonRadius);
+    self.startButton.bounds = CGRectMake(0, 0, 2*specialButtonRadius, 2*specialButtonRadius);
+
+    self.directionButton.center = CGPointMake(directionButtonRadius + 5, padLayoutBaseLine);
+    self.aButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - abButtonRadius - 5, padLayoutBaseLine - 20);
+    self.bButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 3*abButtonRadius - 15, padLayoutBaseLine + 20);
+    self.selectButton.center = CGPointMake(specialButtonRadius + 5, padLayoutBaseLine - directionButtonRadius - specialButtonRadius - specialButtonIndent);
+    self.startButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - specialButtonRadius - 5, padLayoutBaseLine - directionButtonRadius - specialButtonRadius - specialButtonIndent);
+
+    self.menuButton.bounds = CGRectMake(0, 0, 2*specialButtonRadius, 2*specialButtonRadius);
+    self.menuButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - specialButtonRadius - 5, specialButtonRadius + 5 + top);
+    self.menuMaskView.frame = self.menuButton.bounds;
+}
+
+- (CGFloat)directionButtonRadius {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        return 80;
+    } else {
+        return 100;
+    }
+}
+
+- (CGFloat)abButtonRadius {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        return 35;
+    } else {
+        return 50;
+    }
+}
+
+- (CGFloat)specialButtonRadius {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        return 25;
+    } else {
+        return 35;
+    }
+}
+
+- (UIFont *)abButtonFont {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        return [UIFont boldSystemFontOfSize:30];
+    } else {
+        return [UIFont boldSystemFontOfSize:40];
+    }
+}
+
+- (UIFont *)specialButtonFont {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        return [UIFont systemFontOfSize:15];
+    } else {
+        return [UIFont systemFontOfSize:20];
+    }
 }
 
 - (CGRect)frameForScreenView {
@@ -302,8 +366,12 @@ static CGFloat const kSpecialButtonRadius = 35;
 	}
 }
 
-- (BOOL)shouldAutorotate {
-    return YES;
+- (NSUInteger)supportedInterfaceOrientations {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        return UIInterfaceOrientationMaskLandscape;
+    } else {
+        return UIInterfaceOrientationMaskAll;
+    }
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {

@@ -28,8 +28,8 @@
         CGContextRef ctx = UIGraphicsGetCurrentContext();
         CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
         
-        CGSize edge = CGSizeMake(floor(rect.size.width / 15), floor(rect.size.height / 15));
-        CGSize tr = CGSizeMake(floor(rect.size.width / 6), floor(rect.size.height / 6));
+        CGSize edge = CGSizeMake(floor(rect.size.width / 16), floor(rect.size.height / 16));
+        CGSize tr = CGSizeMake(floor(rect.size.width / 8), floor(rect.size.height / 8));
         
         // up arrow
         CGContextMoveToPoint(ctx, CGRectGetMidX(rect), CGRectGetMinY(rect) + edge.height);
