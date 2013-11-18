@@ -62,19 +62,6 @@
 //    self.tableView.sectionIndexTrackingBackgroundColor = [UIColor colorWithWhite:1.0 alpha:0.85];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    UIEdgeInsets contentInset = UIEdgeInsetsZero;
-    if ([self respondsToSelector:@selector(topLayoutGuide)]) {
-        contentInset.top = self.topLayoutGuide.length;
-    }
-    if ([self respondsToSelector:@selector(bottomLayoutGuide)]) {
-        contentInset.bottom = self.bottomLayoutGuide.length;
-    }
-    self.tableView.contentInset = contentInset;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     

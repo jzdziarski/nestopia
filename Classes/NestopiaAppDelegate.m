@@ -30,7 +30,6 @@
 	GamesViewController *savedGamesViewController;
     GamesViewController *favoritesViewController;
 	SettingsViewController *settingsViewController;
-    UINavigationController *settingsNavigationController;
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
@@ -51,10 +50,19 @@
     favoritesViewController.favorite = YES;
     
     settingsViewController = [[SettingsViewController alloc] init];
-    settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
 
     tabBarController = [[UITabBarController alloc] init];
-    tabBarController.viewControllers = @[ gamesViewController, savedGamesViewController, favoritesViewController, settingsNavigationController ];
+    tabBarController.viewControllers = @[ [self wrapViewController:gamesViewController],
+                                          [self wrapViewController:savedGamesViewController],
+                                          [self wrapViewController:favoritesViewController],
+                                          [[UINavigationController alloc] initWithRootViewController:settingsViewController] ];
+}
+
+- (UINavigationController *)wrapViewController:(UIViewController *)viewController {
+    // In order to avoid all the mess with contentInset on iOS 7, we just wrap each UIViewController in a navigationBar-less UINavigationController.
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    navigationController.navigationBarHidden = YES;
+    return navigationController;
 }
 
 @end
