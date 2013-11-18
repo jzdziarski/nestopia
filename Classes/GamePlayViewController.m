@@ -217,7 +217,7 @@
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         padLayoutBaseLine = CGRectGetMaxY(self.view.bounds) - directionButtonRadius - 5;
     } else {
-        padLayoutBaseLine = CGRectGetMidY(self.view.bounds);
+        padLayoutBaseLine = CGRectGetMaxY(self.view.bounds) - 300;
     }
     
     CGFloat specialButtonIndent;
