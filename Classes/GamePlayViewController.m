@@ -278,6 +278,10 @@
         scale = viewSize.width / nativeSize.width;
     }
     
+    if ([[self.game.settings objectForKey:@"integralScale"] boolValue]) {
+        scale = floor(scale);
+    }
+    
     CGSize screenSize = CGSizeMake(nativeSize.width * scale, nativeSize.height * scale);
     CGPoint screenOrigin = CGPointMake(floor((viewSize.width - screenSize.width) / 2),
                                        floor((viewSize.height - screenSize.height) / 2));

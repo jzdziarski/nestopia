@@ -28,7 +28,7 @@
     NSArray *controllerLayoutDescriptions;
     
 	UISwitch *swapABControl;
-	UISwitch *fullScreenControl;
+	UISwitch *integralScaleControl;
 	UISwitch *aspectRatioControl;
 	UISwitch *gameGenieControl;
     UISwitch *antiAliasControl;

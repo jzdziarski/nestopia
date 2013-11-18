@@ -40,7 +40,7 @@
     swapABControl.on = [[settings objectForKey: @"swapAB"] boolValue];
     antiAliasControl.on = [[settings objectForKey: @"antiAliasing"] boolValue];
     controllerStickControl.on = [[settings objectForKey: @"controllerStickControl"] boolValue];
-    fullScreenControl.on = ([settings objectForKey: @"fullScreen"] == nil) ? YES : [[settings objectForKey: @"fullScreen"] boolValue];
+    integralScaleControl.on = [[settings objectForKey: @"integralScale"] boolValue];
     aspectRatioControl.on = ([settings objectForKey: @"aspectRatio"] == nil) ? YES : [[settings objectForKey: @"aspectRatio"] boolValue];
     
     controllerLayoutIndex =  [[settings objectForKey: @"controllerLayout"] intValue];
@@ -60,7 +60,7 @@
     NSMutableDictionary *settings = [NSMutableDictionary dictionary];
     
     [settings setObject:@(swapABControl.on) forKey:@"swapAB"];
-    [settings setObject:@(fullScreenControl.on) forKey:@"fullScreen"];
+    [settings setObject:@(integralScaleControl.on) forKey:@"integralScale"];
     [settings setObject:@(aspectRatioControl.on) forKey:@"aspectRatio"];
     [settings setObject:@(antiAliasControl.on) forKey:@"antiAliasing"];
     [settings setObject:@(controllerStickControl.on) forKey:@"controllerStickControl"];
@@ -90,7 +90,7 @@
         controllerLayoutDescriptions = [[NSArray alloc] initWithObjects: @"Game Pad + Zapper", @"Zapper Only", nil];
 		raised = NO;
 		swapABControl = [[UISwitch alloc] initWithFrame: CGRectZero];
-		fullScreenControl = [[UISwitch alloc] initWithFrame: CGRectZero];
+		integralScaleControl = [[UISwitch alloc] initWithFrame: CGRectZero];
 		aspectRatioControl = [[UISwitch alloc] initWithFrame: CGRectZero];
 		gameGenieControl = [[UISwitch alloc] initWithFrame: CGRectZero];
         antiAliasControl = [[UISwitch alloc] initWithFrame: CGRectZero];
@@ -191,8 +191,8 @@
 			case(0):
 				switch([indexPath indexAtPosition: 1]) {
 					case(0):
-						cell.accessoryView = fullScreenControl;
-						cell.textLabel.text = @"Full Screen";
+						cell.accessoryView = integralScaleControl;
+						cell.textLabel.text = @"Integral Scale";
 						break;
 					case(1):
 						cell.accessoryView = aspectRatioControl;
