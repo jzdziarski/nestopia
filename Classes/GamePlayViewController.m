@@ -124,8 +124,7 @@
     [self.view addSubview:self.buttonsView];
     
     self.directionButton = [[PadDirectionButton alloc] init];
-    //controllerView.swapAB = [[self.game.settings objectForKey:@"swapAB"] boolValue];
-    //controllerView.stickControl = [[self.game.settings objectForKey:@"controllerStickControl"] boolValue];
+    //self.directionButton.stickControl = [[self.game.settings objectForKey:@"controllerStickControl"] boolValue];
 	[self.buttonsView addSubview:self.directionButton];
     
     UIFont *abButtonFont = [self abButtonFont];
@@ -142,6 +141,12 @@
     self.bButton.font = abButtonFont;
     self.bButton.text = @"B";
     [self.buttonsView addSubview:self.bButton];
+    
+    if ([[self.game.settings objectForKey:@"swapAB"] boolValue]) {
+        id temp = self.aButton;
+        self.aButton = self.bButton;
+        self.bButton = temp;
+    }
     
     self.selectButton = [[PadRoundTextButton alloc] init];
     self.selectButton.singleInput = NestopiaPadInputSelect;
