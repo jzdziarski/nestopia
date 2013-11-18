@@ -200,7 +200,7 @@
 						break;
                     case(2):
                         cell.accessoryView = antiAliasControl;
-                        cell.textLabel.text = @"Anti-Alias Video";
+                        cell.textLabel.text = @"Anti-Aliasing";
                         break;
                     case(3):
 						cell.accessoryView = swapABControl;

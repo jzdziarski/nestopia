@@ -314,6 +314,8 @@ static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,
 - (void)startEmulation {
     isPlaying = true;
     
+    [self applyGameGenieCodes];
+    
 	[self.audioDelegate nestopiaCoreCallbackOpenSound:735 sampleRate:44100];
     [self.videoDelegate nestopiaCoreCallbackInitializeVideoWithWidth:screenWidth height:screenHeight];
     
@@ -395,12 +397,12 @@ static void NST_CALLBACK DoFileIO(void* userData,Nes::Api::User::File operation,
     controls.vsSystem.insertCoin = 0;
 }
 
-- (void)applyCheatCodes:(NSArray *)codes {
+- (void)applyGameGenieCodes {
     Nes::Api::Cheats cheater(emulator);
     cheater.ClearCodes();
-    for (NSString *code in codes) {
-        if (![code isEqualToString: @""])
-        {
+        
+    for (NSString *code in self.gameGenieCodes) {
+        if (![code isEqualToString:@""]) {
             Nes::Api::Cheats::Code ggCode;
             Nes::Api::Cheats::GameGenieDecode([code cStringUsingEncoding: NSASCIIStringEncoding], ggCode);
             cheater.SetCode(ggCode);

@@ -83,7 +83,6 @@ typedef struct {
 - (void)loadState;
 - (void)saveState;
 
-- (void)applyCheatCodes:(NSArray *)codes;
 - (void)activatePad1;
 - (void)activatePad2;
 - (void)toggleCoin1;
@@ -98,6 +97,9 @@ typedef struct {
 
 @property (nonatomic, copy) NSString *gamePath;
 @property (nonatomic, copy) NSString *gameSavePath;
+
+@property (nonatomic, copy) NSArray *gameGenieCodes;
+
 @property (nonatomic, assign) int controllerLayout; // TODO: enum
 
 @end

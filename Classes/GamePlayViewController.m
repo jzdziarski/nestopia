@@ -175,8 +175,20 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    // TODO
-    //[nestopiaCore applyCheatCodes:nil];
+    if ([[self.game.settings objectForKey:@"gameGenie"] boolValue]) {
+        NSMutableArray *gameGenieCodes = [NSMutableArray array];
+        for (int i = 0; i < 4; i++) {
+            NSString *code = [self.game.settings objectForKey:[NSString stringWithFormat: @"gameGenieCode%d", i]];
+            if (code) {
+                [gameGenieCodes addObject:code];
+            }
+        }
+        
+        nestopiaCore.gameGenieCodes = gameGenieCodes;
+    } else {
+        nestopiaCore.gameGenieCodes = nil;
+    }
+
     [nestopiaCore startEmulation];
 }
 
@@ -346,8 +358,6 @@
             [self presentViewController:navCon animated:YES completion:nil];
             return;
         } else if (buttonIndex == 0) { /* Insert Coin */
-            
-            //[nestopiaCore applyGameGenieCodes]; // TODO
             [nestopiaCore startEmulation];
             //[emulatorCore insertCoin1]; // TODO
 
@@ -361,11 +371,9 @@
                 [nestopiaCore activatePad1];
             }
             
-            //[nestopiaCore applyGameGenieCodes]; // TODO
             [nestopiaCore startEmulation];
             return;
         } else if (buttonIndex == 5) { /* Resume Game */
-            //[emulatorCore applyGameGenieCodes]; // TODO
             [nestopiaCore startEmulation];
             return;
         } else {
@@ -387,8 +395,7 @@
     [nestopiaCore stopEmulation];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {    
-    //[emulatorCore applyGameGenieCodes]; // TODO
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [nestopiaCore startEmulation];
 }
 
