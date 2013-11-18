@@ -103,6 +103,22 @@
     pad1 = YES;
 }
 
+- (void)updateGameGenieCodes {
+    if ([[self.game.settings objectForKey:@"gameGenie"] boolValue]) {
+        NSMutableArray *gameGenieCodes = [NSMutableArray array];
+        for (int i = 0; i < 4; i++) {
+            NSString *code = [self.game.settings objectForKey:[NSString stringWithFormat: @"gameGenieCode%d", i]];
+            if (code) {
+                [gameGenieCodes addObject:code];
+            }
+        }
+        
+        nestopiaCore.gameGenieCodes = gameGenieCodes;
+    } else {
+        nestopiaCore.gameGenieCodes = nil;
+    }
+}
+
 #pragma mark Dealloc
 
 - (void)dealloc {
@@ -175,20 +191,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if ([[self.game.settings objectForKey:@"gameGenie"] boolValue]) {
-        NSMutableArray *gameGenieCodes = [NSMutableArray array];
-        for (int i = 0; i < 4; i++) {
-            NSString *code = [self.game.settings objectForKey:[NSString stringWithFormat: @"gameGenieCode%d", i]];
-            if (code) {
-                [gameGenieCodes addObject:code];
-            }
-        }
-        
-        nestopiaCore.gameGenieCodes = gameGenieCodes;
-    } else {
-        nestopiaCore.gameGenieCodes = nil;
-    }
-
+    [self updateGameGenieCodes];
     [nestopiaCore startEmulation];
 }
 
@@ -396,6 +399,7 @@
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self updateGameGenieCodes];
     [nestopiaCore startEmulation];
 }
 
