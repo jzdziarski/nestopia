@@ -83,7 +83,7 @@
     
     NestopiaPadInput input = 0;
     CGSize size = self.bounds.size;
-    CGFloat k = 0.4;
+    CGFloat k = 0.33;
     
     if (location.y <= size.height * k) {
         input |= NestopiaPadInputUp;
