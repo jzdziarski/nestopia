@@ -57,10 +57,12 @@
 #pragma mark Game Controller Handling
 
 - (void)setupController {
-    NSArray *controllers = [GCController controllers];
-    // Grab first controller
-    // TODO: Add support for multiple controllers
-    gameController = [controllers firstObject];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f) {
+        NSArray *controllers = [GCController controllers];
+        // Grab first controller
+        // TODO: Add support for multiple controllers
+        gameController = [controllers firstObject];
+    }
 }
 
 - (BOOL)gameControllerConnected {
