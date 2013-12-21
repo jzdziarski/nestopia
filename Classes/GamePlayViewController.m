@@ -19,6 +19,7 @@
  */
 
 #import <Foundation/NSFileManager.h>
+
 #import "GamePlayViewController.h"
 #import "NestopiaAppDelegate.h"
 #import "NestopiaCore.h"
@@ -29,6 +30,7 @@
 #import "PadSingleButton.h"
 #import "PadRoundTextButton.h"
 #import "RoundTextMaskView.h"
+#import "GameControllerManager.h"
 
 
 @interface GamePlayViewController () <UIActionSheetDelegate, NestopiaCoreInputDelegate>
@@ -55,6 +57,8 @@
     
     AudioPlayer *audioPlayer;
     NestopiaCore *nestopiaCore;
+    
+    GameControllerManager *gameControllerManager;
 }
 
 #pragma mark Init
@@ -65,8 +69,9 @@
         _shouldLoadState = loadState;
         
         self.title = self.game.title;
-    
+        
         [self setupEmulator];
+        gameControllerManager = [GameControllerManager sharedInstance];
     }
     return self;
 }
@@ -203,7 +208,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-
+    
     self.screenView.frame = [self frameForScreenView];
     
     self.buttonsView.frame = self.view.bounds;
@@ -232,13 +237,13 @@
     self.bButton.bounds = CGRectMake(0, 0, 2*abButtonRadius, 2*abButtonRadius);
     self.selectButton.bounds = CGRectMake(0, 0, 2*specialButtonRadius, 2*specialButtonRadius);
     self.startButton.bounds = CGRectMake(0, 0, 2*specialButtonRadius, 2*specialButtonRadius);
-
+    
     self.directionButton.center = CGPointMake(directionButtonRadius + 5, padLayoutBaseLine);
     self.aButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - abButtonRadius - 5, padLayoutBaseLine - 20);
     self.bButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - 3*abButtonRadius - 15, padLayoutBaseLine + 20);
     self.selectButton.center = CGPointMake(specialButtonRadius + 5, padLayoutBaseLine - directionButtonRadius - specialButtonRadius - specialButtonIndent);
     self.startButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - specialButtonRadius - 5, padLayoutBaseLine - directionButtonRadius - specialButtonRadius - specialButtonIndent);
-
+    
     self.menuButton.bounds = CGRectMake(0, 0, 2*specialButtonRadius, 2*specialButtonRadius);
     self.menuButton.center = CGPointMake(CGRectGetMaxX(self.view.bounds) - specialButtonRadius - 5, specialButtonRadius + 5 + top);
     self.menuMaskView.frame = self.menuButton.bounds;
@@ -363,7 +368,7 @@
         } else if (buttonIndex == 0) { /* Insert Coin */
             [nestopiaCore startEmulation];
             //[emulatorCore insertCoin1]; // TODO
-
+            
             return;
         } else if (buttonIndex == 1) { /* Controller Toggle */
             if (pad1) {
@@ -420,7 +425,9 @@
     padInput |= self.startButton.input;
     padInput |= self.aButton.input;
     padInput |= self.bButton.input;
-
+    
+    padInput |= [gameControllerManager currentControllerInput];
+    
     NestopiaInput input;
     input.pad1 = pad1 ? padInput : 0;
     input.pad2 = pad1 ? 0 : padInput;
