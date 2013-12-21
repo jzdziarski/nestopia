@@ -30,7 +30,6 @@
 #import "PadSingleButton.h"
 #import "PadRoundTextButton.h"
 #import "RoundTextMaskView.h"
-#import "GameControllerManager.h"
 
 
 @interface GamePlayViewController () <UIActionSheetDelegate, NestopiaCoreInputDelegate>
@@ -71,7 +70,9 @@
         self.title = self.game.title;
         
         [self setupEmulator];
+        
         gameControllerManager = [GameControllerManager sharedInstance];
+        gameControllerManager.delegate = self;
     }
     return self;
 }
@@ -135,6 +136,8 @@
 - (void)loadView {
     [super loadView];
     
+    self.view.backgroundColor = [UIColor blackColor];
+    
     self.screenView = [[ScreenView alloc] init];
     self.screenView.antialiasing = [[self.game.settings objectForKey:@"antiAliasing"] boolValue];
     nestopiaCore.videoDelegate = self.screenView;
@@ -163,11 +166,13 @@
     self.bButton.text = @"B";
     [self.buttonsView addSubview:self.bButton];
     
-    if ([[self.game.settings objectForKey:@"swapAB"] boolValue]) {
+    BOOL swapAB = [[self.game.settings objectForKey:@"swapAB"] boolValue];
+    if (swapAB) {
         id temp = self.aButton;
         self.aButton = self.bButton;
         self.bButton = temp;
     }
+    gameControllerManager.swapAB = swapAB;
     
     self.selectButton = [[PadRoundTextButton alloc] init];
     self.selectButton.singleInput = NestopiaPadInputSelect;
@@ -196,6 +201,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self setButtonsHiddenForGamepad:gameControllerManager.gameControllerConnected];
+
     [self updateGameGenieCodes];
     [nestopiaCore startEmulation];
 }
@@ -204,6 +211,8 @@
     [super viewWillDisappear:animated];
     
     [nestopiaCore stopEmulation];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -414,6 +423,28 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return gameControllerManager.gameControllerConnected;
+}
+
+#pragma mark GameController Management
+
+- (void)setButtonsHiddenForGamepad:(BOOL)hidden {
+    self.directionButton.hidden = hidden;
+    self.aButton.hidden = hidden;
+    self.bButton.hidden = hidden;
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)gameControllerManagerGamepadDidConnect:(GameControllerManager *)controllerManager {
+    [self setButtonsHiddenForGamepad:YES];
+}
+
+- (void)gameControllerManagerGamepadDidDisconnect:(GameControllerManager *)controllerManager {
+    [self setButtonsHiddenForGamepad:NO];
 }
 
 #pragma mark NestopiaCoreInputDelegate

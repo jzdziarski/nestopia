@@ -20,11 +20,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Game.h"
+#import "GameControllerManager.h"
 
 @protocol GamePlayViewControllerDelegate;
 
 
-@interface GamePlayViewController : UIViewController
+@interface GamePlayViewController : UIViewController <GameControllerManagerDelegate>
 
 @property (nonatomic, weak) id<GamePlayViewControllerDelegate> delegate;
 

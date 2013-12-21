@@ -16,6 +16,8 @@
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
+        _swapAB = NO;
+        
         [self setupController];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -61,12 +63,18 @@
     gameController = [controllers firstObject];
 }
 
+- (BOOL)gameControllerConnected {
+    return (gameController != nil);
+}
+
 - (void)controllerConnected:(NSNotification *)notification {
     [self setupController];
+    [self.delegate gameControllerManagerGamepadDidConnect:self];
 }
 
 - (void)controllerDisconnected:(NSNotification *)notification {
     [self setupController];
+    [self.delegate gameControllerManagerGamepadDidDisconnect:self];
 }
 
 - (NestopiaPadInput)currentControllerInput {
@@ -76,12 +84,12 @@
         if (gameController.extendedGamepad) {
             GCExtendedGamepad *extendedGamepad = gameController.extendedGamepad;
             
-            // Swap A+B because it feels awkward on Gamepad
+            // You should swap A+B because it feels awkward on Gamepad
             if (extendedGamepad.buttonA.pressed) {
-                padInput |= NestopiaPadInputB;
+                padInput |= (_swapAB ? NestopiaPadInputB : NestopiaPadInputA);
             }
             if (extendedGamepad.buttonB.pressed) {
-                padInput |= NestopiaPadInputA;
+                padInput |= (_swapAB ? NestopiaPadInputA : NestopiaPadInputB);
             }
             
             // This feels super awkward
@@ -113,10 +121,10 @@
             GCGamepad *gamepad = gameController.gamepad;
             
             if (gamepad.buttonA.pressed) {
-                padInput |= NestopiaPadInputB;
+                padInput |= (_swapAB ? NestopiaPadInputB : NestopiaPadInputA);
             }
             if (gamepad.buttonB.pressed) {
-                padInput |= NestopiaPadInputA;
+                padInput |= (_swapAB ? NestopiaPadInputA : NestopiaPadInputB);
             }
             /*
              if (extendedGamepad.buttonX.pressed) {

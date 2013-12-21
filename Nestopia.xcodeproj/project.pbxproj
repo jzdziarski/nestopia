@@ -10,6 +10,8 @@
 		1D3623260D0F684500981E51 /* NestopiaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* NestopiaAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28C286E10D94DF7D0034E888 /* GamePlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* GamePlayViewController.m */; };
+		66C1BD54186528AF00E5A833 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C1BD53186528AF00E5A833 /* GameController.framework */; };
+		66C1BD5718652F4B00E5A833 /* GameControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C1BD5618652F4B00E5A833 /* GameControllerManager.m */; };
 		700950D717FC739F0038888C /* NestopiaCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 70094FB517FC739F0038888C /* NestopiaCore.mm */; };
 		700956F717FC75590038888C /* NstApiBarcodeReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009547B17FC75570038888C /* NstApiBarcodeReader.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		700956F817FC75590038888C /* NstApiCartridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009547D17FC75570038888C /* NstApiCartridge.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -353,6 +355,9 @@
 		28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* GamePlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		66C1BD53186528AF00E5A833 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
+		66C1BD5518652F4B00E5A833 /* GameControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameControllerManager.h; sourceTree = "<group>"; };
+		66C1BD5618652F4B00E5A833 /* GameControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameControllerManager.m; sourceTree = "<group>"; };
 		70094FB417FC739F0038888C /* NestopiaCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NestopiaCore.h; path = Nestopia/NestopiaCore.h; sourceTree = "<group>"; };
 		70094FB517FC739F0038888C /* NestopiaCore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NestopiaCore.mm; path = Nestopia/NestopiaCore.mm; sourceTree = "<group>"; };
 		7009547A17FC75570038888C /* NstApi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NstApi.hpp; sourceTree = "<group>"; };
@@ -1050,6 +1055,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66C1BD54186528AF00E5A833 /* GameController.framework in Frameworks */,
 				7044127F0ED9CF6100E54091 /* AudioToolbox.framework in Frameworks */,
 				704412800ED9CF6100E54091 /* QuartzCore.framework in Frameworks */,
 				70F696A8124C289500D39392 /* CoreGraphics.framework in Frameworks */,
@@ -1070,6 +1076,8 @@
 				704412BD0ED9D3D800E54091 /* GamesViewController.m */,
 				28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */,
 				28C286E00D94DF7D0034E888 /* GamePlayViewController.m */,
+				66C1BD5518652F4B00E5A833 /* GameControllerManager.h */,
+				66C1BD5618652F4B00E5A833 /* GameControllerManager.m */,
 				704412E80ED9D58B00E54091 /* SettingsViewController.h */,
 				704412E90ED9D58B00E54091 /* SettingsViewController.m */,
 				70FEB7F9180DDB9F008B6C61 /* MultiValueViewController.h */,
@@ -1143,6 +1151,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66C1BD53186528AF00E5A833 /* GameController.framework */,
 				7044127D0ED9CF6100E54091 /* AudioToolbox.framework */,
 				7044127E0ED9CF6100E54091 /* QuartzCore.framework */,
 				70F696A7124C289500D39392 /* CoreGraphics.framework */,
@@ -2169,6 +2178,7 @@
 				702087880EDC5A9900E83959 /* ScreenView.m in Sources */,
 				7009578117FC75590038888C /* NstMapper091.cpp in Sources */,
 				7009574717FC75590038888C /* NstMapper000.cpp in Sources */,
+				66C1BD5718652F4B00E5A833 /* GameControllerManager.m in Sources */,
 				700957CD17FC75590038888C /* NstMapper232.cpp in Sources */,
 				70FEB7FB180DDB9F008B6C61 /* MultiValueViewController.m in Sources */,
 				7009579D17FC75590038888C /* NstMapper149.cpp in Sources */,
@@ -2330,6 +2340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
@@ -2345,6 +2356,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2382,6 +2394,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
