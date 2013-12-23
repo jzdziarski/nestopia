@@ -19,35 +19,14 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
-#import "EmulatorCore.h"
-#import "ControllerView.h"
+#import "NestopiaCore.h"
 
-#define NES_WIDTH   256
-#define NES_HEIGHT  240
+@interface ScreenView : UIView <NestopiaCoreVideoDelegate>
 
-@interface ScreenView : UIView <EmulatorCoreScreenDelegate> {
-	unsigned long hightable[NES_WIDTH], lowtable[NES_WIDTH];
-	int w, h;
+// TODO: zapper
 
-	CALayer *screenLayer;
-	UIDeviceOrientation orientation;
-	unsigned short *frameBufferAddress;
-	unsigned long *frameBuffer8888;
-	CGSize frameBufferSize;
-	CGColorSpaceRef colorSpace;
-	CGDataProviderRef provider[2];
-	id delegate;	
-	int currentProvider;
-}
-- (void)initializeGraphics;
+@property (nonatomic, assign) BOOL antialiasing;
 
-/* EmulatorCoreScreenDelegate */
+- (void)commonInit;
 
-- (void)emulatorCoreDidUpdateFrameBuffer;
-
-@property(nonatomic,assign) UIDeviceOrientation orientation;
-@property(nonatomic,assign,readonly) unsigned short *frameBufferAddress;
-@property(nonatomic,assign) CGSize frameBufferSize;
-@property(nonatomic,assign) id<GameControllerDelegate> delegate;
 @end

@@ -19,18 +19,16 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "GameROMViewController.h"
+#import "GamesViewController.h"
 #import "MultiValueViewController.h"
+#import "Game.h"
 
 @interface SettingsViewController : UITableViewController <UITextFieldDelegate,MultiValueViewControllerDelegate> {
-
-	NSDictionary *settings;
 	UIBarButtonItem *leftButton;
-	NSString *gamePath, *currentGameName;
     NSArray *controllerLayoutDescriptions;
     
 	UISwitch *swapABControl;
-	UISwitch *fullScreenControl;
+	UISwitch *integralScaleControl;
 	UISwitch *aspectRatioControl;
 	UISwitch *gameGenieControl;
     UISwitch *antiAliasControl;
@@ -42,5 +40,6 @@
 	bool raised;
 }
 
-@property(nonatomic,copy) NSString *gamePath;
+@property (nonatomic, strong) Game *game;
+
 @end

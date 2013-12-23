@@ -10,287 +10,289 @@
 		1D3623260D0F684500981E51 /* NestopiaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* NestopiaAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28C286E10D94DF7D0034E888 /* GamePlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* GamePlayViewController.m */; };
+		66C1BD54186528AF00E5A833 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C1BD53186528AF00E5A833 /* GameController.framework */; };
+		66C1BD5718652F4B00E5A833 /* GameControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C1BD5618652F4B00E5A833 /* GameControllerManager.m */; };
 		700950D717FC739F0038888C /* NestopiaCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 70094FB517FC739F0038888C /* NestopiaCore.mm */; };
-		700956F717FC75590038888C /* NstApiBarcodeReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009547B17FC75570038888C /* NstApiBarcodeReader.cpp */; };
-		700956F817FC75590038888C /* NstApiCartridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009547D17FC75570038888C /* NstApiCartridge.cpp */; };
-		700956F917FC75590038888C /* NstApiCheats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009547F17FC75570038888C /* NstApiCheats.cpp */; };
-		700956FA17FC75590038888C /* NstApiDipSwitches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548217FC75570038888C /* NstApiDipSwitches.cpp */; };
-		700956FB17FC75590038888C /* NstApiEmulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548417FC75570038888C /* NstApiEmulator.cpp */; };
-		700956FC17FC75590038888C /* NstApiFds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548617FC75570038888C /* NstApiFds.cpp */; };
-		700956FD17FC75590038888C /* NstApiInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548817FC75570038888C /* NstApiInput.cpp */; };
-		700956FE17FC75590038888C /* NstApiMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548A17FC75570038888C /* NstApiMachine.cpp */; };
-		700956FF17FC75590038888C /* NstApiMovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548C17FC75570038888C /* NstApiMovie.cpp */; };
-		7009570017FC75590038888C /* NstApiNsf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548E17FC75570038888C /* NstApiNsf.cpp */; };
-		7009570117FC75590038888C /* NstApiRewinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549017FC75570038888C /* NstApiRewinder.cpp */; };
-		7009570217FC75590038888C /* NstApiSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549217FC75570038888C /* NstApiSound.cpp */; };
-		7009570317FC75590038888C /* NstApiTapeRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549417FC75570038888C /* NstApiTapeRecorder.cpp */; };
-		7009570417FC75590038888C /* NstApiUser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549617FC75570038888C /* NstApiUser.cpp */; };
-		7009570517FC75590038888C /* NstApiVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549817FC75570038888C /* NstApiVideo.cpp */; };
-		7009570617FC75590038888C /* NstBrd190in1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549B17FC75570038888C /* NstBrd190in1.cpp */; };
-		7009570717FC75590038888C /* NstBrd22211.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549D17FC75570038888C /* NstBrd22211.cpp */; };
-		7009570817FC75590038888C /* NstBrd6035052.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549F17FC75570038888C /* NstBrd6035052.cpp */; };
-		7009570917FC75590038888C /* NstBrd64in1Nr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A117FC75570038888C /* NstBrd64in1Nr.cpp */; };
-		7009570A17FC75590038888C /* NstBrd8157.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A317FC75570038888C /* NstBrd8157.cpp */; };
-		7009570B17FC75590038888C /* NstBrd8237.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A517FC75570038888C /* NstBrd8237.cpp */; };
-		7009570C17FC75590038888C /* NstBrdA65AS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A717FC75570038888C /* NstBrdA65AS.cpp */; };
-		7009570D17FC75590038888C /* NstBrdAx5705.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A917FC75570038888C /* NstBrdAx5705.cpp */; };
-		7009570E17FC75590038888C /* NstBrdBandai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954AB17FC75570038888C /* NstBrdBandai.cpp */; };
-		7009570F17FC75590038888C /* NstBrdCc21.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954AD17FC75570038888C /* NstBrdCc21.cpp */; };
-		7009571017FC75590038888C /* NstBrdColorDreams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954AF17FC75570038888C /* NstBrdColorDreams.cpp */; };
-		7009571117FC75590038888C /* NstBrdCtc65.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B117FC75570038888C /* NstBrdCtc65.cpp */; };
-		7009571217FC75590038888C /* NstBrdDreamTech01.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B317FC75570038888C /* NstBrdDreamTech01.cpp */; };
-		7009571317FC75590038888C /* NstBrdEdu2000.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B517FC75570038888C /* NstBrdEdu2000.cpp */; };
-		7009571417FC75590038888C /* NstBrdFfe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B717FC75570038888C /* NstBrdFfe.cpp */; };
-		7009571517FC75590038888C /* NstBrdFk23C.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B917FC75570038888C /* NstBrdFk23C.cpp */; };
-		7009571617FC75590038888C /* NstBrdFme7.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954BB17FC75570038888C /* NstBrdFme7.cpp */; };
-		7009571717FC75590038888C /* NstBrdGs2004.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954BD17FC75570038888C /* NstBrdGs2004.cpp */; };
-		7009571817FC75590038888C /* NstBrdJaleco.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954BF17FC75570038888C /* NstBrdJaleco.cpp */; };
-		7009571917FC75590038888C /* NstBrdJy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C117FC75570038888C /* NstBrdJy.cpp */; };
-		7009571A17FC75590038888C /* NstBrdKaiser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C317FC75570038888C /* NstBrdKaiser.cpp */; };
-		7009571B17FC75590038888C /* NstBrdKof97.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C517FC75570038888C /* NstBrdKof97.cpp */; };
-		7009571C17FC75590038888C /* NstBrdMmc1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C717FC75570038888C /* NstBrdMmc1.cpp */; };
-		7009571D17FC75590038888C /* NstBrdMmc2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C917FC75570038888C /* NstBrdMmc2.cpp */; };
-		7009571E17FC75590038888C /* NstBrdMmc3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954CB17FC75570038888C /* NstBrdMmc3.cpp */; };
-		7009571F17FC75590038888C /* NstBrdMmc3Waixing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954CD17FC75570038888C /* NstBrdMmc3Waixing.cpp */; };
-		7009572017FC75590038888C /* NstBrdMmc5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954CF17FC75570038888C /* NstBrdMmc5.cpp */; };
-		7009572117FC75590038888C /* NstBrdN106.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D117FC75570038888C /* NstBrdN106.cpp */; };
-		7009572217FC75590038888C /* NstBrdN118.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D317FC75570038888C /* NstBrdN118.cpp */; };
-		7009572317FC75590038888C /* NstBrdNina.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D517FC75570038888C /* NstBrdNina.cpp */; };
-		7009572417FC75590038888C /* NstBrdS8259.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D717FC75570038888C /* NstBrdS8259.cpp */; };
-		7009572517FC75590038888C /* NstBrdStreetHeroes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D917FC75570038888C /* NstBrdStreetHeroes.cpp */; };
-		7009572617FC75590038888C /* NstBrdSubor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954DB17FC75570038888C /* NstBrdSubor.cpp */; };
-		7009572717FC75590038888C /* NstBrdSuper24In1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954DD17FC75570038888C /* NstBrdSuper24In1.cpp */; };
-		7009572817FC75590038888C /* NstBrdT230.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954DF17FC75570038888C /* NstBrdT230.cpp */; };
-		7009572917FC75590038888C /* NstBrdT262.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E117FC75570038888C /* NstBrdT262.cpp */; };
-		7009572A17FC75590038888C /* NstBrdTaitoTc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E317FC75570038888C /* NstBrdTaitoTc.cpp */; };
-		7009572B17FC75590038888C /* NstBrdTaitoX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E517FC75570038888C /* NstBrdTaitoX.cpp */; };
-		7009572C17FC75590038888C /* NstBrdTf1201.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E717FC75570038888C /* NstBrdTf1201.cpp */; };
-		7009572D17FC75590038888C /* NstBrdVrc4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E917FC75570038888C /* NstBrdVrc4.cpp */; };
-		7009572E17FC75590038888C /* NstBrdVrc6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954EB17FC75570038888C /* NstBrdVrc6.cpp */; };
-		7009572F17FC75590038888C /* NstBrdVrc7.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954ED17FC75570038888C /* NstBrdVrc7.cpp */; };
-		7009573017FC75590038888C /* NstBrdWs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954EF17FC75570038888C /* NstBrdWs.cpp */; };
-		7009573117FC75590038888C /* NstInpAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954F317FC75570038888C /* NstInpAdapter.cpp */; };
-		7009573217FC75590038888C /* NstInpCrazyClimber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954F517FC75570038888C /* NstInpCrazyClimber.cpp */; };
-		7009573317FC75590038888C /* NstInpDoremikkoKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954F817FC75570038888C /* NstInpDoremikkoKeyboard.cpp */; };
-		7009573417FC75590038888C /* NstInpExcitingBoxing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954FA17FC75570038888C /* NstInpExcitingBoxing.cpp */; };
-		7009573517FC75590038888C /* NstInpFamilyKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954FC17FC75570038888C /* NstInpFamilyKeyboard.cpp */; };
-		7009573617FC75590038888C /* NstInpFamilyTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954FE17FC75570038888C /* NstInpFamilyTrainer.cpp */; };
-		7009573717FC75590038888C /* NstInpHoriTrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550017FC75570038888C /* NstInpHoriTrack.cpp */; };
-		7009573817FC75590038888C /* NstInpHyperShot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550217FC75570038888C /* NstInpHyperShot.cpp */; };
-		7009573917FC75590038888C /* NstInpLightGun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550417FC75570038888C /* NstInpLightGun.cpp */; };
-		7009573A17FC75590038888C /* NstInpMahjong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550617FC75570038888C /* NstInpMahjong.cpp */; };
-		7009573B17FC75590038888C /* NstInpMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550817FC75570038888C /* NstInpMouse.cpp */; };
-		7009573C17FC75590038888C /* NstInpOekaKidsTablet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550A17FC75570038888C /* NstInpOekaKidsTablet.cpp */; };
-		7009573D17FC75590038888C /* NstInpPachinko.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550C17FC75570038888C /* NstInpPachinko.cpp */; };
-		7009573E17FC75590038888C /* NstInpPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550E17FC75570038888C /* NstInpPad.cpp */; };
-		7009573F17FC75590038888C /* NstInpPaddle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551017FC75570038888C /* NstInpPaddle.cpp */; };
-		7009574017FC75590038888C /* NstInpPartyTap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551217FC75570038888C /* NstInpPartyTap.cpp */; };
-		7009574117FC75590038888C /* NstInpPokkunMoguraa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551417FC75570038888C /* NstInpPokkunMoguraa.cpp */; };
-		7009574217FC75590038888C /* NstInpPowerGlove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551617FC75570038888C /* NstInpPowerGlove.cpp */; };
-		7009574317FC75590038888C /* NstInpPowerPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551817FC75570038888C /* NstInpPowerPad.cpp */; };
-		7009574417FC75590038888C /* NstInpRob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551A17FC75570038888C /* NstInpRob.cpp */; };
-		7009574517FC75590038888C /* NstInpSuborKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551C17FC75570038888C /* NstInpSuborKeyboard.cpp */; };
-		7009574617FC75590038888C /* NstInpTopRider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551E17FC75570038888C /* NstInpTopRider.cpp */; };
-		7009574717FC75590038888C /* NstMapper000.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552117FC75570038888C /* NstMapper000.cpp */; };
-		7009574817FC75590038888C /* NstMapper001.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552317FC75570038888C /* NstMapper001.cpp */; };
-		7009574917FC75590038888C /* NstMapper002.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552517FC75570038888C /* NstMapper002.cpp */; };
-		7009574A17FC75590038888C /* NstMapper003.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552717FC75570038888C /* NstMapper003.cpp */; };
-		7009574B17FC75590038888C /* NstMapper004.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552917FC75570038888C /* NstMapper004.cpp */; };
-		7009574C17FC75590038888C /* NstMapper005.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552B17FC75570038888C /* NstMapper005.cpp */; };
-		7009574D17FC75590038888C /* NstMapper007.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552E17FC75570038888C /* NstMapper007.cpp */; };
-		7009574E17FC75590038888C /* NstMapper010.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553217FC75570038888C /* NstMapper010.cpp */; };
-		7009574F17FC75590038888C /* NstMapper012.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553517FC75570038888C /* NstMapper012.cpp */; };
-		7009575017FC75590038888C /* NstMapper013.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553717FC75570038888C /* NstMapper013.cpp */; };
-		7009575117FC75590038888C /* NstMapper014.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553917FC75570038888C /* NstMapper014.cpp */; };
-		7009575217FC75590038888C /* NstMapper015.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553B17FC75570038888C /* NstMapper015.cpp */; };
-		7009575317FC75590038888C /* NstMapper018.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553F17FC75570038888C /* NstMapper018.cpp */; };
-		7009575417FC75590038888C /* NstMapper022.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554317FC75570038888C /* NstMapper022.cpp */; };
-		7009575517FC75590038888C /* NstMapper023.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554517FC75570038888C /* NstMapper023.cpp */; };
-		7009575617FC75590038888C /* NstMapper027.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554A17FC75570038888C /* NstMapper027.cpp */; };
-		7009575717FC75590038888C /* NstMapper032.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554C17FC75570038888C /* NstMapper032.cpp */; };
-		7009575817FC75590038888C /* NstMapper034.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554F17FC75570038888C /* NstMapper034.cpp */; };
-		7009575917FC75590038888C /* NstMapper037.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555117FC75570038888C /* NstMapper037.cpp */; };
-		7009575A17FC75590038888C /* NstMapper038.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555317FC75570038888C /* NstMapper038.cpp */; };
-		7009575B17FC75590038888C /* NstMapper039.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555517FC75570038888C /* NstMapper039.cpp */; };
-		7009575C17FC75590038888C /* NstMapper040.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555717FC75570038888C /* NstMapper040.cpp */; };
-		7009575D17FC75590038888C /* NstMapper041.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555917FC75570038888C /* NstMapper041.cpp */; };
-		7009575E17FC75590038888C /* NstMapper042.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555B17FC75570038888C /* NstMapper042.cpp */; };
-		7009575F17FC75590038888C /* NstMapper043.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555D17FC75570038888C /* NstMapper043.cpp */; };
-		7009576017FC75590038888C /* NstMapper044.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555F17FC75570038888C /* NstMapper044.cpp */; };
-		7009576117FC75590038888C /* NstMapper045.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556117FC75570038888C /* NstMapper045.cpp */; };
-		7009576217FC75590038888C /* NstMapper046.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556317FC75570038888C /* NstMapper046.cpp */; };
-		7009576317FC75590038888C /* NstMapper047.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556517FC75570038888C /* NstMapper047.cpp */; };
-		7009576417FC75590038888C /* NstMapper049.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556817FC75570038888C /* NstMapper049.cpp */; };
-		7009576517FC75590038888C /* NstMapper050.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556A17FC75570038888C /* NstMapper050.cpp */; };
-		7009576617FC75590038888C /* NstMapper051.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556C17FC75570038888C /* NstMapper051.cpp */; };
-		7009576717FC75590038888C /* NstMapper052.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556E17FC75570038888C /* NstMapper052.cpp */; };
-		7009576817FC75590038888C /* NstMapper053.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557017FC75570038888C /* NstMapper053.cpp */; };
-		7009576917FC75590038888C /* NstMapper054.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557217FC75570038888C /* NstMapper054.cpp */; };
-		7009576A17FC75590038888C /* NstMapper055.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557417FC75570038888C /* NstMapper055.cpp */; };
-		7009576B17FC75590038888C /* NstMapper057.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557717FC75570038888C /* NstMapper057.cpp */; };
-		7009576C17FC75590038888C /* NstMapper058.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557917FC75570038888C /* NstMapper058.cpp */; };
-		7009576D17FC75590038888C /* NstMapper060.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557B17FC75570038888C /* NstMapper060.cpp */; };
-		7009576E17FC75590038888C /* NstMapper061.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557D17FC75570038888C /* NstMapper061.cpp */; };
-		7009576F17FC75590038888C /* NstMapper062.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557F17FC75570038888C /* NstMapper062.cpp */; };
-		7009577017FC75590038888C /* NstMapper063.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558117FC75570038888C /* NstMapper063.cpp */; };
-		7009577117FC75590038888C /* NstMapper064.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558317FC75570038888C /* NstMapper064.cpp */; };
-		7009577217FC75590038888C /* NstMapper065.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558517FC75570038888C /* NstMapper065.cpp */; };
-		7009577317FC75590038888C /* NstMapper066.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558717FC75570038888C /* NstMapper066.cpp */; };
-		7009577417FC75590038888C /* NstMapper067.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558917FC75570038888C /* NstMapper067.cpp */; };
-		7009577517FC75590038888C /* NstMapper068.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558B17FC75570038888C /* NstMapper068.cpp */; };
-		7009577617FC75590038888C /* NstMapper070.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558E17FC75570038888C /* NstMapper070.cpp */; };
-		7009577717FC75590038888C /* NstMapper071.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559017FC75570038888C /* NstMapper071.cpp */; };
-		7009577817FC75590038888C /* NstMapper073.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559317FC75570038888C /* NstMapper073.cpp */; };
-		7009577917FC75590038888C /* NstMapper075.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559617FC75570038888C /* NstMapper075.cpp */; };
-		7009577A17FC75590038888C /* NstMapper076.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559817FC75570038888C /* NstMapper076.cpp */; };
-		7009577B17FC75590038888C /* NstMapper077.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559A17FC75570038888C /* NstMapper077.cpp */; };
-		7009577C17FC75590038888C /* NstMapper078.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559C17FC75570038888C /* NstMapper078.cpp */; };
-		7009577D17FC75590038888C /* NstMapper082.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955A017FC75570038888C /* NstMapper082.cpp */; };
-		7009577E17FC75590038888C /* NstMapper083.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955A217FC75570038888C /* NstMapper083.cpp */; };
-		7009577F17FC75590038888C /* NstMapper087.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955A617FC75570038888C /* NstMapper087.cpp */; };
-		7009578017FC75590038888C /* NstMapper089.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955A917FC75570038888C /* NstMapper089.cpp */; };
-		7009578117FC75590038888C /* NstMapper091.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955AC17FC75570038888C /* NstMapper091.cpp */; };
-		7009578217FC75590038888C /* NstMapper093.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955AF17FC75570038888C /* NstMapper093.cpp */; };
-		7009578317FC75590038888C /* NstMapper094.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955B117FC75570038888C /* NstMapper094.cpp */; };
-		7009578417FC75590038888C /* NstMapper096.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955B417FC75570038888C /* NstMapper096.cpp */; };
-		7009578517FC75590038888C /* NstMapper097.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955B617FC75570038888C /* NstMapper097.cpp */; };
-		7009578617FC75590038888C /* NstMapper099.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955B817FC75570038888C /* NstMapper099.cpp */; };
-		7009578717FC75590038888C /* NstMapper101.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955BA17FC75570038888C /* NstMapper101.cpp */; };
-		7009578817FC75590038888C /* NstMapper105.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955BC17FC75570038888C /* NstMapper105.cpp */; };
-		7009578917FC75590038888C /* NstMapper107.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955BE17FC75570038888C /* NstMapper107.cpp */; };
-		7009578A17FC75590038888C /* NstMapper108.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C017FC75570038888C /* NstMapper108.cpp */; };
-		7009578B17FC75590038888C /* NstMapper112.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C217FC75570038888C /* NstMapper112.cpp */; };
-		7009578C17FC75590038888C /* NstMapper114.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C517FC75570038888C /* NstMapper114.cpp */; };
-		7009578D17FC75590038888C /* NstMapper115.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C717FC75570038888C /* NstMapper115.cpp */; };
-		7009578E17FC75590038888C /* NstMapper116.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C917FC75570038888C /* NstMapper116.cpp */; };
-		7009578F17FC75590038888C /* NstMapper117.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955CB17FC75570038888C /* NstMapper117.cpp */; };
-		7009579017FC75590038888C /* NstMapper118.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955CD17FC75570038888C /* NstMapper118.cpp */; };
-		7009579117FC75590038888C /* NstMapper119.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955CF17FC75570038888C /* NstMapper119.cpp */; };
-		7009579217FC75590038888C /* NstMapper121.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955D117FC75570038888C /* NstMapper121.cpp */; };
-		7009579317FC75590038888C /* NstMapper123.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955D317FC75570038888C /* NstMapper123.cpp */; };
-		7009579417FC75590038888C /* NstMapper133.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955D617FC75570038888C /* NstMapper133.cpp */; };
-		7009579517FC75590038888C /* NstMapper134.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955D817FC75570038888C /* NstMapper134.cpp */; };
-		7009579617FC75590038888C /* NstMapper136.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955DA17FC75570038888C /* NstMapper136.cpp */; };
-		7009579717FC75590038888C /* NstMapper140.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955DF17FC75570038888C /* NstMapper140.cpp */; };
-		7009579817FC75590038888C /* NstMapper143.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955E317FC75570038888C /* NstMapper143.cpp */; };
-		7009579917FC75590038888C /* NstMapper145.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955E617FC75570038888C /* NstMapper145.cpp */; };
-		7009579A17FC75590038888C /* NstMapper146.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955E817FC75570038888C /* NstMapper146.cpp */; };
-		7009579B17FC75590038888C /* NstMapper147.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955EA17FC75570038888C /* NstMapper147.cpp */; };
-		7009579C17FC75590038888C /* NstMapper148.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955EC17FC75570038888C /* NstMapper148.cpp */; };
-		7009579D17FC75590038888C /* NstMapper149.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955EE17FC75570038888C /* NstMapper149.cpp */; };
-		7009579E17FC75590038888C /* NstMapper150.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955F017FC75570038888C /* NstMapper150.cpp */; };
-		7009579F17FC75590038888C /* NstMapper151.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955F217FC75570038888C /* NstMapper151.cpp */; };
-		700957A017FC75590038888C /* NstMapper152.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955F417FC75580038888C /* NstMapper152.cpp */; };
-		700957A117FC75590038888C /* NstMapper156.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955F917FC75580038888C /* NstMapper156.cpp */; };
-		700957A217FC75590038888C /* NstMapper163.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955FD17FC75580038888C /* NstMapper163.cpp */; };
-		700957A317FC75590038888C /* NstMapper164.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955FF17FC75580038888C /* NstMapper164.cpp */; };
-		700957A417FC75590038888C /* NstMapper165.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560117FC75580038888C /* NstMapper165.cpp */; };
-		700957A517FC75590038888C /* NstMapper169.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560517FC75580038888C /* NstMapper169.cpp */; };
-		700957A617FC75590038888C /* NstMapper170.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560717FC75580038888C /* NstMapper170.cpp */; };
-		700957A717FC75590038888C /* NstMapper171.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560917FC75580038888C /* NstMapper171.cpp */; };
-		700957A817FC75590038888C /* NstMapper178.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560D17FC75580038888C /* NstMapper178.cpp */; };
-		700957A917FC75590038888C /* NstMapper180.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560F17FC75580038888C /* NstMapper180.cpp */; };
-		700957AA17FC75590038888C /* NstMapper182.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561117FC75580038888C /* NstMapper182.cpp */; };
-		700957AB17FC75590038888C /* NstMapper183.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561317FC75580038888C /* NstMapper183.cpp */; };
-		700957AC17FC75590038888C /* NstMapper184.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561517FC75580038888C /* NstMapper184.cpp */; };
-		700957AD17FC75590038888C /* NstMapper185.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561717FC75580038888C /* NstMapper185.cpp */; };
-		700957AE17FC75590038888C /* NstMapper186.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561917FC75580038888C /* NstMapper186.cpp */; };
-		700957AF17FC75590038888C /* NstMapper187.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561B17FC75580038888C /* NstMapper187.cpp */; };
-		700957B017FC75590038888C /* NstMapper188.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561D17FC75580038888C /* NstMapper188.cpp */; };
-		700957B117FC75590038888C /* NstMapper189.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561F17FC75580038888C /* NstMapper189.cpp */; };
-		700957B217FC75590038888C /* NstMapper193.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562317FC75580038888C /* NstMapper193.cpp */; };
-		700957B317FC75590038888C /* NstMapper196.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562717FC75580038888C /* NstMapper196.cpp */; };
-		700957B417FC75590038888C /* NstMapper197.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562917FC75580038888C /* NstMapper197.cpp */; };
-		700957B517FC75590038888C /* NstMapper198.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562B17FC75580038888C /* NstMapper198.cpp */; };
-		700957B617FC75590038888C /* NstMapper199.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562D17FC75580038888C /* NstMapper199.cpp */; };
-		700957B717FC75590038888C /* NstMapper200.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562F17FC75580038888C /* NstMapper200.cpp */; };
-		700957B817FC75590038888C /* NstMapper201.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563117FC75580038888C /* NstMapper201.cpp */; };
-		700957B917FC75590038888C /* NstMapper202.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563317FC75580038888C /* NstMapper202.cpp */; };
-		700957BA17FC75590038888C /* NstMapper203.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563517FC75580038888C /* NstMapper203.cpp */; };
-		700957BB17FC75590038888C /* NstMapper204.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563717FC75580038888C /* NstMapper204.cpp */; };
-		700957BC17FC75590038888C /* NstMapper205.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563917FC75580038888C /* NstMapper205.cpp */; };
-		700957BD17FC75590038888C /* NstMapper206.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563B17FC75580038888C /* NstMapper206.cpp */; };
-		700957BE17FC75590038888C /* NstMapper208.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563E17FC75580038888C /* NstMapper208.cpp */; };
-		700957BF17FC75590038888C /* NstMapper212.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564317FC75580038888C /* NstMapper212.cpp */; };
-		700957C017FC75590038888C /* NstMapper213.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564517FC75580038888C /* NstMapper213.cpp */; };
-		700957C117FC75590038888C /* NstMapper214.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564717FC75580038888C /* NstMapper214.cpp */; };
-		700957C217FC75590038888C /* NstMapper215.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564917FC75580038888C /* NstMapper215.cpp */; };
-		700957C317FC75590038888C /* NstMapper216.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564B17FC75580038888C /* NstMapper216.cpp */; };
-		700957C417FC75590038888C /* NstMapper217.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564D17FC75580038888C /* NstMapper217.cpp */; };
-		700957C517FC75590038888C /* NstMapper222.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564F17FC75580038888C /* NstMapper222.cpp */; };
-		700957C617FC75590038888C /* NstMapper225.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565117FC75580038888C /* NstMapper225.cpp */; };
-		700957C717FC75590038888C /* NstMapper226.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565317FC75580038888C /* NstMapper226.cpp */; };
-		700957C817FC75590038888C /* NstMapper227.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565517FC75580038888C /* NstMapper227.cpp */; };
-		700957C917FC75590038888C /* NstMapper228.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565717FC75580038888C /* NstMapper228.cpp */; };
-		700957CA17FC75590038888C /* NstMapper229.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565917FC75580038888C /* NstMapper229.cpp */; };
-		700957CB17FC75590038888C /* NstMapper230.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565B17FC75580038888C /* NstMapper230.cpp */; };
-		700957CC17FC75590038888C /* NstMapper231.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565D17FC75580038888C /* NstMapper231.cpp */; };
-		700957CD17FC75590038888C /* NstMapper232.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565F17FC75580038888C /* NstMapper232.cpp */; };
-		700957CE17FC75590038888C /* NstMapper233.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566117FC75580038888C /* NstMapper233.cpp */; };
-		700957CF17FC75590038888C /* NstMapper234.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566317FC75580038888C /* NstMapper234.cpp */; };
-		700957D017FC75590038888C /* NstMapper235.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566517FC75580038888C /* NstMapper235.cpp */; };
-		700957D117FC75590038888C /* NstMapper236.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566717FC75580038888C /* NstMapper236.cpp */; };
-		700957D217FC75590038888C /* NstMapper240.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566917FC75580038888C /* NstMapper240.cpp */; };
-		700957D317FC75590038888C /* NstMapper241.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566B17FC75580038888C /* NstMapper241.cpp */; };
-		700957D417FC75590038888C /* NstMapper242.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566D17FC75580038888C /* NstMapper242.cpp */; };
-		700957D517FC75590038888C /* NstMapper243.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566F17FC75580038888C /* NstMapper243.cpp */; };
-		700957D617FC75590038888C /* NstMapper244.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567117FC75580038888C /* NstMapper244.cpp */; };
-		700957D717FC75590038888C /* NstMapper245.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567317FC75580038888C /* NstMapper245.cpp */; };
-		700957D817FC75590038888C /* NstMapper246.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567517FC75580038888C /* NstMapper246.cpp */; };
-		700957D917FC75590038888C /* NstMapper249.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567717FC75580038888C /* NstMapper249.cpp */; };
-		700957DA17FC75590038888C /* NstMapper250.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567917FC75580038888C /* NstMapper250.cpp */; };
-		700957DB17FC75590038888C /* NstMapper252.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567B17FC75580038888C /* NstMapper252.cpp */; };
-		700957DC17FC75590038888C /* NstMapper254.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567D17FC75580038888C /* NstMapper254.cpp */; };
-		700957DD17FC75590038888C /* NstMapper255.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567F17FC75580038888C /* NstMapper255.cpp */; };
-		700957DE17FC75590038888C /* NstApu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568117FC75580038888C /* NstApu.cpp */; };
-		700957DF17FC75590038888C /* NstAssert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568317FC75580038888C /* NstAssert.cpp */; };
-		700957E017FC75590038888C /* NstCartridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568617FC75580038888C /* NstCartridge.cpp */; };
-		700957E117FC75590038888C /* NstCartridgeInes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568817FC75580038888C /* NstCartridgeInes.cpp */; };
-		700957E217FC75590038888C /* NstCartridgeUnif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568A17FC75580038888C /* NstCartridgeUnif.cpp */; };
-		700957E317FC75590038888C /* NstCheats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568C17FC75580038888C /* NstCheats.cpp */; };
-		700957E417FC75590038888C /* NstCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568F17FC75580038888C /* NstCore.cpp */; };
-		700957E517FC75590038888C /* NstCpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569117FC75580038888C /* NstCpu.cpp */; };
-		700957E617FC75590038888C /* NstCrc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569317FC75580038888C /* NstCrc32.cpp */; };
-		700957E717FC75590038888C /* NstFds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569617FC75580038888C /* NstFds.cpp */; };
-		700957E817FC75590038888C /* NstFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569817FC75580038888C /* NstFile.cpp */; };
-		700957E917FC75590038888C /* NstImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569C17FC75580038888C /* NstImage.cpp */; };
-		700957EA17FC75590038888C /* NstImageDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569E17FC75580038888C /* NstImageDatabase.cpp */; };
-		700957EB17FC75590038888C /* NstLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956A417FC75580038888C /* NstLog.cpp */; };
-		700957EC17FC75590038888C /* NstMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956A617FC75580038888C /* NstMachine.cpp */; };
-		700957ED17FC75590038888C /* NstMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956A817FC75580038888C /* NstMapper.cpp */; };
-		700957EE17FC75590038888C /* NstMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956AA17FC75580038888C /* NstMemory.cpp */; };
-		700957EF17FC75590038888C /* NstNsf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956AC17FC75580038888C /* NstNsf.cpp */; };
-		700957F017FC75590038888C /* NstPpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956AE17FC75580038888C /* NstPpu.cpp */; };
-		700957F117FC75590038888C /* NstPrpBarcodeReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B017FC75580038888C /* NstPrpBarcodeReader.cpp */; };
-		700957F217FC75590038888C /* NstPrpDataRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B217FC75580038888C /* NstPrpDataRecorder.cpp */; };
-		700957F317FC75590038888C /* NstPrpTurboFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B417FC75580038888C /* NstPrpTurboFile.cpp */; };
-		700957F417FC75590038888C /* NstRam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B617FC75580038888C /* NstRam.cpp */; };
-		700957F517FC75590038888C /* NstSoundPcm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B817FC75580038888C /* NstSoundPcm.cpp */; };
-		700957F617FC75590038888C /* NstSoundPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956BA17FC75580038888C /* NstSoundPlayer.cpp */; };
-		700957F717FC75590038888C /* NstSoundRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956BC17FC75580038888C /* NstSoundRenderer.cpp */; };
+		700956F717FC75590038888C /* NstApiBarcodeReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009547B17FC75570038888C /* NstApiBarcodeReader.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700956F817FC75590038888C /* NstApiCartridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009547D17FC75570038888C /* NstApiCartridge.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700956F917FC75590038888C /* NstApiCheats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009547F17FC75570038888C /* NstApiCheats.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700956FA17FC75590038888C /* NstApiDipSwitches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548217FC75570038888C /* NstApiDipSwitches.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700956FB17FC75590038888C /* NstApiEmulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548417FC75570038888C /* NstApiEmulator.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700956FC17FC75590038888C /* NstApiFds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548617FC75570038888C /* NstApiFds.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700956FD17FC75590038888C /* NstApiInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548817FC75570038888C /* NstApiInput.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700956FE17FC75590038888C /* NstApiMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548A17FC75570038888C /* NstApiMachine.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700956FF17FC75590038888C /* NstApiMovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548C17FC75570038888C /* NstApiMovie.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570017FC75590038888C /* NstApiNsf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009548E17FC75570038888C /* NstApiNsf.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570117FC75590038888C /* NstApiRewinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549017FC75570038888C /* NstApiRewinder.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570217FC75590038888C /* NstApiSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549217FC75570038888C /* NstApiSound.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570317FC75590038888C /* NstApiTapeRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549417FC75570038888C /* NstApiTapeRecorder.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570417FC75590038888C /* NstApiUser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549617FC75570038888C /* NstApiUser.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570517FC75590038888C /* NstApiVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549817FC75570038888C /* NstApiVideo.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570617FC75590038888C /* NstBrd190in1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549B17FC75570038888C /* NstBrd190in1.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570717FC75590038888C /* NstBrd22211.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549D17FC75570038888C /* NstBrd22211.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570817FC75590038888C /* NstBrd6035052.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009549F17FC75570038888C /* NstBrd6035052.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570917FC75590038888C /* NstBrd64in1Nr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A117FC75570038888C /* NstBrd64in1Nr.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570A17FC75590038888C /* NstBrd8157.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A317FC75570038888C /* NstBrd8157.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570B17FC75590038888C /* NstBrd8237.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A517FC75570038888C /* NstBrd8237.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570C17FC75590038888C /* NstBrdA65AS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A717FC75570038888C /* NstBrdA65AS.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570D17FC75590038888C /* NstBrdAx5705.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954A917FC75570038888C /* NstBrdAx5705.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570E17FC75590038888C /* NstBrdBandai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954AB17FC75570038888C /* NstBrdBandai.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009570F17FC75590038888C /* NstBrdCc21.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954AD17FC75570038888C /* NstBrdCc21.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571017FC75590038888C /* NstBrdColorDreams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954AF17FC75570038888C /* NstBrdColorDreams.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571117FC75590038888C /* NstBrdCtc65.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B117FC75570038888C /* NstBrdCtc65.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571217FC75590038888C /* NstBrdDreamTech01.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B317FC75570038888C /* NstBrdDreamTech01.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571317FC75590038888C /* NstBrdEdu2000.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B517FC75570038888C /* NstBrdEdu2000.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571417FC75590038888C /* NstBrdFfe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B717FC75570038888C /* NstBrdFfe.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571517FC75590038888C /* NstBrdFk23C.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954B917FC75570038888C /* NstBrdFk23C.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571617FC75590038888C /* NstBrdFme7.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954BB17FC75570038888C /* NstBrdFme7.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571717FC75590038888C /* NstBrdGs2004.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954BD17FC75570038888C /* NstBrdGs2004.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571817FC75590038888C /* NstBrdJaleco.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954BF17FC75570038888C /* NstBrdJaleco.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571917FC75590038888C /* NstBrdJy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C117FC75570038888C /* NstBrdJy.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571A17FC75590038888C /* NstBrdKaiser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C317FC75570038888C /* NstBrdKaiser.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571B17FC75590038888C /* NstBrdKof97.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C517FC75570038888C /* NstBrdKof97.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571C17FC75590038888C /* NstBrdMmc1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C717FC75570038888C /* NstBrdMmc1.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571D17FC75590038888C /* NstBrdMmc2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954C917FC75570038888C /* NstBrdMmc2.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571E17FC75590038888C /* NstBrdMmc3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954CB17FC75570038888C /* NstBrdMmc3.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009571F17FC75590038888C /* NstBrdMmc3Waixing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954CD17FC75570038888C /* NstBrdMmc3Waixing.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572017FC75590038888C /* NstBrdMmc5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954CF17FC75570038888C /* NstBrdMmc5.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572117FC75590038888C /* NstBrdN106.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D117FC75570038888C /* NstBrdN106.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572217FC75590038888C /* NstBrdN118.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D317FC75570038888C /* NstBrdN118.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572317FC75590038888C /* NstBrdNina.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D517FC75570038888C /* NstBrdNina.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572417FC75590038888C /* NstBrdS8259.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D717FC75570038888C /* NstBrdS8259.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572517FC75590038888C /* NstBrdStreetHeroes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954D917FC75570038888C /* NstBrdStreetHeroes.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572617FC75590038888C /* NstBrdSubor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954DB17FC75570038888C /* NstBrdSubor.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572717FC75590038888C /* NstBrdSuper24In1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954DD17FC75570038888C /* NstBrdSuper24In1.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572817FC75590038888C /* NstBrdT230.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954DF17FC75570038888C /* NstBrdT230.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572917FC75590038888C /* NstBrdT262.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E117FC75570038888C /* NstBrdT262.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572A17FC75590038888C /* NstBrdTaitoTc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E317FC75570038888C /* NstBrdTaitoTc.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572B17FC75590038888C /* NstBrdTaitoX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E517FC75570038888C /* NstBrdTaitoX.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572C17FC75590038888C /* NstBrdTf1201.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E717FC75570038888C /* NstBrdTf1201.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572D17FC75590038888C /* NstBrdVrc4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954E917FC75570038888C /* NstBrdVrc4.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572E17FC75590038888C /* NstBrdVrc6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954EB17FC75570038888C /* NstBrdVrc6.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009572F17FC75590038888C /* NstBrdVrc7.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954ED17FC75570038888C /* NstBrdVrc7.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573017FC75590038888C /* NstBrdWs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954EF17FC75570038888C /* NstBrdWs.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573117FC75590038888C /* NstInpAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954F317FC75570038888C /* NstInpAdapter.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573217FC75590038888C /* NstInpCrazyClimber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954F517FC75570038888C /* NstInpCrazyClimber.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573317FC75590038888C /* NstInpDoremikkoKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954F817FC75570038888C /* NstInpDoremikkoKeyboard.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573417FC75590038888C /* NstInpExcitingBoxing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954FA17FC75570038888C /* NstInpExcitingBoxing.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573517FC75590038888C /* NstInpFamilyKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954FC17FC75570038888C /* NstInpFamilyKeyboard.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573617FC75590038888C /* NstInpFamilyTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700954FE17FC75570038888C /* NstInpFamilyTrainer.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573717FC75590038888C /* NstInpHoriTrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550017FC75570038888C /* NstInpHoriTrack.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573817FC75590038888C /* NstInpHyperShot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550217FC75570038888C /* NstInpHyperShot.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573917FC75590038888C /* NstInpLightGun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550417FC75570038888C /* NstInpLightGun.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573A17FC75590038888C /* NstInpMahjong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550617FC75570038888C /* NstInpMahjong.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573B17FC75590038888C /* NstInpMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550817FC75570038888C /* NstInpMouse.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573C17FC75590038888C /* NstInpOekaKidsTablet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550A17FC75570038888C /* NstInpOekaKidsTablet.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573D17FC75590038888C /* NstInpPachinko.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550C17FC75570038888C /* NstInpPachinko.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573E17FC75590038888C /* NstInpPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009550E17FC75570038888C /* NstInpPad.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009573F17FC75590038888C /* NstInpPaddle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551017FC75570038888C /* NstInpPaddle.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574017FC75590038888C /* NstInpPartyTap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551217FC75570038888C /* NstInpPartyTap.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574117FC75590038888C /* NstInpPokkunMoguraa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551417FC75570038888C /* NstInpPokkunMoguraa.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574217FC75590038888C /* NstInpPowerGlove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551617FC75570038888C /* NstInpPowerGlove.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574317FC75590038888C /* NstInpPowerPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551817FC75570038888C /* NstInpPowerPad.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574417FC75590038888C /* NstInpRob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551A17FC75570038888C /* NstInpRob.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574517FC75590038888C /* NstInpSuborKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551C17FC75570038888C /* NstInpSuborKeyboard.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574617FC75590038888C /* NstInpTopRider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009551E17FC75570038888C /* NstInpTopRider.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574717FC75590038888C /* NstMapper000.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552117FC75570038888C /* NstMapper000.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574817FC75590038888C /* NstMapper001.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552317FC75570038888C /* NstMapper001.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574917FC75590038888C /* NstMapper002.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552517FC75570038888C /* NstMapper002.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574A17FC75590038888C /* NstMapper003.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552717FC75570038888C /* NstMapper003.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574B17FC75590038888C /* NstMapper004.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552917FC75570038888C /* NstMapper004.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574C17FC75590038888C /* NstMapper005.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552B17FC75570038888C /* NstMapper005.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574D17FC75590038888C /* NstMapper007.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009552E17FC75570038888C /* NstMapper007.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574E17FC75590038888C /* NstMapper010.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553217FC75570038888C /* NstMapper010.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009574F17FC75590038888C /* NstMapper012.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553517FC75570038888C /* NstMapper012.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575017FC75590038888C /* NstMapper013.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553717FC75570038888C /* NstMapper013.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575117FC75590038888C /* NstMapper014.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553917FC75570038888C /* NstMapper014.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575217FC75590038888C /* NstMapper015.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553B17FC75570038888C /* NstMapper015.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575317FC75590038888C /* NstMapper018.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009553F17FC75570038888C /* NstMapper018.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575417FC75590038888C /* NstMapper022.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554317FC75570038888C /* NstMapper022.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575517FC75590038888C /* NstMapper023.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554517FC75570038888C /* NstMapper023.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575617FC75590038888C /* NstMapper027.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554A17FC75570038888C /* NstMapper027.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575717FC75590038888C /* NstMapper032.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554C17FC75570038888C /* NstMapper032.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575817FC75590038888C /* NstMapper034.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009554F17FC75570038888C /* NstMapper034.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575917FC75590038888C /* NstMapper037.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555117FC75570038888C /* NstMapper037.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575A17FC75590038888C /* NstMapper038.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555317FC75570038888C /* NstMapper038.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575B17FC75590038888C /* NstMapper039.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555517FC75570038888C /* NstMapper039.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575C17FC75590038888C /* NstMapper040.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555717FC75570038888C /* NstMapper040.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575D17FC75590038888C /* NstMapper041.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555917FC75570038888C /* NstMapper041.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575E17FC75590038888C /* NstMapper042.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555B17FC75570038888C /* NstMapper042.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009575F17FC75590038888C /* NstMapper043.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555D17FC75570038888C /* NstMapper043.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576017FC75590038888C /* NstMapper044.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009555F17FC75570038888C /* NstMapper044.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576117FC75590038888C /* NstMapper045.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556117FC75570038888C /* NstMapper045.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576217FC75590038888C /* NstMapper046.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556317FC75570038888C /* NstMapper046.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576317FC75590038888C /* NstMapper047.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556517FC75570038888C /* NstMapper047.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576417FC75590038888C /* NstMapper049.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556817FC75570038888C /* NstMapper049.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576517FC75590038888C /* NstMapper050.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556A17FC75570038888C /* NstMapper050.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576617FC75590038888C /* NstMapper051.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556C17FC75570038888C /* NstMapper051.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576717FC75590038888C /* NstMapper052.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009556E17FC75570038888C /* NstMapper052.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576817FC75590038888C /* NstMapper053.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557017FC75570038888C /* NstMapper053.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576917FC75590038888C /* NstMapper054.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557217FC75570038888C /* NstMapper054.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576A17FC75590038888C /* NstMapper055.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557417FC75570038888C /* NstMapper055.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576B17FC75590038888C /* NstMapper057.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557717FC75570038888C /* NstMapper057.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576C17FC75590038888C /* NstMapper058.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557917FC75570038888C /* NstMapper058.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576D17FC75590038888C /* NstMapper060.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557B17FC75570038888C /* NstMapper060.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576E17FC75590038888C /* NstMapper061.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557D17FC75570038888C /* NstMapper061.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009576F17FC75590038888C /* NstMapper062.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009557F17FC75570038888C /* NstMapper062.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577017FC75590038888C /* NstMapper063.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558117FC75570038888C /* NstMapper063.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577117FC75590038888C /* NstMapper064.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558317FC75570038888C /* NstMapper064.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577217FC75590038888C /* NstMapper065.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558517FC75570038888C /* NstMapper065.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577317FC75590038888C /* NstMapper066.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558717FC75570038888C /* NstMapper066.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577417FC75590038888C /* NstMapper067.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558917FC75570038888C /* NstMapper067.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577517FC75590038888C /* NstMapper068.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558B17FC75570038888C /* NstMapper068.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577617FC75590038888C /* NstMapper070.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009558E17FC75570038888C /* NstMapper070.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577717FC75590038888C /* NstMapper071.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559017FC75570038888C /* NstMapper071.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577817FC75590038888C /* NstMapper073.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559317FC75570038888C /* NstMapper073.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577917FC75590038888C /* NstMapper075.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559617FC75570038888C /* NstMapper075.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577A17FC75590038888C /* NstMapper076.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559817FC75570038888C /* NstMapper076.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577B17FC75590038888C /* NstMapper077.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559A17FC75570038888C /* NstMapper077.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577C17FC75590038888C /* NstMapper078.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009559C17FC75570038888C /* NstMapper078.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577D17FC75590038888C /* NstMapper082.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955A017FC75570038888C /* NstMapper082.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577E17FC75590038888C /* NstMapper083.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955A217FC75570038888C /* NstMapper083.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009577F17FC75590038888C /* NstMapper087.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955A617FC75570038888C /* NstMapper087.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578017FC75590038888C /* NstMapper089.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955A917FC75570038888C /* NstMapper089.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578117FC75590038888C /* NstMapper091.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955AC17FC75570038888C /* NstMapper091.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578217FC75590038888C /* NstMapper093.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955AF17FC75570038888C /* NstMapper093.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578317FC75590038888C /* NstMapper094.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955B117FC75570038888C /* NstMapper094.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578417FC75590038888C /* NstMapper096.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955B417FC75570038888C /* NstMapper096.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578517FC75590038888C /* NstMapper097.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955B617FC75570038888C /* NstMapper097.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578617FC75590038888C /* NstMapper099.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955B817FC75570038888C /* NstMapper099.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578717FC75590038888C /* NstMapper101.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955BA17FC75570038888C /* NstMapper101.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578817FC75590038888C /* NstMapper105.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955BC17FC75570038888C /* NstMapper105.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578917FC75590038888C /* NstMapper107.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955BE17FC75570038888C /* NstMapper107.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578A17FC75590038888C /* NstMapper108.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C017FC75570038888C /* NstMapper108.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578B17FC75590038888C /* NstMapper112.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C217FC75570038888C /* NstMapper112.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578C17FC75590038888C /* NstMapper114.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C517FC75570038888C /* NstMapper114.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578D17FC75590038888C /* NstMapper115.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C717FC75570038888C /* NstMapper115.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578E17FC75590038888C /* NstMapper116.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955C917FC75570038888C /* NstMapper116.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009578F17FC75590038888C /* NstMapper117.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955CB17FC75570038888C /* NstMapper117.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579017FC75590038888C /* NstMapper118.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955CD17FC75570038888C /* NstMapper118.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579117FC75590038888C /* NstMapper119.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955CF17FC75570038888C /* NstMapper119.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579217FC75590038888C /* NstMapper121.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955D117FC75570038888C /* NstMapper121.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579317FC75590038888C /* NstMapper123.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955D317FC75570038888C /* NstMapper123.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579417FC75590038888C /* NstMapper133.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955D617FC75570038888C /* NstMapper133.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579517FC75590038888C /* NstMapper134.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955D817FC75570038888C /* NstMapper134.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579617FC75590038888C /* NstMapper136.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955DA17FC75570038888C /* NstMapper136.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579717FC75590038888C /* NstMapper140.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955DF17FC75570038888C /* NstMapper140.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579817FC75590038888C /* NstMapper143.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955E317FC75570038888C /* NstMapper143.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579917FC75590038888C /* NstMapper145.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955E617FC75570038888C /* NstMapper145.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579A17FC75590038888C /* NstMapper146.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955E817FC75570038888C /* NstMapper146.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579B17FC75590038888C /* NstMapper147.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955EA17FC75570038888C /* NstMapper147.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579C17FC75590038888C /* NstMapper148.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955EC17FC75570038888C /* NstMapper148.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579D17FC75590038888C /* NstMapper149.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955EE17FC75570038888C /* NstMapper149.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579E17FC75590038888C /* NstMapper150.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955F017FC75570038888C /* NstMapper150.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009579F17FC75590038888C /* NstMapper151.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955F217FC75570038888C /* NstMapper151.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A017FC75590038888C /* NstMapper152.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955F417FC75580038888C /* NstMapper152.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A117FC75590038888C /* NstMapper156.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955F917FC75580038888C /* NstMapper156.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A217FC75590038888C /* NstMapper163.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955FD17FC75580038888C /* NstMapper163.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A317FC75590038888C /* NstMapper164.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700955FF17FC75580038888C /* NstMapper164.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A417FC75590038888C /* NstMapper165.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560117FC75580038888C /* NstMapper165.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A517FC75590038888C /* NstMapper169.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560517FC75580038888C /* NstMapper169.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A617FC75590038888C /* NstMapper170.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560717FC75580038888C /* NstMapper170.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A717FC75590038888C /* NstMapper171.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560917FC75580038888C /* NstMapper171.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A817FC75590038888C /* NstMapper178.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560D17FC75580038888C /* NstMapper178.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957A917FC75590038888C /* NstMapper180.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009560F17FC75580038888C /* NstMapper180.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957AA17FC75590038888C /* NstMapper182.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561117FC75580038888C /* NstMapper182.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957AB17FC75590038888C /* NstMapper183.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561317FC75580038888C /* NstMapper183.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957AC17FC75590038888C /* NstMapper184.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561517FC75580038888C /* NstMapper184.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957AD17FC75590038888C /* NstMapper185.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561717FC75580038888C /* NstMapper185.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957AE17FC75590038888C /* NstMapper186.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561917FC75580038888C /* NstMapper186.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957AF17FC75590038888C /* NstMapper187.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561B17FC75580038888C /* NstMapper187.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B017FC75590038888C /* NstMapper188.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561D17FC75580038888C /* NstMapper188.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B117FC75590038888C /* NstMapper189.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009561F17FC75580038888C /* NstMapper189.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B217FC75590038888C /* NstMapper193.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562317FC75580038888C /* NstMapper193.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B317FC75590038888C /* NstMapper196.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562717FC75580038888C /* NstMapper196.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B417FC75590038888C /* NstMapper197.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562917FC75580038888C /* NstMapper197.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B517FC75590038888C /* NstMapper198.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562B17FC75580038888C /* NstMapper198.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B617FC75590038888C /* NstMapper199.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562D17FC75580038888C /* NstMapper199.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B717FC75590038888C /* NstMapper200.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009562F17FC75580038888C /* NstMapper200.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B817FC75590038888C /* NstMapper201.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563117FC75580038888C /* NstMapper201.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957B917FC75590038888C /* NstMapper202.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563317FC75580038888C /* NstMapper202.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957BA17FC75590038888C /* NstMapper203.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563517FC75580038888C /* NstMapper203.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957BB17FC75590038888C /* NstMapper204.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563717FC75580038888C /* NstMapper204.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957BC17FC75590038888C /* NstMapper205.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563917FC75580038888C /* NstMapper205.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957BD17FC75590038888C /* NstMapper206.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563B17FC75580038888C /* NstMapper206.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957BE17FC75590038888C /* NstMapper208.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009563E17FC75580038888C /* NstMapper208.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957BF17FC75590038888C /* NstMapper212.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564317FC75580038888C /* NstMapper212.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C017FC75590038888C /* NstMapper213.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564517FC75580038888C /* NstMapper213.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C117FC75590038888C /* NstMapper214.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564717FC75580038888C /* NstMapper214.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C217FC75590038888C /* NstMapper215.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564917FC75580038888C /* NstMapper215.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C317FC75590038888C /* NstMapper216.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564B17FC75580038888C /* NstMapper216.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C417FC75590038888C /* NstMapper217.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564D17FC75580038888C /* NstMapper217.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C517FC75590038888C /* NstMapper222.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009564F17FC75580038888C /* NstMapper222.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C617FC75590038888C /* NstMapper225.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565117FC75580038888C /* NstMapper225.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C717FC75590038888C /* NstMapper226.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565317FC75580038888C /* NstMapper226.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C817FC75590038888C /* NstMapper227.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565517FC75580038888C /* NstMapper227.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957C917FC75590038888C /* NstMapper228.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565717FC75580038888C /* NstMapper228.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957CA17FC75590038888C /* NstMapper229.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565917FC75580038888C /* NstMapper229.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957CB17FC75590038888C /* NstMapper230.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565B17FC75580038888C /* NstMapper230.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957CC17FC75590038888C /* NstMapper231.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565D17FC75580038888C /* NstMapper231.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957CD17FC75590038888C /* NstMapper232.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009565F17FC75580038888C /* NstMapper232.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957CE17FC75590038888C /* NstMapper233.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566117FC75580038888C /* NstMapper233.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957CF17FC75590038888C /* NstMapper234.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566317FC75580038888C /* NstMapper234.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D017FC75590038888C /* NstMapper235.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566517FC75580038888C /* NstMapper235.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D117FC75590038888C /* NstMapper236.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566717FC75580038888C /* NstMapper236.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D217FC75590038888C /* NstMapper240.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566917FC75580038888C /* NstMapper240.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D317FC75590038888C /* NstMapper241.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566B17FC75580038888C /* NstMapper241.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D417FC75590038888C /* NstMapper242.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566D17FC75580038888C /* NstMapper242.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D517FC75590038888C /* NstMapper243.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009566F17FC75580038888C /* NstMapper243.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D617FC75590038888C /* NstMapper244.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567117FC75580038888C /* NstMapper244.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D717FC75590038888C /* NstMapper245.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567317FC75580038888C /* NstMapper245.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D817FC75590038888C /* NstMapper246.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567517FC75580038888C /* NstMapper246.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957D917FC75590038888C /* NstMapper249.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567717FC75580038888C /* NstMapper249.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957DA17FC75590038888C /* NstMapper250.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567917FC75580038888C /* NstMapper250.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957DB17FC75590038888C /* NstMapper252.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567B17FC75580038888C /* NstMapper252.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957DC17FC75590038888C /* NstMapper254.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567D17FC75580038888C /* NstMapper254.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957DD17FC75590038888C /* NstMapper255.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009567F17FC75580038888C /* NstMapper255.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957DE17FC75590038888C /* NstApu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568117FC75580038888C /* NstApu.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957DF17FC75590038888C /* NstAssert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568317FC75580038888C /* NstAssert.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E017FC75590038888C /* NstCartridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568617FC75580038888C /* NstCartridge.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E117FC75590038888C /* NstCartridgeInes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568817FC75580038888C /* NstCartridgeInes.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E217FC75590038888C /* NstCartridgeUnif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568A17FC75580038888C /* NstCartridgeUnif.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E317FC75590038888C /* NstCheats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568C17FC75580038888C /* NstCheats.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E417FC75590038888C /* NstCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009568F17FC75580038888C /* NstCore.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E517FC75590038888C /* NstCpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569117FC75580038888C /* NstCpu.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E617FC75590038888C /* NstCrc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569317FC75580038888C /* NstCrc32.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E717FC75590038888C /* NstFds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569617FC75580038888C /* NstFds.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E817FC75590038888C /* NstFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569817FC75580038888C /* NstFile.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957E917FC75590038888C /* NstImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569C17FC75580038888C /* NstImage.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957EA17FC75590038888C /* NstImageDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7009569E17FC75580038888C /* NstImageDatabase.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957EB17FC75590038888C /* NstLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956A417FC75580038888C /* NstLog.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957EC17FC75590038888C /* NstMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956A617FC75580038888C /* NstMachine.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957ED17FC75590038888C /* NstMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956A817FC75580038888C /* NstMapper.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957EE17FC75590038888C /* NstMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956AA17FC75580038888C /* NstMemory.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957EF17FC75590038888C /* NstNsf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956AC17FC75580038888C /* NstNsf.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957F017FC75590038888C /* NstPpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956AE17FC75580038888C /* NstPpu.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957F117FC75590038888C /* NstPrpBarcodeReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B017FC75580038888C /* NstPrpBarcodeReader.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957F217FC75590038888C /* NstPrpDataRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B217FC75580038888C /* NstPrpDataRecorder.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957F317FC75590038888C /* NstPrpTurboFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B417FC75580038888C /* NstPrpTurboFile.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957F417FC75590038888C /* NstRam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B617FC75580038888C /* NstRam.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957F517FC75590038888C /* NstSoundPcm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956B817FC75580038888C /* NstSoundPcm.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957F617FC75590038888C /* NstSoundPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956BA17FC75580038888C /* NstSoundPlayer.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957F717FC75590038888C /* NstSoundRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956BC17FC75580038888C /* NstSoundRenderer.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		700957F817FC75590038888C /* NstSoundRenderer.inl in Resources */ = {isa = PBXBuildFile; fileRef = 700956BE17FC75580038888C /* NstSoundRenderer.inl */; };
-		700957F917FC75590038888C /* NstState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956BF17FC75580038888C /* NstState.cpp */; };
-		700957FA17FC75590038888C /* NstStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C117FC75590038888C /* NstStream.cpp */; };
-		700957FB17FC75590038888C /* NstTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C317FC75590038888C /* NstTracker.cpp */; };
-		700957FC17FC75590038888C /* NstTrackerMovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C517FC75590038888C /* NstTrackerMovie.cpp */; };
-		700957FD17FC75590038888C /* NstTrackerRewinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C717FC75590038888C /* NstTrackerRewinder.cpp */; };
-		700957FE17FC75590038888C /* NstVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C917FC75590038888C /* NstVector.cpp */; };
+		700957F917FC75590038888C /* NstState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956BF17FC75580038888C /* NstState.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957FA17FC75590038888C /* NstStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C117FC75590038888C /* NstStream.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957FB17FC75590038888C /* NstTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C317FC75590038888C /* NstTracker.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957FC17FC75590038888C /* NstTrackerMovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C517FC75590038888C /* NstTrackerMovie.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957FD17FC75590038888C /* NstTrackerRewinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C717FC75590038888C /* NstTrackerRewinder.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		700957FE17FC75590038888C /* NstVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956C917FC75590038888C /* NstVector.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		700957FF17FC75590038888C /* NstVideoFilterHq2x.inl in Resources */ = {isa = PBXBuildFile; fileRef = 700956CB17FC75590038888C /* NstVideoFilterHq2x.inl */; };
 		7009580017FC75590038888C /* NstVideoFilterHq3x.inl in Resources */ = {isa = PBXBuildFile; fileRef = 700956CC17FC75590038888C /* NstVideoFilterHq3x.inl */; };
 		7009580117FC75590038888C /* NstVideoFilterHq4x.inl in Resources */ = {isa = PBXBuildFile; fileRef = 700956CD17FC75590038888C /* NstVideoFilterHq4x.inl */; };
-		7009580217FC75590038888C /* NstVideoFilterHqX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956CE17FC75590038888C /* NstVideoFilterHqX.cpp */; };
-		7009580317FC75590038888C /* NstVideoFilterNone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D017FC75590038888C /* NstVideoFilterNone.cpp */; };
-		7009580417FC75590038888C /* NstVideoFilterNtsc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D217FC75590038888C /* NstVideoFilterNtsc.cpp */; };
-		7009580517FC75590038888C /* NstVideoFilterNtscNes.c in Sources */ = {isa = PBXBuildFile; fileRef = 700956D417FC75590038888C /* NstVideoFilterNtscNes.c */; };
-		7009580617FC75590038888C /* NstVideoFilterScaleX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D517FC75590038888C /* NstVideoFilterScaleX.cpp */; };
-		7009580717FC75590038888C /* NstVideoFilterScanlines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D717FC75590038888C /* NstVideoFilterScanlines.cpp */; };
-		7009580817FC75590038888C /* NstVideoRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D917FC75590038888C /* NstVideoRenderer.cpp */; };
-		7009580917FC75590038888C /* NstVideoScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956DB17FC75590038888C /* NstVideoScreen.cpp */; };
-		7009580A17FC75590038888C /* NstZlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956DD17FC75590038888C /* NstZlib.cpp */; };
-		7009580B17FC75590038888C /* NstVsRbiBaseball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956E017FC75590038888C /* NstVsRbiBaseball.cpp */; };
-		7009580C17FC75590038888C /* NstVsSuperXevious.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956E217FC75590038888C /* NstVsSuperXevious.cpp */; };
-		7009580D17FC75590038888C /* NstVsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956E417FC75590038888C /* NstVsSystem.cpp */; };
-		7009580E17FC75590038888C /* NstVsTkoBoxing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956E617FC75590038888C /* NstVsTkoBoxing.cpp */; };
+		7009580217FC75590038888C /* NstVideoFilterHqX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956CE17FC75590038888C /* NstVideoFilterHqX.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580317FC75590038888C /* NstVideoFilterNone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D017FC75590038888C /* NstVideoFilterNone.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580417FC75590038888C /* NstVideoFilterNtsc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D217FC75590038888C /* NstVideoFilterNtsc.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580517FC75590038888C /* NstVideoFilterNtscNes.c in Sources */ = {isa = PBXBuildFile; fileRef = 700956D417FC75590038888C /* NstVideoFilterNtscNes.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580617FC75590038888C /* NstVideoFilterScaleX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D517FC75590038888C /* NstVideoFilterScaleX.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580717FC75590038888C /* NstVideoFilterScanlines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D717FC75590038888C /* NstVideoFilterScanlines.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580817FC75590038888C /* NstVideoRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956D917FC75590038888C /* NstVideoRenderer.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580917FC75590038888C /* NstVideoScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956DB17FC75590038888C /* NstVideoScreen.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580A17FC75590038888C /* NstZlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956DD17FC75590038888C /* NstZlib.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580B17FC75590038888C /* NstVsRbiBaseball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956E017FC75590038888C /* NstVsRbiBaseball.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580C17FC75590038888C /* NstVsSuperXevious.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956E217FC75590038888C /* NstVsSuperXevious.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580D17FC75590038888C /* NstVsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956E417FC75590038888C /* NstVsSystem.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		7009580E17FC75590038888C /* NstVsTkoBoxing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700956E617FC75590038888C /* NstVsTkoBoxing.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		7009580F17FC75590038888C /* changes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 700956E917FC75590038888C /* changes.txt */; };
 		7009581017FC75590038888C /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 700956EB17FC75590038888C /* license.txt */; };
 		7009581117FC75590038888C /* nes_ntsc.inl in Resources */ = {isa = PBXBuildFile; fileRef = 700956ED17FC75590038888C /* nes_ntsc.inl */; };
@@ -301,15 +303,11 @@
 		7009581617FC75590038888C /* 2.frame_phase.nes in Resources */ = {isa = PBXBuildFile; fileRef = 700956F517FC75590038888C /* 2.frame_phase.nes */; };
 		7009581717FC75590038888C /* 3.special_frame_phase.nes in Resources */ = {isa = PBXBuildFile; fileRef = 700956F617FC75590038888C /* 3.special_frame_phase.nes */; };
 		702087880EDC5A9900E83959 /* ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 702087870EDC5A9900E83959 /* ScreenView.m */; };
-		7020878D0EDC5AA800E83959 /* ControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7020878C0EDC5AA800E83959 /* ControllerView.m */; };
-		70208B6C0EDC8CA800E83959 /* EmulatorCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 70208B6B0EDC8CA800E83959 /* EmulatorCore.m */; };
-		7035961217FBC44400632315 /* NESNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7035961117FBC44400632315 /* NESNavigationController.m */; };
 		7039774810D97E890022DB57 /* Games@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7039774710D97E890022DB57 /* Games@2x.png */; };
 		7040D5AD1802203B00D2B455 /* History@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040D5AC1802203B00D2B455 /* History@2x.png */; };
 		7044127F0ED9CF6100E54091 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127D0ED9CF6100E54091 /* AudioToolbox.framework */; };
 		704412800ED9CF6100E54091 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7044127E0ED9CF6100E54091 /* QuartzCore.framework */; };
-		704412BE0ED9D3D800E54091 /* GameROMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412BD0ED9D3D800E54091 /* GameROMViewController.m */; };
-		704412D90ED9D44300E54091 /* SavedGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412D80ED9D44300E54091 /* SavedGameViewController.m */; };
+		704412BE0ED9D3D800E54091 /* GamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412BD0ED9D3D800E54091 /* GamesViewController.m */; };
 		704412EA0ED9D58B00E54091 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704412E90ED9D58B00E54091 /* SettingsViewController.m */; };
 		7052063017FA1E2F001FFF8F /* NstDatabase.dat in Resources */ = {isa = PBXBuildFile; fileRef = 7052062F17FA1E2F001FFF8F /* NstDatabase.dat */; };
 		7074DA8117F380B70071CD85 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA7F17F380B70071CD85 /* Default-568h@2x.png */; };
@@ -319,7 +317,6 @@
 		7074DA8817F3C86E0071CD85 /* icon~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8617F3C86E0071CD85 /* icon~iphone.png */; };
 		7074DA8A17F3D0C10071CD85 /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8917F3D0C10071CD85 /* Settings@2x.png */; };
 		7074DA8E17F3DBB80071CD85 /* controller_pt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */; };
-		709D4DB617F9DD8400AB2D63 /* NESTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */; };
 		709DC44E1801D743000A3E91 /* icon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 709DC44D1801D743000A3E91 /* icon~ipad.png */; };
 		70B3DB0117F48EC6005AA2BB /* a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DAFB17F48EC6005AA2BB /* a@2x.png */; };
 		70B3DB0217F48EC6005AA2BB /* b@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B3DAFC17F48EC6005AA2BB /* b@2x.png */; };
@@ -338,6 +335,15 @@
 		70F696AC124C289500D39392 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F696AB124C289500D39392 /* UIKit.framework */; };
 		70FEB7FB180DDB9F008B6C61 /* MultiValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FEB7FA180DDB9F008B6C61 /* MultiValueViewController.m */; };
 		70FEB7FE180DDD5F008B6C61 /* DisclosureIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */; };
+		80909A1E1835B1A800CC9F6F /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 80909A1D1835B1A800CC9F6F /* Game.m */; };
+		80C3B6331836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B6321836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m */; };
+		80C3B63818385A85000B68E0 /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B63718385A85000B68E0 /* AudioPlayer.m */; };
+		80C3B63B1838841B000B68E0 /* PadDirectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B63A1838841B000B68E0 /* PadDirectionButton.m */; };
+		80C3B63E18389066000B68E0 /* PadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B63D18389066000B68E0 /* PadButton.m */; };
+		80C3B641183890ED000B68E0 /* PadSingleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B640183890ED000B68E0 /* PadSingleButton.m */; };
+		80C3B64418397526000B68E0 /* TransparentMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B64318397526000B68E0 /* TransparentMaskView.m */; };
+		80C3B64718397740000B68E0 /* PadRoundTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B64618397740000B68E0 /* PadRoundTextButton.m */; };
+		80C3B64D18398CFB000B68E0 /* RoundTextMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C3B64C18398CFB000B68E0 /* RoundTextMaskView.m */; };
 		F5EE71540FEEC3A000FDA0A6 /* controller_ls.png in Resources */ = {isa = PBXBuildFile; fileRef = F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */; };
 /* End PBXBuildFile section */
 
@@ -349,7 +355,9 @@
 		28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* GamePlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		70094FB317FC739F0038888C /* Nestopia_Callback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Nestopia_Callback.h; path = Nestopia/Nestopia_Callback.h; sourceTree = "<group>"; };
+		66C1BD53186528AF00E5A833 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
+		66C1BD5518652F4B00E5A833 /* GameControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameControllerManager.h; sourceTree = "<group>"; };
+		66C1BD5618652F4B00E5A833 /* GameControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameControllerManager.m; sourceTree = "<group>"; };
 		70094FB417FC739F0038888C /* NestopiaCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NestopiaCore.h; path = Nestopia/NestopiaCore.h; sourceTree = "<group>"; };
 		70094FB517FC739F0038888C /* NestopiaCore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NestopiaCore.mm; path = Nestopia/NestopiaCore.mm; sourceTree = "<group>"; };
 		7009547A17FC75570038888C /* NstApi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NstApi.hpp; sourceTree = "<group>"; };
@@ -984,20 +992,12 @@
 		700956F617FC75590038888C /* 3.special_frame_phase.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = 3.special_frame_phase.nes; sourceTree = "<group>"; };
 		702087860EDC5A9900E83959 /* ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenView.h; sourceTree = "<group>"; };
 		702087870EDC5A9900E83959 /* ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenView.m; sourceTree = "<group>"; };
-		7020878B0EDC5AA800E83959 /* ControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerView.h; sourceTree = "<group>"; };
-		7020878C0EDC5AA800E83959 /* ControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerView.m; sourceTree = "<group>"; };
-		70208B6A0EDC8CA800E83959 /* EmulatorCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmulatorCore.h; sourceTree = "<group>"; wrapsLines = 0; };
-		70208B6B0EDC8CA800E83959 /* EmulatorCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmulatorCore.m; sourceTree = "<group>"; };
-		7035961017FBC44400632315 /* NESNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NESNavigationController.h; sourceTree = "<group>"; };
-		7035961117FBC44400632315 /* NESNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NESNavigationController.m; sourceTree = "<group>"; };
 		7039774710D97E890022DB57 /* Games@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Games@2x.png"; sourceTree = "<group>"; };
 		7040D5AC1802203B00D2B455 /* History@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "History@2x.png"; sourceTree = "<group>"; };
 		7044127D0ED9CF6100E54091 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		7044127E0ED9CF6100E54091 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
-		704412BC0ED9D3D800E54091 /* GameROMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameROMViewController.h; sourceTree = "<group>"; };
-		704412BD0ED9D3D800E54091 /* GameROMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameROMViewController.m; sourceTree = "<group>"; };
-		704412D70ED9D44300E54091 /* SavedGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedGameViewController.h; sourceTree = "<group>"; };
-		704412D80ED9D44300E54091 /* SavedGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedGameViewController.m; sourceTree = "<group>"; };
+		704412BC0ED9D3D800E54091 /* GamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamesViewController.h; sourceTree = "<group>"; };
+		704412BD0ED9D3D800E54091 /* GamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamesViewController.m; sourceTree = "<group>"; };
 		704412E80ED9D58B00E54091 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		704412E90ED9D58B00E54091 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		7052062F17FA1E2F001FFF8F /* NstDatabase.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = NstDatabase.dat; sourceTree = "<group>"; };
@@ -1008,8 +1008,6 @@
 		7074DA8617F3C86E0071CD85 /* icon~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon~iphone.png"; sourceTree = "<group>"; };
 		7074DA8917F3D0C10071CD85 /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings@2x.png"; sourceTree = "<group>"; };
 		7074DA8D17F3DBB80071CD85 /* controller_pt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "controller_pt@2x.png"; sourceTree = "<group>"; };
-		709D4DB417F9DD8400AB2D63 /* NESTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NESTabBarController.h; sourceTree = "<group>"; };
-		709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NESTabBarController.m; sourceTree = "<group>"; };
 		709DC44D1801D743000A3E91 /* icon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon~ipad.png"; sourceTree = "<group>"; };
 		70B3DAFB17F48EC6005AA2BB /* a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "a@2x.png"; sourceTree = "<group>"; };
 		70B3DAFC17F48EC6005AA2BB /* b@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "b@2x.png"; sourceTree = "<group>"; };
@@ -1030,6 +1028,24 @@
 		70FEB7FA180DDB9F008B6C61 /* MultiValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiValueViewController.m; sourceTree = "<group>"; };
 		70FEB7FC180DDD5F008B6C61 /* DisclosureIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclosureIndicator.h; sourceTree = "<group>"; };
 		70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclosureIndicator.m; sourceTree = "<group>"; };
+		80909A1C1835B1A800CC9F6F /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		80909A1D1835B1A800CC9F6F /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		80C3B6311836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TableViewAlphabeticIndexes.h"; sourceTree = "<group>"; };
+		80C3B6321836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TableViewAlphabeticIndexes.m"; sourceTree = "<group>"; };
+		80C3B63618385A85000B68E0 /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
+		80C3B63718385A85000B68E0 /* AudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlayer.m; sourceTree = "<group>"; };
+		80C3B6391838841B000B68E0 /* PadDirectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadDirectionButton.h; sourceTree = "<group>"; };
+		80C3B63A1838841B000B68E0 /* PadDirectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadDirectionButton.m; sourceTree = "<group>"; };
+		80C3B63C18389066000B68E0 /* PadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadButton.h; sourceTree = "<group>"; };
+		80C3B63D18389066000B68E0 /* PadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadButton.m; sourceTree = "<group>"; };
+		80C3B63F183890ED000B68E0 /* PadSingleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadSingleButton.h; sourceTree = "<group>"; };
+		80C3B640183890ED000B68E0 /* PadSingleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadSingleButton.m; sourceTree = "<group>"; };
+		80C3B64218397526000B68E0 /* TransparentMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentMaskView.h; sourceTree = "<group>"; };
+		80C3B64318397526000B68E0 /* TransparentMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentMaskView.m; sourceTree = "<group>"; };
+		80C3B64518397740000B68E0 /* PadRoundTextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadRoundTextButton.h; sourceTree = "<group>"; };
+		80C3B64618397740000B68E0 /* PadRoundTextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadRoundTextButton.m; sourceTree = "<group>"; };
+		80C3B64B18398CFB000B68E0 /* RoundTextMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundTextMaskView.h; sourceTree = "<group>"; };
+		80C3B64C18398CFB000B68E0 /* RoundTextMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundTextMaskView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5EE71530FEEC3A000FDA0A6 /* controller_ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = controller_ls.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1039,6 +1055,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66C1BD54186528AF00E5A833 /* GameController.framework in Frameworks */,
 				7044127F0ED9CF6100E54091 /* AudioToolbox.framework in Frameworks */,
 				704412800ED9CF6100E54091 /* QuartzCore.framework in Frameworks */,
 				70F696A8124C289500D39392 /* CoreGraphics.framework in Frameworks */,
@@ -1055,16 +1072,12 @@
 			children = (
 				1D3623240D0F684500981E51 /* NestopiaAppDelegate.h */,
 				1D3623250D0F684500981E51 /* NestopiaAppDelegate.m */,
-				709D4DB417F9DD8400AB2D63 /* NESTabBarController.h */,
-				709D4DB517F9DD8400AB2D63 /* NESTabBarController.m */,
-				7035961017FBC44400632315 /* NESNavigationController.h */,
-				7035961117FBC44400632315 /* NESNavigationController.m */,
+				704412BC0ED9D3D800E54091 /* GamesViewController.h */,
+				704412BD0ED9D3D800E54091 /* GamesViewController.m */,
 				28C286DF0D94DF7D0034E888 /* GamePlayViewController.h */,
 				28C286E00D94DF7D0034E888 /* GamePlayViewController.m */,
-				704412BC0ED9D3D800E54091 /* GameROMViewController.h */,
-				704412BD0ED9D3D800E54091 /* GameROMViewController.m */,
-				704412D70ED9D44300E54091 /* SavedGameViewController.h */,
-				704412D80ED9D44300E54091 /* SavedGameViewController.m */,
+				66C1BD5518652F4B00E5A833 /* GameControllerManager.h */,
+				66C1BD5618652F4B00E5A833 /* GameControllerManager.m */,
 				704412E80ED9D58B00E54091 /* SettingsViewController.h */,
 				704412E90ED9D58B00E54091 /* SettingsViewController.m */,
 				70FEB7F9180DDB9F008B6C61 /* MultiValueViewController.h */,
@@ -1073,10 +1086,24 @@
 				70FEB7FD180DDD5F008B6C61 /* DisclosureIndicator.m */,
 				702087860EDC5A9900E83959 /* ScreenView.h */,
 				702087870EDC5A9900E83959 /* ScreenView.m */,
-				7020878B0EDC5AA800E83959 /* ControllerView.h */,
-				7020878C0EDC5AA800E83959 /* ControllerView.m */,
-				70208B6A0EDC8CA800E83959 /* EmulatorCore.h */,
-				70208B6B0EDC8CA800E83959 /* EmulatorCore.m */,
+				80C3B63618385A85000B68E0 /* AudioPlayer.h */,
+				80C3B63718385A85000B68E0 /* AudioPlayer.m */,
+				80C3B63C18389066000B68E0 /* PadButton.h */,
+				80C3B63D18389066000B68E0 /* PadButton.m */,
+				80C3B63F183890ED000B68E0 /* PadSingleButton.h */,
+				80C3B640183890ED000B68E0 /* PadSingleButton.m */,
+				80C3B64518397740000B68E0 /* PadRoundTextButton.h */,
+				80C3B64618397740000B68E0 /* PadRoundTextButton.m */,
+				80C3B6391838841B000B68E0 /* PadDirectionButton.h */,
+				80C3B63A1838841B000B68E0 /* PadDirectionButton.m */,
+				80C3B64218397526000B68E0 /* TransparentMaskView.h */,
+				80C3B64318397526000B68E0 /* TransparentMaskView.m */,
+				80C3B64B18398CFB000B68E0 /* RoundTextMaskView.h */,
+				80C3B64C18398CFB000B68E0 /* RoundTextMaskView.m */,
+				80909A1C1835B1A800CC9F6F /* Game.h */,
+				80909A1D1835B1A800CC9F6F /* Game.m */,
+				80C3B6311836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.h */,
+				80C3B6321836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m */,
 				7052028917FA15F5001FFF8F /* Nestopia */,
 			);
 			path = Classes;
@@ -1124,6 +1151,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66C1BD53186528AF00E5A833 /* GameController.framework */,
 				7044127D0ED9CF6100E54091 /* AudioToolbox.framework */,
 				7044127E0ED9CF6100E54091 /* QuartzCore.framework */,
 				70F696A7124C289500D39392 /* CoreGraphics.framework */,
@@ -1838,7 +1866,6 @@
 			children = (
 				7009547817FC75570038888C /* core */,
 				700956E817FC75590038888C /* nes_ntsc */,
-				70094FB317FC739F0038888C /* Nestopia_Callback.h */,
 				70094FB417FC739F0038888C /* NestopiaCore.h */,
 				70094FB517FC739F0038888C /* NestopiaCore.mm */,
 			);
@@ -2008,7 +2035,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7035961217FBC44400632315 /* NESNavigationController.m in Sources */,
 				700957A017FC75590038888C /* NstMapper152.cpp in Sources */,
 				7009580A17FC75590038888C /* NstZlib.cpp in Sources */,
 				700957E517FC75590038888C /* NstCpu.cpp in Sources */,
@@ -2018,13 +2044,13 @@
 				7009571717FC75590038888C /* NstBrdGs2004.cpp in Sources */,
 				700957C917FC75590038888C /* NstMapper228.cpp in Sources */,
 				7009570A17FC75590038888C /* NstBrd8157.cpp in Sources */,
+				80C3B63E18389066000B68E0 /* PadButton.m in Sources */,
 				7009573317FC75590038888C /* NstInpDoremikkoKeyboard.cpp in Sources */,
 				7009571C17FC75590038888C /* NstBrdMmc1.cpp in Sources */,
 				700957BE17FC75590038888C /* NstMapper208.cpp in Sources */,
 				700957CE17FC75590038888C /* NstMapper233.cpp in Sources */,
 				7009572E17FC75590038888C /* NstBrdVrc6.cpp in Sources */,
 				700957BF17FC75590038888C /* NstMapper212.cpp in Sources */,
-				709D4DB617F9DD8400AB2D63 /* NESTabBarController.m in Sources */,
 				7009575717FC75590038888C /* NstMapper032.cpp in Sources */,
 				7009580717FC75590038888C /* NstVideoFilterScanlines.cpp in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
@@ -2033,6 +2059,7 @@
 				7009579517FC75590038888C /* NstMapper134.cpp in Sources */,
 				7009572A17FC75590038888C /* NstBrdTaitoTc.cpp in Sources */,
 				7009575C17FC75590038888C /* NstMapper040.cpp in Sources */,
+				80C3B64D18398CFB000B68E0 /* RoundTextMaskView.m in Sources */,
 				700957FC17FC75590038888C /* NstTrackerMovie.cpp in Sources */,
 				7009574C17FC75590038888C /* NstMapper005.cpp in Sources */,
 				7009578417FC75590038888C /* NstMapper096.cpp in Sources */,
@@ -2072,6 +2099,7 @@
 				7009574217FC75590038888C /* NstInpPowerGlove.cpp in Sources */,
 				7009571617FC75590038888C /* NstBrdFme7.cpp in Sources */,
 				7009576F17FC75590038888C /* NstMapper062.cpp in Sources */,
+				80C3B6331836EF25000B68E0 /* NSString+TableViewAlphabeticIndexes.m in Sources */,
 				7009576217FC75590038888C /* NstMapper046.cpp in Sources */,
 				7009570717FC75590038888C /* NstBrd22211.cpp in Sources */,
 				7009576917FC75590038888C /* NstMapper054.cpp in Sources */,
@@ -2079,11 +2107,12 @@
 				7009576C17FC75590038888C /* NstMapper058.cpp in Sources */,
 				700957D717FC75590038888C /* NstMapper245.cpp in Sources */,
 				7009572617FC75590038888C /* NstBrdSubor.cpp in Sources */,
+				80C3B63B1838841B000B68E0 /* PadDirectionButton.m in Sources */,
 				700957A817FC75590038888C /* NstMapper178.cpp in Sources */,
+				80909A1E1835B1A800CC9F6F /* Game.m in Sources */,
 				700957C517FC75590038888C /* NstMapper222.cpp in Sources */,
-				704412BE0ED9D3D800E54091 /* GameROMViewController.m in Sources */,
+				704412BE0ED9D3D800E54091 /* GamesViewController.m in Sources */,
 				7009572C17FC75590038888C /* NstBrdTf1201.cpp in Sources */,
-				704412D90ED9D44300E54091 /* SavedGameViewController.m in Sources */,
 				700957E217FC75590038888C /* NstCartridgeUnif.cpp in Sources */,
 				7009579717FC75590038888C /* NstMapper140.cpp in Sources */,
 				700956FF17FC75590038888C /* NstApiMovie.cpp in Sources */,
@@ -2113,6 +2142,7 @@
 				700957C317FC75590038888C /* NstMapper216.cpp in Sources */,
 				700957A417FC75590038888C /* NstMapper165.cpp in Sources */,
 				7009572817FC75590038888C /* NstBrdT230.cpp in Sources */,
+				80C3B641183890ED000B68E0 /* PadSingleButton.m in Sources */,
 				7009580317FC75590038888C /* NstVideoFilterNone.cpp in Sources */,
 				700957B417FC75590038888C /* NstMapper197.cpp in Sources */,
 				7009580C17FC75590038888C /* NstVsSuperXevious.cpp in Sources */,
@@ -2148,6 +2178,7 @@
 				702087880EDC5A9900E83959 /* ScreenView.m in Sources */,
 				7009578117FC75590038888C /* NstMapper091.cpp in Sources */,
 				7009574717FC75590038888C /* NstMapper000.cpp in Sources */,
+				66C1BD5718652F4B00E5A833 /* GameControllerManager.m in Sources */,
 				700957CD17FC75590038888C /* NstMapper232.cpp in Sources */,
 				70FEB7FB180DDB9F008B6C61 /* MultiValueViewController.m in Sources */,
 				7009579D17FC75590038888C /* NstMapper149.cpp in Sources */,
@@ -2170,6 +2201,7 @@
 				700957A717FC75590038888C /* NstMapper171.cpp in Sources */,
 				7009573417FC75590038888C /* NstInpExcitingBoxing.cpp in Sources */,
 				7009574917FC75590038888C /* NstMapper002.cpp in Sources */,
+				80C3B63818385A85000B68E0 /* AudioPlayer.m in Sources */,
 				700957E817FC75590038888C /* NstFile.cpp in Sources */,
 				7009580617FC75590038888C /* NstVideoFilterScaleX.cpp in Sources */,
 				7009578A17FC75590038888C /* NstMapper108.cpp in Sources */,
@@ -2242,11 +2274,11 @@
 				7009577217FC75590038888C /* NstMapper065.cpp in Sources */,
 				7009574317FC75590038888C /* NstInpPowerPad.cpp in Sources */,
 				7009580417FC75590038888C /* NstVideoFilterNtsc.cpp in Sources */,
-				7020878D0EDC5AA800E83959 /* ControllerView.m in Sources */,
 				700957C817FC75590038888C /* NstMapper227.cpp in Sources */,
 				7009570617FC75590038888C /* NstBrd190in1.cpp in Sources */,
 				7009575E17FC75590038888C /* NstMapper042.cpp in Sources */,
 				7009573017FC75590038888C /* NstBrdWs.cpp in Sources */,
+				80C3B64418397526000B68E0 /* TransparentMaskView.m in Sources */,
 				700957DA17FC75590038888C /* NstMapper250.cpp in Sources */,
 				7009579917FC75590038888C /* NstMapper145.cpp in Sources */,
 				7009571317FC75590038888C /* NstBrdEdu2000.cpp in Sources */,
@@ -2293,10 +2325,10 @@
 				700957EE17FC75590038888C /* NstMemory.cpp in Sources */,
 				700957E117FC75590038888C /* NstCartridgeInes.cpp in Sources */,
 				7009576417FC75590038888C /* NstMapper049.cpp in Sources */,
-				70208B6C0EDC8CA800E83959 /* EmulatorCore.m in Sources */,
 				7009578F17FC75590038888C /* NstMapper117.cpp in Sources */,
 				700957D817FC75590038888C /* NstMapper246.cpp in Sources */,
 				7009579217FC75590038888C /* NstMapper121.cpp in Sources */,
+				80C3B64718397740000B68E0 /* PadRoundTextButton.m in Sources */,
 				7009579B17FC75590038888C /* NstMapper147.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2308,27 +2340,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Nestopia_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "-fast";
 				PRODUCT_NAME = Nestopia;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -2336,46 +2356,36 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = "$(ARCHS_STANDARD)";
 				COMPRESS_PNG_FILES = YES;
-				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 				);
 				GCC_ALTIVEC_EXTENSIONS = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Nestopia_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-fast";
 				PRODUCT_NAME = Nestopia;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CAA2C82F-2D03-43C0-AE80-CA57D0F8546E";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
 		70F696C6124C29C800D39392 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-fast";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Distribution;
@@ -2384,47 +2394,37 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = "$(ARCHS_STANDARD)";
 				COMPRESS_PNG_FILES = YES;
-				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 				);
 				GCC_ALTIVEC_EXTENSIONS = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Nestopia_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-fast";
 				PRODUCT_NAME = Nestopia;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Distribution;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fast";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -2432,16 +2432,18 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-fast";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
