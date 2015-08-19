@@ -19,23 +19,31 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "Game.h"
-#import "GameControllerManager.h"
 
-@protocol GamePlayViewControllerDelegate;
+#import "ControllerView.h"
+#import "EmulatorCore.h"
+#import "ScreenView.h"
+#import "SettingsViewController.h"
 
+#define kGamePlaySavedStateNotification         @"GamePlaySavedStateNotification"
+#define kGamePlayChangedFavoritesNotification   @"GamePlayChangedFavoritesNotification"
 
-@interface GamePlayViewController : UIViewController <GameControllerManagerDelegate>
+@interface GamePlayViewController : UIViewController <UIActionSheetDelegate>
+{
+    /* Initialization */
+	UIActionSheet *saveStateSheet;
+	NSString *gamePath, *gameTitle;
+    bool shouldLoadState, loaded, pad1;
+    
+    /* Game Play */
+    EmulatorCore *emulatorCore;
+	ScreenView *screenView;
+	ControllerView *controllerView;
+    UILabel *label;
+    UIView *border;
+}
 
-@property (nonatomic, weak) id<GamePlayViewControllerDelegate> delegate;
-
-- (id)initWithGame:(Game *)game loadState:(BOOL)loadState;
-
-@end
-
-
-@protocol GamePlayViewControllerDelegate <NSObject>
-
-- (void)gamePlayViewControllerDidFinish:(GamePlayViewController *)gamePlayViewController;
-
+@property(nonatomic,copy) NSString *gamePath;
+@property(nonatomic,copy) NSString *gameTitle;
+@property(nonatomic,assign) bool shouldLoadState;
 @end

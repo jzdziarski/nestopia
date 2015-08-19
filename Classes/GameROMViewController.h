@@ -19,21 +19,22 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "GameROMViewController.h"
-#import "SavedGameViewController.h"
-#import "SettingsViewController.h"
-#import "NESTabBarController.h"
+#import <Foundation/Foundation.h>
+#import <CoreFoundation/CoreFoundation.h>
 
-@interface NestopiaAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
+#define ROM_PATH [ NSString stringWithFormat: @"%@/Documents", NSHomeDirectory() ]
+
+@interface GameROMViewController : UITableViewController <UITableViewDelegate> {
+	int nActiveSections;
+    int romCount;
+    bool favorites;
     
-    NESTabBarController *tabBarController;
-    GameROMViewController *gameROMViewController, *bookmarksViewController;
-	SavedGameViewController *savedGameViewController;
-	SettingsViewController *settingsViewController;
-  
-    UINavigationController *settingsNavigationController;
+	NSMutableArray *fileList[27];
+	NSMutableArray *activeSections;
+	NSMutableArray *sectionTitles;
 }
+
+@property(nonatomic,assign) bool favorites;
 
 @end
 

@@ -19,50 +19,50 @@
  */
 
 #import "NestopiaAppDelegate.h"
-#import "GamesViewController.h"
-#import "SettingsViewController.h"
 
-@implementation NestopiaAppDelegate {
-    UIWindow *window;
-    
-    UITabBarController *tabBarController;
-    GamesViewController *gamesViewController;
-	GamesViewController *savedGamesViewController;
-    GamesViewController *favoritesViewController;
-	SettingsViewController *settingsViewController;
-}
+@implementation NestopiaAppDelegate
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-    [self setupViewControllers];
-    
-	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	window = [ [ UIWindow alloc ] initWithFrame: [ [ UIScreen mainScreen ] bounds ] ];
+
+    tabBarController = [ self initializeTabBar ];
     window.rootViewController = tabBarController;
-	[window makeKeyAndVisible];
+
+	[ window makeKeyAndVisible ];
 }
 
-- (void)setupViewControllers {
-	gamesViewController = [[GamesViewController alloc] init];
-    
-    savedGamesViewController = [[GamesViewController alloc] init];
-    savedGamesViewController.saved = YES;
-    
-    favoritesViewController = [[GamesViewController alloc] init];
-    favoritesViewController.favorite = YES;
-    
-    settingsViewController = [[SettingsViewController alloc] init];
+- (void)applicationWillTerminate:(UIApplication *)application {
 
-    tabBarController = [[UITabBarController alloc] init];
-    tabBarController.viewControllers = @[ [self wrapViewController:gamesViewController],
-                                          [self wrapViewController:savedGamesViewController],
-                                          [self wrapViewController:favoritesViewController],
-                                          [[UINavigationController alloc] initWithRootViewController:settingsViewController] ];
 }
 
-- (UINavigationController *)wrapViewController:(UIViewController *)viewController {
-    // In order to avoid all the mess with contentInset on iOS 7, we just wrap each UIViewController in a navigationBar-less UINavigationController.
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    navigationController.navigationBarHidden = YES;
-    return navigationController;
+- (void)dealloc {
+    [ gameROMViewController release ];
+    [ bookmarksViewController release ];
+    [ savedGameViewController release ];
+    [ settingsViewController release ];
+    [ tabBarController release ];
+
+	[ window release ];
+	[ super dealloc ];
+}
+
+- (NESTabBarController *)initializeTabBar {
+    tabBarController = [ [ NESTabBarController alloc ] init ];
+	gameROMViewController = [ [ GameROMViewController alloc ] init ];
+    bookmarksViewController = [ [ GameROMViewController alloc ] init ];
+	savedGameViewController = [ [ SavedGameViewController alloc ] init ];
+    settingsViewController = [ [ SettingsViewController alloc ] init ];
+
+    settingsNavigationController = [ [ UINavigationController alloc ] initWithRootViewController: settingsViewController ];
+    bookmarksViewController.favorites = YES;
+    tabBarController.viewControllers = [ NSArray arrayWithObjects: gameROMViewController, savedGameViewController, bookmarksViewController, settingsNavigationController, nil ];
+	
+    if ([ tabBarController.tabBar respondsToSelector: @selector(setTranslucent:) ])
+    {
+        tabBarController.tabBar.translucent = NO;
+    }
+    
+    return tabBarController;
 }
 
 @end

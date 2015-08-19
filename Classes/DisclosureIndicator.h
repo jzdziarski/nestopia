@@ -4,8 +4,8 @@
 	UIColor *_highlightedColor;
 }
 
-@property (nonatomic, strong) UIColor *accessoryColor;
-@property (nonatomic, strong) UIColor *highlightedColor;
+@property (nonatomic, retain) UIColor *accessoryColor;
+@property (nonatomic, retain) UIColor *highlightedColor;
 
 + (DisclosureIndicator *)accessoryWithColor:(UIColor *)color;
 
